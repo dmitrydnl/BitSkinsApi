@@ -28,7 +28,8 @@ namespace BitSkinsApi.BitSkinsMarket.Balance
             
             dynamic responseServer = JsonConvert.DeserializeObject(result);
             dynamic events = responseServer.data.events;
-            List<MoneyEvent> pageEvents = new List<MoneyEvent>();
+
+            List<MoneyEvent> moneyEvents = new List<MoneyEvent>();
             if (events.Count != 0)
             {
                 foreach (dynamic ev in events)
@@ -54,11 +55,11 @@ namespace BitSkinsApi.BitSkinsMarket.Balance
                     DateTime time = DateTimeExtension.FromUnixTime((long)ev.time);
 
                     MoneyEvent moneyEvent = new MoneyEvent(type, money, time);
-                    pageEvents.Add(moneyEvent);
+                    moneyEvents.Add(moneyEvent);
                 }
             }
 
-            return pageEvents;
+            return moneyEvents;
         }
 
         private static MoneyEventType StringToMoneyEventType(string eventType)
