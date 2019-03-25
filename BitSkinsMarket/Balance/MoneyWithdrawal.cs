@@ -20,7 +20,7 @@ namespace BitSkinsApi.BitSkinsMarket.Balance
         public static void WithdrawMoney(double amount, WithdrawalMethod withdrawalMethod)
         {
             string method = WithdrawalMethodToString(withdrawalMethod);
-            string url = $"https://bitskins.com/api/v1/request_withdrawal/?api_key={Account.AccountData.apiKey}&amount={amount}&withdrawal_method={method}&code={Account.Secret.GetCode()}";
+            string url = $"https://bitskins.com/api/v1/request_withdrawal/?api_key={Account.AccountData.ApiKey}&amount={amount}&withdrawal_method={method}&code={Account.Secret.Code}";
             if (!Server.ServerRequest.RequestServer(url, out string result))
                 throw new Exception(result);
         }

@@ -22,7 +22,7 @@ namespace BitSkinsApi.BitSkinsMarket.Balance
         /// <returns>List of money events.</returns>
         public static List<MoneyEvent> GetMoneyEvents(int page)
         {
-            string url = $"https://bitskins.com/api/v1/get_money_events/?api_key={Account.AccountData.apiKey}&page={page}&code={Account.Secret.GetCode()}";
+            string url = $"https://bitskins.com/api/v1/get_money_events/?api_key={Account.AccountData.ApiKey}&page={page}&code={Account.Secret.Code}";
             if (!Server.ServerRequest.RequestServer(url, out string result))
                 throw new Exception(result);
             

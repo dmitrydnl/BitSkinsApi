@@ -9,7 +9,7 @@ namespace BitSkinsApi.Server
     {
         internal static bool RequestServer(string url, out string result)
         {
-            int maxRequestsPerSecond = Account.AccountData.maxRequestsPerSecond;
+            int maxRequestsPerSecond = Account.AccountData.MaxRequestsPerSecond;
             Thread.Sleep(1000 / maxRequestsPerSecond);
 
             try
