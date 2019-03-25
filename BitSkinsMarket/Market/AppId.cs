@@ -3,7 +3,7 @@
     /// <summary>
     /// Work with App name and Id.
     /// </summary>
-    public class AppId
+    public static class AppId
     {
         /// <summary>
         /// The available games at BitSkins.

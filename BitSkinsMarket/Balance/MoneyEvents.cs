@@ -8,7 +8,7 @@ namespace BitSkinsApi.BitSkinsMarket.Balance
     /// <summary>
     /// Work with BitSkins money events.
     /// </summary>
-    public class MoneyEvents
+    public static class MoneyEvents
     {
         /// <summary>
         /// All types BitSkins money events.
@@ -86,15 +86,15 @@ namespace BitSkinsApi.BitSkinsMarket.Balance
     /// </summary>
     public class MoneyEvent
     {
-        public MoneyEvents.MoneyEventType type { get; private set; }
-        public double money { get; private set; }
-        public DateTime time { get; private set; }
+        public MoneyEvents.MoneyEventType Type { get; private set; }
+        public double Money { get; private set; }
+        public DateTime Time { get; private set; }
 
-        public MoneyEvent(MoneyEvents.MoneyEventType type, double money, DateTime time)
+        internal MoneyEvent(MoneyEvents.MoneyEventType type, double money, DateTime time)
         {
-            this.type = type;
-            this.money = money;
-            this.time = time;
+            Type = type;
+            Money = money;
+            Time = time;
         }
     }
 }

@@ -5,8 +5,16 @@ using BitSkinsApi.Extensions;
 
 namespace BitSkinsApi.BitSkinsMarket.Market
 {
+    /// <summary>
+    /// Work with BitSkins market data.
+    /// </summary>
     public static class MarketData
     {
+        /// <summary>
+        /// Allows you to retrieve basic price data for items currently on sale at BitSkins.
+        /// </summary>
+        /// <param name="app">For the inventory's game.</param>
+        /// <returns>List of items currently on sale at BitSkins.</returns>
         public static List<MarketDataItem> GetMarketData(AppId.AppName app)
         {
             string url = $"https://bitskins.com/api/v1/get_price_data_for_items_on_sale/?api_key={Account.AccountData.ApiKey}&code={Account.Secret.Code}&app_id={(int)app}";
@@ -38,38 +46,44 @@ namespace BitSkinsApi.BitSkinsMarket.Market
         }
     }
 
+    /// <summary>
+    /// Info about item's recent sales.
+    /// </summary>
     public class RecentSalesInfo
     {
-        public double hours { get; private set; }
-        public double averagePrice { get; private set; }
+        public double Hours { get; private set; }
+        public double AveragePrice { get; private set; }
 
-        public RecentSalesInfo(double hours, double averagePrice)
+        internal RecentSalesInfo(double hours, double averagePrice)
         {
-            this.hours = hours;
-            this.averagePrice = averagePrice;
+            Hours = hours;
+            AveragePrice = averagePrice;
         }
     }
 
+    /// <summary>
+    /// BitSkins item currently on sale.
+    /// </summary>
     public class MarketDataItem
     {
-        public string name { get; private set; }
-        public int totalItems { get; private set; }
-        public double lowestPrice { get; private set; }
-        public double highestPrice { get; private set; }
-        public double cumulativePrice { get; private set; }
-        public RecentSalesInfo recentSalesInfo { get; private set; }
-        public DateTime updatedAt { get; private set; }
+        public string Name { get; private set; }
+        public int TotalItems { get; private set; }
+        public double LowestPrice { get; private set; }
+        public double HighestPrice { get; private set; }
+        public double CumulativePrice { get; private set; }
+        public RecentSalesInfo RecentSalesInfo { get; private set; }
+        public DateTime UpdatedAt { get; private set; }
 
-        public MarketDataItem(string name, int totalItems, double lowestPrice, double highestPrice, double cumulativePrice, 
-            RecentSalesInfo recentSalesInfo, DateTime updatedAt)
+        internal MarketDataItem(string name, int totalItems, double lowestPrice, double highestPrice, 
+            double cumulativePrice, RecentSalesInfo recentSalesInfo, DateTime updatedAt)
         {
-            this.name = name;
-            this.totalItems = totalItems;
-            this.lowestPrice = lowestPrice;
-            this.highestPrice = highestPrice;
-            this.cumulativePrice = cumulativePrice;
-            this.recentSalesInfo = recentSalesInfo;
-            this.updatedAt = updatedAt;
+            Name = name;
+            TotalItems = totalItems;
+            LowestPrice = lowestPrice;
+            HighestPrice = highestPrice;
+            CumulativePrice = cumulativePrice;
+            RecentSalesInfo = recentSalesInfo;
+            UpdatedAt = updatedAt;
         }
     }
 }

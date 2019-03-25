@@ -36,17 +36,17 @@ namespace BitSkinsApi.BitSkinsMarket.Balance
     /// </summary>
     public class Balance
     {
-        public double availableBalance { get; private set; }
-        public double pendingWithdrawals { get; private set; }
-        public double withdrawableBalance { get; private set; }
-        public double couponableBalance { get; private set; }
+        public double AvailableBalance { get; private set; }
+        public double PendingWithdrawals { get; private set; }
+        public double WithdrawableBalance { get; private set; }
+        public double CouponableBalance { get; private set; }
 
-        public Balance(double availableBalance, double pendingWithdrawals, double withdrawableBalance, double couponableBalance)
+        internal Balance(double availableBalance, double pendingWithdrawals, double withdrawableBalance, double couponableBalance)
         {
-            this.availableBalance = availableBalance;
-            this.pendingWithdrawals = pendingWithdrawals;
-            this.withdrawableBalance = withdrawableBalance;
-            this.couponableBalance = couponableBalance;
+            AvailableBalance = availableBalance;
+            PendingWithdrawals = pendingWithdrawals;
+            WithdrawableBalance = withdrawableBalance;
+            CouponableBalance = couponableBalance;
         }
     }
 }
