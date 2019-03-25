@@ -1,11 +1,18 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace BitSkinsApi.BitSkinsMarket
+namespace BitSkinsApi.BitSkinsMarket.Balance
 {
+    /// <summary>
+    /// Work with BitSkins account balance.
+    /// </summary>
     public static class AccountBalance
     {
-        public static Balance GetBalance()
+        /// <summary>
+        /// Allows you to retrieve your available and pending balance in all currencies supported by BitSkins.
+        /// </summary>
+        /// <returns>BitSkins account balance.</returns>
+        public static Balance GetAccountBalance()
         {
             string url = $"https://bitskins.com/api/v1/get_account_balance/?api_key={Account.AccountData.apiKey}&code={Account.Secret.GetCode()}";
             if (!Server.ServerRequest.RequestServer(url, out string result))
@@ -24,7 +31,10 @@ namespace BitSkinsApi.BitSkinsMarket
         }
     }
 
-    public struct Balance
+    /// <summary>
+    /// BitSkins account balance.
+    /// </summary>
+    public class Balance
     {
         public double availableBalance { get; private set; }
         public double pendingWithdrawals { get; private set; }
