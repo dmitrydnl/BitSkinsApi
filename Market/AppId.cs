@@ -1,4 +1,4 @@
-﻿namespace BitSkinsApi.BitSkinsMarket.Market
+﻿namespace BitSkinsApi.Market
 {
     /// <summary>
     /// Work with App name and Id.

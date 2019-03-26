@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using BitSkinsApi.Extensions;
 
-namespace BitSkinsApi.BitSkinsMarket.Market
+namespace BitSkinsApi.Market
 {
     /// <summary>
     /// Work with price database.

@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace BitSkinsApi.BitSkinsMarket.Balance
+namespace BitSkinsApi.Balance
 {
     /// <summary>
     /// Work with BitSkins account balance.

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using BitSkinsApi.Extensions;
 
-namespace BitSkinsApi.BitSkinsMarket.Balance
+namespace BitSkinsApi.Balance
 {
     /// <summary>
     /// Work with BitSkins money events.

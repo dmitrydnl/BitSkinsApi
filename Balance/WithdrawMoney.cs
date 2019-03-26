@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BitSkinsApi.BitSkinsMarket.Balance
+namespace BitSkinsApi.Balance
 {
     /// <summary>
     /// Work with BitSkins withdrawal money.
