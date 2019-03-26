@@ -26,19 +26,18 @@ namespace BitSkinsApi.Market
             List<MarketDataItem> marketDataItems = new List<MarketDataItem>();
             foreach (dynamic item in responseServer.data.items)
             {
-                if (item.updated_at == null)
-                    continue;
-
-                string name = item.market_hash_name;
+                string marketHashName = item.market_hash_name;
                 int totalItems = item.total_items;
                 double lowestPrice = item.lowest_price;
                 double highestPrice = item.highest_price;
                 double cumulativePrice = item.cumulative_price;
                 RecentSalesInfo recentSalesInfo = (item.recent_sales_info != null) ? 
                     new RecentSalesInfo((double)item.recent_sales_info.hours, (double)item.recent_sales_info.average_price) : null;
-                DateTime updatedAt = DateTimeExtension.FromUnixTime((long)item.updated_at);
+                DateTime? updatedAt = null;
+                if (item.updated_at != null)
+                    updatedAt = DateTimeExtension.FromUnixTime((long)item.updated_at);
 
-                MarketDataItem marketItem = new MarketDataItem(name, totalItems, lowestPrice, highestPrice, cumulativePrice, recentSalesInfo, updatedAt);
+                MarketDataItem marketItem = new MarketDataItem(marketHashName, totalItems, lowestPrice, highestPrice, cumulativePrice, recentSalesInfo, updatedAt);
                 marketDataItems.Add(marketItem);
             }
 
@@ -66,18 +65,18 @@ namespace BitSkinsApi.Market
     /// </summary>
     public class MarketDataItem
     {
-        public string Name { get; private set; }
+        public string MarketHashName { get; private set; }
         public int TotalItems { get; private set; }
         public double LowestPrice { get; private set; }
         public double HighestPrice { get; private set; }
         public double CumulativePrice { get; private set; }
         public RecentSalesInfo RecentSalesInfo { get; private set; }
-        public DateTime UpdatedAt { get; private set; }
+        public DateTime? UpdatedAt { get; private set; }
 
-        internal MarketDataItem(string name, int totalItems, double lowestPrice, double highestPrice, 
-            double cumulativePrice, RecentSalesInfo recentSalesInfo, DateTime updatedAt)
+        internal MarketDataItem(string marketHashName, int totalItems, double lowestPrice, double highestPrice, 
+            double cumulativePrice, RecentSalesInfo recentSalesInfo, DateTime? updatedAt)
         {
-            Name = name;
+            MarketHashName = marketHashName;
             TotalItems = totalItems;
             LowestPrice = lowestPrice;
             HighestPrice = highestPrice;

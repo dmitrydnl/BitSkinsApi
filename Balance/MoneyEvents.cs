@@ -13,7 +13,7 @@ namespace BitSkinsApi.Balance
         /// <summary>
         /// All types BitSkins money events.
         /// </summary>
-        public enum MoneyEventType { ItemBought, ItemSold, SaleFee, BuyCredit, StoreCredit, Default };
+        public enum MoneyEventType { ItemBought, ItemSold, SaleFee, BuyCredit, StoreCredit, Unknown };
 
         /// <summary>
         /// Allows you to retrieve historical events that caused changes in your BitSkins balance. Upto 30 items per page.
@@ -27,36 +27,72 @@ namespace BitSkinsApi.Balance
                 throw new Exception(result);
             
             dynamic responseServer = JsonConvert.DeserializeObject(result);
-            dynamic events = responseServer.data.events;
 
             List<MoneyEvent> moneyEvents = new List<MoneyEvent>();
-            if (events.Count != 0)
+            foreach (dynamic moneyEvent in responseServer.data.events)
             {
-                foreach (dynamic ev in events)
+                MoneyEventType type = StringToMoneyEventType((string)moneyEvent.type);
+                if (type == MoneyEventType.Unknown)
+                    continue;
+                DateTime time = DateTimeExtension.FromUnixTime((long)moneyEvent.time);
+
+                MoneyEvent moneyEv = null;
+                if (type == MoneyEventType.ItemBought)
                 {
-                    MoneyEventType type = StringToMoneyEventType((string)ev.type);
-                    if (type == MoneyEventType.Default)
-                        continue;
+                    double price = moneyEvent.price;
+                    int withdrawn = moneyEvent.withdrawn;
 
-                    double money = 0;
-                    switch (type)
-                    {
-                        case MoneyEventType.ItemBought:
-                        case MoneyEventType.ItemSold:
-                            money = ev.price;
-                            break;
-                        case MoneyEventType.BuyCredit:
-                        case MoneyEventType.SaleFee:
-                        case MoneyEventType.StoreCredit:
-                            money = ev.amount;
-                            break;
-                    }
+                    string marketHashName = moneyEvent.medium.market_hash_name;
+                    Market.AppId.AppName appId = (Market.AppId.AppName)((int)moneyEvent.medium.app_id);
+                    string classId = moneyEvent.medium.class_id;
+                    string instanceId = moneyEvent.medium.instance_id;
+                    Medium medium = new Medium(marketHashName, appId, classId, instanceId);
 
-                    DateTime time = DateTimeExtension.FromUnixTime((long)ev.time);
-
-                    MoneyEvent moneyEvent = new MoneyEvent(type, money, time);
-                    moneyEvents.Add(moneyEvent);
+                    MoneyEvent_ItemBought moneyEvent_ItemBought = new MoneyEvent_ItemBought(type, time, price, medium, withdrawn);
+                    moneyEv = moneyEvent_ItemBought;
                 }
+                else if (type == MoneyEventType.ItemSold)
+                {
+                    double price = moneyEvent.price;
+
+                    string marketHashName = moneyEvent.medium.market_hash_name;
+                    Market.AppId.AppName appId = (Market.AppId.AppName)((int)moneyEvent.medium.app_id);
+                    string classId = moneyEvent.medium.class_id;
+                    string instanceId = moneyEvent.medium.instance_id;
+                    Medium medium = new Medium(marketHashName, appId, classId, instanceId);
+
+                    MoneyEvent_ItemSold moneyEvent_ItemSold = new MoneyEvent_ItemSold(type, time, price, medium);
+                    moneyEv = moneyEvent_ItemSold;
+                }
+                else if (type == MoneyEventType.SaleFee)
+                {
+                    string medium = moneyEvent.medium;
+                    double amount = moneyEvent.amount;
+                    bool pending = moneyEvent.pending;
+                    string description = moneyEvent.description;
+                    MoneyEvent_SaleFee moneyEvent_SaleFee = new MoneyEvent_SaleFee(type, time, medium, amount, pending, description);
+                    moneyEv = moneyEvent_SaleFee;
+                }
+                else if (type == MoneyEventType.BuyCredit)
+                {
+                    string medium = moneyEvent.medium;
+                    double amount = moneyEvent.amount;
+                    bool pending = moneyEvent.pending;
+                    string description = moneyEvent.description;
+                    MoneyEvent_BuyCredit moneyEvent_BuyCredit = new MoneyEvent_BuyCredit(type, time, medium, amount, pending, description);
+                    moneyEv = moneyEvent_BuyCredit;
+                }
+                else if (type == MoneyEventType.StoreCredit)
+                {
+                    string medium = moneyEvent.medium;
+                    double amount = moneyEvent.amount;
+                    bool pending = moneyEvent.pending;
+                    string description = moneyEvent.description;
+                    MoneyEvent_StoreCredit moneyEvent_StoreCredit = new MoneyEvent_StoreCredit(type, time, medium, amount, pending, description);
+                    moneyEv = moneyEvent_StoreCredit;
+                }
+
+                moneyEvents.Add(moneyEv);
             }
 
             return moneyEvents;
@@ -77,7 +113,7 @@ namespace BitSkinsApi.Balance
                 case "store credit":
                     return MoneyEventType.StoreCredit;
                 default:
-                    return MoneyEventType.Default;
+                    return MoneyEventType.Unknown;
             }
         }
     }
@@ -85,17 +121,128 @@ namespace BitSkinsApi.Balance
     /// <summary>
     /// BitSkins money event.
     /// </summary>
-    public class MoneyEvent
+    public abstract class MoneyEvent
     {
         public MoneyEvents.MoneyEventType Type { get; private set; }
-        public double Money { get; private set; }
         public DateTime Time { get; private set; }
 
-        internal MoneyEvent(MoneyEvents.MoneyEventType type, double money, DateTime time)
+        internal MoneyEvent(MoneyEvents.MoneyEventType type, DateTime time)
         {
             Type = type;
-            Money = money;
             Time = time;
+        }
+    }
+
+    /// <summary>
+    /// BitSkins medium info about money event.
+    /// </summary>
+    public class Medium
+    {
+        public string MarketHashName { get; private set; }
+        public Market.AppId.AppName AppId { get; private set; }
+        public string ClassId { get; private set; }
+        public string InstanceId { get; private set; }
+
+        internal Medium(string marketHashName, Market.AppId.AppName appId, string classId, string instanceId)
+        {
+            MarketHashName = marketHashName;
+            AppId = appId;
+            ClassId = classId;
+            InstanceId = instanceId;
+        }
+    }
+
+    /// <summary>
+    /// BitSkins bought item money event.
+    /// </summary>
+    public class MoneyEvent_ItemBought : MoneyEvent
+    {
+        public double Price { get; private set; }
+        public Medium Medium { get; private set; }
+        public int Withdrawn { get; private set; }
+
+        internal MoneyEvent_ItemBought(MoneyEvents.MoneyEventType type, DateTime time, double price, Medium medium, int withdrawn)
+            : base(type, time)
+        {
+            Price = price;
+            Medium = medium;
+            Withdrawn = withdrawn;
+        }
+    }
+
+    /// <summary>
+    /// BitSkins sold item money event.
+    /// </summary>
+    public class MoneyEvent_ItemSold : MoneyEvent
+    {
+        public double Price { get; private set; }
+        public Medium Medium { get; private set; }
+
+        internal MoneyEvent_ItemSold(MoneyEvents.MoneyEventType type, DateTime time, double price, Medium medium)
+            : base(type, time)
+        {
+            Price = price;
+            Medium = medium;
+        }
+    }
+
+    /// <summary>
+    /// BitSkins sale fee money event.
+    /// </summary>
+    public class MoneyEvent_SaleFee : MoneyEvent
+    {
+        public string Medium { get; private set; }
+        public double Amount { get; private set; }
+        public bool Pending { get; private set; }
+        public string Description { get; private set; }
+
+        internal MoneyEvent_SaleFee(MoneyEvents.MoneyEventType type, DateTime time, string medium, double amount, bool pending, string description)
+            : base(type, time)
+        {
+            Medium = medium;
+            Amount = amount;
+            Pending = pending;
+            Description = description;
+        }
+    }
+
+    /// <summary>
+    /// BitSkins buy credit money event.
+    /// </summary>
+    public class MoneyEvent_BuyCredit : MoneyEvent
+    {
+        public string Medium { get; private set; }
+        public double Amount { get; private set; }
+        public bool Pending { get; private set; }
+        public string Description { get; private set; }
+
+        internal MoneyEvent_BuyCredit(MoneyEvents.MoneyEventType type, DateTime time, string medium, double amount, bool pending, string description)
+            : base(type, time)
+        {
+            Medium = medium;
+            Amount = amount;
+            Pending = pending;
+            Description = description;
+        }
+    }
+
+    /// <summary>
+    /// BitSkins store credit money event.
+    /// </summary>
+    public class MoneyEvent_StoreCredit : MoneyEvent
+    {
+        public string Medium { get; private set; }
+        public double Amount { get; private set; }
+        public bool Pending { get; private set; }
+        public string Description { get; private set; }
+
+        internal MoneyEvent_StoreCredit(MoneyEvents.MoneyEventType type, DateTime time, string medium, double amount, bool pending, string description)
+            : base(type, time)
+        {
+            Medium = medium;
+            Amount = amount;
+            Pending = pending;
+            Description = description;
         }
     }
 }

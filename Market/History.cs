@@ -27,16 +27,17 @@ namespace BitSkinsApi.Market
             List<BuyHistoryRecord> historyBuyRecords = new List<BuyHistoryRecord>();
             foreach (dynamic item in responseServer.data.items)
             {
+                AppId.AppName appId = (AppId.AppName)((int)item.app_id);
                 string itemId = item.item_id;
                 string assetId = item.asset_id;
                 string classId = item.class_id;
                 string instanceId = item.instance_id;
-                string name = item.market_hash_name;
+                string marketHashName = item.market_hash_name;
                 double buyPrice = item.buy_price;
                 bool withdrawn = item.withdrawn;
                 DateTime time = DateTimeExtension.FromUnixTime((long)item.time);
 
-                BuyHistoryRecord historyBuyRecord = new BuyHistoryRecord(itemId, assetId, classId, instanceId, name, buyPrice, withdrawn, time);
+                BuyHistoryRecord historyBuyRecord = new BuyHistoryRecord(appId, itemId, assetId, classId, instanceId, marketHashName, buyPrice, withdrawn, time);
                 historyBuyRecords.Add(historyBuyRecord);
             }
 
@@ -60,15 +61,16 @@ namespace BitSkinsApi.Market
             List<SellHistoryRecord> historySellRecords = new List<SellHistoryRecord>();
             foreach (dynamic item in responseServer.data.items)
             {
+                AppId.AppName appId = (AppId.AppName)((int)item.app_id);
                 string itemId = item.item_id;
                 string assetId = item.asset_id;
                 string classId = item.class_id;
                 string instanceId = item.instance_id;
-                string name = item.market_hash_name;
-                double sellPrice = item.sale_price;
+                string marketHashName = item.market_hash_name;
+                double salePrice = item.sale_price;
                 DateTime time = DateTimeExtension.FromUnixTime((long)item.time);
 
-                SellHistoryRecord historySellRecord = new SellHistoryRecord(itemId, assetId, classId, instanceId, name, sellPrice, time);
+                SellHistoryRecord historySellRecord = new SellHistoryRecord(appId, itemId, assetId, classId, instanceId, marketHashName, salePrice, time);
                 historySellRecords.Add(historySellRecord);
             }
 
@@ -81,23 +83,25 @@ namespace BitSkinsApi.Market
     /// </summary>
     public class BuyHistoryRecord
     {
+        public AppId.AppName AppId { get; private set; }
         public string ItemId { get; private set; }
         public string AssetId { get; private set; }
         public string ClassId { get; private set; }
         public string InstanceId { get; private set; }
-        public string Name { get; private set; }
+        public string MarketHashName { get; private set; }
         public double BuyPrice { get; private set; }
         public bool Withdrawn { get; private set; }
         public DateTime Time { get; private set; }
 
-        internal BuyHistoryRecord(string itemId, string assetId, string classId, string instanceId, 
-            string name, double buyPrice, bool withdrawn, DateTime time)
+        internal BuyHistoryRecord(AppId.AppName appId, string itemId, string assetId, string classId, 
+            string instanceId, string marketHashName, double buyPrice, bool withdrawn, DateTime time)
         {
+            AppId = appId;
             ItemId = itemId;
             AssetId = assetId;
             ClassId = classId;
             InstanceId = instanceId;
-            Name = name;
+            MarketHashName = marketHashName;
             BuyPrice = buyPrice;
             Withdrawn = withdrawn;
             Time = time;
@@ -109,23 +113,25 @@ namespace BitSkinsApi.Market
     /// </summary>
     public class SellHistoryRecord
     {
+        public AppId.AppName AppId { get; private set; }
         public string ItemId { get; private set; }
         public string AssetId { get; private set; }
         public string ClassId { get; private set; }
         public string InstanceId { get; private set; }
-        public string Name { get; private set; }
-        public double SellPrice { get; private set; }
+        public string MarketHashName { get; private set; }
+        public double SalePrice { get; private set; }
         public DateTime Time { get; private set; }
 
-        internal SellHistoryRecord(string itemId, string assetId, string classId, 
-            string instanceId, string name, double sellPrice, DateTime time)
+        internal SellHistoryRecord(AppId.AppName appId, string itemId, string assetId, string classId, 
+            string instanceId, string marketHashName, double salePrice, DateTime time)
         {
+            AppId = appId;
             ItemId = itemId;
             AssetId = assetId;
             ClassId = classId;
             InstanceId = instanceId;
-            Name = name;
-            SellPrice = sellPrice;
+            MarketHashName = marketHashName;
+            SalePrice = salePrice;
             Time = time;
         }
     }

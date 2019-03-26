@@ -23,21 +23,27 @@ namespace BitSkinsApi.Market
 
             dynamic responseServer = JsonConvert.DeserializeObject(result);
 
-            List<PriceDatabaseItem> marketDataItems = new List<PriceDatabaseItem>();
+            List<PriceDatabaseItem> priceDatabaseItems = new List<PriceDatabaseItem>();
             foreach (dynamic item in responseServer.prices)
             {
-                string name = item.market_hash_name;
+                AppId.AppName appId = (AppId.AppName)((int)item.app_id);
+                string marketHashName = item.market_hash_name;
                 double price = item.price;
                 string pricingMode = item.pricing_mode;
                 double skewness = item.skewness;
                 DateTime createdAt = DateTimeExtension.FromUnixTime((long)item.created_at);
-                double instantSalePrice = (item.instant_sale_price != null) ? (double)item.instant_sale_price : 0;
+                string iconUrl = item.icon_url;
+                string nameColor = item.name_color;
+                string qualityColor = item.quality_color;
+                string rarityColor = item.rarity_color;
+                double? instantSalePrice = item.instant_sale_price;
 
-                PriceDatabaseItem databaseItem = new PriceDatabaseItem(name, price, pricingMode, skewness, createdAt, instantSalePrice);
-                marketDataItems.Add(databaseItem);
+                PriceDatabaseItem databaseItem = new PriceDatabaseItem(appId, marketHashName, price, pricingMode, 
+                    skewness, createdAt, iconUrl, nameColor, qualityColor, rarityColor, instantSalePrice);
+                priceDatabaseItems.Add(databaseItem);
             }
 
-            return marketDataItems;
+            return priceDatabaseItems;
         }
     }
 
@@ -46,20 +52,31 @@ namespace BitSkinsApi.Market
     /// </summary>
     public class PriceDatabaseItem
     {
-        public string Name { get; private set; }
+        public AppId.AppName AppId { get; private set; }
+        public string MarketHashName { get; private set; }
         public double Price { get; private set; }
         public string PricingMode { get; private set; }
         public double Skewness { get; private set; }
         public DateTime CreatedAt { get; private set; }
-        public double InstantSalePrice { get; private set; }
+        public string IconUrl { get; private set; }
+        public string NameColor { get; private set; }
+        public string QualityColor { get; private set; }
+        public string RarityColor { get; private set; }
+        public double? InstantSalePrice { get; private set; }
 
-        internal PriceDatabaseItem(string name, double price, string pricingMode, double skewness, DateTime createdAt, double instantSalePrice)
+        internal PriceDatabaseItem(AppId.AppName appId, string marketHashName, double price, string pricingMode, double skewness, 
+            DateTime createdAt, string iconUrl, string nameColor, string qualityColor, string rarityColor, double? instantSalePrice)
         {
-            Name = name;
+            AppId = appId;
+            MarketHashName = marketHashName;
             Price = price;
             PricingMode = pricingMode;
             Skewness = skewness;
             CreatedAt = createdAt;
+            IconUrl = iconUrl;
+            NameColor = nameColor;
+            QualityColor = qualityColor;
+            RarityColor = rarityColor;
             InstantSalePrice = instantSalePrice;
         }
     }
