@@ -7,22 +7,37 @@ namespace BitSkinsApi.Server
 {
     static class ServerRequest
     {
+        private static DateTime lastRequestTime;
+
+        static ServerRequest()
+        {
+            lastRequestTime = DateTime.Now;
+        }
+
         internal static bool RequestServer(string url, out string result)
         {
-            int maxRequestsPerSecond = Account.AccountData.MaxRequestsPerSecond;
-            Thread.Sleep(1000 / maxRequestsPerSecond);
+            TimeSpan timeSinceLastRequest = DateTime.Now - lastRequestTime;
+            TimeSpan minTime = new TimeSpan(0, 0, 0, 0, 1000 / Account.AccountData.MaxRequestsPerSecond);
 
+            if (timeSinceLastRequest < minTime)
+                Thread.Sleep(minTime - timeSinceLastRequest);
+
+            bool success = true;
             try
             {
-                string res = Request(url);
-                result = res;
+                result = Request(url);
             }
             catch (Exception ex)
             {
                 result = ex.Message;
-                return false;
+                success = false;
             }
-            return true;
+            finally
+            {
+                lastRequestTime = DateTime.Now;
+            }
+
+            return success;
         }
 
         private static string Request(string url)
@@ -31,15 +46,9 @@ namespace BitSkinsApi.Server
             request.AutomaticDecompression = DecompressionMethods.GZip;
 
             using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
-            {
                 using (Stream stream = response.GetResponseStream())
-                {
                     using (StreamReader reader = new StreamReader(stream))
-                    {
                         return reader.ReadToEnd();
-                    }
-                }
-            }
         }
     }
 }
