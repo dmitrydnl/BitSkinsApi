@@ -7,7 +7,7 @@ namespace BitSkinsApi.Server
 {
     static class ServerRequest
     {
-        private static DateTime lastRequestTime;
+        static DateTime lastRequestTime;
 
         static ServerRequest()
         {
@@ -17,10 +17,12 @@ namespace BitSkinsApi.Server
         internal static bool RequestServer(string url, out string result)
         {
             TimeSpan timeSinceLastRequest = DateTime.Now - lastRequestTime;
-            TimeSpan minTime = new TimeSpan(0, 0, 0, 0, 1000 / Account.AccountData.MaxRequestsPerSecond);
+            TimeSpan minTime = new TimeSpan(0, 0, 0, 0, 1000 / Account.AccountData.GetMaxRequestsPerSecond());
 
             if (timeSinceLastRequest < minTime)
+            {
                 Thread.Sleep(minTime - timeSinceLastRequest);
+            }
 
             bool success = true;
             try
@@ -49,6 +51,23 @@ namespace BitSkinsApi.Server
                 using (Stream stream = response.GetResponseStream())
                     using (StreamReader reader = new StreamReader(stream))
                         return reader.ReadToEnd();
+        }
+    }
+
+    class RequestServerException : Exception
+    {
+        internal RequestServerException()
+        {
+        }
+
+        internal RequestServerException(string message)
+            : base(message)
+        {
+        }
+
+        internal RequestServerException(string message, Exception inner)
+            : base(message, inner)
+        {
         }
     }
 }

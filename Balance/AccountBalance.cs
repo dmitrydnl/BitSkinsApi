@@ -14,9 +14,11 @@ namespace BitSkinsApi.Balance
         /// <returns>BitSkins account balance.</returns>
         public static Balance GetAccountBalance()
         {
-            string url = $"https://bitskins.com/api/v1/get_account_balance/?api_key={Account.AccountData.ApiKey}&code={Account.Secret.Code}";
+            string url = $"https://bitskins.com/api/v1/get_account_balance/?api_key={Account.AccountData.GetApiKey()}&code={Account.Secret.Code}";
             if (!Server.ServerRequest.RequestServer(url, out string result))
-                throw new Exception(result);
+            {
+                throw new Server.RequestServerException(result);
+            }
 
             dynamic responseServer = JsonConvert.DeserializeObject(result);
 

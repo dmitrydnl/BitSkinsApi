@@ -9,7 +9,7 @@ namespace BitSkinsApi.Account
         {
             get
             {
-                string secret = AccountData.Secret;
+                string secret = AccountData.GetSecret();
                 Totp totpgen = new Totp(Base32.Decode(secret));
                 return totpgen.ComputeTotp();
             }

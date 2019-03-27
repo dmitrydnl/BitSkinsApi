@@ -22,9 +22,11 @@ namespace BitSkinsApi.Balance
         /// <returns>List of money events.</returns>
         public static List<MoneyEvent> GetMoneyEvents(int page)
         {
-            string url = $"https://bitskins.com/api/v1/get_money_events/?api_key={Account.AccountData.ApiKey}&page={page}&code={Account.Secret.Code}";
+            string url = $"https://bitskins.com/api/v1/get_money_events/?api_key={Account.AccountData.GetApiKey()}&page={page}&code={Account.Secret.Code}";
             if (!Server.ServerRequest.RequestServer(url, out string result))
-                throw new Exception(result);
+            {
+                throw new Server.RequestServerException(result);
+            }
             
             dynamic responseServer = JsonConvert.DeserializeObject(result);
 
@@ -33,7 +35,9 @@ namespace BitSkinsApi.Balance
             {
                 MoneyEventType type = StringToMoneyEventType((string)moneyEvent.type);
                 if (type == MoneyEventType.Unknown)
+                {
                     continue;
+                }
                 DateTime time = DateTimeExtension.FromUnixTime((long)moneyEvent.time);
 
                 MoneyEvent moneyEv = null;
@@ -41,26 +45,22 @@ namespace BitSkinsApi.Balance
                 {
                     double price = moneyEvent.price;
                     int withdrawn = moneyEvent.withdrawn;
-
                     string marketHashName = moneyEvent.medium.market_hash_name;
                     Market.AppId.AppName appId = (Market.AppId.AppName)((int)moneyEvent.medium.app_id);
                     string classId = moneyEvent.medium.class_id;
                     string instanceId = moneyEvent.medium.instance_id;
                     Medium medium = new Medium(marketHashName, appId, classId, instanceId);
-
                     MoneyEvent_ItemBought moneyEvent_ItemBought = new MoneyEvent_ItemBought(type, time, price, medium, withdrawn);
                     moneyEv = moneyEvent_ItemBought;
                 }
                 else if (type == MoneyEventType.ItemSold)
                 {
                     double price = moneyEvent.price;
-
                     string marketHashName = moneyEvent.medium.market_hash_name;
                     Market.AppId.AppName appId = (Market.AppId.AppName)((int)moneyEvent.medium.app_id);
                     string classId = moneyEvent.medium.class_id;
                     string instanceId = moneyEvent.medium.instance_id;
                     Medium medium = new Medium(marketHashName, appId, classId, instanceId);
-
                     MoneyEvent_ItemSold moneyEvent_ItemSold = new MoneyEvent_ItemSold(type, time, price, medium);
                     moneyEv = moneyEvent_ItemSold;
                 }
@@ -126,7 +126,7 @@ namespace BitSkinsApi.Balance
         public MoneyEvents.MoneyEventType Type { get; private set; }
         public DateTime Time { get; private set; }
 
-        internal MoneyEvent(MoneyEvents.MoneyEventType type, DateTime time)
+        protected MoneyEvent(MoneyEvents.MoneyEventType type, DateTime time)
         {
             Type = type;
             Time = time;
