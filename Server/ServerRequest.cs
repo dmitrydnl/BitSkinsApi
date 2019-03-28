@@ -54,7 +54,7 @@ namespace BitSkinsApi.Server
         }
     }
 
-    class RequestServerException : Exception
+    public class RequestServerException : Exception
     {
         internal RequestServerException()
         {

@@ -22,7 +22,7 @@ namespace BitSkinsApi.Balance
         /// <returns>List of money events.</returns>
         public static List<MoneyEvent> GetMoneyEvents(int page)
         {
-            string url = $"https://bitskins.com/api/v1/get_money_events/?api_key={Account.AccountData.GetApiKey()}&page={page}&code={Account.Secret.Code}";
+            string url = $"https://bitskins.com/api/v1/get_money_events/?api_key={Account.AccountData.GetApiKey()}&page={page}&code={Account.Secret.GetTwoFactorCode()}";
             if (!Server.ServerRequest.RequestServer(url, out string result))
             {
                 throw new Server.RequestServerException(result);
@@ -45,22 +45,14 @@ namespace BitSkinsApi.Balance
                 {
                     double price = moneyEvent.price;
                     int withdrawn = moneyEvent.withdrawn;
-                    string marketHashName = moneyEvent.medium.market_hash_name;
-                    Market.AppId.AppName appId = (Market.AppId.AppName)((int)moneyEvent.medium.app_id);
-                    string classId = moneyEvent.medium.class_id;
-                    string instanceId = moneyEvent.medium.instance_id;
-                    Medium medium = new Medium(marketHashName, appId, classId, instanceId);
+                    Medium medium = ReadMedium(moneyEvent);
                     MoneyEvent_ItemBought moneyEvent_ItemBought = new MoneyEvent_ItemBought(type, time, price, medium, withdrawn);
                     moneyEv = moneyEvent_ItemBought;
                 }
                 else if (type == MoneyEventType.ItemSold)
                 {
                     double price = moneyEvent.price;
-                    string marketHashName = moneyEvent.medium.market_hash_name;
-                    Market.AppId.AppName appId = (Market.AppId.AppName)((int)moneyEvent.medium.app_id);
-                    string classId = moneyEvent.medium.class_id;
-                    string instanceId = moneyEvent.medium.instance_id;
-                    Medium medium = new Medium(marketHashName, appId, classId, instanceId);
+                    Medium medium = ReadMedium(moneyEvent);
                     MoneyEvent_ItemSold moneyEvent_ItemSold = new MoneyEvent_ItemSold(type, time, price, medium);
                     moneyEv = moneyEvent_ItemSold;
                 }
@@ -98,7 +90,17 @@ namespace BitSkinsApi.Balance
             return moneyEvents;
         }
 
-        private static MoneyEventType StringToMoneyEventType(string eventType)
+        static Medium ReadMedium(dynamic moneyEvent)
+        {
+            string marketHashName = moneyEvent.medium.market_hash_name;
+            Market.AppId.AppName appId = (Market.AppId.AppName)(int)moneyEvent.medium.app_id;
+            string classId = moneyEvent.medium.class_id;
+            string instanceId = moneyEvent.medium.instance_id;
+            Medium medium = new Medium(marketHashName, appId, classId, instanceId);
+            return medium;
+        }
+
+        static MoneyEventType StringToMoneyEventType(string eventType)
         {
             switch (eventType)
             {

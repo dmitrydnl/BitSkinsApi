@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Security;
+using System.Runtime.InteropServices;
 
 namespace BitSkinsApi.Account
 {
@@ -9,26 +11,26 @@ namespace BitSkinsApi.Account
     {
         const int maxRequestsPerSecondDefault = 8;
 
-        static string apiKey;
-        static string secret;
+        static SecureString apiKey;
+        static SecureString secret;
         static int maxRequestsPerSecond;
 
         internal static string GetApiKey()
         {
-            if (string.IsNullOrEmpty(apiKey))
+            if (apiKey.Length == 0)
             {
                 throw new InitializeAccountException("First you must initialize AccountData: BitSkinsApi.Account.AccountData.InitializeAccount().");
             }
-            return apiKey;
+            return SecureStringToString(apiKey);
         }
 
         internal static string GetSecret()
         {
-            if (string.IsNullOrEmpty(secret))
+            if (secret.Length == 0)
             {
                 throw new InitializeAccountException("First you must initialize AccountData: BitSkinsApi.Account.AccountData.InitializeAccount().");
             }
-            return secret;
+            return SecureStringToString(secret);
         }
 
         internal static int GetMaxRequestsPerSecond()
@@ -48,8 +50,10 @@ namespace BitSkinsApi.Account
         /// <param name="maxRequestsPerSecond">API throttle limits per second.</param>
         public static void InitializeAccount(string apiKey, string secret, int maxRequestsPerSecond)
         {
-            AccountData.apiKey = apiKey;
-            AccountData.secret = secret;
+            AccountData.apiKey = StringToSecureString(apiKey);
+            AccountData.apiKey.MakeReadOnly();
+            AccountData.secret = StringToSecureString(secret);
+            AccountData.secret.MakeReadOnly();
             AccountData.maxRequestsPerSecond = maxRequestsPerSecond;
         }
 
@@ -60,13 +64,39 @@ namespace BitSkinsApi.Account
         /// <param name="secret">Your two-factor secret shown when you enable Secure Access to your BitSkins account.</param>
         public static void InitializeAccount(string apiKey, string secret)
         {
-            AccountData.apiKey = apiKey;
-            AccountData.secret = secret;
+            AccountData.apiKey = StringToSecureString(apiKey);
+            AccountData.apiKey.MakeReadOnly();
+            AccountData.secret = StringToSecureString(secret);
+            AccountData.secret.MakeReadOnly();
             AccountData.maxRequestsPerSecond = maxRequestsPerSecondDefault;
+        }
+
+        static SecureString StringToSecureString(string str)
+        {
+            SecureString secureString = new SecureString();
+            foreach (char ch in str)
+            {
+                secureString.AppendChar(ch);
+            }
+            return secureString;
+        }
+
+        static string SecureStringToString(SecureString secureString)
+        {
+            IntPtr valuePtr = IntPtr.Zero;
+            try
+            {
+                valuePtr = Marshal.SecureStringToGlobalAllocUnicode(secureString);
+                return Marshal.PtrToStringUni(valuePtr);
+            }
+            finally
+            {
+                Marshal.ZeroFreeGlobalAllocUnicode(valuePtr);
+            }
         }
     }
 
-    class InitializeAccountException : Exception
+    public class InitializeAccountException : Exception
     {
         internal InitializeAccountException()
         {

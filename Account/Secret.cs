@@ -5,14 +5,10 @@ namespace BitSkinsApi.Account
 {
     static class Secret
     {
-        internal static string Code
+        internal static string GetTwoFactorCode()
         {
-            get
-            {
-                string secret = AccountData.GetSecret();
-                Totp totpgen = new Totp(Base32.Decode(secret));
-                return totpgen.ComputeTotp();
-            }
+            Totp totpgen = new Totp(Base32.Decode(AccountData.GetSecret()));
+            return totpgen.ComputeTotp();
         }
     }
 }

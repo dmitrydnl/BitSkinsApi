@@ -17,7 +17,7 @@ namespace BitSkinsApi.Market
         /// <returns>List of price database's items.</returns>
         public static List<PriceDatabaseItem> GetAllItemPrices(AppId.AppName app)
         {
-            string url = $"https://bitskins.com/api/v1/get_all_item_prices/?api_key={Account.AccountData.GetApiKey()}&code={Account.Secret.Code}&app_id={(int)app}";
+            string url = $"https://bitskins.com/api/v1/get_all_item_prices/?api_key={Account.AccountData.GetApiKey()}&app_id={(int)app}&code={Account.Secret.GetTwoFactorCode()}";
             if (!Server.ServerRequest.RequestServer(url, out string result))
             {
                 throw new Server.RequestServerException(result);
