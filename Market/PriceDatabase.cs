@@ -25,6 +25,11 @@ namespace BitSkinsApi.Market
 
             dynamic responseServer = JsonConvert.DeserializeObject(result);
 
+            if (responseServer.prices == null)
+            {
+                return new List<PriceDatabaseItem>();
+            }
+
             List<PriceDatabaseItem> priceDatabaseItems = new List<PriceDatabaseItem>();
             foreach (dynamic item in responseServer.prices)
             {

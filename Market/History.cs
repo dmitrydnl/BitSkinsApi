@@ -26,19 +26,23 @@ namespace BitSkinsApi.Market
 
             dynamic responseServer = JsonConvert.DeserializeObject(result);
 
-            List<BuyHistoryRecord> historyBuyRecords = new List<BuyHistoryRecord>();
-
-            foreach (dynamic record in responseServer.data.items)
+            if (responseServer.data.items == null)
             {
-                AppId.AppName appId = (AppId.AppName)(int)record.app_id;
-                string itemId = record.item_id;
-                string assetId = record.asset_id;
-                string classId = record.class_id;
-                string instanceId = record.instance_id;
-                string marketHashName = record.market_hash_name;
-                double buyPrice = record.buy_price;
-                bool withdrawn = record.withdrawn;
-                DateTime time = DateTimeExtension.FromUnixTime((long)record.time);
+                return new List<BuyHistoryRecord>();
+            }
+
+            List<BuyHistoryRecord> historyBuyRecords = new List<BuyHistoryRecord>();
+            foreach (dynamic item in responseServer.data.items)
+            {
+                AppId.AppName appId = (AppId.AppName)(int)item.app_id;
+                string itemId = item.item_id;
+                string assetId = item.asset_id;
+                string classId = item.class_id;
+                string instanceId = item.instance_id;
+                string marketHashName = item.market_hash_name;
+                double buyPrice = item.buy_price;
+                bool withdrawn = item.withdrawn;
+                DateTime time = DateTimeExtension.FromUnixTime((long)item.time);
                 BuyHistoryRecord historyBuyRecord = new BuyHistoryRecord(appId, itemId, assetId, classId, instanceId, marketHashName, buyPrice, withdrawn, time);
                 historyBuyRecords.Add(historyBuyRecord);
             }
@@ -62,18 +66,22 @@ namespace BitSkinsApi.Market
 
             dynamic responseServer = JsonConvert.DeserializeObject(result);
 
-            List<SellHistoryRecord> historySellRecords = new List<SellHistoryRecord>();
-
-            foreach (dynamic record in responseServer.data.items)
+            if (responseServer.data.items == null)
             {
-                AppId.AppName appId = (AppId.AppName)(int)record.app_id;
-                string itemId = record.item_id;
-                string assetId = record.asset_id;
-                string classId = record.class_id;
-                string instanceId = record.instance_id;
-                string marketHashName = record.market_hash_name;
-                double salePrice = record.sale_price;
-                DateTime time = DateTimeExtension.FromUnixTime((long)record.time);
+                return new List<SellHistoryRecord>();
+            }
+
+            List<SellHistoryRecord> historySellRecords = new List<SellHistoryRecord>();
+            foreach (dynamic item in responseServer.data.items)
+            {
+                AppId.AppName appId = (AppId.AppName)(int)item.app_id;
+                string itemId = item.item_id;
+                string assetId = item.asset_id;
+                string classId = item.class_id;
+                string instanceId = item.instance_id;
+                string marketHashName = item.market_hash_name;
+                double salePrice = item.sale_price;
+                DateTime time = DateTimeExtension.FromUnixTime((long)item.time);
                 SellHistoryRecord historySellRecord = new SellHistoryRecord(appId, itemId, assetId, classId, instanceId, marketHashName, salePrice, time);
                 historySellRecords.Add(historySellRecord);
             }
