@@ -18,10 +18,7 @@ namespace BitSkinsApi.Trade
         public static List<TradeOffersItem> GetRecentTradeOffers(bool activeOnly)
         {
             string url = $"https://bitskins.com/api/v1/get_recent_trade_offers/?api_key={Account.AccountData.GetApiKey()}&active_only={activeOnly}&code={Account.Secret.GetTwoFactorCode()}";
-            if (!Server.ServerRequest.RequestServer(url, out string result))
-            {
-                throw new Server.RequestServerException(result);
-            }
+            string result = Server.ServerRequest.RequestServer(url);
 
             dynamic responseServer = JsonConvert.DeserializeObject(result);
 

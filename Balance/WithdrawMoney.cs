@@ -21,10 +21,7 @@ namespace BitSkinsApi.Balance
         {
             string method = WithdrawalMethodToString(withdrawalMethod);
             string url = $"https://bitskins.com/api/v1/request_withdrawal/?api_key={Account.AccountData.GetApiKey()}&amount={amount}&withdrawal_method={method}&code={Account.Secret.GetTwoFactorCode()}";
-            if (!Server.ServerRequest.RequestServer(url, out string result))
-            {
-                throw new Server.RequestServerException(result);
-            }
+            string result = Server.ServerRequest.RequestServer(url);
         }
 
         static string WithdrawalMethodToString(WithdrawalMethod withdrawalMethod)

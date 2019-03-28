@@ -23,11 +23,8 @@ namespace BitSkinsApi.Balance
         public static List<MoneyEvent> GetMoneyEvents(int page)
         {
             string url = $"https://bitskins.com/api/v1/get_money_events/?api_key={Account.AccountData.GetApiKey()}&page={page}&code={Account.Secret.GetTwoFactorCode()}";
-            if (!Server.ServerRequest.RequestServer(url, out string result))
-            {
-                throw new Server.RequestServerException(result);
-            }
-            
+            string result = Server.ServerRequest.RequestServer(url);
+
             dynamic responseServer = JsonConvert.DeserializeObject(result);
 
             if (responseServer.data.events == null)

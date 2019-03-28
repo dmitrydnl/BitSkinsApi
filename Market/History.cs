@@ -19,10 +19,7 @@ namespace BitSkinsApi.Market
         public static List<BuyHistoryRecord> GetBuyHistory(AppId.AppName app, int page)
         {
             string url = $"https://bitskins.com/api/v1/get_buy_history/?api_key={Account.AccountData.GetApiKey()}&page={page}&app_id={(int)app}&code={Account.Secret.GetTwoFactorCode()}";
-            if (!Server.ServerRequest.RequestServer(url, out string result))
-            {
-                throw new Server.RequestServerException(result);
-            }
+            string result = Server.ServerRequest.RequestServer(url);
 
             dynamic responseServer = JsonConvert.DeserializeObject(result);
 
@@ -59,10 +56,7 @@ namespace BitSkinsApi.Market
         public static List<SellHistoryRecord> GetSellHistory(AppId.AppName app, int page)
         {
             string url = $"https://bitskins.com/api/v1/get_sell_history/?api_key={Account.AccountData.GetApiKey()}&page={page}&app_id={(int)app}&code={Account.Secret.GetTwoFactorCode()}";
-            if (!Server.ServerRequest.RequestServer(url, out string result))
-            {
-                throw new Server.RequestServerException(result);
-            }
+            string result = Server.ServerRequest.RequestServer(url);
 
             dynamic responseServer = JsonConvert.DeserializeObject(result);
 

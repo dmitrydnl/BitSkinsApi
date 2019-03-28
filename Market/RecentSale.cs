@@ -20,10 +20,7 @@ namespace BitSkinsApi.Market
         public static List<RecentSaleItem> GetRecentSaleInfo(string marketHashName, int page, AppId.AppName app)
         {
             string url = $"https://bitskins.com/api/v1/get_sales_info/?api_key={Account.AccountData.GetApiKey()}&market_hash_name={marketHashName}&page={page}&app_id={(int)app}&code={Account.Secret.GetTwoFactorCode()}";
-            if (!Server.ServerRequest.RequestServer(url, out string result))
-            {
-                throw new Server.RequestServerException(result);
-            }
+            string result = Server.ServerRequest.RequestServer(url);
 
             dynamic responseServer = JsonConvert.DeserializeObject(result);
 

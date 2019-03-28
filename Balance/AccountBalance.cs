@@ -15,10 +15,7 @@ namespace BitSkinsApi.Balance
         public static Balance GetAccountBalance()
         {
             string url = $"https://bitskins.com/api/v1/get_account_balance/?api_key={Account.AccountData.GetApiKey()}&code={Account.Secret.GetTwoFactorCode()}";
-            if (!Server.ServerRequest.RequestServer(url, out string result))
-            {
-                throw new Server.RequestServerException(result);
-            }
+            string result = Server.ServerRequest.RequestServer(url);
 
             dynamic responseServer = JsonConvert.DeserializeObject(result);
 

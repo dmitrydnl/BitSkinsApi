@@ -14,7 +14,7 @@ namespace BitSkinsApi.Server
             lastRequestTime = DateTime.Now;
         }
 
-        internal static bool RequestServer(string url, out string result)
+        internal static string RequestServer(string url)
         {
             TimeSpan timeSinceLastRequest = DateTime.Now - lastRequestTime;
             TimeSpan minTime = new TimeSpan(0, 0, 0, 0, 1000 / Account.AccountData.GetMaxRequestsPerSecond());
@@ -23,23 +23,18 @@ namespace BitSkinsApi.Server
             {
                 Thread.Sleep(minTime - timeSinceLastRequest);
             }
-
-            bool success = true;
+            
             try
             {
-                result = Request(url);
+                string result = Request(url);
+                lastRequestTime = DateTime.Now;
+                return result;
             }
             catch (Exception ex)
             {
-                result = ex.Message;
-                success = false;
-            }
-            finally
-            {
                 lastRequestTime = DateTime.Now;
+                throw new RequestServerException(ex.Message);
             }
-
-            return success;
         }
 
         private static string Request(string url)

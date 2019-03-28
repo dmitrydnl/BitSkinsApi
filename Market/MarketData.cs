@@ -18,10 +18,7 @@ namespace BitSkinsApi.Market
         public static List<MarketDataItem> GetMarketData(AppId.AppName app)
         {
             string url = $"https://bitskins.com/api/v1/get_price_data_for_items_on_sale/?api_key={Account.AccountData.GetApiKey()}&app_id={(int)app}&code={Account.Secret.GetTwoFactorCode()}";
-            if (!Server.ServerRequest.RequestServer(url, out string result))
-            {
-                throw new Server.RequestServerException(result);
-            }
+            string result = Server.ServerRequest.RequestServer(url);
 
             dynamic responseServer = JsonConvert.DeserializeObject(result);
 
