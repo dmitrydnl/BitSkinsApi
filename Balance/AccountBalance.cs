@@ -23,6 +23,7 @@ namespace BitSkinsApi.Balance
         {
             dynamic responseServer = JsonConvert.DeserializeObject(result);
             dynamic data = responseServer.data;
+
             if (data == null)
             {
                 return new Balance(0, 0, 0, 0);

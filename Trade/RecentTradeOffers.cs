@@ -32,6 +32,7 @@ namespace BitSkinsApi.Trade
         {
             dynamic responseServer = JsonConvert.DeserializeObject(result);
             dynamic offers = responseServer.data.offers;
+
             if (offers == null)
             {
                 return new List<TradeOffer>();

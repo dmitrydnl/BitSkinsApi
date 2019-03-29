@@ -32,6 +32,7 @@ namespace BitSkinsApi.Balance
         {
             dynamic responseServer = JsonConvert.DeserializeObject(result);
             dynamic events = responseServer.data.events;
+
             if (events == null)
             {
                 return new List<MoneyEvent>();

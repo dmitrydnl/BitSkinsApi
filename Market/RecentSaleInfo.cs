@@ -29,6 +29,7 @@ namespace BitSkinsApi.Market
         {
             dynamic responseServer = JsonConvert.DeserializeObject(result);
             dynamic sales = responseServer.data.sales;
+
             if (sales == null)
             {
                 return new List<RecentSale>();
