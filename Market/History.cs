@@ -6,9 +6,9 @@ using BitSkinsApi.Extensions;
 namespace BitSkinsApi.Market
 {
     /// <summary>
-    /// Work with your history on BitSkins.
+    /// Work with your buy history on BitSkins.
     /// </summary>
-    public static class History
+    public static class BuyHistory
     {
         /// <summary>
         /// Allows you to retrieve your history of bought items on BitSkins. Defaults to 30 items per page, with most recent appearing first.
@@ -20,33 +20,42 @@ namespace BitSkinsApi.Market
         {
             string url = $"https://bitskins.com/api/v1/get_buy_history/?api_key={Account.AccountData.GetApiKey()}&page={page}&app_id={(int)app}&code={Account.Secret.GetTwoFactorCode()}";
             string result = Server.ServerRequest.RequestServer(url);
+            List<BuyHistoryRecord> historyBuyRecords = ReadBuyHistoryRecors(result);
+            return historyBuyRecords;
+        }
 
+        static List<BuyHistoryRecord> ReadBuyHistoryRecors(string result)
+        {
             dynamic responseServer = JsonConvert.DeserializeObject(result);
-
-            if (responseServer.data.items == null)
+            dynamic items = responseServer.data.items;
+            if (items == null)
             {
                 return new List<BuyHistoryRecord>();
             }
 
             List<BuyHistoryRecord> historyBuyRecords = new List<BuyHistoryRecord>();
-            foreach (dynamic item in responseServer.data.items)
+            foreach (dynamic item in items)
             {
                 AppId.AppName appId = (AppId.AppName)(int)item.app_id;
                 string itemId = item.item_id;
-                string assetId = item.asset_id;
-                string classId = item.class_id;
-                string instanceId = item.instance_id;
                 string marketHashName = item.market_hash_name;
                 double buyPrice = item.buy_price;
                 bool withdrawn = item.withdrawn;
                 DateTime time = DateTimeExtension.FromUnixTime((long)item.time);
-                BuyHistoryRecord historyBuyRecord = new BuyHistoryRecord(appId, itemId, assetId, classId, instanceId, marketHashName, buyPrice, withdrawn, time);
+
+                BuyHistoryRecord historyBuyRecord = new BuyHistoryRecord(appId, itemId, marketHashName, buyPrice, withdrawn, time);
                 historyBuyRecords.Add(historyBuyRecord);
             }
 
             return historyBuyRecords;
         }
+    }
 
+    /// <summary>
+    /// Work with your buy history on BitSkins.
+    /// </summary>
+    public static class SellHistory
+    {
         /// <summary>
         /// Allows you to retrieve your history of sold items on BitSkins. Defaults to 30 items per page, with most recent appearing first.
         /// </summary>
@@ -57,26 +66,29 @@ namespace BitSkinsApi.Market
         {
             string url = $"https://bitskins.com/api/v1/get_sell_history/?api_key={Account.AccountData.GetApiKey()}&page={page}&app_id={(int)app}&code={Account.Secret.GetTwoFactorCode()}";
             string result = Server.ServerRequest.RequestServer(url);
+            List<SellHistoryRecord> historySellRecords = ReadSellHistoryRecors(result);
+            return historySellRecords;
+        }
 
+        static List<SellHistoryRecord> ReadSellHistoryRecors(string result)
+        {
             dynamic responseServer = JsonConvert.DeserializeObject(result);
-
-            if (responseServer.data.items == null)
+            dynamic items = responseServer.data.items;
+            if (items == null)
             {
                 return new List<SellHistoryRecord>();
             }
 
             List<SellHistoryRecord> historySellRecords = new List<SellHistoryRecord>();
-            foreach (dynamic item in responseServer.data.items)
+            foreach (dynamic item in items)
             {
                 AppId.AppName appId = (AppId.AppName)(int)item.app_id;
                 string itemId = item.item_id;
-                string assetId = item.asset_id;
-                string classId = item.class_id;
-                string instanceId = item.instance_id;
                 string marketHashName = item.market_hash_name;
                 double salePrice = item.sale_price;
                 DateTime time = DateTimeExtension.FromUnixTime((long)item.time);
-                SellHistoryRecord historySellRecord = new SellHistoryRecord(appId, itemId, assetId, classId, instanceId, marketHashName, salePrice, time);
+
+                SellHistoryRecord historySellRecord = new SellHistoryRecord(appId, itemId, marketHashName, salePrice, time);
                 historySellRecords.Add(historySellRecord);
             }
 
@@ -91,20 +103,13 @@ namespace BitSkinsApi.Market
     {
         public AppId.AppName AppId { get; private set; }
         public string ItemId { get; private set; }
-        public string AssetId { get; private set; }
-        public string ClassId { get; private set; }
-        public string InstanceId { get; private set; }
         public string MarketHashName { get; private set; }
         public DateTime Time { get; private set; }
 
-        protected HistoryRecord(AppId.AppName appId, string itemId, string assetId, 
-            string classId, string instanceId, string marketHashName, DateTime time)
+        protected HistoryRecord(AppId.AppName appId, string itemId, string marketHashName, DateTime time)
         {
             AppId = appId;
             ItemId = itemId;
-            AssetId = assetId;
-            ClassId = classId;
-            InstanceId = instanceId;
             MarketHashName = marketHashName;
             Time = time;
         }
@@ -118,9 +123,8 @@ namespace BitSkinsApi.Market
         public double BuyPrice { get; private set; }
         public bool Withdrawn { get; private set; }
 
-        internal BuyHistoryRecord(AppId.AppName appId, string itemId, string assetId, string classId, 
-            string instanceId, string marketHashName, double buyPrice, bool withdrawn, DateTime time)
-            : base (appId, itemId, assetId, classId, instanceId, marketHashName, time)
+        internal BuyHistoryRecord(AppId.AppName appId, string itemId, string marketHashName, double buyPrice, bool withdrawn, DateTime time)
+            : base (appId, itemId, marketHashName, time)
         {
             BuyPrice = buyPrice;
             Withdrawn = withdrawn;
@@ -134,9 +138,8 @@ namespace BitSkinsApi.Market
     {
         public double SalePrice { get; private set; }
 
-        internal SellHistoryRecord(AppId.AppName appId, string itemId, string assetId, string classId, 
-            string instanceId, string marketHashName, double salePrice, DateTime time)
-            : base(appId, itemId, assetId, classId, instanceId, marketHashName, time)
+        internal SellHistoryRecord(AppId.AppName appId, string itemId, string marketHashName, double salePrice, DateTime time)
+            : base(appId, itemId, marketHashName, time)
         {
             SalePrice = salePrice;
         }

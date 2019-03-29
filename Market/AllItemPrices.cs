@@ -8,42 +8,41 @@ namespace BitSkinsApi.Market
     /// <summary>
     /// Work with price database.
     /// </summary>
-    public static class PriceDatabase
+    public static class AllItemPrices
     {
         /// <summary>
         /// Allows you to retrieve the entire price database used at BitSkins.
         /// </summary>
         /// <param name="app">For the inventory's game.</param>
         /// <returns>List of price database's items.</returns>
-        public static List<PriceDatabaseItem> GetAllItemPrices(AppId.AppName app)
+        public static List<ItemPrice> GetAllItemPrices(AppId.AppName app)
         {
             string url = $"https://bitskins.com/api/v1/get_all_item_prices/?api_key={Account.AccountData.GetApiKey()}&app_id={(int)app}&code={Account.Secret.GetTwoFactorCode()}";
             string result = Server.ServerRequest.RequestServer(url);
+            List<ItemPrice> priceDatabaseItems = ReadItemPrices(result);
+            return priceDatabaseItems;
+        }
 
+        static List<ItemPrice> ReadItemPrices(string result)
+        {
             dynamic responseServer = JsonConvert.DeserializeObject(result);
-
-            if (responseServer.prices == null)
+            dynamic prices = responseServer.prices;
+            if (prices == null)
             {
-                return new List<PriceDatabaseItem>();
+                return new List<ItemPrice>();
             }
 
-            List<PriceDatabaseItem> priceDatabaseItems = new List<PriceDatabaseItem>();
-            foreach (dynamic item in responseServer.prices)
+            List<ItemPrice> priceDatabaseItems = new List<ItemPrice>();
+            foreach (dynamic item in prices)
             {
-                AppId.AppName appId = (AppId.AppName)((int)item.app_id);
                 string marketHashName = item.market_hash_name;
                 double price = item.price;
                 string pricingMode = item.pricing_mode;
-                double skewness = item.skewness;
                 DateTime createdAt = DateTimeExtension.FromUnixTime((long)item.created_at);
                 string iconUrl = item.icon_url;
-                string nameColor = item.name_color;
-                string qualityColor = item.quality_color;
-                string rarityColor = item.rarity_color;
                 double? instantSalePrice = item.instant_sale_price;
 
-                PriceDatabaseItem databaseItem = new PriceDatabaseItem(appId, marketHashName, price, pricingMode, 
-                    skewness, createdAt, iconUrl, nameColor, qualityColor, rarityColor, instantSalePrice);
+                ItemPrice databaseItem = new ItemPrice(marketHashName, price, pricingMode, createdAt, iconUrl, instantSalePrice);
                 priceDatabaseItems.Add(databaseItem);
             }
 
@@ -54,33 +53,23 @@ namespace BitSkinsApi.Market
     /// <summary>
     /// BitSkins price database's item.
     /// </summary>
-    public class PriceDatabaseItem
+    public class ItemPrice
     {
-        public AppId.AppName AppId { get; private set; }
         public string MarketHashName { get; private set; }
         public double Price { get; private set; }
         public string PricingMode { get; private set; }
-        public double Skewness { get; private set; }
         public DateTime CreatedAt { get; private set; }
         public string IconUrl { get; private set; }
-        public string NameColor { get; private set; }
-        public string QualityColor { get; private set; }
-        public string RarityColor { get; private set; }
         public double? InstantSalePrice { get; private set; }
 
-        internal PriceDatabaseItem(AppId.AppName appId, string marketHashName, double price, string pricingMode, double skewness, 
-            DateTime createdAt, string iconUrl, string nameColor, string qualityColor, string rarityColor, double? instantSalePrice)
+        internal ItemPrice(string marketHashName, double price, string pricingMode, 
+            DateTime createdAt, string iconUrl, double? instantSalePrice)
         {
-            AppId = appId;
             MarketHashName = marketHashName;
             Price = price;
             PricingMode = pricingMode;
-            Skewness = skewness;
             CreatedAt = createdAt;
             IconUrl = iconUrl;
-            NameColor = nameColor;
-            QualityColor = qualityColor;
-            RarityColor = rarityColor;
             InstantSalePrice = instantSalePrice;
         }
     }

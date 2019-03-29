@@ -19,50 +19,40 @@ namespace BitSkinsApi.Market
         {
             string url = $"https://bitskins.com/api/v1/get_price_data_for_items_on_sale/?api_key={Account.AccountData.GetApiKey()}&app_id={(int)app}&code={Account.Secret.GetTwoFactorCode()}";
             string result = Server.ServerRequest.RequestServer(url);
+            List<MarketDataItem> marketDataItems = ReadMarketDataItems(result);
+            return marketDataItems;
+        }
 
+        static List<MarketDataItem> ReadMarketDataItems(string result)
+        {
             dynamic responseServer = JsonConvert.DeserializeObject(result);
-
-            if (responseServer.data.items == null)
+            dynamic items = responseServer.data.items;
+            if (items == null)
             {
                 return new List<MarketDataItem>();
             }
 
             List<MarketDataItem> marketDataItems = new List<MarketDataItem>();
-            foreach (dynamic item in responseServer.data.items)
+            foreach (dynamic item in items)
             {
                 string marketHashName = item.market_hash_name;
                 int totalItems = item.total_items;
                 double lowestPrice = item.lowest_price;
                 double highestPrice = item.highest_price;
                 double cumulativePrice = item.cumulative_price;
-                RecentSalesInfo recentSalesInfo = (item.recent_sales_info != null) ? 
-                    new RecentSalesInfo((double)item.recent_sales_info.hours, (double)item.recent_sales_info.average_price) : null;
+                double recentAveragePrice = (item.recent_sales_info != null) ? (double)item.recent_sales_info.average_price : 0;
                 DateTime? updatedAt = null;
                 if (item.updated_at != null)
                 {
                     updatedAt = DateTimeExtension.FromUnixTime((long)item.updated_at);
                 }
 
-                MarketDataItem marketItem = new MarketDataItem(marketHashName, totalItems, lowestPrice, highestPrice, cumulativePrice, recentSalesInfo, updatedAt);
+                MarketDataItem marketItem = new MarketDataItem(marketHashName, totalItems, lowestPrice,
+                    highestPrice, cumulativePrice, recentAveragePrice, updatedAt);
                 marketDataItems.Add(marketItem);
             }
 
             return marketDataItems;
-        }
-    }
-
-    /// <summary>
-    /// Info about item's recent sales.
-    /// </summary>
-    public class RecentSalesInfo
-    {
-        public double Hours { get; private set; }
-        public double AveragePrice { get; private set; }
-
-        internal RecentSalesInfo(double hours, double averagePrice)
-        {
-            Hours = hours;
-            AveragePrice = averagePrice;
         }
     }
 
@@ -76,18 +66,18 @@ namespace BitSkinsApi.Market
         public double LowestPrice { get; private set; }
         public double HighestPrice { get; private set; }
         public double CumulativePrice { get; private set; }
-        public RecentSalesInfo RecentSalesInfo { get; private set; }
+        public double RecentAveragePrice { get; private set; }
         public DateTime? UpdatedAt { get; private set; }
 
         internal MarketDataItem(string marketHashName, int totalItems, double lowestPrice, double highestPrice, 
-            double cumulativePrice, RecentSalesInfo recentSalesInfo, DateTime? updatedAt)
+            double cumulativePrice, double recentAveragePrice, DateTime? updatedAt)
         {
             MarketHashName = marketHashName;
             TotalItems = totalItems;
             LowestPrice = lowestPrice;
             HighestPrice = highestPrice;
             CumulativePrice = cumulativePrice;
-            RecentSalesInfo = recentSalesInfo;
+            RecentAveragePrice = recentAveragePrice;
             UpdatedAt = updatedAt;
         }
     }

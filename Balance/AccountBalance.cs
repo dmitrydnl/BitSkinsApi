@@ -1,5 +1,4 @@
-﻿using System;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace BitSkinsApi.Balance
 {
@@ -16,14 +15,23 @@ namespace BitSkinsApi.Balance
         {
             string url = $"https://bitskins.com/api/v1/get_account_balance/?api_key={Account.AccountData.GetApiKey()}&code={Account.Secret.GetTwoFactorCode()}";
             string result = Server.ServerRequest.RequestServer(url);
+            Balance balance = ReadBalance(result);
+            return balance;
+        }
 
+        static Balance ReadBalance(string result)
+        {
             dynamic responseServer = JsonConvert.DeserializeObject(result);
+            dynamic data = responseServer.data;
+            if (data == null)
+            {
+                return new Balance(0, 0, 0, 0);
+            }
 
-            double available_balance = responseServer.data.available_balance;
-            double pending_withdrawals = responseServer.data.pending_withdrawals;
-            double withdrawable_balance = responseServer.data.withdrawable_balance;
-            double couponable_balance = responseServer.data.couponable_balance;
-
+            double available_balance = data.available_balance;
+            double pending_withdrawals = data.pending_withdrawals;
+            double withdrawable_balance = data.withdrawable_balance;
+            double couponable_balance = data.couponable_balance;
             Balance balance = new Balance(available_balance, pending_withdrawals, withdrawable_balance, couponable_balance);
 
             return balance;
