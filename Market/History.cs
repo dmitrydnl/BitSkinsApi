@@ -18,7 +18,12 @@ namespace BitSkinsApi.Market
         /// <returns>List of buy history records.</returns>
         public static List<BuyHistoryRecord> GetBuyHistory(AppId.AppName app, int page)
         {
-            string url = $"https://bitskins.com/api/v1/get_buy_history/?api_key={Account.AccountData.GetApiKey()}&page={page}&app_id={(int)app}&code={Account.Secret.GetTwoFactorCode()}";
+            string url = $"https://bitskins.com/api/v1/get_buy_history/" +
+                $"?api_key={Account.AccountData.GetApiKey()}" +
+                $"&page={page}" +
+                $"&app_id={(int)app}" +
+                $"&code={Account.Secret.GetTwoFactorCode()}";
+
             string result = Server.ServerRequest.RequestServer(url);
             List<BuyHistoryRecord> historyBuyRecords = ReadBuyHistoryRecors(result);
             return historyBuyRecords;
@@ -65,7 +70,12 @@ namespace BitSkinsApi.Market
         /// <returns>List of sell history records.</returns>
         public static List<SellHistoryRecord> GetSellHistory(AppId.AppName app, int page)
         {
-            string url = $"https://bitskins.com/api/v1/get_sell_history/?api_key={Account.AccountData.GetApiKey()}&page={page}&app_id={(int)app}&code={Account.Secret.GetTwoFactorCode()}";
+            string url = $"https://bitskins.com/api/v1/get_sell_history/" +
+                $"?api_key={Account.AccountData.GetApiKey()}" +
+                $"&page={page}" +
+                $"&app_id={(int)app}" +
+                $"&code={Account.Secret.GetTwoFactorCode()}";
+
             string result = Server.ServerRequest.RequestServer(url);
             List<SellHistoryRecord> historySellRecords = ReadSellHistoryRecors(result);
             return historySellRecords;

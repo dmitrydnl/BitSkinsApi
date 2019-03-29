@@ -22,7 +22,11 @@ namespace BitSkinsApi.Balance
         /// <returns>List of money events.</returns>
         public static List<MoneyEvent> GetMoneyEvents(int page)
         {
-            string url = $"https://bitskins.com/api/v1/get_money_events/?api_key={Account.AccountData.GetApiKey()}&page={page}&code={Account.Secret.GetTwoFactorCode()}";
+            string url = $"https://bitskins.com/api/v1/get_money_events/" +
+                $"?api_key={Account.AccountData.GetApiKey()}" +
+                $"&page={page}" +
+                $"&code={Account.Secret.GetTwoFactorCode()}";
+
             string result = Server.ServerRequest.RequestServer(url);
             List<MoneyEvent> moneyEvents = ReadMoneyEvents(result);
             return moneyEvents;

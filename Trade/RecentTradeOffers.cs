@@ -22,7 +22,11 @@ namespace BitSkinsApi.Trade
         /// <returns>List of recent trade offers.</returns>
         public static List<TradeOffer> GetRecentTradeOffers(bool activeOnly)
         {
-            string url = $"https://bitskins.com/api/v1/get_recent_trade_offers/?api_key={Account.AccountData.GetApiKey()}&active_only={activeOnly}&code={Account.Secret.GetTwoFactorCode()}";
+            string url = $"https://bitskins.com/api/v1/get_recent_trade_offers/" +
+                $"?api_key={Account.AccountData.GetApiKey()}" +
+                $"&active_only={activeOnly}" +
+                $"&code={Account.Secret.GetTwoFactorCode()}";
+
             string result = Server.ServerRequest.RequestServer(url);
             List<TradeOffer> tradeOffersItems = ReadTradeOffers(result);
             return tradeOffersItems;

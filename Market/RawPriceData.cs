@@ -18,7 +18,12 @@ namespace BitSkinsApi.Market
         /// <returns>Sales data for this item.</returns>
         public static RawPrice GetRawPriceData(string marketHashName, AppId.AppName app)
         {
-            string url = $"https://bitskins.com/api/v1/get_steam_price_data/?api_key={Account.AccountData.GetApiKey()}&market_hash_name={marketHashName}&app_id={(int)app}&code={Account.Secret.GetTwoFactorCode()}";
+            string url = $"https://bitskins.com/api/v1/get_steam_price_data/" +
+                $"?api_key={Account.AccountData.GetApiKey()}" +
+                $"&market_hash_name={marketHashName}" +
+                $"&app_id={(int)app}" +
+                $"&code={Account.Secret.GetTwoFactorCode()}";
+
             string result = Server.ServerRequest.RequestServer(url);
             RawPrice steamMarketItems = ReadRawPrice(result);
             return steamMarketItems;

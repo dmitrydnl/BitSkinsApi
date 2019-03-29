@@ -20,7 +20,12 @@ namespace BitSkinsApi.Balance
         public static bool MoneyWithdrawal(double amount, WithdrawalMethod withdrawalMethod)
         {
             string method = WithdrawalMethodToString(withdrawalMethod);
-            string url = $"https://bitskins.com/api/v1/request_withdrawal/?api_key={Account.AccountData.GetApiKey()}&amount={amount}&withdrawal_method={method}&code={Account.Secret.GetTwoFactorCode()}";
+            string url = $"https://bitskins.com/api/v1/request_withdrawal/" +
+                $"?api_key={Account.AccountData.GetApiKey()}" +
+                $"&amount={amount}" +
+                $"&withdrawal_method={method}" +
+                $"&code={Account.Secret.GetTwoFactorCode()}";
+
             string result = Server.ServerRequest.RequestServer(url);
             bool success = ReadStatus(result) == "success";
             return success;

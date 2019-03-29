@@ -13,7 +13,10 @@ namespace BitSkinsApi.Balance
         /// <returns>BitSkins account balance.</returns>
         public static Balance GetAccountBalance()
         {
-            string url = $"https://bitskins.com/api/v1/get_account_balance/?api_key={Account.AccountData.GetApiKey()}&code={Account.Secret.GetTwoFactorCode()}";
+            string url = $"https://bitskins.com/api/v1/get_account_balance/" +
+                $"?api_key={Account.AccountData.GetApiKey()}" +
+                $"&code={Account.Secret.GetTwoFactorCode()}";
+
             string result = Server.ServerRequest.RequestServer(url);
             Balance balance = ReadBalance(result);
             return balance;

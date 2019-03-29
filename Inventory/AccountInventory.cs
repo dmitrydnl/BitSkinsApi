@@ -18,7 +18,12 @@ namespace BitSkinsApi.Inventory
         /// <returns>User's inventory.</returns>
         public static AccountInventorys GetAccountInventory(Market.AppId.AppName app, int page)
         {
-            string url = $"https://bitskins.com/api/v1/get_my_inventory/?api_key={Account.AccountData.GetApiKey()}&page={page}&app_id={(int)app}&code={Account.Secret.GetTwoFactorCode()}";
+            string url = $"https://bitskins.com/api/v1/get_my_inventory/" +
+                $"?api_key={Account.AccountData.GetApiKey()}" +
+                $"&page={page}" +
+                $"&app_id={(int)app}" +
+                $"&code={Account.Secret.GetTwoFactorCode()}";
+
             string result = Server.ServerRequest.RequestServer(url);
             AccountInventorys accountInventorys = ReadAccountInventorys(result);
             return accountInventorys;

@@ -18,7 +18,12 @@ namespace BitSkinsApi.Trade
         /// <returns>Trade detail.</returns>
         public static TradeDetail GetTradeDetails(string tradeToken, string tradeId)
         {
-            string url = $"https://bitskins.com/api/v1/get_trade_details/?api_key={Account.AccountData.GetApiKey()}&trade_token={tradeToken}&trade_id={tradeId}&code={Account.Secret.GetTwoFactorCode()}";
+            string url = $"https://bitskins.com/api/v1/get_trade_details/" +
+                $"?api_key={Account.AccountData.GetApiKey()}" +
+                $"&trade_token={tradeToken}" +
+                $"&trade_id={tradeId}" +
+                $"&code={Account.Secret.GetTwoFactorCode()}";
+
             string result = Server.ServerRequest.RequestServer(url);
             TradeDetail tradeDetail = ReadTradeDetail(result);
             return tradeDetail;

@@ -19,7 +19,13 @@ namespace BitSkinsApi.Market
         /// <returns>List of recent sales info.</returns>
         public static List<RecentSale> GetRecentSaleInfo(string marketHashName, int page, AppId.AppName app)
         {
-            string url = $"https://bitskins.com/api/v1/get_sales_info/?api_key={Account.AccountData.GetApiKey()}&market_hash_name={marketHashName}&page={page}&app_id={(int)app}&code={Account.Secret.GetTwoFactorCode()}";
+            string url = $"https://bitskins.com/api/v1/get_sales_info/" +
+                $"?api_key={Account.AccountData.GetApiKey()}" +
+                $"&market_hash_name={marketHashName}" +
+                $"&page={page}" +
+                $"&app_id={(int)app}" +
+                $"&code={Account.Secret.GetTwoFactorCode()}";
+
             string result = Server.ServerRequest.RequestServer(url);
             List<RecentSale> recentSaleItems = ReadRecentSales(result);
             return recentSaleItems;
