@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Newtonsoft.Json;
 
 namespace BitSkinsApi.Balance
 {
@@ -17,11 +17,20 @@ namespace BitSkinsApi.Balance
         /// </summary>
         /// <param name="amount">Amount in USD to withdraw. Must be at most equal to available balance, and over $5.00 USD.</param>
         /// <param name="withdrawalMethod">Can be bitcoin, paypal, and so on.</param>
-        public static void MoneyWithdrawal(double amount, WithdrawalMethod withdrawalMethod)
+        public static bool MoneyWithdrawal(double amount, WithdrawalMethod withdrawalMethod)
         {
             string method = WithdrawalMethodToString(withdrawalMethod);
             string url = $"https://bitskins.com/api/v1/request_withdrawal/?api_key={Account.AccountData.GetApiKey()}&amount={amount}&withdrawal_method={method}&code={Account.Secret.GetTwoFactorCode()}";
             string result = Server.ServerRequest.RequestServer(url);
+            bool success = ReadStatus(result) == "success";
+            return success;
+        }
+
+        static string ReadStatus(string result)
+        {
+            dynamic responseServer = JsonConvert.DeserializeObject(result);
+            string status = responseServer.status;
+            return status;
         }
 
         static string WithdrawalMethodToString(WithdrawalMethod withdrawalMethod)

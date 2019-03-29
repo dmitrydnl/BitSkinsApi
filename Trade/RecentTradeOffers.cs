@@ -65,11 +65,11 @@ namespace BitSkinsApi.Trade
             const string tokenStr = "BitSkins Trade Token: ";
             const string idStr = ", Trade ID: ";
 
-            int tokenStart = tradeMessage.IndexOf(tokenStr) + tokenStr.Length;
-            int tokenEnd = tradeMessage.IndexOf(idStr);
+            int tokenStart = tradeMessage.IndexOf(tokenStr, StringComparison.InvariantCulture) + tokenStr.Length;
+            int tokenEnd = tradeMessage.IndexOf(idStr, StringComparison.InvariantCulture);
             bitSkinsTradeToken = tradeMessage.Remove(tokenEnd).Remove(0, tokenStart);
 
-            int idStart = tradeMessage.IndexOf(idStr) + idStr.Length;
+            int idStart = tradeMessage.IndexOf(idStr, StringComparison.InvariantCulture) + idStr.Length;
             bitSkinsTradeId = tradeMessage.Remove(0, idStart);
         }
     }
