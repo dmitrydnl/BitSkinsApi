@@ -141,7 +141,7 @@ namespace BitSkinsApi.Market
                 case SortOrder.Desc:
                     return "desc";
                 default:
-                    return "asc";
+                    return "";
             }
         }
 
@@ -156,7 +156,7 @@ namespace BitSkinsApi.Market
                 case SortBy.BumpedAt:
                     return "bumped_at";
                 default:
-                    return "price";
+                    return "";
             }
         }
     }

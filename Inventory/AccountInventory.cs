@@ -47,10 +47,7 @@ namespace BitSkinsApi.Inventory
                 {
                     foreach (dynamic item in items)
                     {
-                        string marketHashName = item.market_hash_name;
-                        double suggestedPrice = item.suggested_price;
-                        string itemType = item.item_type;
-                        string image = item.image;
+                        ReadMyInventoryItem(item, out string marketHashName, out double suggestedPrice, out string itemType, out string image);
                         int numberOfItems = item.number_of_items;
                         double recentAveragePrice = (item.recent_sales_info != null) ? (double)item.recent_sales_info.average_price : 0;
 
@@ -83,10 +80,7 @@ namespace BitSkinsApi.Inventory
                 {
                     foreach (dynamic item in items)
                     {
-                        string marketHashName = item.market_hash_name;
-                        double suggestedPrice = item.suggested_price;
-                        string itemType = item.item_type;
-                        string image = item.image;
+                        ReadMyInventoryItem(item, out string marketHashName, out double suggestedPrice, out string itemType, out string image);
                         int numberOfItems = item.number_of_items;
                         double recentAveragePrice = (item.recent_sales_info != null) ? (double)item.recent_sales_info.average_price : 0;
 
@@ -142,10 +136,7 @@ namespace BitSkinsApi.Inventory
                 {
                     foreach (dynamic item in items)
                     {
-                        string marketHashName = item.market_hash_name;
-                        double suggestedPrice = item.suggested_price;
-                        string itemType = item.item_type;
-                        string image = item.image;
+                        ReadMyInventoryItem(item, out string marketHashName, out double suggestedPrice, out string itemType, out string image);
                         string itemId = item.item_id;
                         DateTime withdrawableAt = DateTimeExtension.FromUnixTime((long)item.withdrawable_at);
                         double lastPrice = item.last_price;
@@ -161,6 +152,14 @@ namespace BitSkinsApi.Inventory
 
             AccountInventorys accountInventorys = new AccountInventorys(steamInventory, bitSkinsInventory, pendingWithdrawalFromBitskinsInventory);
             return accountInventorys;
+        }
+        
+        static void ReadMyInventoryItem(dynamic item, out string marketHashName, out double suggestedPrice, out string itemType, out string image)
+        {
+            marketHashName = item.market_hash_name;
+            suggestedPrice = item.suggested_price;
+            itemType = item.item_type;
+            image = item.image;
         }
     }
 
