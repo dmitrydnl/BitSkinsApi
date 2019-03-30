@@ -163,6 +163,90 @@ namespace BitSkinsApi.Market
     }
 
     /// <summary>
+    /// Work with specific items on sale.
+    /// </summary>
+    public static class SpecificItemsOnSale
+    {
+        /// <summary>
+        /// Allows you to retrieve data for specific Item IDs that are currently on sale. To gather Item IDs you wish to track/query, see the 'Get Inventory on Sale' API call for items currently on sale.
+        /// </summary>
+        /// <param name="app">For the inventory's game.</param>
+        /// <param name="itemIds">Upto 250 item IDs.</param>
+        /// <returns>Specific items on sale on BitSkins.</returns>
+        public static SpecificItems GetSpecificItemsOnSale(AppId.AppName app, List<string> itemIds)
+        {
+            string delimiter = ",";
+
+            StringBuilder itemIdsStr = new StringBuilder();
+            for (int i = 0; i < itemIds.Count; i++)
+            {
+                itemIdsStr.Append(itemIds[i]);
+                itemIdsStr.Append((i < itemIds.Count - 1) ? delimiter : "");
+            }
+
+            StringBuilder url = new StringBuilder($"https://bitskins.com/api/v1/get_specific_items_on_sale/");
+            url.Append($"?api_key={Account.AccountData.GetApiKey()}");
+            url.Append($"&item_ids={itemIdsStr.ToString()}");
+            url.Append($"&app_id={(int)app}");
+            url.Append($"&code={Account.Secret.GetTwoFactorCode()}");
+
+            string result = Server.ServerRequest.RequestServer(url.ToString());
+            SpecificItems specificItems = ReadSpecificItems(result);
+            return specificItems;
+        }
+
+        static SpecificItems ReadSpecificItems(string result)
+        {
+            dynamic responseServer = JsonConvert.DeserializeObject(result);
+            dynamic itemsOnSaleD = responseServer.data.items_on_sale;
+            dynamic itemsNotOnSaleD = responseServer.data.items_not_on_sale;
+
+            List<ItemOnSale> itemsOnSale = new List<ItemOnSale>();
+            if (itemsOnSaleD != null)
+            {
+                foreach (dynamic item in itemsOnSaleD)
+                {
+                    string itemId = item.item_id;
+                    string marketHashName = item.market_hash_name;
+                    string itemType = item.item_type;
+                    string image = item.image;
+                    double price = item.price;
+                    double? suggestedPrice = null;
+                    if (item.suggested_price != null)
+                    {
+                        suggestedPrice = (double)item.suggested_price;
+                    }
+                    double? floatValue = null;
+                    if (item.float_value != null)
+                    {
+                        floatValue = (double)item.float_value;
+                    }
+                    bool isMine = item.is_mine;
+                    DateTime updatedAt = DateTimeExtension.FromUnixTime((long)item.updated_at);
+                    DateTime withdrawableAt = DateTimeExtension.FromUnixTime((long)item.withdrawable_at);
+
+                    ItemOnSale itemOnSale = new ItemOnSale(itemId, marketHashName, itemType, image, price, suggestedPrice, 
+                        floatValue, isMine, updatedAt, withdrawableAt);
+                    itemsOnSale.Add(itemOnSale);
+                }
+            }
+
+            List<string> itemsNotOnSale = new List<string>();
+            if (itemsNotOnSaleD != null)
+            {
+                foreach (dynamic item in itemsNotOnSaleD)
+                {
+                    string itemNotOnSale = (string)item;
+                    itemsNotOnSale.Add(itemNotOnSale);
+                }
+            }
+
+            SpecificItems specificItems = new SpecificItems(itemsOnSale, itemsNotOnSale);
+            return specificItems;
+        }
+    }
+
+    /// <summary>
     /// Item on sale in BitSkins inventory.
     /// </summary>
     public class ItemOnSale
@@ -191,6 +275,21 @@ namespace BitSkinsApi.Market
             IsMine = isMine;
             UpdatedAt = updatedAt;
             WithdrawableAt = withdrawableAt;
+        }
+    }
+
+    /// <summary>
+    /// Specific items on sale on BitSkins.
+    /// </summary>
+    public class SpecificItems
+    {
+        public List<ItemOnSale> ItemsOnSale { get; private set; }
+        public List<string> ItemsNotOnSale { get; private set; }
+
+        internal SpecificItems(List<ItemOnSale> itemsOnSale, List<string> itemsNotOnSale)
+        {
+            ItemsOnSale = itemsOnSale;
+            ItemsNotOnSale = itemsNotOnSale;
         }
     }
 }
