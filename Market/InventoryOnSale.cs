@@ -106,31 +106,37 @@ namespace BitSkinsApi.Market
             List<ItemOnSale> itemsOnSale = new List<ItemOnSale>();
             foreach (dynamic item in items)
             {
-                string itemId = item.item_id;
-                string marketHashName = item.market_hash_name;
-                string itemType = item.item_type;
-                string image = item.image;
-                double price = item.price;
-                double? suggestedPrice = null;
-                if (item.suggested_price != null)
-                {
-                    suggestedPrice = (double)item.suggested_price;
-                }
-                double? floatValue = null;
-                if (item.float_value != null)
-                {
-                    floatValue = (double)item.float_value;
-                }
-                bool isMine = item.is_mine;
-                DateTime updatedAt = DateTimeExtension.FromUnixTime((long)item.updated_at);
-                DateTime withdrawableAt = DateTimeExtension.FromUnixTime((long)item.withdrawable_at);
-
-                ItemOnSale itemOnSale = new ItemOnSale(itemId, marketHashName, itemType, image, price, 
-                    suggestedPrice, floatValue, isMine, updatedAt, withdrawableAt);
+                ItemOnSale itemOnSale = ReadItemOnSale(item);
                 itemsOnSale.Add(itemOnSale);
             }
 
             return itemsOnSale;
+        }
+
+        internal static ItemOnSale ReadItemOnSale(dynamic item)
+        {
+            string itemId = item.item_id;
+            string marketHashName = item.market_hash_name;
+            string itemType = item.item_type;
+            string image = item.image;
+            double price = item.price;
+            double? suggestedPrice = null;
+            if (item.suggested_price != null)
+            {
+                suggestedPrice = (double)item.suggested_price;
+            }
+            double? floatValue = null;
+            if (item.float_value != null)
+            {
+                floatValue = (double)item.float_value;
+            }
+            bool isMine = item.is_mine;
+            DateTime updatedAt = DateTimeExtension.FromUnixTime((long)item.updated_at);
+            DateTime withdrawableAt = DateTimeExtension.FromUnixTime((long)item.withdrawable_at);
+
+            ItemOnSale itemOnSale = new ItemOnSale(itemId, marketHashName, itemType, image, price,
+                suggestedPrice, floatValue, isMine, updatedAt, withdrawableAt);
+            return itemOnSale;
         }
 
         static string SortOrderToString(SortOrder sortOrder)
@@ -206,27 +212,7 @@ namespace BitSkinsApi.Market
             {
                 foreach (dynamic item in itemsOnSaleD)
                 {
-                    string itemId = item.item_id;
-                    string marketHashName = item.market_hash_name;
-                    string itemType = item.item_type;
-                    string image = item.image;
-                    double price = item.price;
-                    double? suggestedPrice = null;
-                    if (item.suggested_price != null)
-                    {
-                        suggestedPrice = (double)item.suggested_price;
-                    }
-                    double? floatValue = null;
-                    if (item.float_value != null)
-                    {
-                        floatValue = (double)item.float_value;
-                    }
-                    bool isMine = item.is_mine;
-                    DateTime updatedAt = DateTimeExtension.FromUnixTime((long)item.updated_at);
-                    DateTime withdrawableAt = DateTimeExtension.FromUnixTime((long)item.withdrawable_at);
-
-                    ItemOnSale itemOnSale = new ItemOnSale(itemId, marketHashName, itemType, image, price, suggestedPrice, 
-                        floatValue, isMine, updatedAt, withdrawableAt);
+                    ItemOnSale itemOnSale = InventoryOnSale.ReadItemOnSale(item);
                     itemsOnSale.Add(itemOnSale);
                 }
             }
