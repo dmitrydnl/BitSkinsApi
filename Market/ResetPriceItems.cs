@@ -66,7 +66,7 @@ namespace BitSkinsApi.Market
 
         internal ResetPriceItem(string marketHashName, double? price)
         {
-            MarketHashName = MarketHashName;
+            MarketHashName = marketHashName;
             Price = price;
         }
     }

@@ -19,7 +19,7 @@ namespace BitSkinsApi.Account
         {
             if (apiKey.Length == 0)
             {
-                throw new InitializeAccountException("First you must initialize AccountData: BitSkinsApi.Account.AccountData.InitializeAccount().");
+                throw new SetupAccountException("First you must setup AccountData: BitSkinsApi.Account.AccountData.SetupAccount().");
             }
             return SecureStringToString(apiKey);
         }
@@ -28,7 +28,7 @@ namespace BitSkinsApi.Account
         {
             if (secret.Length == 0)
             {
-                throw new InitializeAccountException("First you must initialize AccountData: BitSkinsApi.Account.AccountData.InitializeAccount().");
+                throw new SetupAccountException("First you must setup AccountData: BitSkinsApi.Account.AccountData.SetupAccount().");
             }
             return SecureStringToString(secret);
         }
@@ -37,18 +37,18 @@ namespace BitSkinsApi.Account
         {
             if (maxRequestsPerSecond == 0)
             {
-                throw new InitializeAccountException("First you must initialize AccountData: BitSkinsApi.Account.AccountData.InitializeAccount().");
+                throw new SetupAccountException("First you must setup AccountData: BitSkinsApi.Account.AccountData.SetupAccount().");
             }
             return maxRequestsPerSecond;
         }
 
         /// <summary>
-        /// Initialization of all required BitSkins account data.
+        /// Setup of all required BitSkins account data.
         /// </summary>
         /// <param name="apiKey">API Key you can retrieve through the BitSkins settings page after you enable API access for your BitSkins account.</param>
         /// <param name="secret">Your two-factor secret shown when you enable Secure Access to your BitSkins account.</param>
         /// <param name="maxRequestsPerSecond">API throttle limits per second.</param>
-        public static void InitializeAccount(string apiKey, string secret, int maxRequestsPerSecond)
+        public static void SetupAccount(string apiKey, string secret, int maxRequestsPerSecond)
         {
             AccountData.apiKey = StringToSecureString(apiKey);
             AccountData.apiKey.MakeReadOnly();
@@ -58,11 +58,11 @@ namespace BitSkinsApi.Account
         }
 
         /// <summary>
-        /// Initialization of all required BitSkins account data. Default requests per second is 8.
+        /// Setup of all required BitSkins account data. Default requests per second is 8.
         /// </summary>
         /// <param name="apiKey">API Key you can retrieve through the BitSkins settings page after you enable API access for your BitSkins account.</param>
         /// <param name="secret">Your two-factor secret shown when you enable Secure Access to your BitSkins account.</param>
-        public static void InitializeAccount(string apiKey, string secret)
+        public static void SetupAccount(string apiKey, string secret)
         {
             AccountData.apiKey = StringToSecureString(apiKey);
             AccountData.apiKey.MakeReadOnly();
@@ -96,18 +96,18 @@ namespace BitSkinsApi.Account
         }
     }
 
-    public class InitializeAccountException : Exception
+    public class SetupAccountException : Exception
     {
-        internal InitializeAccountException()
+        internal SetupAccountException()
         {
         }
 
-        internal InitializeAccountException(string message)
+        internal SetupAccountException(string message)
             : base(message)
         {
         }
 
-        internal InitializeAccountException(string message, Exception inner)
+        internal SetupAccountException(string message, Exception inner)
             : base(message, inner)
         {
         }
