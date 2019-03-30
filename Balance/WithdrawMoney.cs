@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text;
+using Newtonsoft.Json;
 
 namespace BitSkinsApi.Balance
 {
@@ -20,13 +21,13 @@ namespace BitSkinsApi.Balance
         public static bool MoneyWithdrawal(double amount, WithdrawalMethod withdrawalMethod)
         {
             string method = WithdrawalMethodToString(withdrawalMethod);
-            string url = $"https://bitskins.com/api/v1/request_withdrawal/" +
-                $"?api_key={Account.AccountData.GetApiKey()}" +
-                $"&amount={amount}" +
-                $"&withdrawal_method={method}" +
-                $"&code={Account.Secret.GetTwoFactorCode()}";
+            StringBuilder url = new StringBuilder($"https://bitskins.com/api/v1/request_withdrawal/");
+            url.Append($"?api_key={Account.AccountData.GetApiKey()}");
+            url.Append($"&amount={amount}");
+            url.Append($"&withdrawal_method={method}");
+            url.Append($"&code={Account.Secret.GetTwoFactorCode()}");
 
-            string result = Server.ServerRequest.RequestServer(url);
+            string result = Server.ServerRequest.RequestServer(url.ToString());
             bool success = ReadStatus(result) == "success";
             return success;
         }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using Newtonsoft.Json;
 using BitSkinsApi.Extensions;
 
@@ -17,12 +18,12 @@ namespace BitSkinsApi.Market
         /// <returns>List of price database's items.</returns>
         public static List<ItemPrice> GetAllItemPrices(AppId.AppName app)
         {
-            string url = $"https://bitskins.com/api/v1/get_all_item_prices/" +
-                $"?api_key={Account.AccountData.GetApiKey()}" +
-                $"&app_id={(int)app}" +
-                $"&code={Account.Secret.GetTwoFactorCode()}";
-
-            string result = Server.ServerRequest.RequestServer(url);
+            StringBuilder url = new StringBuilder($"https://bitskins.com/api/v1/get_all_item_prices/");
+            url.Append($"?api_key={Account.AccountData.GetApiKey()}");
+            url.Append($"&app_id={(int)app}");
+            url.Append($"&code={Account.Secret.GetTwoFactorCode()}");
+            
+            string result = Server.ServerRequest.RequestServer(url.ToString());
             List<ItemPrice> priceDatabaseItems = ReadItemPrices(result);
             return priceDatabaseItems;
         }

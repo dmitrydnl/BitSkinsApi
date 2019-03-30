@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using Newtonsoft.Json;
 using BitSkinsApi.Extensions;
 
@@ -47,47 +48,47 @@ namespace BitSkinsApi.Market
             SortBy sortBy, SortOrder sortOrder, ThreeChoices hasStickers, ThreeChoices isStattrak, ThreeChoices isSouvenir, 
             ResultsPerPage resultsPerPage, ThreeChoices tradeDelayedItems)
         {
-            string url = $"https://bitskins.com/api/v1/get_inventory_on_sale/" +
-                $"?api_key={Account.AccountData.GetApiKey()}" +
-                $"&page={page}" +
-                $"&app_id={(int)app}" +
-                $"&per_page={(int)resultsPerPage}" +
-                $"&code={Account.Secret.GetTwoFactorCode()}";
-
+            StringBuilder url = new StringBuilder($"https://bitskins.com/api/v1/get_inventory_on_sale/");
+            url.Append($"?api_key={Account.AccountData.GetApiKey()}");
+            url.Append($"&page={page}");
+            url.Append($"&app_id={(int)app}");
+            url.Append($"&per_page={(int)resultsPerPage}");
+            url.Append($"&code={Account.Secret.GetTwoFactorCode()}");
+            
             if (!string.IsNullOrEmpty(marketHashName))
             {
-                url += $"&market_hash_name={marketHashName}";
+                url.Append($"&market_hash_name={marketHashName}");
             }
 
             if (minPrice > 0)
             {
-                url += $"&min_price={minPrice}";
+                url.Append($"&min_price={minPrice}");
             }
 
             if (maxPrice > 0)
             {
-                url += $"&max_price={maxPrice}";
+                url.Append($"&max_price={maxPrice}");
             }
 
             if (sortBy != SortBy.Not)
             {
-                url += $"&sort_by={SortByToString(sortBy)}";
+                url.Append($"&sort_by={SortByToString(sortBy)}");
             }
             
             if (sortOrder != SortOrder.Not)
             {
-                url += $"&order={SortOrderToString(sortOrder)}";
+                url.Append($"&order={SortOrderToString(sortOrder)}");
             }
             
             if (app == AppId.AppName.CounterStrikGlobalOffensive)
             {
-                url += $"&has_stickers={(int)hasStickers}";
-                url += $"&is_stattrak={(int)isStattrak}";
-                url += $"&is_souvenir={(int)isSouvenir}";
-                url += $"&show_trade_delayed_items={(int)tradeDelayedItems}";
+                url.Append($"&has_stickers={(int)hasStickers}");
+                url.Append($"&is_stattrak={(int)isStattrak}");
+                url.Append($"&is_souvenir={(int)isSouvenir}");
+                url.Append($"&show_trade_delayed_items={(int)tradeDelayedItems}");
             }
             
-            string result = Server.ServerRequest.RequestServer(url);
+            string result = Server.ServerRequest.RequestServer(url.ToString());
             List<ItemOnSale> itemsOnSale = ReadItemsOnSale(result);
             return itemsOnSale;
         }

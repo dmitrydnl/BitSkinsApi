@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using Newtonsoft.Json;
 using BitSkinsApi.Extensions;
 
@@ -17,12 +18,12 @@ namespace BitSkinsApi.Market
         /// <returns>List of items currently on sale at BitSkins.</returns>
         public static List<MarketDataItem> GetMarketData(AppId.AppName app)
         {
-            string url = $"https://bitskins.com/api/v1/get_price_data_for_items_on_sale/" +
-                $"?api_key={Account.AccountData.GetApiKey()}" +
-                $"&app_id={(int)app}" +
-                $"&code={Account.Secret.GetTwoFactorCode()}";
+            StringBuilder url = new StringBuilder($"https://bitskins.com/api/v1/get_price_data_for_items_on_sale/");
+            url.Append($"?api_key={Account.AccountData.GetApiKey()}");
+            url.Append($"&app_id={(int)app}");
+            url.Append($"&code={Account.Secret.GetTwoFactorCode()}");
 
-            string result = Server.ServerRequest.RequestServer(url);
+            string result = Server.ServerRequest.RequestServer(url.ToString());
             List<MarketDataItem> marketDataItems = ReadMarketDataItems(result);
             return marketDataItems;
         }

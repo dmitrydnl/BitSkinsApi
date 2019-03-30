@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using Newtonsoft.Json;
 using BitSkinsApi.Extensions;
 
@@ -19,14 +20,14 @@ namespace BitSkinsApi.Market
         /// <returns>List of recent sales info.</returns>
         public static List<RecentSale> GetRecentSaleInfo(string marketHashName, int page, AppId.AppName app)
         {
-            string url = $"https://bitskins.com/api/v1/get_sales_info/" +
-                $"?api_key={Account.AccountData.GetApiKey()}" +
-                $"&market_hash_name={marketHashName}" +
-                $"&page={page}" +
-                $"&app_id={(int)app}" +
-                $"&code={Account.Secret.GetTwoFactorCode()}";
+            StringBuilder url = new StringBuilder($"https://bitskins.com/api/v1/get_sales_info/");
+            url.Append($"?api_key={Account.AccountData.GetApiKey()}");
+            url.Append($"&market_hash_name={marketHashName}");
+            url.Append($"&page={page}");
+            url.Append($"&app_id={(int)app}");
+            url.Append($"&code={Account.Secret.GetTwoFactorCode()}");
 
-            string result = Server.ServerRequest.RequestServer(url);
+            string result = Server.ServerRequest.RequestServer(url.ToString());
             List<RecentSale> recentSaleItems = ReadRecentSales(result);
             return recentSaleItems;
         }

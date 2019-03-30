@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using Newtonsoft.Json;
 using BitSkinsApi.Extensions;
 
@@ -22,12 +23,12 @@ namespace BitSkinsApi.Balance
         /// <returns>List of money events.</returns>
         public static List<MoneyEvent> GetMoneyEvents(int page)
         {
-            string url = $"https://bitskins.com/api/v1/get_money_events/" +
-                $"?api_key={Account.AccountData.GetApiKey()}" +
-                $"&page={page}" +
-                $"&code={Account.Secret.GetTwoFactorCode()}";
+            StringBuilder url = new StringBuilder($"https://bitskins.com/api/v1/get_money_events/");
+            url.Append($"?api_key={Account.AccountData.GetApiKey()}");
+            url.Append($"&page={page}");
+            url.Append($"&code={Account.Secret.GetTwoFactorCode()}");
 
-            string result = Server.ServerRequest.RequestServer(url);
+            string result = Server.ServerRequest.RequestServer(url.ToString());
             List<MoneyEvent> moneyEvents = ReadMoneyEvents(result);
             return moneyEvents;
         }

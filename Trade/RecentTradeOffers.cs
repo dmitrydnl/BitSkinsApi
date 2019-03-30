@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using Newtonsoft.Json;
 using BitSkinsApi.Extensions;
 
@@ -22,12 +23,12 @@ namespace BitSkinsApi.Trade
         /// <returns>List of recent trade offers.</returns>
         public static List<TradeOffer> GetRecentTradeOffers(bool activeOnly)
         {
-            string url = $"https://bitskins.com/api/v1/get_recent_trade_offers/" +
-                $"?api_key={Account.AccountData.GetApiKey()}" +
-                $"&active_only={activeOnly}" +
-                $"&code={Account.Secret.GetTwoFactorCode()}";
+            StringBuilder url = new StringBuilder($"https://bitskins.com/api/v1/get_recent_trade_offers/");
+            url.Append($"?api_key={Account.AccountData.GetApiKey()}");
+            url.Append($"&active_only={activeOnly}");
+            url.Append($"&code={Account.Secret.GetTwoFactorCode()}");
 
-            string result = Server.ServerRequest.RequestServer(url);
+            string result = Server.ServerRequest.RequestServer(url.ToString());
             List<TradeOffer> tradeOffersItems = ReadTradeOffers(result);
             return tradeOffersItems;
         }

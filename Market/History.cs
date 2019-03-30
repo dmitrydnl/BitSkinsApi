@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using Newtonsoft.Json;
 using BitSkinsApi.Extensions;
 
@@ -18,13 +19,13 @@ namespace BitSkinsApi.Market
         /// <returns>List of buy history records.</returns>
         public static List<BuyHistoryRecord> GetBuyHistory(AppId.AppName app, int page)
         {
-            string url = $"https://bitskins.com/api/v1/get_buy_history/" +
-                $"?api_key={Account.AccountData.GetApiKey()}" +
-                $"&page={page}" +
-                $"&app_id={(int)app}" +
-                $"&code={Account.Secret.GetTwoFactorCode()}";
-
-            string result = Server.ServerRequest.RequestServer(url);
+            StringBuilder url = new StringBuilder($"https://bitskins.com/api/v1/get_buy_history/");
+            url.Append($"?api_key={Account.AccountData.GetApiKey()}");
+            url.Append($"&page={page}");
+            url.Append($"&app_id={(int)app}");
+            url.Append($"&code={Account.Secret.GetTwoFactorCode()}");
+            
+            string result = Server.ServerRequest.RequestServer(url.ToString());
             List<BuyHistoryRecord> historyBuyRecords = ReadBuyHistoryRecors(result);
             return historyBuyRecords;
         }
@@ -70,13 +71,13 @@ namespace BitSkinsApi.Market
         /// <returns>List of sell history records.</returns>
         public static List<SellHistoryRecord> GetSellHistory(AppId.AppName app, int page)
         {
-            string url = $"https://bitskins.com/api/v1/get_sell_history/" +
-                $"?api_key={Account.AccountData.GetApiKey()}" +
-                $"&page={page}" +
-                $"&app_id={(int)app}" +
-                $"&code={Account.Secret.GetTwoFactorCode()}";
+            StringBuilder url = new StringBuilder($"https://bitskins.com/api/v1/get_sell_history/");
+            url.Append($"?api_key={Account.AccountData.GetApiKey()}");
+            url.Append($"&page={page}");
+            url.Append($"&app_id={(int)app}");
+            url.Append($"&code={Account.Secret.GetTwoFactorCode()}");
 
-            string result = Server.ServerRequest.RequestServer(url);
+            string result = Server.ServerRequest.RequestServer(url.ToString());
             List<SellHistoryRecord> historySellRecords = ReadSellHistoryRecors(result);
             return historySellRecords;
         }
@@ -134,27 +135,27 @@ namespace BitSkinsApi.Market
         {
             string delimiter = ",";
 
-            string namesStr = "";
+            StringBuilder namesStr = new StringBuilder();
             for (int i = 0; i < names.Count; i++)
             {
-                namesStr += names[i];
-                namesStr += (i < names.Count - 1) ? delimiter : "";
+                namesStr.Append(names[i]);
+                namesStr.Append((i < names.Count - 1) ? delimiter : "");
             }
 
-            string url = $"https://bitskins.com/api/v1/get_item_history/" +
-                $"?api_key={Account.AccountData.GetApiKey()}" +
-                $"&page={page}" +
-                $"&app_id={(int)app}" +
-                $"&per_page={(int)resultsPerPage}" +
-                $"&code={Account.Secret.GetTwoFactorCode()}";
+            StringBuilder url = new StringBuilder($"https://bitskins.com/api/v1/get_item_history/");
+            url.Append($"?api_key={Account.AccountData.GetApiKey()}");
+            url.Append($"&page={page}");
+            url.Append($"&app_id={(int)app}");
+            url.Append($"&per_page={(int)resultsPerPage}");
+            url.Append($"&code={Account.Secret.GetTwoFactorCode()}");
 
             if (names.Count > 0)
             {
-                url += $"&names={namesStr}";
-                url += $"&delimiter={delimiter}";
+                url.Append($"&names={namesStr.ToString()}");
+                url.Append($"&delimiter={delimiter}");
             }
 
-            string result = Server.ServerRequest.RequestServer(url);
+            string result = Server.ServerRequest.RequestServer(url.ToString());
             List<ItemHistoryRecord> itemHistoryRecords = ReadItemHistoryRecords(result);
             return itemHistoryRecords;
         }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using Newtonsoft.Json;
 using BitSkinsApi.Extensions;
 
@@ -18,13 +19,13 @@ namespace BitSkinsApi.Market
         /// <returns>Sales data for this item.</returns>
         public static RawPrice GetRawPriceData(string marketHashName, AppId.AppName app)
         {
-            string url = $"https://bitskins.com/api/v1/get_steam_price_data/" +
-                $"?api_key={Account.AccountData.GetApiKey()}" +
-                $"&market_hash_name={marketHashName}" +
-                $"&app_id={(int)app}" +
-                $"&code={Account.Secret.GetTwoFactorCode()}";
+            StringBuilder url = new StringBuilder($"https://bitskins.com/api/v1/get_steam_price_data/");
+            url.Append($"?api_key={Account.AccountData.GetApiKey()}");
+            url.Append($"&market_hash_name={marketHashName}");
+            url.Append($"&app_id={(int)app}");
+            url.Append($"&code={Account.Secret.GetTwoFactorCode()}");
 
-            string result = Server.ServerRequest.RequestServer(url);
+            string result = Server.ServerRequest.RequestServer(url.ToString());
             RawPrice steamMarketItems = ReadRawPrice(result);
             return steamMarketItems;
         }

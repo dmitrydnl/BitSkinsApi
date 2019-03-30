@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using Newtonsoft.Json;
 using BitSkinsApi.Extensions;
 
@@ -18,13 +19,13 @@ namespace BitSkinsApi.Inventory
         /// <returns>User's inventory.</returns>
         public static AccountInventorys GetAccountInventory(Market.AppId.AppName app, int page)
         {
-            string url = $"https://bitskins.com/api/v1/get_my_inventory/" +
-                $"?api_key={Account.AccountData.GetApiKey()}" +
-                $"&page={page}" +
-                $"&app_id={(int)app}" +
-                $"&code={Account.Secret.GetTwoFactorCode()}";
+            StringBuilder url = new StringBuilder($"https://bitskins.com/api/v1/get_my_inventory/");
+            url.Append($"?api_key={Account.AccountData.GetApiKey()}");
+            url.Append($"&page={page}");
+            url.Append($"&app_id={(int)app}");
+            url.Append($"&code={Account.Secret.GetTwoFactorCode()}");
 
-            string result = Server.ServerRequest.RequestServer(url);
+            string result = Server.ServerRequest.RequestServer(url.ToString());
             AccountInventorys accountInventorys = ReadAccountInventorys(result);
             return accountInventorys;
         }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using Newtonsoft.Json;
 using BitSkinsApi.Extensions;
 
@@ -18,13 +19,13 @@ namespace BitSkinsApi.Trade
         /// <returns>Trade detail.</returns>
         public static TradeDetail GetTradeDetails(string tradeToken, string tradeId)
         {
-            string url = $"https://bitskins.com/api/v1/get_trade_details/" +
-                $"?api_key={Account.AccountData.GetApiKey()}" +
-                $"&trade_token={tradeToken}" +
-                $"&trade_id={tradeId}" +
-                $"&code={Account.Secret.GetTwoFactorCode()}";
+            StringBuilder url = new StringBuilder($"https://bitskins.com/api/v1/get_trade_details/");
+            url.Append($"?api_key={Account.AccountData.GetApiKey()}");
+            url.Append($"&trade_token={tradeToken}");
+            url.Append($"&trade_id={tradeId}");
+            url.Append($"&code={Account.Secret.GetTwoFactorCode()}");
 
-            string result = Server.ServerRequest.RequestServer(url);
+            string result = Server.ServerRequest.RequestServer(url.ToString());
             TradeDetail tradeDetail = ReadTradeDetail(result);
             return tradeDetail;
         }
