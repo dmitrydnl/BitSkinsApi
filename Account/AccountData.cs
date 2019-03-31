@@ -71,6 +71,16 @@ namespace BitSkinsApi.Account
             AccountData.maxRequestsPerSecond = maxRequestsPerSecondDefault;
         }
 
+        /// <summary>
+        /// Get two factor code for test is correct.
+        /// </summary>
+        /// <returns>Two factor code.</returns>
+        public static string GetTwoFactorCode()
+        {
+            string code = Secret.GetTwoFactorCode();
+            return code;
+        }
+
         static SecureString StringToSecureString(string str)
         {
             SecureString secureString = new SecureString();
