@@ -1,4 +1,4 @@
-# Настройка аккаунта
+﻿# Настройка аккаунта
 
 Для работы с BitSkins API вам нужно создать аккаунт на [сайте BitSkins](https://bitskins.com).
 
@@ -22,19 +22,19 @@ Secret Code можно узнать при включении [двухфакт�
 
 Если ваш лимит API запросов в секунду равен 8
 
-```text
-BitSkinsApi.Account.AccountData.SetupAccount(ApiKey, Secret Code);
+```csharp
+BitSkinsApi.Account.AccountData.SetupAccount(ApiKey, SecretCode);
 ```
 
 Если у вас другой лимит API запросов в секунду
 
-```text
-BitSkinsApi.Account.AccountData.SetupAccount(ApiKey, Secret Code, Лимит API);
+```csharp
+BitSkinsApi.Account.AccountData.SetupAccount(ApiKey, SecretCode, Лимит API);
 ```
 
-{% hint style="warning" %}
-Если вы попытаетесь вызвать какую-либо функцию API, до того как аккаунт будет инициализирован, то вы получите ошибку _SetupAccountException._
-{% endhint %}
+***
+![alt text](https://img.icons8.com/color/48/000000/error.png "Warning icon")\
+Если вы попытаетесь вызвать какую-либо функцию API, до того как аккаунт будет инициализирован, то вы получите ошибку _SetupAccountException_.
+***
 
 Теперь всё настроено и можно приступить к работе с BitSkins API.
-

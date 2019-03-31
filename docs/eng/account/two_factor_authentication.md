@@ -4,9 +4,10 @@ In order to execute API calls successfully, you will need to generate two-factor
 
 You do not need to worry about two-factor codes, they are automatically generated using Secret Code.
 
-{% hint style="warning" %}
+***
+![alt text](https://img.icons8.com/color/48/000000/error.png "Warning icon")\
 In the event that an incorrect two-factor code is generated, you need to synchronize the clock of your device.
-{% endhint %}
+***
 
 Device clock synchronization
 
@@ -18,7 +19,6 @@ $ sudo apt-get install ntp -y
 
 To check whether the two-factor code is generated correctly, execute the following code, and compare the obtained result with the code issued by your Authenticator App
 
-```text
+```csharp
 BitSkinsApi.Account.AccountData.GetTwoFactorCode();
 ```
-

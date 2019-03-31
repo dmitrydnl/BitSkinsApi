@@ -1,8 +1,4 @@
-# Account setup
-
-For work with the BitSkins API, you need to create an account on the [BitSkins website](https://bitskins.com).
-
-## Parameters for account initialization
+﻿## Parameters for account initialization
 
 Before you start working with the BitSkins API, you need to initialize your BitSkins account data:
 
@@ -22,19 +18,19 @@ To initialize your account and start working with the BitSkins API, you just nee
 
 If your API requests limit per second is 8
 
-```text
-BitSkinsApi.Account.AccountData.SetupAccount(ApiKey, Secret Code);
+```csharp
+BitSkinsApi.Account.AccountData.SetupAccount(ApiKey, SecreCode);
 ```
 
 If you have a different API request limit per second
 
-```text
-BitSkinsApi.Account.AccountData.SetupAccount(ApiKey, Secret Code, Лимит API);
+```csharp
+BitSkinsApi.Account.AccountData.SetupAccount(ApiKey, SecretCode, Лимит API);
 ```
 
-{% hint style="warning" %}
+***
+![alt text](https://img.icons8.com/color/48/000000/error.png "Warning icon")\
 If you try to call any API function before initializing the account, you will get a _SetupAccountException_.
-{% endhint %}
+***
 
 Now everything is set up, and you can start working with the BitSkins API.
-
