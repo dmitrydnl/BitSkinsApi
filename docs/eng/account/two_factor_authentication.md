@@ -22,3 +22,5 @@ To check whether the two-factor code is generated correctly, execute the followi
 ```csharp
 BitSkinsApi.Account.AccountData.GetTwoFactorCode();
 ```
+
+[<Account setup](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/account/account_setup.md) &nbsp;&nbsp;&nbsp;&nbsp; [Netx>](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/account/two_factor_authentication.md)

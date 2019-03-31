@@ -1,4 +1,8 @@
-﻿## Parameters for account initialization
+﻿# Account setup
+
+To work with the BitSkins API, you need to create an account on the [BitSkins website](https://bitskins.com).
+
+## Parameters for account initialization
 
 Before you start working with the BitSkins API, you need to initialize your BitSkins account data:
 
@@ -34,3 +38,5 @@ If you try to call any API function before initializing the account, you will ge
 ***
 
 Now everything is set up, and you can start working with the BitSkins API.
+
+[Two-factor authentication>](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/account/two_factor_authentication.md)

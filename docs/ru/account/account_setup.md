@@ -38,3 +38,5 @@ BitSkinsApi.Account.AccountData.SetupAccount(ApiKey, SecretCode, Лимит API)
 ***
 
 Теперь всё настроено и можно приступить к работе с BitSkins API.
+
+[Двухфакторная аутентификация>](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/account/two_factor_authentication.md)

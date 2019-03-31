@@ -22,3 +22,5 @@ $ sudo apt-get install ntp -y
 ```csharp
 BitSkinsApi.Account.AccountData.GetTwoFactorCode();
 ```
+
+[<Настройка аккаунта](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/account/account_setup.md) &nbsp;&nbsp;&nbsp;&nbsp; [Следующее>](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/account/two_factor_authentication.md)
