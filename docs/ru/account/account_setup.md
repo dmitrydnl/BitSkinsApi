@@ -1,1 +1,40 @@
-# BitSkinsApi
+# Настройка аккаунта
+
+Для работы с BitSkins API вам нужно создать аккаунт на [сайте BitSkins](https://bitskins.com).
+
+## Параметры для инициализации аккаунта
+
+Перед началом работы с BitSkins API, вам нужно инициализировать данные аккаунта BitSkins:
+
+* ApiKey
+* Secret Code
+* Лимит API запросов в секунду
+
+ApiKey можно получить на странице [настроек](https://bitskins.com/settings) BitSkins аккаунта, после активации доступа к API для вашей учетной записи.
+
+Secret Code можно узнать при включении [двухфакторной аутентификации](https://bitskins.com/settings) для вашей учетной записи BitSkins. Если у вас нет этого кода, то просто отключите двухфакторную аутентификацию и включите её заново. [Более подробно про двухфакторную аутентификацию в BitSkins API.](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/account/two_factor_authentication.md)
+
+Лимит API запросов в секунду по умолчанию равен 8. [Свяжитесь](https://bitskins.com/contact) с BitSkins если вам нужны более высокие лимиты.
+
+## Инициализация аккаунта
+
+Для того чтобы инициализировать ваш аккаунт и начать работать с BitSkins API, вам лишь нужно выполнить одну строчку кода. 
+
+Если ваш лимит API запросов в секунду равен 8
+
+```text
+BitSkinsApi.Account.AccountData.SetupAccount(ApiKey, Secret Code);
+```
+
+Если у вас другой лимит API запросов в секунду
+
+```text
+BitSkinsApi.Account.AccountData.SetupAccount(ApiKey, Secret Code, Лимит API);
+```
+
+{% hint style="warning" %}
+Если вы попытаетесь вызвать какую-либо функцию API, до того как аккаунт будет инициализирован, то вы получите ошибку _SetupAccountException._
+{% endhint %}
+
+Теперь всё настроено и можно приступить к работе с BitSkins API.
+

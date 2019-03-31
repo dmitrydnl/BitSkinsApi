@@ -1,1 +1,2 @@
-# BitSkinsApi
+# BitSkins API
+
