@@ -9,7 +9,7 @@ namespace BitSkinsApi.Market
     /// <summary>
     /// Work with the purchase.
     /// </summary>
-    public static class Purchase
+    public static class Buy
     {
         /// <summary>
         /// Allows you to buy the item currently on sale on BitSkins. Item must not be currently be on sale to you.
@@ -20,7 +20,7 @@ namespace BitSkinsApi.Market
         /// <param name="autoTrade">Initiate trade offer for purchased items' delivery.</param>
         /// <param name="allowTradeDelayedPurchases">Use 'true' if you want to purchase items that are trade-delayed.</param>
         /// <returns>List of purchased items.</returns>
-        public static List<PurchasedItem> BuyItem(AppId.AppName app, List<string> itemIds, List<double> itemPrices, 
+        public static List<BoughtItem> BuyItem(AppId.AppName app, List<string> itemIds, List<double> itemPrices, 
             bool autoTrade, bool allowTradeDelayedPurchases)
         {
             string delimiter = ",";
@@ -38,48 +38,47 @@ namespace BitSkinsApi.Market
             url.Append($"&code={Account.Secret.GetTwoFactorCode()}");
             
             string result = Server.ServerRequest.RequestServer(url.ToString());
-            List<PurchasedItem> purchasedItems = ReadPurchasedItems(result);
-            return purchasedItems;
+            List<BoughtItem> boughtItems = ReadBoughtItems(result);
+            return boughtItems;
         }
 
-        static List<PurchasedItem> ReadPurchasedItems(string result)
+        static List<BoughtItem> ReadBoughtItems(string result)
         {
             dynamic responseServer = JsonConvert.DeserializeObject(result);
             dynamic items = responseServer.data.items;
 
             if (items == null)
             {
-                return new List<PurchasedItem>();
+                return new List<BoughtItem>();
             }
 
-            List<PurchasedItem> purchasedItems = new List<PurchasedItem>();
+            List<BoughtItem> boughtItems = new List<BoughtItem>();
             foreach (dynamic item in items)
             {
-                Console.WriteLine(item.item_id);
                 string itemId = item.item_id;
                 string marketHashName = item.market_hash_name;
                 double price = item.price;
                 DateTime withdrawableAt = DateTimeExtension.FromUnixTime((long)item.withdrawable_at);
 
-                PurchasedItem purchasedItem = new PurchasedItem(itemId, marketHashName, price, withdrawableAt);
-                purchasedItems.Add(purchasedItem);
+                BoughtItem boughtItem = new BoughtItem(itemId, marketHashName, price, withdrawableAt);
+                boughtItems.Add(boughtItem);
             }
 
-            return purchasedItems;
+            return boughtItems;
         }
     }
 
     /// <summary>
     /// Purchased item BitSkins.
     /// </summary>
-    public class PurchasedItem
+    public class BoughtItem
     {
         public string ItemId { get; private set; }
         public string MarketHashName { get; private set; }
         public double Price { get; private set; }
         public DateTime WithdrawableAt { get; private set; }
 
-        internal PurchasedItem(string itemId, string marketHashName, double price, DateTime withdrawableAt)
+        internal BoughtItem(string itemId, string marketHashName, double price, DateTime withdrawableAt)
         {
             ItemId = itemId;
             MarketHashName = marketHashName;

@@ -9,7 +9,7 @@ namespace BitSkinsApi.Inventory
     /// <summary>
     /// Work with withdraw.
     /// </summary>
-    public static class WithdrawToSteam
+    public static class Withdraw
     {
         /// <summary>
         /// Allows you to delist an active sale item and/or re-attempt an item pending withdrawal.

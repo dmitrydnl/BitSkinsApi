@@ -8,7 +8,7 @@ namespace BitSkinsApi.Market
     /// <summary>
     /// Work with sale.
     /// </summary>
-    public static class Sale
+    public static class Sell
     {
         /// <summary>
         /// Allows you to list an item for sale. This item comes from your Steam inventory. If successful, bots will ask you to trade in the item you want listed for sale. 
@@ -17,7 +17,7 @@ namespace BitSkinsApi.Market
         /// <param name="itemIds">List of item IDs from your Steam inventory.</param>
         /// <param name="itemPrices">List of prices for each item ID you want to list for sale.</param>
         /// <returns>Info about sale.</returns>
-        public static SaleInformation SellItem(AppId.AppName app, List<string> itemIds, List<double> itemPrices)
+        public static SoldInformation SellItem(AppId.AppName app, List<string> itemIds, List<double> itemPrices)
         {
             string delimiter = ",";
 
@@ -32,11 +32,11 @@ namespace BitSkinsApi.Market
             url.Append($"&code={Account.Secret.GetTwoFactorCode()}");
             
             string result = Server.ServerRequest.RequestServer(url.ToString());
-            SaleInformation saleInformation = ReadSalesInformation(result);
-            return saleInformation;
+            SoldInformation soldInformation = ReadSoldInformation(result);
+            return soldInformation;
         }
 
-        static SaleInformation ReadSalesInformation(string result)
+        static SoldInformation ReadSoldInformation(string result)
         {
             dynamic responseServer = JsonConvert.DeserializeObject(result);
             dynamic items = responseServer.data.items;
@@ -64,34 +64,34 @@ namespace BitSkinsApi.Market
                 }
             }
 
-            SaleBotInfo saleBotInfo = null;
+            SoldBotInformation soldBotInformation = null;
             if (botInfo != null)
             {
                 string botUid = botInfo.uid;
                 string namePrefix = botInfo.name_prefix;
 
-                saleBotInfo = new SaleBotInfo(botUid, namePrefix);
+                soldBotInformation = new SoldBotInformation(botUid, namePrefix);
             }
 
-            SaleInformation saleInformation = new SaleInformation(soldItems, tradeTokens, saleBotInfo);
-            return saleInformation;
+            SoldInformation soldInformation = new SoldInformation(soldItems, tradeTokens, soldBotInformation);
+            return soldInformation;
         }
     }
 
     /// <summary>
     /// Info about sale.
     /// </summary>
-    public class SaleInformation
+    public class SoldInformation
     {
         public List<SoldItem> SoldItems { get; private set; }
         public List<string> TradeTokens { get; private set; }
-        public SaleBotInfo SaleBotInfo { get; private set; }
+        public SoldBotInformation SoldBotInformation { get; private set; }
 
-        internal SaleInformation(List<SoldItem> soldItems, List<string> tradeTokens, SaleBotInfo saleBotInfo)
+        internal SoldInformation(List<SoldItem> soldItems, List<string> tradeTokens, SoldBotInformation soldBotInformation)
         {
             SoldItems = soldItems;
             TradeTokens = tradeTokens;
-            SaleBotInfo = saleBotInfo;
+            SoldBotInformation = soldBotInformation;
         }
     }
 
@@ -111,12 +111,12 @@ namespace BitSkinsApi.Market
     /// <summary>
     /// Information about the bot that offers the trade.
     /// </summary>
-    public class SaleBotInfo
+    public class SoldBotInformation
     {
         public string Uid { get; private set; }
         public string NamePrefix { get; private set; }
 
-        internal SaleBotInfo(string uid, string namePrefix)
+        internal SoldBotInformation(string uid, string namePrefix)
         {
             Uid = uid;
             NamePrefix = namePrefix;
