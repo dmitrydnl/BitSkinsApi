@@ -183,16 +183,11 @@ namespace BitSkinsApi.Market
         {
             string delimiter = ",";
 
-            StringBuilder itemIdsStr = new StringBuilder();
-            for (int i = 0; i < itemIds.Count; i++)
-            {
-                itemIdsStr.Append(itemIds[i]);
-                itemIdsStr.Append((i < itemIds.Count - 1) ? delimiter : "");
-            }
+            string itemIdsStr = String.Join(delimiter, itemIds);
 
             StringBuilder url = new StringBuilder($"https://bitskins.com/api/v1/get_specific_items_on_sale/");
             url.Append($"?api_key={Account.AccountData.GetApiKey()}");
-            url.Append($"&item_ids={itemIdsStr.ToString()}");
+            url.Append($"&item_ids={itemIdsStr}");
             url.Append($"&app_id={(int)app}");
             url.Append($"&code={Account.Secret.GetTwoFactorCode()}");
 

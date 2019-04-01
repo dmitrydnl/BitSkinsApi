@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using Newtonsoft.Json;
 
@@ -20,25 +21,14 @@ namespace BitSkinsApi.Market
         {
             string delimiter = ",";
 
-            StringBuilder itemIdsStr = new StringBuilder();
-            for (int i = 0; i < itemIds.Count; i++)
-            {
-                itemIdsStr.Append(itemIds[i]);
-                itemIdsStr.Append((i < itemIds.Count - 1) ? delimiter : "");
-            }
-
-            StringBuilder itemPricesStr = new StringBuilder();
-            for (int i = 0; i < itemPrices.Count; i++)
-            {
-                itemPricesStr.Append(itemPrices[i].ToString().Replace(',', '.'));
-                itemPricesStr.Append((i < itemPrices.Count - 1) ? delimiter : "");
-            }
+            string itemIdsStr = String.Join(delimiter, itemIds);
+            string itemPricesStr = String.Join(delimiter, itemPrices.ConvertAll(x => x.ToString(System.Globalization.CultureInfo.InvariantCulture)));
 
             StringBuilder url = new StringBuilder($"https://bitskins.com/api/v1/list_item_for_sale/");
             url.Append($"?api_key={Account.AccountData.GetApiKey()}");
             url.Append($"&app_id={(int)app}");
-            url.Append($"&item_ids={itemIdsStr.ToString()}");
-            url.Append($"&prices={itemPricesStr.ToString()}");
+            url.Append($"&item_ids={itemIdsStr}");
+            url.Append($"&prices={itemPricesStr}");
             url.Append($"&code={Account.Secret.GetTwoFactorCode()}");
             
             string result = Server.ServerRequest.RequestServer(url.ToString());
