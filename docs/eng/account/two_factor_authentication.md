@@ -4,12 +4,11 @@ In order to execute API calls successfully, you will need to generate two-factor
 
 You do not need to worry about two-factor codes, they are automatically generated using Secret Code.
 
-***
-![alt text](https://img.icons8.com/color/48/000000/error.png "Warning icon")\
-In the event that an incorrect two-factor code is generated, you need to synchronize the clock of your device.
-***
+![alt text](https://img.icons8.com/color/48/000000/error.png "Warning icon") |
+-------------- |
+In the event that an incorrect two-factor code is generated, you need to synchronize the clock of your device. |
 
-Device clock synchronization
+Device clock synchronization:
 
 ```text
 # Ubuntu Example:
@@ -17,10 +16,10 @@ Device clock synchronization
 $ sudo apt-get install ntp -y
 ```
 
-To check whether the two-factor code is generated correctly, execute the following code, and compare the obtained result with the code issued by your Authenticator App
+To check whether the two-factor code is generated correctly, execute the following code, and compare the obtained result with the code issued by your Authenticator App:
 
 ```csharp
 BitSkinsApi.Account.AccountData.GetTwoFactorCode();
 ```
 
-[<Account setup](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/account/account_setup.md) &nbsp;&nbsp;&nbsp;&nbsp; [Netx>](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/account/two_factor_authentication.md)
+[<Account setup](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/account/account_setup.md) &nbsp;&nbsp;&nbsp;&nbsp; [Account balance>](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/balance/account_balance.md)

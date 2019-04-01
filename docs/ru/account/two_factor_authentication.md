@@ -4,12 +4,11 @@
 
 Вам не нужно беспокоиться о двухфакторных кодах, они автоматически генерируются с помощью Secret Code.
 
-***
-![alt text](https://img.icons8.com/color/48/000000/error.png "Warning icon")\
-В случае если генерируется неверный двухфакторный код вам нужно синхронизировать часы вашего устройства.
-***
+![alt text](https://img.icons8.com/color/48/000000/error.png "Warning icon") |
+-------------- |
+В случае если генерируется неверный двухфакторный код вам нужно синхронизировать часы вашего устройства. |
 
-Синхронизация часов устройства
+Синхронизация часов устройства:
 
 ```text
 # Ubuntu Example:
@@ -17,10 +16,10 @@
 $ sudo apt-get install ntp -y
 ```
 
-Чтобы проверить верно ли генерируется двухфакторный код выполните следующий код, и сравните полученный результат с кодом, который выдаёт ваше Authenticator App
+Чтобы проверить верно ли генерируется двухфакторный код выполните следующий код, и сравните полученный результат с кодом, который выдаёт ваше Authenticator App:
 
 ```csharp
-BitSkinsApi.Account.AccountData.GetTwoFactorCode();
+System.Console.WriteLine(BitSkinsApi.Account.AccountData.GetTwoFactorCode());
 ```
 
-[<Настройка аккаунта](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/account/account_setup.md) &nbsp;&nbsp;&nbsp;&nbsp; [Следующее>](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/account/two_factor_authentication.md)
+[<Настройка аккаунта](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/account/account_setup.md) &nbsp;&nbsp;&nbsp;&nbsp; [Баланс аккаунта>](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/balance/account_balance.md)
