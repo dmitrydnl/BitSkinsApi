@@ -1,49 +1,55 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using Newtonsoft.Json;
 using BitSkinsApi.Extensions;
 
 namespace BitSkinsApi.Inventory
 {
     /// <summary>
-    /// Work with withdraw.
+    /// Work with items withdrawal.
     /// </summary>
-    public static class Withdraw
+    public static class WithdrawalOfItems
     {
         /// <summary>
         /// Allows you to delist an active sale item and/or re-attempt an item pending withdrawal.
         /// </summary>
-        /// <param name="app">For the inventory's game.</param>
-        /// <param name="itemIds">List of item IDs.</param>
-        /// <returns>Withdrawn information.</returns>
-        public static WithdrawnInformation WithdrawItem(Market.AppId.AppName app, List<string> itemIds)
+        /// <param name="app">Inventory's game id.</param>
+        /// <param name="itemIds">List of item id.</param>
+        /// <returns>Information about withdrawn.</returns>
+        public static InformationAboutWithdrawn WithdrawItem(Market.AppId.AppName app, List<string> itemIds)
         {
             string delimiter = ",";
-
             string itemIdsStr = String.Join(delimiter, itemIds);
 
-            StringBuilder url = new StringBuilder($"https://bitskins.com/api/v1/withdraw_item/");
-            url.Append($"?api_key={Account.AccountData.GetApiKey()}");
-            url.Append($"&app_id={(int)app}");
-            url.Append($"&item_ids={itemIdsStr}");
-            url.Append($"&code={Account.Secret.GetTwoFactorCode()}");
+            Server.UrlCreator urlCreator = new Server.UrlCreator($"https://bitskins.com/api/v1/withdraw_item/");
+            urlCreator.AppendUrl($"&app_id={(int)app}");
+            urlCreator.AppendUrl($"&item_ids={itemIdsStr}");
 
-            string result = Server.ServerRequest.RequestServer(url.ToString());
-            WithdrawnInformation withdrawnInformation = ReadWithdrawnInformation(result);
+            string result = Server.ServerRequest.RequestServer(urlCreator.ReadUrl());
+            InformationAboutWithdrawn informationAboutWithdrawn = ReadInformationAboutWithdrawn(result);
+            return informationAboutWithdrawn;
+        }
+
+        static InformationAboutWithdrawn ReadInformationAboutWithdrawn(string result)
+        {
+            dynamic responseServerD = JsonConvert.DeserializeObject(result);
+            dynamic itemsD = responseServerD.data.items;
+            dynamic tradeTokensD = responseServerD.data.trade_tokens;
+
+            List<WithdrawnItem> withdrawnItems = ReadWithdrawnItems(itemsD);
+            List<string> tradeTokens = ReadTradeTokens(tradeTokensD);
+
+            InformationAboutWithdrawn withdrawnInformation = new InformationAboutWithdrawn(withdrawnItems, tradeTokens);
+
             return withdrawnInformation;
         }
 
-        static WithdrawnInformation ReadWithdrawnInformation(string result)
+        static List<WithdrawnItem> ReadWithdrawnItems(dynamic itemsD)
         {
-            dynamic responseServer = JsonConvert.DeserializeObject(result);
-            dynamic items = responseServer.data.items;
-            dynamic tradeTokensD = responseServer.data.trade_tokens;
-
-            List<WithdrawnItem> withdrawnItems = new List<WithdrawnItem>(); 
-            if (items != null)
+            List<WithdrawnItem> withdrawnItems = new List<WithdrawnItem>();
+            if (itemsD != null)
             {
-                foreach (dynamic item in items)
+                foreach (dynamic item in itemsD)
                 {
                     Market.AppId.AppName appId = (Market.AppId.AppName)(int)item.app_id;
                     string itemId = item.item_id;
@@ -54,30 +60,35 @@ namespace BitSkinsApi.Inventory
                 }
             }
 
+            return withdrawnItems;
+        }
+
+        static List<string> ReadTradeTokens(dynamic tradeTokensD)
+        {
             List<string> tradeTokens = new List<string>();
             if (tradeTokensD != null)
             {
                 foreach (dynamic token in tradeTokensD)
                 {
                     string tradeToken = (string)token;
+
                     tradeTokens.Add(tradeToken);
                 }
             }
 
-            WithdrawnInformation withdrawnInformation = new WithdrawnInformation(withdrawnItems, tradeTokens);
-            return withdrawnInformation;
+            return tradeTokens;
         }
     }
 
     /// <summary>
     /// Information about withdrawn.
     /// </summary>
-    public class WithdrawnInformation
+    public class InformationAboutWithdrawn
     {
         public List<WithdrawnItem> WithdrawnItems { get; private set; }
         public List<string> TradeTokens { get; private set; }
 
-        internal WithdrawnInformation(List<WithdrawnItem> withdrawnItems, List<string> tradeTokens)
+        internal InformationAboutWithdrawn(List<WithdrawnItem> withdrawnItems, List<string> tradeTokens)
         {
             WithdrawnItems = withdrawnItems;
             TradeTokens = tradeTokens;

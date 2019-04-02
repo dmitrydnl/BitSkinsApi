@@ -1,57 +1,67 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using Newtonsoft.Json;
 using BitSkinsApi.Extensions;
 
 namespace BitSkinsApi.Inventory
 {
     /// <summary>
-    /// Work with account inventorys.
+    /// Work with inventories.
     /// </summary>
-    public static class AccountInventory
+    public static class Inventories
     {
         /// <summary>
-        /// Allows you to retrieve your account's available inventory on Steam (items listable for sale), your BitSkins inventory (items currently on sale), and your pending withdrawal inventory (items you delisted or purchased). 
+        /// Allows you to retrieve your account's available inventory on Steam (items listable for sale), 
+        /// your BitSkins inventory (items currently on sale), and your pending withdrawal inventory (items you delisted or purchased). 
         /// </summary>
-        /// <param name="app">For the inventory's game.</param>
+        /// <param name="app">Inventory's game id.</param>
         /// <param name="page">Page number for BitSkins inventory.</param>
-        /// <returns>User's inventory.</returns>
-        public static AccountInventorys GetAccountInventory(Market.AppId.AppName app, int page)
+        /// <returns>Account's inventories.</returns>
+        public static AccountInventory GetAccountInventory(Market.AppId.AppName app, int page)
         {
-            StringBuilder url = new StringBuilder($"https://bitskins.com/api/v1/get_my_inventory/");
-            url.Append($"?api_key={Account.AccountData.GetApiKey()}");
-            url.Append($"&page={page}");
-            url.Append($"&app_id={(int)app}");
-            url.Append($"&code={Account.Secret.GetTwoFactorCode()}");
+            Server.UrlCreator urlCreator = new Server.UrlCreator($"https://bitskins.com/api/v1/get_my_inventory/");
+            urlCreator.AppendUrl($"&page={page}");
+            urlCreator.AppendUrl($"&app_id={(int)app}");
 
-            string result = Server.ServerRequest.RequestServer(url.ToString());
-            AccountInventorys accountInventorys = ReadAccountInventorys(result);
+            string result = Server.ServerRequest.RequestServer(urlCreator.ReadUrl());
+            AccountInventory accountInventory = ReadAccountInventory(result);
+            return accountInventory;
+        }
+
+        static AccountInventory ReadAccountInventory(string result)
+        {
+            dynamic responseServerD = JsonConvert.DeserializeObject(result);
+            dynamic steamInventoryD = responseServerD.data.steam_inventory;
+            dynamic bitskinsInventoryD = responseServerD.data.bitskins_inventory;
+            dynamic pendingWithdrawalInventoryD = responseServerD.data.pending_withdrawal_from_bitskins;
+
+            SteamInventory steamInventory = ReadSteamInventory(steamInventoryD);
+            BitSkinsInventory bitSkinsInventory = ReadBitSkinsInventory(bitskinsInventoryD);
+            PendingWithdrawalFromBitskinsInventory pendingWithdrawalFromBitskinsInventory = ReadPendingWithdrawalFromBitskinsInventory(pendingWithdrawalInventoryD);
+
+            AccountInventory accountInventorys = new AccountInventory(steamInventory, bitSkinsInventory, pendingWithdrawalFromBitskinsInventory);
+
             return accountInventorys;
         }
 
-        static AccountInventorys ReadAccountInventorys(string result)
+        static SteamInventory ReadSteamInventory(dynamic steamInventoryD)
         {
-            dynamic responseServer = JsonConvert.DeserializeObject(result);
-            dynamic data = responseServer.data;
-
             SteamInventory steamInventory = null;
-            if (data.steam_inventory != null)
+            if (steamInventoryD != null)
             {
-                dynamic inventory = data.steam_inventory;
-                dynamic items = inventory.items;
+                dynamic items = steamInventoryD.items;
 
-                int totalItems = inventory.total_items;
+                int totalItems = steamInventoryD.total_items;
 
                 List<SteamInventoryItem> steamInventoryItems = new List<SteamInventoryItem>();
                 if (items != null)
                 {
                     foreach (dynamic item in items)
                     {
-                        ReadSteamInventoryItem(item, out string marketHashName, out double suggestedPrice, out string itemType, 
+                        ReadSteamInventoryItem(item, out string marketHashName, out double suggestedPrice, out string itemType,
                             out string image, out int numberOfItems, out double recentAveragePrice, out List<string> itemIds);
 
-                        SteamInventoryItem steamInventoryItem = new SteamInventoryItem(marketHashName, suggestedPrice, 
+                        SteamInventoryItem steamInventoryItem = new SteamInventoryItem(marketHashName, suggestedPrice,
                             itemType, image, numberOfItems, itemIds, recentAveragePrice);
                         steamInventoryItems.Add(steamInventoryItem);
                     }
@@ -60,14 +70,18 @@ namespace BitSkinsApi.Inventory
                 steamInventory = new SteamInventory(totalItems, steamInventoryItems);
             }
 
-            BitSkinsInventory bitSkinsInventory = null;
-            if (data.bitskins_inventory != null)
-            {
-                dynamic inventory = data.bitskins_inventory;
-                dynamic items = inventory.items;
+            return steamInventory;
+        }
 
-                int totalItems = inventory.total_items;
-                double TotalPrice = inventory.total_price;
+        static BitSkinsInventory ReadBitSkinsInventory(dynamic bitskinsInventoryD)
+        {
+            BitSkinsInventory bitSkinsInventory = null;
+            if (bitskinsInventoryD != null)
+            {
+                dynamic items = bitskinsInventoryD.items;
+
+                int totalItems = bitskinsInventoryD.total_items;
+                double TotalPrice = bitskinsInventoryD.total_price;
 
                 List<BitSkinsInventoryItem> bitSkinsInventoryItems = new List<BitSkinsInventoryItem>();
                 if (items != null)
@@ -87,13 +101,17 @@ namespace BitSkinsApi.Inventory
                 bitSkinsInventory = new BitSkinsInventory(totalItems, TotalPrice, bitSkinsInventoryItems);
             }
 
-            PendingWithdrawalFromBitskinsInventory pendingWithdrawalFromBitskinsInventory = null;
-            if (data.pending_withdrawal_from_bitskins != null)
-            {
-                dynamic inventory = data.pending_withdrawal_from_bitskins;
-                dynamic items = inventory.items;
+            return bitSkinsInventory;
+        }
 
-                int totalItems = inventory.total_items;
+        static PendingWithdrawalFromBitskinsInventory ReadPendingWithdrawalFromBitskinsInventory(dynamic pendingWithdrawalInventoryD)
+        {
+            PendingWithdrawalFromBitskinsInventory pendingWithdrawalFromBitskinsInventory = null;
+            if (pendingWithdrawalInventoryD != null)
+            {
+                dynamic items = pendingWithdrawalInventoryD.items;
+
+                int totalItems = pendingWithdrawalInventoryD.total_items;
 
                 List<PendingWithdrawalFromBitskinsInventoryItem> pendingWithdrawalFromBitskinsInventoryItems = new List<PendingWithdrawalFromBitskinsInventoryItem>();
                 if (items != null)
@@ -112,11 +130,10 @@ namespace BitSkinsApi.Inventory
                 pendingWithdrawalFromBitskinsInventory = new PendingWithdrawalFromBitskinsInventory(totalItems, pendingWithdrawalFromBitskinsInventoryItems);
             }
 
-            AccountInventorys accountInventorys = new AccountInventorys(steamInventory, bitSkinsInventory, pendingWithdrawalFromBitskinsInventory);
-            return accountInventorys;
+            return pendingWithdrawalFromBitskinsInventory;
         }
-        
-        static void ReadMyInventoryItem(dynamic item, out string marketHashName, out double suggestedPrice, out string itemType, out string image)
+
+        static void ReadInventoryItem(dynamic item, out string marketHashName, out double suggestedPrice, out string itemType, out string image)
         {
             marketHashName = item.market_hash_name;
             suggestedPrice = item.suggested_price;
@@ -127,7 +144,7 @@ namespace BitSkinsApi.Inventory
         static void ReadSteamInventoryItem(dynamic item, out string marketHashName, out double suggestedPrice, out string itemType, out string image,
             out int numberOfItems, out double recentAveragePrice, out List<string> itemIds)
         {
-            ReadMyInventoryItem(item, out marketHashName, out suggestedPrice, out itemType, out image);
+            ReadInventoryItem(item, out marketHashName, out suggestedPrice, out itemType, out image);
             numberOfItems = item.number_of_items;
             recentAveragePrice = (item.recent_sales_info != null) ? (double)item.recent_sales_info.average_price : 0;
 
@@ -142,7 +159,7 @@ namespace BitSkinsApi.Inventory
             out int numberOfItems, out double recentAveragePrice, out List<string> itemIds, out List<double> prices, out List<DateTime> createdAt,
             out List<DateTime> updatedAt, out List<DateTime> withdrawableAt)
         {
-            ReadMyInventoryItem(item, out marketHashName, out suggestedPrice, out itemType, out image);
+            ReadInventoryItem(item, out marketHashName, out suggestedPrice, out itemType, out image);
             numberOfItems = item.number_of_items;
             recentAveragePrice = (item.recent_sales_info != null) ? (double)item.recent_sales_info.average_price : 0;
 
@@ -180,7 +197,7 @@ namespace BitSkinsApi.Inventory
         static void ReadPendingWithdrawalFromBitskinsInventoryItem(dynamic item, out string marketHashName, out double suggestedPrice, 
             out string itemType, out string image, out string itemId, out DateTime withdrawableAt, out double lastPrice)
         {
-            ReadMyInventoryItem(item, out marketHashName, out suggestedPrice, out itemType, out image);
+            ReadInventoryItem(item, out marketHashName, out suggestedPrice, out itemType, out image);
             itemId = item.item_id;
             withdrawableAt = DateTimeExtension.FromUnixTime((long)item.withdrawable_at);
             lastPrice = item.last_price;
@@ -188,15 +205,15 @@ namespace BitSkinsApi.Inventory
     }
 
     /// <summary>
-    /// All user's inventorys.
+    /// All user's inventories.
     /// </summary>
-    public class AccountInventorys
+    public class AccountInventory
     {
         public SteamInventory SteamInventory { get; private set; }
         public BitSkinsInventory BitSkinsInventory { get; private set; }
         public PendingWithdrawalFromBitskinsInventory PendingWithdrawalFromBitskinsInventory { get; private set; }
 
-        internal AccountInventorys(SteamInventory steamInventory, BitSkinsInventory bitSkinsInventory,
+        internal AccountInventory(SteamInventory steamInventory, BitSkinsInventory bitSkinsInventory,
             PendingWithdrawalFromBitskinsInventory pendingWithdrawalFromBitskinsInventory)
         {
             SteamInventory = steamInventory;
@@ -208,11 +225,11 @@ namespace BitSkinsApi.Inventory
     /// <summary>
     /// User's inventory.
     /// </summary>
-    public abstract class MyInventory
+    public abstract class Inventory
     {
         public int TotalItems { get; private set; }
 
-        protected MyInventory(int totalItems)
+        protected Inventory(int totalItems)
         {
             TotalItems = totalItems;
         }
@@ -221,7 +238,7 @@ namespace BitSkinsApi.Inventory
     /// <summary>
     /// User's Steam inventory.
     /// </summary>
-    public class SteamInventory : MyInventory
+    public class SteamInventory : Inventory
     {
         public List<SteamInventoryItem> SteamInventoryItems { get; private set; }
 
@@ -235,7 +252,7 @@ namespace BitSkinsApi.Inventory
     /// <summary>
     /// User's BitSkins inventory.
     /// </summary>
-    public class BitSkinsInventory : MyInventory
+    public class BitSkinsInventory : Inventory
     {
         public double TotalPrice { get; private set; }
         public List<BitSkinsInventoryItem> BitSkinsInventoryItems { get; private set; }
@@ -251,7 +268,7 @@ namespace BitSkinsApi.Inventory
     /// <summary>
     /// User's pending withdrawal from BitSkins inventory.
     /// </summary>
-    public class PendingWithdrawalFromBitskinsInventory : MyInventory
+    public class PendingWithdrawalFromBitskinsInventory : Inventory
     {
         public List<PendingWithdrawalFromBitskinsInventoryItem> PendingWithdrawalFromBitskinsInventoryItems { get; private set; }
 
@@ -266,14 +283,14 @@ namespace BitSkinsApi.Inventory
     /// <summary>
     /// Inventory's item.
     /// </summary>
-    public abstract class MyInventoryItem
+    public abstract class InventoryItem
     {
         public string MarketHashName { get; private set; }
         public double SuggestedPrice { get; private set; }
         public string ItemType { get; private set; }
         public string Image { get; private set; }
 
-        protected MyInventoryItem(string marketHashName, double suggestedPrice, string itemType, string image)
+        protected InventoryItem(string marketHashName, double suggestedPrice, string itemType, string image)
         {
             MarketHashName = marketHashName;
             SuggestedPrice = suggestedPrice;
@@ -285,7 +302,7 @@ namespace BitSkinsApi.Inventory
     /// <summary>
     /// Steam inventory's item.
     /// </summary>
-    public class SteamInventoryItem : MyInventoryItem
+    public class SteamInventoryItem : InventoryItem
     {
         public int NumberOfItems { get; private set; }
         public List<string> ItemIds { get; private set; }
@@ -304,7 +321,7 @@ namespace BitSkinsApi.Inventory
     /// <summary>
     /// BitSkins inventory's item.
     /// </summary>
-    public class BitSkinsInventoryItem : MyInventoryItem
+    public class BitSkinsInventoryItem : InventoryItem
     {
         public int NumberOfItems { get; private set; }
         public List<string> ItemIds { get; private set; }
@@ -332,7 +349,7 @@ namespace BitSkinsApi.Inventory
     /// <summary>
     /// Pending withdrawal from BitSkins inventory's item.
     /// </summary>
-    public class PendingWithdrawalFromBitskinsInventoryItem : MyInventoryItem
+    public class PendingWithdrawalFromBitskinsInventoryItem : InventoryItem
     {
         public string ItemId { get; private set; }
         public DateTime WithdrawableAt { get; private set; }
