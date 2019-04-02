@@ -1,52 +1,67 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using Newtonsoft.Json;
 using BitSkinsApi.Extensions;
 
 namespace BitSkinsApi.Trade
 {
     /// <summary>
-    /// Wotk with trade details.
+    /// Work with trade details.
     /// </summary>
-    public static class TradeDetails
+    public static class Details
     {
         /// <summary>
-        /// Allows you to retrieve information about items requested/sent in a given trade from BitSkins. Trade details will be unretrievable 7 days after the initiation of the trade.
+        /// Allows you to retrieve information about items requested/sent in a given trade from BitSkins. 
+        /// Trade details will be unretrievable 7 days after the initiation of the trade.
         /// </summary>
         /// <param name="tradeToken">The trade token in the Steam trade's message.</param>
         /// <param name="tradeId">The trade ID in the Steam trade's message.</param>
-        /// <returns>Trade detail.</returns>
-        public static TradeDetail GetTradeDetails(string tradeToken, string tradeId)
+        /// <returns>Details of this trade.</returns>
+        public static TradeDetails GetTradeDetails(string tradeToken, string tradeId)
         {
-            StringBuilder url = new StringBuilder($"https://bitskins.com/api/v1/get_trade_details/");
-            url.Append($"?api_key={Account.AccountData.GetApiKey()}");
-            url.Append($"&trade_token={tradeToken}");
-            url.Append($"&trade_id={tradeId}");
-            url.Append($"&code={Account.Secret.GetTwoFactorCode()}");
+            Server.UrlCreator urlCreator = new Server.UrlCreator($"https://bitskins.com/api/v1/get_trade_details/");
+            urlCreator.AppendUrl($"&trade_token={tradeToken}");
+            urlCreator.AppendUrl($"&trade_id={tradeId}");
 
-            string result = Server.ServerRequest.RequestServer(url.ToString());
-            TradeDetail tradeDetail = ReadTradeDetail(result);
-            return tradeDetail;
+            string result = Server.ServerRequest.RequestServer(urlCreator.ReadUrl());
+            TradeDetails tradeDetails = ReadTradeDetails(result);
+
+            return tradeDetails;
         }
 
-        static TradeDetail ReadTradeDetail(string result)
+        static TradeDetails ReadTradeDetails(string result)
         {
-            dynamic responseServer = JsonConvert.DeserializeObject(result);
-            dynamic data = responseServer.data;
+            dynamic responseServerD = JsonConvert.DeserializeObject(result);
+            dynamic createdAtD = responseServerD.data.created_at;
+            dynamic itemsSentD = responseServerD.data.items_sent;
+            dynamic itemsRetrievedD = responseServerD.data.items_retrieved;
 
+            DateTime? createdAt = ReadCreatedAt(createdAtD);
+            List<SentItem> sentItems = ReadSentItems(itemsSentD);
+            List<RetrievedItem> retrievedItems = ReadRetrievedItems(itemsRetrievedD);
+
+            TradeDetails tradeDetails = new TradeDetails(sentItems, retrievedItems, createdAt);
+
+            return tradeDetails;
+        }
+
+        static DateTime? ReadCreatedAt(dynamic createdAtD)
+        {
             DateTime? createdAt = null;
-            if (data.created_at != null)
+            if (createdAtD != null)
             {
-                createdAt = DateTimeExtension.FromUnixTime((long)data.created_at);
+                createdAt = DateTimeExtension.FromUnixTime((long)createdAtD);
             }
 
-            List<SentItem> sentItems = new List<SentItem>();
-            if (data.items_sent != null)
-            {
-                dynamic itemsSent = data.items_sent;
+            return createdAt;
+        }
 
-                foreach (dynamic item in itemsSent)
+        static List<SentItem> ReadSentItems(dynamic itemsSentD)
+        {
+            List<SentItem> sentItems = new List<SentItem>();
+            if (itemsSentD != null)
+            {
+                foreach (dynamic item in itemsSentD)
                 {
                     Market.AppId.AppName appId = (Market.AppId.AppName)(int)item.app_id;
                     string itemId = item.item_id;
@@ -66,12 +81,15 @@ namespace BitSkinsApi.Trade
                 }
             }
 
-            List<RetrievedItem> retrievedItems = new List<RetrievedItem>();
-            if (data.items_retrieved != null)
-            {
-                dynamic itemsRetrieved = data.items_retrieved;
+            return sentItems;
+        }
 
-                foreach (dynamic item in itemsRetrieved)
+        static List<RetrievedItem> ReadRetrievedItems(dynamic itemsRetrievedD)
+        {
+            List<RetrievedItem> retrievedItems = new List<RetrievedItem>();
+            if (itemsRetrievedD != null)
+            {
+                foreach (dynamic item in itemsRetrievedD)
                 {
                     Market.AppId.AppName appId = (Market.AppId.AppName)(int)item.app_id;
                     string itemId = item.item_id;
@@ -81,21 +99,20 @@ namespace BitSkinsApi.Trade
                 }
             }
 
-            TradeDetail tradeDetail = new TradeDetail(sentItems, retrievedItems, createdAt);
-            return tradeDetail;
+            return retrievedItems;
         }
     }
 
     /// <summary>
-    /// Info about trade.
+    /// Trade's details.
     /// </summary>
-    public class TradeDetail
+    public class TradeDetails
     {
         public List<SentItem> SentItems { get; private set; }
         public List<RetrievedItem> RetrievedItems { get; private set; }
         public DateTime? CreatedAt { get; private set; }
 
-        internal TradeDetail(List<SentItem> sentItems, List<RetrievedItem> retrievedItem, DateTime? createdAt)
+        internal TradeDetails(List<SentItem> sentItems, List<RetrievedItem> retrievedItem, DateTime? createdAt)
         {
             SentItems = sentItems;
             RetrievedItems = retrievedItem;
@@ -104,7 +121,7 @@ namespace BitSkinsApi.Trade
     }
 
     /// <summary>
-    /// Sent items in trade.
+    /// Sent items in this trade.
     /// </summary>
     public class SentItem
     {
@@ -132,7 +149,7 @@ namespace BitSkinsApi.Trade
     }
 
     /// <summary>
-    /// Retrieved items in trade.
+    /// Retrieved items in this trade.
     /// </summary>
     public class RetrievedItem
     {

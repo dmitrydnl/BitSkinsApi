@@ -1,68 +1,63 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using Newtonsoft.Json;
 using BitSkinsApi.Extensions;
 
 namespace BitSkinsApi.Trade
 {
     /// <summary>
-    /// Work with BitSkins trade offers.
+    /// Work with trade offers.
     /// </summary>
-    public static class RecentTradeOffers
+    public static class RecentOffers
     {
         /// <summary>
-        /// All types Steam trade offer states.
+        /// Types status Steam trade offer.
         /// </summary>
-        public enum TradeOfferStateType { Active = 2, Accept = 3, OutOfTime = 6, Cancel = 7, Unknown = 0 };
+        public enum TradeOfferStatusType { Active = 2, Accept = 3, OutOfTime = 6, Cancel = 7, Unknown = 0 };
 
         /// <summary>
-        /// Allows you to retrieve information about 50 most recent trade offers sent by BitSkins. Response contains 'steam_trade_offer_state,' which is '2' if the only is currently active.
+        /// Allows you to retrieve information about 50 most recent trade offers sent by BitSkins.
         /// </summary>
         /// <param name="activeOnly">Value is 'true' if you only need trade offers currently active.</param>
         /// <returns>List of recent trade offers.</returns>
-        public static List<TradeOffer> GetRecentTradeOffers(bool activeOnly)
+        public static List<RecentTradeOffer> GetRecentTradeOffers(bool activeOnly)
         {
-            StringBuilder url = new StringBuilder($"https://bitskins.com/api/v1/get_recent_trade_offers/");
-            url.Append($"?api_key={Account.AccountData.GetApiKey()}");
-            url.Append($"&active_only={activeOnly}");
-            url.Append($"&code={Account.Secret.GetTwoFactorCode()}");
+            Server.UrlCreator urlCreator = new Server.UrlCreator($"https://bitskins.com/api/v1/get_recent_trade_offers/");
+            urlCreator.AppendUrl($"&active_only={activeOnly}");
 
-            string result = Server.ServerRequest.RequestServer(url.ToString());
-            List<TradeOffer> tradeOffersItems = ReadTradeOffers(result);
-            return tradeOffersItems;
+            string result = Server.ServerRequest.RequestServer(urlCreator.ReadUrl());
+            List<RecentTradeOffer> recentTradeOffers = ReadRecentTradeOffers(result);
+            return recentTradeOffers;
         }
 
-        static List<TradeOffer> ReadTradeOffers(string result)
+        static List<RecentTradeOffer> ReadRecentTradeOffers(string result)
         {
-            dynamic responseServer = JsonConvert.DeserializeObject(result);
-            dynamic offers = responseServer.data.offers;
+            dynamic responseServerD = JsonConvert.DeserializeObject(result);
+            dynamic offersD = responseServerD.data.offers;
 
-            if (offers == null)
+            List<RecentTradeOffer> recentTradeOffers = new List<RecentTradeOffer>();
+            if (offersD != null)
             {
-                return new List<TradeOffer>();
+                foreach (dynamic offer in offersD)
+                {
+                    string steamTradeOfferId = offer.steam_trade_offer_id;
+                    TradeOfferStatusType steamTradeOfferStatus = (TradeOfferStatusType)(int)offer.steam_trade_offer_state;
+                    string senderUid = offer.sender_uid;
+                    string recipientUid = offer.recipient_uid;
+                    int numItemsSent = offer.num_items_sent;
+                    int numItemsRetrieved = offer.num_items_retrieved;
+                    string tradeMessage = offer.trade_message;
+                    TradeTokenAndTradeIdFromString(tradeMessage, out string bitSkinsTradeToken, out string bitSkinsTradeId);
+                    DateTime createdAt = DateTimeExtension.FromUnixTime((long)offer.created_at);
+                    DateTime updatedAt = DateTimeExtension.FromUnixTime((long)offer.updated_at);
+
+                    RecentTradeOffer recentTradeOffer = new RecentTradeOffer(steamTradeOfferId, steamTradeOfferStatus, senderUid, recipientUid, numItemsSent,
+                        numItemsRetrieved, bitSkinsTradeToken, bitSkinsTradeId, tradeMessage, createdAt, updatedAt);
+                    recentTradeOffers.Add(recentTradeOffer);
+                }
             }
 
-            List<TradeOffer> tradeOffers = new List<TradeOffer>();
-            foreach (dynamic offer in offers)
-            {
-                string steamTradeOfferId = offer.steam_trade_offer_id;
-                TradeOfferStateType steamTradeOfferState = (TradeOfferStateType)(int)offer.steam_trade_offer_state;
-                string senderUid = offer.sender_uid;
-                string recipientUid = offer.recipient_uid;
-                int numItemsSent = offer.num_items_sent;
-                int numItemsRetrieved = offer.num_items_retrieved;
-                string tradeMessage = offer.trade_message;
-                TradeTokenAndTradeIdFromString(tradeMessage, out string bitSkinsTradeToken, out string bitSkinsTradeId);
-                DateTime createdAt = DateTimeExtension.FromUnixTime((long)offer.created_at);
-                DateTime updatedAt = DateTimeExtension.FromUnixTime((long)offer.updated_at);
-
-                TradeOffer tradeOffer = new TradeOffer(steamTradeOfferId, steamTradeOfferState, senderUid, recipientUid, numItemsSent,
-                    numItemsRetrieved, bitSkinsTradeToken, bitSkinsTradeId, tradeMessage, createdAt, updatedAt);
-                tradeOffers.Add(tradeOffer);
-            }
-
-            return tradeOffers;
+            return recentTradeOffers;
         }
 
         static void TradeTokenAndTradeIdFromString(string tradeMessage, out string bitSkinsTradeToken, out string bitSkinsTradeId)
@@ -80,12 +75,12 @@ namespace BitSkinsApi.Trade
     }
 
     /// <summary>
-    /// Info about trade offer.
+    /// Information about trade offer.
     /// </summary>
-    public class TradeOffer
+    public class RecentTradeOffer
     {
         public string SteamTradeOfferId { get; private set; }
-        public RecentTradeOffers.TradeOfferStateType SteamTradeOfferState { get; private set; }
+        public RecentOffers.TradeOfferStatusType SteamTradeOfferStatus { get; private set; }
         public string SenderUid { get; private set; }
         public string RecipientUid { get; private set; }
         public int NumItemsSent { get; private set; }
@@ -96,12 +91,12 @@ namespace BitSkinsApi.Trade
         public DateTime CreatedAt { get; private set; }
         public DateTime UpdatedAt { get; private set; }
 
-        internal TradeOffer(string steamTradeOfferId, RecentTradeOffers.TradeOfferStateType steamTradeOfferState, string senderUid, 
+        internal RecentTradeOffer(string steamTradeOfferId, RecentOffers.TradeOfferStatusType steamTradeOfferStatus, string senderUid, 
             string recipientUid, int numItemsSent, int numItemsRetrieved, string bitSkinsTradeToken, 
             string bitSkinsTradeId, string tradeMessage, DateTime createdAt, DateTime updatedAt)
         {
             SteamTradeOfferId = steamTradeOfferId;
-            SteamTradeOfferState = steamTradeOfferState;
+            SteamTradeOfferStatus = steamTradeOfferStatus;
             SenderUid = senderUid;
             RecipientUid = recipientUid;
             NumItemsSent = numItemsSent;
