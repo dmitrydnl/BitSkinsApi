@@ -7,68 +7,65 @@ using BitSkinsApi.Extensions;
 namespace BitSkinsApi.Balance
 {
     /// <summary>
-    /// Work with BitSkins money events.
+    /// Work with money events.
     /// </summary>
     public static class MoneyEvents
     {
         /// <summary>
-        /// All types BitSkins money events.
+        /// Types BitSkins money events.
         /// </summary>
         public enum MoneyEventType { ItemBought, ItemSold, SaleFee, BuyCredit, StoreCredit, Unknown };
 
         /// <summary>
-        /// Allows you to retrieve historical events that caused changes in your BitSkins balance. Upto 30 items per page.
+        /// Allows you to retrieve historical events that caused changes in your BitSkins balance. 
+        /// Upto 30 items per page.
         /// </summary>
         /// <param name="page">Page number.</param>
         /// <returns>List of money events.</returns>
         public static List<MoneyEvent> GetMoneyEvents(int page)
         {
-            StringBuilder url = new StringBuilder($"https://bitskins.com/api/v1/get_money_events/");
-            url.Append($"?api_key={Account.AccountData.GetApiKey()}");
-            url.Append($"&page={page}");
-            url.Append($"&code={Account.Secret.GetTwoFactorCode()}");
+            Server.UrlCreator urlCreator = new Server.UrlCreator($"https://bitskins.com/api/v1/get_money_events/");
+            urlCreator.AppendUrl($"&page={page}");
 
-            string result = Server.ServerRequest.RequestServer(url.ToString());
+            string result = Server.ServerRequest.RequestServer(urlCreator.ReadUrl());
             List<MoneyEvent> moneyEvents = ReadMoneyEvents(result);
             return moneyEvents;
         }
 
         static List<MoneyEvent> ReadMoneyEvents(string result)
         {
-            dynamic responseServer = JsonConvert.DeserializeObject(result);
-            dynamic events = responseServer.data.events;
-
-            if (events == null)
-            {
-                return new List<MoneyEvent>();
-            }
-
+            dynamic responseServerD = JsonConvert.DeserializeObject(result);
+            dynamic moneyEventsD = responseServerD.data.events;
+            
             List<MoneyEvent> moneyEvents = new List<MoneyEvent>();
-            foreach (dynamic moneyEvent in events)
+            if (moneyEventsD != null)
             {
-                MoneyEventType type = StringToMoneyEventType((string)moneyEvent.type);
-                if (type == MoneyEventType.Unknown)
+                foreach (dynamic moneyEventD in moneyEventsD)
                 {
-                    continue;
-                }
+                    MoneyEventType type = StringToMoneyEventType((string)moneyEventD.type);
+                    if (type == MoneyEventType.Unknown)
+                    {
+                        continue;
+                    }
 
-                DateTime time = DateTimeExtension.FromUnixTime((long)moneyEvent.time);
+                    DateTime time = DateTimeExtension.FromUnixTime((long)moneyEventD.time);
 
-                double amount = 0;
-                string description = "";
-                if (type == MoneyEventType.ItemBought || type == MoneyEventType.ItemSold)
-                {
-                    amount = moneyEvent.price;
-                    description = $"{moneyEvent.medium.app_id}:{moneyEvent.medium.market_hash_name}";
-                }
-                else if (type == MoneyEventType.SaleFee || type == MoneyEventType.BuyCredit || type == MoneyEventType.StoreCredit)
-                {
-                    amount = moneyEvent.amount;
-                    description = $"{moneyEvent.medium}";
-                }
+                    double amount = 0;
+                    string description = "";
+                    if (type == MoneyEventType.ItemBought || type == MoneyEventType.ItemSold)
+                    {
+                        amount = moneyEventD.price;
+                        description = $"{moneyEventD.medium.app_id}:{moneyEventD.medium.market_hash_name}";
+                    }
+                    else if (type == MoneyEventType.SaleFee || type == MoneyEventType.BuyCredit || type == MoneyEventType.StoreCredit)
+                    {
+                        amount = moneyEventD.amount;
+                        description = $"{moneyEventD.medium}";
+                    }
 
-                MoneyEvent moneyEv = new MoneyEvent(type, amount, description, time);
-                moneyEvents.Add(moneyEv);
+                    MoneyEvent moneyEvent = new MoneyEvent(type, amount, description, time);
+                    moneyEvents.Add(moneyEvent);
+                }
             }
 
             return moneyEvents;
@@ -95,7 +92,7 @@ namespace BitSkinsApi.Balance
     }
 
     /// <summary>
-    /// BitSkins money event.
+    /// Money event.
     /// </summary>
     public class MoneyEvent
     {

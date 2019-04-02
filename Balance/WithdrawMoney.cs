@@ -1,33 +1,33 @@
-﻿using System.Text;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace BitSkinsApi.Balance
 {
     /// <summary>
-    /// Work with BitSkins withdrawal money.
+    /// Work with withdrawal money.
     /// </summary>
-    public static class WithdrawMoney
+    public static class MoneyWithdraw
     {
         /// <summary>
         /// All BitSkins money withdrawal methods.
         /// </summary>
-        public enum WithdrawalMethod { PayPal, Bitcoin, Ethereum, Litecoin, Skrill, BankWire };
+        public enum WithdrawalMoneyMethod { PayPal, Bitcoin, Ethereum, Litecoin, Skrill, BankWire };
 
         /// <summary>
-        /// Allows you to request withdrawal of available balance on your BitSkins account. All withdrawals are finalized 15 days after this request on a rolling basis.
+        /// Allows you to request withdrawal of available balance on your BitSkins account. 
+        /// All withdrawals are finalized 15 days after this request on a rolling basis.
         /// </summary>
         /// <param name="amount">Amount in USD to withdraw. Must be at most equal to available balance, and over $5.00 USD.</param>
-        /// <param name="withdrawalMethod">Can be bitcoin, paypal, and so on.</param>
-        public static bool MoneyWithdrawal(double amount, WithdrawalMethod withdrawalMethod)
+        /// <param name="withdrawalMoneyMethod">Can be bitcoin, paypal, and so on.</param>
+        /// <returns>Whether the withdrawal was successful.</returns>
+        public static bool WithdrawMoney(double amount, WithdrawalMoneyMethod withdrawalMoneyMethod)
         {
-            string method = WithdrawalMethodToString(withdrawalMethod);
-            StringBuilder url = new StringBuilder($"https://bitskins.com/api/v1/request_withdrawal/");
-            url.Append($"?api_key={Account.AccountData.GetApiKey()}");
-            url.Append($"&amount={amount}");
-            url.Append($"&withdrawal_method={method}");
-            url.Append($"&code={Account.Secret.GetTwoFactorCode()}");
+            string method = WithdrawalMoneyMethodToString(withdrawalMoneyMethod);
 
-            string result = Server.ServerRequest.RequestServer(url.ToString());
+            Server.UrlCreator urlCreator = new Server.UrlCreator($"https://bitskins.com/api/v1/request_withdrawal/");
+            urlCreator.AppendUrl($"&amount={amount}");
+            urlCreator.AppendUrl($"&withdrawal_method={method}");
+
+            string result = Server.ServerRequest.RequestServer(urlCreator.ReadUrl());
             bool success = ReadStatus(result) == "success";
             return success;
         }
@@ -39,21 +39,21 @@ namespace BitSkinsApi.Balance
             return status;
         }
 
-        static string WithdrawalMethodToString(WithdrawalMethod withdrawalMethod)
+        static string WithdrawalMoneyMethodToString(WithdrawalMoneyMethod withdrawalMoneyMethod)
         {
-            switch (withdrawalMethod)
+            switch (withdrawalMoneyMethod)
             {
-                case WithdrawalMethod.PayPal:
+                case WithdrawalMoneyMethod.PayPal:
                     return "paypal";
-                case WithdrawalMethod.Bitcoin:
+                case WithdrawalMoneyMethod.Bitcoin:
                     return "bitcoin";
-                case WithdrawalMethod.Ethereum:
+                case WithdrawalMoneyMethod.Ethereum:
                     return "ethereum";
-                case WithdrawalMethod.Litecoin:
+                case WithdrawalMoneyMethod.Litecoin:
                     return "litecoin";
-                case WithdrawalMethod.Skrill:
+                case WithdrawalMoneyMethod.Skrill:
                     return "skrill";
-                case WithdrawalMethod.BankWire:
+                case WithdrawalMoneyMethod.BankWire:
                     return "bank%20wire";
                 default:
                     return "";

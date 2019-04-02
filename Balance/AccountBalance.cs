@@ -1,59 +1,56 @@
-﻿using System.Text;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace BitSkinsApi.Balance
 {
     /// <summary>
-    /// Work with BitSkins account balance.
+    /// Work with current account balance.
     /// </summary>
-    public static class AccountBalance
+    public static class CurrentBalance
     {
         /// <summary>
-        /// Allows you to retrieve your available and pending balance in all currencies supported by BitSkins.
+        /// Allows you to retrieve your available balance.
         /// </summary>
-        /// <returns>BitSkins account balance.</returns>
-        public static Balance GetAccountBalance()
+        /// <returns>Account balance.</returns>
+        public static AccountBalance GetAccountBalance()
         {
-            StringBuilder url = new StringBuilder($"https://bitskins.com/api/v1/get_account_balance/");
-            url.Append($"?api_key={Account.AccountData.GetApiKey()}");
-            url.Append($"&code={Account.Secret.GetTwoFactorCode()}");
+            Server.UrlCreator urlCreator = new Server.UrlCreator($"https://bitskins.com/api/v1/get_account_balance/");
 
-            string result = Server.ServerRequest.RequestServer(url.ToString());
-            Balance balance = ReadBalance(result);
-            return balance;
+            string result = Server.ServerRequest.RequestServer(urlCreator.ReadUrl());
+            AccountBalance accountBalance = ReadAccountBalance(result);
+            return accountBalance;
         }
 
-        static Balance ReadBalance(string result)
+        static AccountBalance ReadAccountBalance(string result)
         {
-            dynamic responseServer = JsonConvert.DeserializeObject(result);
-            dynamic data = responseServer.data;
+            dynamic responseServerD = JsonConvert.DeserializeObject(result);
+            dynamic dataD = responseServerD.data;
 
-            if (data == null)
+            AccountBalance accountBalance = null;
+            if (dataD != null)
             {
-                return new Balance(0, 0, 0, 0);
+                double available_balance = dataD.available_balance;
+                double pending_withdrawals = dataD.pending_withdrawals;
+                double withdrawable_balance = dataD.withdrawable_balance;
+                double couponable_balance = dataD.couponable_balance;
+
+                accountBalance = new AccountBalance(available_balance, pending_withdrawals, withdrawable_balance, couponable_balance);
             }
 
-            double available_balance = data.available_balance;
-            double pending_withdrawals = data.pending_withdrawals;
-            double withdrawable_balance = data.withdrawable_balance;
-            double couponable_balance = data.couponable_balance;
-            Balance balance = new Balance(available_balance, pending_withdrawals, withdrawable_balance, couponable_balance);
-
-            return balance;
+            return accountBalance;
         }
     }
 
     /// <summary>
-    /// BitSkins account balance.
+    /// Account's balance.
     /// </summary>
-    public class Balance
+    public class AccountBalance
     {
         public double AvailableBalance { get; private set; }
         public double PendingWithdrawals { get; private set; }
         public double WithdrawableBalance { get; private set; }
         public double CouponableBalance { get; private set; }
 
-        internal Balance(double availableBalance, double pendingWithdrawals, double withdrawableBalance, double couponableBalance)
+        internal AccountBalance(double availableBalance, double pendingWithdrawals, double withdrawableBalance, double couponableBalance)
         {
             AvailableBalance = availableBalance;
             PendingWithdrawals = pendingWithdrawals;
