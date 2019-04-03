@@ -1,65 +1,60 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using Newtonsoft.Json;
 using BitSkinsApi.Extensions;
 
 namespace BitSkinsApi.Market
 {
     /// <summary>
-    /// Work with modify item.
+    /// Work with modify sale items.
     /// </summary>
-    public static class Modify
+    public static class ModifySaleItems
     {
         /// <summary>
         /// Allows you to change the price on an item currently on sale.
         /// </summary>
-        /// <param name="app">For the inventory's game.</param>
+        /// <param name="app">Inventory's game id.</param>
         /// <param name="itemIds">Item IDs to modify.</param>
         /// <param name="itemPrices">New item prices, in order of item_ids.</param>
         /// <returns>List of modified items.</returns>
         public static List<ModifiedItem> ModifySale(AppId.AppName app, List<string> itemIds, List<double> itemPrices)
         {
             string delimiter = ",";
-
             string itemIdsStr = String.Join(delimiter, itemIds);
             string itemPricesStr = String.Join(delimiter, itemPrices.ConvertAll(x => x.ToString(System.Globalization.CultureInfo.InvariantCulture)));
 
-            StringBuilder url = new StringBuilder($"https://bitskins.com/api/v1/modify_sale_item/");
-            url.Append($"?api_key={Account.AccountData.GetApiKey()}");
-            url.Append($"&app_id={(int)app}");
-            url.Append($"&item_ids={itemIdsStr}");
-            url.Append($"&prices={itemPricesStr}");
-            url.Append($"&code={Account.Secret.GetTwoFactorCode()}");
+            Server.UrlCreator urlCreator = new Server.UrlCreator($"https://bitskins.com/api/v1/modify_sale_item/");
+            urlCreator.AppendUrl($"&app_id={(int)app}");
+            urlCreator.AppendUrl($"&item_ids={itemIdsStr}");
+            urlCreator.AppendUrl($"&prices={itemPricesStr}");
 
-            string result = Server.ServerRequest.RequestServer(url.ToString());
+            string result = Server.ServerRequest.RequestServer(urlCreator.ReadUrl());
             List<ModifiedItem> modifiedItems = ReadModifiedItems(result);
+
             return modifiedItems;
         }
 
         static List<ModifiedItem> ReadModifiedItems(string result)
         {
-            dynamic responseServer = JsonConvert.DeserializeObject(result);
-            dynamic items = responseServer.data.items;
-
-            if (items == null)
-            {
-                return new List<ModifiedItem>();
-            }
+            dynamic responseServerD = JsonConvert.DeserializeObject(result);
+            dynamic itemsD = responseServerD.data.items;
 
             List<ModifiedItem> modifiedItems = new List<ModifiedItem>();
-            foreach (dynamic item in items)
+            if (itemsD != null)
             {
-                string itemId = item.item_id;
-                string marketHashName = item.market_hash_name;
-                string image = item.image;
-                double price = item.price;
-                double oldPrice = item.old_price;
-                double discount = item.discount;
-                DateTime withdrawableAt = DateTimeExtension.FromUnixTime((long)item.withdrawable_at);
+                foreach (dynamic item in itemsD)
+                {
+                    string itemId = item.item_id;
+                    string marketHashName = item.market_hash_name;
+                    string image = item.image;
+                    double price = item.price;
+                    double oldPrice = item.old_price;
+                    double discount = item.discount;
+                    DateTime withdrawableAt = DateTimeExtension.FromUnixTime((long)item.withdrawable_at);
 
-                ModifiedItem modifiedItem = new ModifiedItem(itemId, marketHashName, image, price, oldPrice, discount, withdrawableAt);
-                modifiedItems.Add(modifiedItem);
+                    ModifiedItem modifiedItem = new ModifiedItem(itemId, marketHashName, image, price, oldPrice, discount, withdrawableAt);
+                    modifiedItems.Add(modifiedItem);
+                }
             }
 
             return modifiedItems;
@@ -67,7 +62,7 @@ namespace BitSkinsApi.Market
     }
 
     /// <summary>
-    /// Modified item.
+    /// Modified sale item.
     /// </summary>
     public class ModifiedItem
     {

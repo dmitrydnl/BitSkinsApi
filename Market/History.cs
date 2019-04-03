@@ -12,46 +12,43 @@ namespace BitSkinsApi.Market
     public static class BuyHistory
     {
         /// <summary>
-        /// Allows you to retrieve your history of bought items on BitSkins. Defaults to 30 items per page, with most recent appearing first.
+        /// Allows you to retrieve your history of bought items on BitSkins. 
+        /// Defaults to 30 items per page, with most recent appearing first.
         /// </summary>
-        /// <param name="app">For the inventory's game.</param>
+        /// <param name="app">Iinventory's game id.</param>
         /// <param name="page">Page number.</param>
         /// <returns>List of buy history records.</returns>
         public static List<BuyHistoryRecord> GetBuyHistory(AppId.AppName app, int page)
         {
-            StringBuilder url = new StringBuilder($"https://bitskins.com/api/v1/get_buy_history/");
-            url.Append($"?api_key={Account.AccountData.GetApiKey()}");
-            url.Append($"&page={page}");
-            url.Append($"&app_id={(int)app}");
-            url.Append($"&code={Account.Secret.GetTwoFactorCode()}");
+            Server.UrlCreator urlCreator = new Server.UrlCreator($"https://bitskins.com/api/v1/get_buy_history/");
+            urlCreator.AppendUrl($"&page={page}");
+            urlCreator.AppendUrl($"&app_id={(int)app}");
             
-            string result = Server.ServerRequest.RequestServer(url.ToString());
-            List<BuyHistoryRecord> historyBuyRecords = ReadBuyHistoryRecors(result);
-            return historyBuyRecords;
+            string result = Server.ServerRequest.RequestServer(urlCreator.ReadUrl());
+            List<BuyHistoryRecord> buyHistoryRecords = ReadBuyHistoryRecors(result);
+            return buyHistoryRecords;
         }
 
         static List<BuyHistoryRecord> ReadBuyHistoryRecors(string result)
         {
-            dynamic responseServer = JsonConvert.DeserializeObject(result);
-            dynamic items = responseServer.data.items;
-
-            if (items == null)
-            {
-                return new List<BuyHistoryRecord>();
-            }
+            dynamic responseServerD = JsonConvert.DeserializeObject(result);
+            dynamic itemsD = responseServerD.data.items;
 
             List<BuyHistoryRecord> historyBuyRecords = new List<BuyHistoryRecord>();
-            foreach (dynamic item in items)
+            if (itemsD != null)
             {
-                AppId.AppName appId = (AppId.AppName)(int)item.app_id;
-                string itemId = item.item_id;
-                string marketHashName = item.market_hash_name;
-                double buyPrice = item.buy_price;
-                bool withdrawn = item.withdrawn;
-                DateTime time = DateTimeExtension.FromUnixTime((long)item.time);
+                foreach (dynamic item in itemsD)
+                {
+                    AppId.AppName appId = (AppId.AppName)(int)item.app_id;
+                    string itemId = item.item_id;
+                    string marketHashName = item.market_hash_name;
+                    double buyPrice = item.buy_price;
+                    bool withdrawn = item.withdrawn;
+                    DateTime time = DateTimeExtension.FromUnixTime((long)item.time);
 
-                BuyHistoryRecord historyBuyRecord = new BuyHistoryRecord(appId, itemId, marketHashName, buyPrice, withdrawn, time);
-                historyBuyRecords.Add(historyBuyRecord);
+                    BuyHistoryRecord historyBuyRecord = new BuyHistoryRecord(appId, itemId, marketHashName, buyPrice, withdrawn, time);
+                    historyBuyRecords.Add(historyBuyRecord);
+                }
             }
 
             return historyBuyRecords;
@@ -59,53 +56,51 @@ namespace BitSkinsApi.Market
     }
 
     /// <summary>
-    /// Work with your buy history on BitSkins.
+    /// Work with your sell history on BitSkins.
     /// </summary>
     public static class SellHistory
     {
         /// <summary>
-        /// Allows you to retrieve your history of sold items on BitSkins. Defaults to 30 items per page, with most recent appearing first.
+        /// Allows you to retrieve your history of sold items on BitSkins.
+        /// Defaults to 30 items per page, with most recent appearing first.
         /// </summary>
-        /// <param name="app">For the inventory's game.</param>
+        /// <param name="app">Inventory's game id.</param>
         /// <param name="page">Page number.</param>
         /// <returns>List of sell history records.</returns>
         public static List<SellHistoryRecord> GetSellHistory(AppId.AppName app, int page)
         {
-            StringBuilder url = new StringBuilder($"https://bitskins.com/api/v1/get_sell_history/");
-            url.Append($"?api_key={Account.AccountData.GetApiKey()}");
-            url.Append($"&page={page}");
-            url.Append($"&app_id={(int)app}");
-            url.Append($"&code={Account.Secret.GetTwoFactorCode()}");
+            Server.UrlCreator urlCreator = new Server.UrlCreator($"https://bitskins.com/api/v1/get_sell_history/");
+            urlCreator.AppendUrl($"&page={page}");
+            urlCreator.AppendUrl($"&app_id={(int)app}");
 
-            string result = Server.ServerRequest.RequestServer(url.ToString());
-            List<SellHistoryRecord> historySellRecords = ReadSellHistoryRecors(result);
-            return historySellRecords;
+            string result = Server.ServerRequest.RequestServer(urlCreator.ReadUrl());
+            List<SellHistoryRecord> sellHistoryRecords = ReadSellHistoryRecors(result);
+
+            return sellHistoryRecords;
         }
 
         static List<SellHistoryRecord> ReadSellHistoryRecors(string result)
         {
-            dynamic responseServer = JsonConvert.DeserializeObject(result);
-            dynamic items = responseServer.data.items;
+            dynamic responseServerD = JsonConvert.DeserializeObject(result);
+            dynamic itemsD = responseServerD.data.items;
 
-            if (items == null)
+            List<SellHistoryRecord> sellHistoryRecords = new List<SellHistoryRecord>();
+            if (itemsD != null)
             {
-                return new List<SellHistoryRecord>();
+                foreach (dynamic item in itemsD)
+                {
+                    AppId.AppName appId = (AppId.AppName)(int)item.app_id;
+                    string itemId = item.item_id;
+                    string marketHashName = item.market_hash_name;
+                    double salePrice = item.sale_price;
+                    DateTime time = DateTimeExtension.FromUnixTime((long)item.time);
+
+                    SellHistoryRecord sellHistoryRecord = new SellHistoryRecord(appId, itemId, marketHashName, salePrice, time);
+                    sellHistoryRecords.Add(sellHistoryRecord);
+                }
             }
 
-            List<SellHistoryRecord> historySellRecords = new List<SellHistoryRecord>();
-            foreach (dynamic item in items)
-            {
-                AppId.AppName appId = (AppId.AppName)(int)item.app_id;
-                string itemId = item.item_id;
-                string marketHashName = item.market_hash_name;
-                double salePrice = item.sale_price;
-                DateTime time = DateTimeExtension.FromUnixTime((long)item.time);
-
-                SellHistoryRecord historySellRecord = new SellHistoryRecord(appId, itemId, marketHashName, salePrice, time);
-                historySellRecords.Add(historySellRecord);
-            }
-
-            return historySellRecords;
+            return sellHistoryRecords;
         }
     }
 
@@ -124,9 +119,9 @@ namespace BitSkinsApi.Market
         public enum ItemHistoryRecordType { BoughtAt, SoldAt };
 
         /// <summary>
-        /// Allows you to retrieve bought/sold/listed item history. By default, upto 30 items per page, and optionally up to 480 items per page.
+        /// Allows you to retrieve bought/sold/listed item history.
         /// </summary>
-        /// <param name="app">For the inventory's game.</param>
+        /// <param name="app">Inventory's game id.</param>
         /// <param name="page">Page number.</param>
         /// <param name="names">Item names. (optional)</param>
         /// <param name="resultsPerPage">Results per page.</param>
@@ -134,76 +129,67 @@ namespace BitSkinsApi.Market
         public static List<ItemHistoryRecord> GetItemHistory(AppId.AppName app, int page, List<string> names, ResultsPerPage resultsPerPage)
         {
             string delimiter = ",";
+            string namesStr = String.Join(delimiter, names);
 
-            StringBuilder namesStr = new StringBuilder();
-            for (int i = 0; i < names.Count; i++)
-            {
-                namesStr.Append(names[i]);
-                namesStr.Append((i < names.Count - 1) ? delimiter : "");
-            }
-
-            StringBuilder url = new StringBuilder($"https://bitskins.com/api/v1/get_item_history/");
-            url.Append($"?api_key={Account.AccountData.GetApiKey()}");
-            url.Append($"&page={page}");
-            url.Append($"&app_id={(int)app}");
-            url.Append($"&per_page={(int)resultsPerPage}");
-            url.Append($"&code={Account.Secret.GetTwoFactorCode()}");
+            Server.UrlCreator urlCreator = new Server.UrlCreator($"https://bitskins.com/api/v1/get_item_history/");
+            urlCreator.AppendUrl($"&page={page}");
+            urlCreator.AppendUrl($"&app_id={(int)app}");
+            urlCreator.AppendUrl($"&per_page={(int)resultsPerPage}");
 
             if (names.Count > 0)
             {
-                url.Append($"&names={namesStr.ToString()}");
-                url.Append($"&delimiter={delimiter}");
+                urlCreator.AppendUrl($"&names={namesStr.ToString()}");
+                urlCreator.AppendUrl($"&delimiter={delimiter}");
             }
 
-            string result = Server.ServerRequest.RequestServer(url.ToString());
+            string result = Server.ServerRequest.RequestServer(urlCreator.ReadUrl());
             List<ItemHistoryRecord> itemHistoryRecords = ReadItemHistoryRecords(result);
+
             return itemHistoryRecords;
         }
 
         static List<ItemHistoryRecord> ReadItemHistoryRecords(string result)
         {
-            dynamic responseServer = JsonConvert.DeserializeObject(result);
-            dynamic items = responseServer.data.items;
-
-            if (items == null)
-            {
-                return new List<ItemHistoryRecord>();
-            }
+            dynamic responseServerD = JsonConvert.DeserializeObject(result);
+            dynamic itemsD = responseServerD.data.items;
 
             List<ItemHistoryRecord> itemHistoryRecords = new List<ItemHistoryRecord>();
-            foreach (dynamic item in items)
+            if (itemsD != null)
             {
-                AppId.AppName appId = (AppId.AppName)(int)item.app_id;
-                string itemId = item.item_id;
-                string marketHashName = item.market_hash_name;
-                double price = item.price;
-                DateTime lastUpdateAt = DateTimeExtension.FromUnixTime((long)item.last_update_at);
-                DateTime listedAt = DateTimeExtension.FromUnixTime((long)item.listed_at);
-                DateTime? withdrawnAt = null;
-                if (item.withdrawn_at != null)
+                foreach (dynamic item in itemsD)
                 {
-                    withdrawnAt = DateTimeExtension.FromUnixTime((long)item.withdrawn_at);
-                }
-                bool listedByMe = item.listed_by_me;
-                bool onHold = item.on_hold;
-                bool onSale = item.on_sale;
-                ItemHistoryRecordType recordType = (item.bought_at != null) ? ItemHistoryRecordType.BoughtAt : ItemHistoryRecordType.SoldAt;
-                DateTime? recordTime = null;
-                if (recordType == ItemHistoryRecordType.BoughtAt)
-                {
-                    recordTime = DateTimeExtension.FromUnixTime((long)item.bought_at);
-                }
-                else if (recordType == ItemHistoryRecordType.SoldAt)
-                {
-                    if (item.sold_at != null)
+                    AppId.AppName appId = (AppId.AppName)(int)item.app_id;
+                    string itemId = item.item_id;
+                    string marketHashName = item.market_hash_name;
+                    double price = item.price;
+                    DateTime lastUpdateAt = DateTimeExtension.FromUnixTime((long)item.last_update_at);
+                    DateTime listedAt = DateTimeExtension.FromUnixTime((long)item.listed_at);
+                    DateTime? withdrawnAt = null;
+                    if (item.withdrawn_at != null)
                     {
-                        recordTime = DateTimeExtension.FromUnixTime((long)item.sold_at);
+                        withdrawnAt = DateTimeExtension.FromUnixTime((long)item.withdrawn_at);
                     }
-                }
+                    bool listedByMe = item.listed_by_me;
+                    bool onHold = item.on_hold;
+                    bool onSale = item.on_sale;
+                    ItemHistoryRecordType recordType = (item.bought_at != null) ? ItemHistoryRecordType.BoughtAt : ItemHistoryRecordType.SoldAt;
+                    DateTime? recordTime = null;
+                    if (recordType == ItemHistoryRecordType.BoughtAt)
+                    {
+                        recordTime = DateTimeExtension.FromUnixTime((long)item.bought_at);
+                    }
+                    else if (recordType == ItemHistoryRecordType.SoldAt)
+                    {
+                        if (item.sold_at != null)
+                        {
+                            recordTime = DateTimeExtension.FromUnixTime((long)item.sold_at);
+                        }
+                    }
 
-                ItemHistoryRecord itemHistoryRecord = new ItemHistoryRecord(appId, itemId, marketHashName, price, 
-                    recordType, lastUpdateAt, listedAt, withdrawnAt, listedByMe, onHold, onSale, recordTime);
-                itemHistoryRecords.Add(itemHistoryRecord);
+                    ItemHistoryRecord itemHistoryRecord = new ItemHistoryRecord(appId, itemId, marketHashName, price,
+                        recordType, lastUpdateAt, listedAt, withdrawnAt, listedByMe, onHold, onSale, recordTime);
+                    itemHistoryRecords.Add(itemHistoryRecord);
+                }
             }
 
             return itemHistoryRecords;

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using Newtonsoft.Json;
 using BitSkinsApi.Extensions;
 
@@ -14,58 +13,54 @@ namespace BitSkinsApi.Market
         /// <summary>
         /// Allows you to retrieve basic price data for items currently on sale at BitSkins.
         /// </summary>
-        /// <param name="app">For the inventory's game.</param>
+        /// <param name="app">Inventory's game id.</param>
         /// <returns>List of items currently on sale at BitSkins.</returns>
-        public static List<MarketDataItem> GetMarketData(AppId.AppName app)
+        public static List<MarketItem> GetMarketData(AppId.AppName app)
         {
-            StringBuilder url = new StringBuilder($"https://bitskins.com/api/v1/get_price_data_for_items_on_sale/");
-            url.Append($"?api_key={Account.AccountData.GetApiKey()}");
-            url.Append($"&app_id={(int)app}");
-            url.Append($"&code={Account.Secret.GetTwoFactorCode()}");
+            Server.UrlCreator urlCreator = new Server.UrlCreator($"https://bitskins.com/api/v1/get_price_data_for_items_on_sale/");
+            urlCreator.AppendUrl($"&app_id={(int)app}");
 
-            string result = Server.ServerRequest.RequestServer(url.ToString());
-            List<MarketDataItem> marketDataItems = ReadMarketDataItems(result);
-            return marketDataItems;
+            string result = Server.ServerRequest.RequestServer(urlCreator.ReadUrl());
+            List<MarketItem> marketItems = ReadMarketItems(result);
+            return marketItems;
         }
 
-        static List<MarketDataItem> ReadMarketDataItems(string result)
+        static List<MarketItem> ReadMarketItems(string result)
         {
-            dynamic responseServer = JsonConvert.DeserializeObject(result);
-            dynamic items = responseServer.data.items;
+            dynamic responseServerD = JsonConvert.DeserializeObject(result);
+            dynamic itemsD = responseServerD.data.items;
 
-            if (items == null)
+            List<MarketItem> marketItems = new List<MarketItem>();
+            if (itemsD != null)
             {
-                return new List<MarketDataItem>();
-            }
-
-            List<MarketDataItem> marketDataItems = new List<MarketDataItem>();
-            foreach (dynamic item in items)
-            {
-                string marketHashName = item.market_hash_name;
-                int totalItems = item.total_items;
-                double lowestPrice = item.lowest_price;
-                double highestPrice = item.highest_price;
-                double cumulativePrice = item.cumulative_price;
-                double recentAveragePrice = (item.recent_sales_info != null) ? (double)item.recent_sales_info.average_price : 0;
-                DateTime? updatedAt = null;
-                if (item.updated_at != null)
+                foreach (dynamic item in itemsD)
                 {
-                    updatedAt = DateTimeExtension.FromUnixTime((long)item.updated_at);
-                }
+                    string marketHashName = item.market_hash_name;
+                    int totalItems = item.total_items;
+                    double lowestPrice = item.lowest_price;
+                    double highestPrice = item.highest_price;
+                    double cumulativePrice = item.cumulative_price;
+                    double recentAveragePrice = (item.recent_sales_info != null) ? (double)item.recent_sales_info.average_price : 0;
+                    DateTime? updatedAt = null;
+                    if (item.updated_at != null)
+                    {
+                        updatedAt = DateTimeExtension.FromUnixTime((long)item.updated_at);
+                    }
 
-                MarketDataItem marketItem = new MarketDataItem(marketHashName, totalItems, lowestPrice,
-                    highestPrice, cumulativePrice, recentAveragePrice, updatedAt);
-                marketDataItems.Add(marketItem);
+                    MarketItem marketItem = new MarketItem(marketHashName, totalItems, lowestPrice,
+                        highestPrice, cumulativePrice, recentAveragePrice, updatedAt);
+                    marketItems.Add(marketItem);
+                }
             }
 
-            return marketDataItems;
+            return marketItems;
         }
     }
 
     /// <summary>
-    /// BitSkins item currently on sale.
+    /// BitSkins market item.
     /// </summary>
-    public class MarketDataItem
+    public class MarketItem
     {
         public string MarketHashName { get; private set; }
         public int TotalItems { get; private set; }
@@ -75,7 +70,7 @@ namespace BitSkinsApi.Market
         public double RecentAveragePrice { get; private set; }
         public DateTime? UpdatedAt { get; private set; }
 
-        internal MarketDataItem(string marketHashName, int totalItems, double lowestPrice, double highestPrice, 
+        internal MarketItem(string marketHashName, int totalItems, double lowestPrice, double highestPrice, 
             double cumulativePrice, double recentAveragePrice, DateTime? updatedAt)
         {
             MarketHashName = marketHashName;

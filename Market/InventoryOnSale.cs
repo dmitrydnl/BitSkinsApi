@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using Newtonsoft.Json;
 using BitSkinsApi.Extensions;
 
@@ -12,11 +11,11 @@ namespace BitSkinsApi.Market
     public static class InventoryOnSale
     {
         /// <summary>
-        /// Sorting criterion.
+        /// Type of sorting criterion.
         /// </summary>
         public enum SortBy { Price, CreatedAt, BumpedAt, Not };
         /// <summary>
-        /// Sort order.
+        /// Type of sort order.
         /// </summary>
         public enum SortOrder { Asc, Desc, Not };
         /// <summary>
@@ -29,9 +28,10 @@ namespace BitSkinsApi.Market
         public enum ResultsPerPage { R30 = 30, R480 = 480 };
 
         /// <summary>
-        /// Allows you to retrieve the BitSkins inventory currently on sale. This includes items you cannot buy (i.e., items listed for sale by you). By default, upto 30 items per page, and optionally up to 480 items per page. This method allows you to search the inventory just as the search function on the website allows you to search inventory.
+        /// Allows you to retrieve the BitSkins inventory currently on sale. 
+        /// This includes items you cannot buy (i.e., items listed for sale by you).
         /// </summary>
-        /// <param name="app">For the inventory's game.</param>
+        /// <param name="app">Inventory's game id.</param>
         /// <param name="page">Page number.</param>
         /// <param name="marketHashName">Full or partial item name. (optional)</param>
         /// <param name="minPrice">Minimum price. (optional)</param>
@@ -48,66 +48,63 @@ namespace BitSkinsApi.Market
             SortBy sortBy, SortOrder sortOrder, ThreeChoices hasStickers, ThreeChoices isStattrak, ThreeChoices isSouvenir, 
             ResultsPerPage resultsPerPage, ThreeChoices tradeDelayedItems)
         {
-            StringBuilder url = new StringBuilder($"https://bitskins.com/api/v1/get_inventory_on_sale/");
-            url.Append($"?api_key={Account.AccountData.GetApiKey()}");
-            url.Append($"&page={page}");
-            url.Append($"&app_id={(int)app}");
-            url.Append($"&per_page={(int)resultsPerPage}");
-            url.Append($"&code={Account.Secret.GetTwoFactorCode()}");
+            Server.UrlCreator urlCreator = new Server.UrlCreator($"https://bitskins.com/api/v1/get_inventory_on_sale/");
+            urlCreator.AppendUrl($"&page={page}");
+            urlCreator.AppendUrl($"&app_id={(int)app}");
+            urlCreator.AppendUrl($"&per_page={(int)resultsPerPage}");
             
             if (!string.IsNullOrEmpty(marketHashName))
             {
-                url.Append($"&market_hash_name={marketHashName}");
+                urlCreator.AppendUrl($"&market_hash_name={marketHashName}");
             }
 
             if (minPrice > 0)
             {
-                url.Append($"&min_price={minPrice}");
+                urlCreator.AppendUrl($"&min_price={minPrice}");
             }
 
             if (maxPrice > 0)
             {
-                url.Append($"&max_price={maxPrice}");
+                urlCreator.AppendUrl($"&max_price={maxPrice}");
             }
 
             if (sortBy != SortBy.Not)
             {
-                url.Append($"&sort_by={SortByToString(sortBy)}");
+                urlCreator.AppendUrl($"&sort_by={SortByToString(sortBy)}");
             }
             
             if (sortOrder != SortOrder.Not)
             {
-                url.Append($"&order={SortOrderToString(sortOrder)}");
+                urlCreator.AppendUrl($"&order={SortOrderToString(sortOrder)}");
             }
             
             if (app == AppId.AppName.CounterStrikGlobalOffensive)
             {
-                url.Append($"&has_stickers={(int)hasStickers}");
-                url.Append($"&is_stattrak={(int)isStattrak}");
-                url.Append($"&is_souvenir={(int)isSouvenir}");
-                url.Append($"&show_trade_delayed_items={(int)tradeDelayedItems}");
+                urlCreator.AppendUrl($"&has_stickers={(int)hasStickers}");
+                urlCreator.AppendUrl($"&is_stattrak={(int)isStattrak}");
+                urlCreator.AppendUrl($"&is_souvenir={(int)isSouvenir}");
+                urlCreator.AppendUrl($"&show_trade_delayed_items={(int)tradeDelayedItems}");
             }
             
-            string result = Server.ServerRequest.RequestServer(url.ToString());
+            string result = Server.ServerRequest.RequestServer(urlCreator.ReadUrl());
             List<ItemOnSale> itemsOnSale = ReadItemsOnSale(result);
+
             return itemsOnSale;
         }
 
         static List<ItemOnSale> ReadItemsOnSale(string result)
         {
-            dynamic responseServer = JsonConvert.DeserializeObject(result);
-            dynamic items = responseServer.data.items;
-
-            if (items == null)
-            {
-                return new List<ItemOnSale>();
-            }
+            dynamic responseServerD = JsonConvert.DeserializeObject(result);
+            dynamic itemsD = responseServerD.data.items;
 
             List<ItemOnSale> itemsOnSale = new List<ItemOnSale>();
-            foreach (dynamic item in items)
+            if (itemsD != null)
             {
-                ItemOnSale itemOnSale = ReadItemOnSale(item);
-                itemsOnSale.Add(itemOnSale);
+                foreach (dynamic item in itemsD)
+                {
+                    ItemOnSale itemOnSale = ReadItemOnSale(item);
+                    itemsOnSale.Add(itemOnSale);
+                }
             }
 
             return itemsOnSale;
@@ -174,34 +171,42 @@ namespace BitSkinsApi.Market
     public static class SpecificItemsOnSale
     {
         /// <summary>
-        /// Allows you to retrieve data for specific Item IDs that are currently on sale. To gather Item IDs you wish to track/query, see the 'Get Inventory on Sale' API call for items currently on sale.
+        /// Allows you to retrieve data for specific Item IDs that are currently on sale. 
         /// </summary>
-        /// <param name="app">For the inventory's game.</param>
-        /// <param name="itemIds">Upto 250 item IDs.</param>
+        /// <param name="app">Inventory's game id.</param>
+        /// <param name="itemIds">List of item ids. Upto 250 item IDs.</param>
         /// <returns>Specific items on sale on BitSkins.</returns>
         public static SpecificItems GetSpecificItemsOnSale(AppId.AppName app, List<string> itemIds)
         {
             string delimiter = ",";
-
             string itemIdsStr = String.Join(delimiter, itemIds);
 
-            StringBuilder url = new StringBuilder($"https://bitskins.com/api/v1/get_specific_items_on_sale/");
-            url.Append($"?api_key={Account.AccountData.GetApiKey()}");
-            url.Append($"&item_ids={itemIdsStr}");
-            url.Append($"&app_id={(int)app}");
-            url.Append($"&code={Account.Secret.GetTwoFactorCode()}");
+            Server.UrlCreator urlCreator = new Server.UrlCreator($"https://bitskins.com/api/v1/get_specific_items_on_sale/");
+            urlCreator.AppendUrl($"&item_ids={itemIdsStr}");
+            urlCreator.AppendUrl($"&app_id={(int)app}");
 
-            string result = Server.ServerRequest.RequestServer(url.ToString());
+            string result = Server.ServerRequest.RequestServer(urlCreator.ReadUrl());
             SpecificItems specificItems = ReadSpecificItems(result);
+
             return specificItems;
         }
 
         static SpecificItems ReadSpecificItems(string result)
         {
-            dynamic responseServer = JsonConvert.DeserializeObject(result);
-            dynamic itemsOnSaleD = responseServer.data.items_on_sale;
-            dynamic itemsNotOnSaleD = responseServer.data.items_not_on_sale;
+            dynamic responseServerD = JsonConvert.DeserializeObject(result);
+            dynamic itemsOnSaleD = responseServerD.data.items_on_sale;
+            dynamic itemsNotOnSaleD = responseServerD.data.items_not_on_sale;
 
+            List<ItemOnSale> itemsOnSale = ReadItemsOnSale(itemsOnSaleD);
+            List<string> itemsNotOnSale = ReadItemsNotOnSale(itemsNotOnSaleD);
+
+            SpecificItems specificItems = new SpecificItems(itemsOnSale, itemsNotOnSale);
+
+            return specificItems;
+        }
+
+        static List<ItemOnSale> ReadItemsOnSale(dynamic itemsOnSaleD)
+        {
             List<ItemOnSale> itemsOnSale = new List<ItemOnSale>();
             if (itemsOnSaleD != null)
             {
@@ -212,6 +217,11 @@ namespace BitSkinsApi.Market
                 }
             }
 
+            return itemsOnSale;
+        }
+
+        static List<string> ReadItemsNotOnSale(dynamic itemsNotOnSaleD)
+        {
             List<string> itemsNotOnSale = new List<string>();
             if (itemsNotOnSaleD != null)
             {
@@ -222,8 +232,7 @@ namespace BitSkinsApi.Market
                 }
             }
 
-            SpecificItems specificItems = new SpecificItems(itemsOnSale, itemsNotOnSale);
-            return specificItems;
+            return itemsNotOnSale;
         }
     }
 

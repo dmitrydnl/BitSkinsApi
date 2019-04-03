@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Text;
 using Newtonsoft.Json;
 
 namespace BitSkinsApi.Market
@@ -10,46 +9,46 @@ namespace BitSkinsApi.Market
     public static class ResetPriceItems
     {
         /// <summary>
-        /// Returns a paginated list of items that need their prices reset. Items need prices reset when Steam changes tracker so we are unable to match specified prices to the received items when you list them for sale. Upto 30 items per page. Items that need price resets always have the reserved price of 4985.11.
+        /// Returns a paginated list of items that need their prices reset. 
+        /// Items need prices reset when Steam changes tracker so BitSkins are unable to match specified prices to the received items
+        /// when you list them for sale. 
+        /// Upto 30 items per page. 
+        /// Items that need price resets always have the reserved price of 4985.11.
         /// </summary>
-        /// <param name="app">For the inventory's game.</param>
+        /// <param name="app">Inventory's game id.</param>
         /// <param name="page">Page number.</param>
         /// <returns>List of reset price items.</returns>
         public static List<ResetPriceItem> GetResetPriceItems(AppId.AppName app, int page)
         {
-            StringBuilder url = new StringBuilder($"https://bitskins.com/api/v1/get_reset_price_items/");
-            url.Append($"?api_key={Account.AccountData.GetApiKey()}");
-            url.Append($"&app_id={(int)app}");
-            url.Append($"&page={page}");
-            url.Append($"&code={Account.Secret.GetTwoFactorCode()}");
+            Server.UrlCreator urlCreator = new Server.UrlCreator($"https://bitskins.com/api/v1/get_reset_price_items/");
+            urlCreator.AppendUrl($"&app_id={(int)app}");
+            urlCreator.AppendUrl($"&page={page}");
 
-            string result = Server.ServerRequest.RequestServer(url.ToString());
+            string result = Server.ServerRequest.RequestServer(urlCreator.ReadUrl());
             List<ResetPriceItem> resetPriceItems = ReadResetPriceItems(result);
             return resetPriceItems;
         }
 
         static List<ResetPriceItem> ReadResetPriceItems(string result)
         {
-            dynamic responseServer = JsonConvert.DeserializeObject(result);
-            dynamic items = responseServer.data.items;
-
-            if (items == null)
-            {
-                return new List<ResetPriceItem>();
-            }
+            dynamic responseServerD = JsonConvert.DeserializeObject(result);
+            dynamic itemsD = responseServerD.data.items;
 
             List<ResetPriceItem> resetPriceItems = new List<ResetPriceItem>();
-            foreach (dynamic item in items)
+            if (itemsD != null)
             {
-                string marketHashName = item.market_hash_name;
-                double? price = null;
-                if (item.price != null)
+                foreach (dynamic item in itemsD)
                 {
-                    price = (double)item.price;
-                }
+                    string marketHashName = item.market_hash_name;
+                    double? price = null;
+                    if (item.price != null)
+                    {
+                        price = (double)item.price;
+                    }
 
-                ResetPriceItem resetPriceItem = new ResetPriceItem(marketHashName, price);
-                resetPriceItems.Add(resetPriceItem);
+                    ResetPriceItem resetPriceItem = new ResetPriceItem(marketHashName, price);
+                    resetPriceItems.Add(resetPriceItem);
+                }
             }
 
             return resetPriceItems;
