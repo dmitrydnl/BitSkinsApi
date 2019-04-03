@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using BitSkinsApi.Extensions;
 
 namespace BitSkinsApi.Market
 {
@@ -19,14 +20,12 @@ namespace BitSkinsApi.Market
         /// <returns>Info about sale.</returns>
         public static InformationAboutSale SellItem(AppId.AppName app, List<string> itemIds, List<double> itemPrices)
         {
-            string delimiter = ",";
-            string itemIdsStr = String.Join(delimiter, itemIds);
-            string itemPricesStr = String.Join(delimiter, itemPrices.ConvertAll(x => x.ToString(System.Globalization.CultureInfo.InvariantCulture)));
+            const string delimiter = ",";
             
             Server.UrlCreator urlCreator = new Server.UrlCreator($"https://bitskins.com/api/v1/list_item_for_sale/");
             urlCreator.AppendUrl($"&app_id={(int)app}");
-            urlCreator.AppendUrl($"&item_ids={itemIdsStr}");
-            urlCreator.AppendUrl($"&prices={itemPricesStr}");
+            urlCreator.AppendUrl($"&item_ids={itemIds.ToStringWithDelimiter(delimiter)}");
+            urlCreator.AppendUrl($"&prices={itemPrices.ToStringWithDelimiter(delimiter)}");
 
             string result = Server.ServerRequest.RequestServer(urlCreator.ReadUrl());
             InformationAboutSale informationAboutSale = ReadInformationAboutSale(result);

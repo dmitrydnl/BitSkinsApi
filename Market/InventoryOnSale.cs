@@ -178,11 +178,10 @@ namespace BitSkinsApi.Market
         /// <returns>Specific items on sale on BitSkins.</returns>
         public static SpecificItems GetSpecificItemsOnSale(AppId.AppName app, List<string> itemIds)
         {
-            string delimiter = ",";
-            string itemIdsStr = String.Join(delimiter, itemIds);
+            const string delimiter = ",";
 
             Server.UrlCreator urlCreator = new Server.UrlCreator($"https://bitskins.com/api/v1/get_specific_items_on_sale/");
-            urlCreator.AppendUrl($"&item_ids={itemIdsStr}");
+            urlCreator.AppendUrl($"&item_ids={itemIds.ToStringWithDelimiter(delimiter)}");
             urlCreator.AppendUrl($"&app_id={(int)app}");
 
             string result = Server.ServerRequest.RequestServer(urlCreator.ReadUrl());

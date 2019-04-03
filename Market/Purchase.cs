@@ -23,14 +23,12 @@ namespace BitSkinsApi.Market
         public static List<BoughtItem> BuyItem(AppId.AppName app, List<string> itemIds, List<double> itemPrices, 
             bool autoTrade, bool allowTradeDelayedPurchases)
         {
-            string delimiter = ",";
-            string itemIdsStr = String.Join(delimiter, itemIds);
-            string itemPricesStr = String.Join(delimiter, itemPrices.ConvertAll(x => x.ToString(System.Globalization.CultureInfo.InvariantCulture)));
+            const string delimiter = ",";
 
             Server.UrlCreator urlCreator = new Server.UrlCreator($"https://bitskins.com/api/v1/buy_item/");
             urlCreator.AppendUrl($"&app_id={(int)app}");
-            urlCreator.AppendUrl($"&item_ids={itemIdsStr}");
-            urlCreator.AppendUrl($"&prices={itemPricesStr}");
+            urlCreator.AppendUrl($"&item_ids={itemIds.ToStringWithDelimiter(delimiter)}");
+            urlCreator.AppendUrl($"&prices={itemPrices.ToStringWithDelimiter(delimiter)}");
             urlCreator.AppendUrl($"&auto_trade={autoTrade}");
             urlCreator.AppendUrl($"&allow_trade_delayed_purchases={allowTradeDelayedPurchases}");
             

@@ -19,14 +19,12 @@ namespace BitSkinsApi.Market
         /// <returns>List of modified items.</returns>
         public static List<ModifiedItem> ModifySale(AppId.AppName app, List<string> itemIds, List<double> itemPrices)
         {
-            string delimiter = ",";
-            string itemIdsStr = String.Join(delimiter, itemIds);
-            string itemPricesStr = String.Join(delimiter, itemPrices.ConvertAll(x => x.ToString(System.Globalization.CultureInfo.InvariantCulture)));
+            const string delimiter = ",";
 
             Server.UrlCreator urlCreator = new Server.UrlCreator($"https://bitskins.com/api/v1/modify_sale_item/");
             urlCreator.AppendUrl($"&app_id={(int)app}");
-            urlCreator.AppendUrl($"&item_ids={itemIdsStr}");
-            urlCreator.AppendUrl($"&prices={itemPricesStr}");
+            urlCreator.AppendUrl($"&item_ids={itemIds.ToStringWithDelimiter(delimiter)}");
+            urlCreator.AppendUrl($"&prices={itemPrices.ToStringWithDelimiter(delimiter)}");
 
             string result = Server.ServerRequest.RequestServer(urlCreator.ReadUrl());
             List<ModifiedItem> modifiedItems = ReadModifiedItems(result);

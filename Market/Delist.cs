@@ -18,12 +18,11 @@ namespace BitSkinsApi.Market
         /// <returns>List of delisted items.</returns>
         public static List<DelistedItem> DelistItem(AppId.AppName app, List<string> itemIds)
         {
-            string delimiter = ",";
-            string itemIdsStr = String.Join(delimiter, itemIds);
+            const string delimiter = ",";
 
             Server.UrlCreator urlCreator = new Server.UrlCreator($"https://bitskins.com/api/v1/delist_item/");
             urlCreator.AppendUrl($"&app_id={(int)app}");
-            urlCreator.AppendUrl($"&item_ids={itemIdsStr}");
+            urlCreator.AppendUrl($"&item_ids={itemIds.ToStringWithDelimiter(delimiter)}");
 
             string result = Server.ServerRequest.RequestServer(urlCreator.ReadUrl());
             List<DelistedItem> delistedItems = ReadDelistedItems(result);

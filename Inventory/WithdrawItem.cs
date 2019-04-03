@@ -18,12 +18,11 @@ namespace BitSkinsApi.Inventory
         /// <returns>Information about withdrawn.</returns>
         public static InformationAboutWithdrawn WithdrawItem(Market.AppId.AppName app, List<string> itemIds)
         {
-            string delimiter = ",";
-            string itemIdsStr = String.Join(delimiter, itemIds);
+            const string delimiter = ",";
 
             Server.UrlCreator urlCreator = new Server.UrlCreator($"https://bitskins.com/api/v1/withdraw_item/");
             urlCreator.AppendUrl($"&app_id={(int)app}");
-            urlCreator.AppendUrl($"&item_ids={itemIdsStr}");
+            urlCreator.AppendUrl($"&item_ids={itemIds.ToStringWithDelimiter(delimiter)}");
 
             string result = Server.ServerRequest.RequestServer(urlCreator.ReadUrl());
             InformationAboutWithdrawn informationAboutWithdrawn = ReadInformationAboutWithdrawn(result);

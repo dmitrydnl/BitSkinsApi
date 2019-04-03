@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using Newtonsoft.Json;
 using BitSkinsApi.Extensions;
 
@@ -128,8 +127,7 @@ namespace BitSkinsApi.Market
         /// <returns>List of item's history records.</returns>
         public static List<ItemHistoryRecord> GetItemHistory(AppId.AppName app, int page, List<string> names, ResultsPerPage resultsPerPage)
         {
-            string delimiter = ",";
-            string namesStr = String.Join(delimiter, names);
+            const string delimiter = ",";
 
             Server.UrlCreator urlCreator = new Server.UrlCreator($"https://bitskins.com/api/v1/get_item_history/");
             urlCreator.AppendUrl($"&page={page}");
@@ -138,7 +136,7 @@ namespace BitSkinsApi.Market
 
             if (names.Count > 0)
             {
-                urlCreator.AppendUrl($"&names={namesStr.ToString()}");
+                urlCreator.AppendUrl($"&names={names.ToStringWithDelimiter(delimiter)}");
                 urlCreator.AppendUrl($"&delimiter={delimiter}");
             }
 
