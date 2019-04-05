@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using BitSkinsApi.Inventory;
 
 namespace BitSkinsApiTests.ServerRequest
 {
@@ -11,7 +12,13 @@ namespace BitSkinsApiTests.ServerRequest
         {
             foreach (BitSkinsApi.Market.AppId.AppName appId in Enum.GetValues(typeof(BitSkinsApi.Market.AppId.AppName)))
             {
-                BitSkinsApi.Inventory.AccountInventory accountInventorys = BitSkinsApi.Inventory.Inventories.GetAccountInventory(appId, 1);
+                int page = 1;
+                AccountInventory accountInventorys = Inventories.GetAccountInventory(appId, page);
+                while (accountInventorys.BitSkinsInventory.BitSkinsInventoryItems.Count != 0)
+                {
+                    page++;
+                    accountInventorys = Inventories.GetAccountInventory(appId, page);
+                }
             }
         }
     }

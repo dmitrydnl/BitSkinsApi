@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using BitSkinsApi.Trade;
 
 namespace BitSkinsApiTests.ServerRequest
 {
@@ -9,23 +11,31 @@ namespace BitSkinsApiTests.ServerRequest
         [TestMethod]
         public void GetRecentTradeOffersTest()
         {
-            List<BitSkinsApi.Trade.RecentTradeOffer> tradeOffersItems = null;
-            tradeOffersItems = BitSkinsApi.Trade.RecentOffers.GetRecentTradeOffers(false);
-            tradeOffersItems = BitSkinsApi.Trade.RecentOffers.GetRecentTradeOffers(true);
+            List<RecentTradeOffer> tradeOffersItems = null;
+            tradeOffersItems = RecentOffers.GetRecentTradeOffers(false);
+            tradeOffersItems = RecentOffers.GetRecentTradeOffers(true);
         }
 
         [TestMethod]
         public void GetTradeDetailsTest()
         {
-            Dictionary<string, string> tradeTokenAndTradeId = new Dictionary<string, string>
-            {
-                { "bd89a3c46ec053fb", "9b8c8840fcf0c473" },
-                { "32449bf82d702137", "0eb62f7c7d8387d1" }
-            };
+            Dictionary<string, string> tradeTokenAndTradeId = new Dictionary<string, string>();
 
+            List<RecentTradeOffer> recentTradeOffers = RecentOffers.GetRecentTradeOffers(false);
+            foreach(RecentTradeOffer recentTradeOffer in recentTradeOffers)
+            {
+                if (recentTradeOffer.CreatedAt > DateTime.Now.AddDays(-7))
+                {
+                    if (!tradeTokenAndTradeId.ContainsKey(recentTradeOffer.BitSkinsTradeId))
+                    {
+                        tradeTokenAndTradeId.Add(recentTradeOffer.BitSkinsTradeId, recentTradeOffer.BitSkinsTradeToken);
+                    }
+                }
+            }
+            
             foreach (KeyValuePair<string, string> pair in tradeTokenAndTradeId)
             {
-                BitSkinsApi.Trade.TradeDetails tradeDetail = BitSkinsApi.Trade.Details.GetTradeDetails(pair.Key, pair.Value);
+                TradeDetails tradeDetail = Details.GetTradeDetails(pair.Value, pair.Key);
             }
         }
     }

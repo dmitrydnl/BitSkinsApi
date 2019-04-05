@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using BitSkinsApi.Balance;
 
 namespace BitSkinsApiTests.ServerRequest
 {
@@ -9,18 +10,18 @@ namespace BitSkinsApiTests.ServerRequest
         [TestMethod]
         public void GetAccountBalanceTest()
         {
-            BitSkinsApi.Balance.AccountBalance balance = BitSkinsApi.Balance.CurrentBalance.GetAccountBalance();
+            AccountBalance balance = CurrentBalance.GetAccountBalance();
         }
 
         [TestMethod]
         public void GetMoneyEventsTest()
         {
             int page = 1;
-            List<BitSkinsApi.Balance.MoneyEvent> moneyEvents = BitSkinsApi.Balance.MoneyEvents.GetMoneyEvents(page);
+            List<MoneyEvent> moneyEvents = MoneyEvents.GetMoneyEvents(page);
             while (moneyEvents.Count != 0)
             {
                 page++;
-                moneyEvents = BitSkinsApi.Balance.MoneyEvents.GetMoneyEvents(page);
+                moneyEvents = MoneyEvents.GetMoneyEvents(page);
             }
         }
     }

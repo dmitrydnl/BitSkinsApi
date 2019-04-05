@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using BitSkinsApi.Market;
 
 namespace BitSkinsApiTests.ServerRequest
 {
@@ -10,14 +11,14 @@ namespace BitSkinsApiTests.ServerRequest
         [TestMethod]
         public void GetBuyHistoryTest()
         {
-            foreach (BitSkinsApi.Market.AppId.AppName appId in Enum.GetValues(typeof(BitSkinsApi.Market.AppId.AppName)))
+            foreach (AppId.AppName appId in Enum.GetValues(typeof(AppId.AppName)))
             {
                 int page = 1;
-                List<BitSkinsApi.Market.BuyHistoryRecord> buyHistoryRecords = BitSkinsApi.Market.BuyHistory.GetBuyHistory(appId, page);
+                List<BuyHistoryRecord> buyHistoryRecords = BuyHistory.GetBuyHistory(appId, page);
                 while (buyHistoryRecords.Count != 0)
                 {
                     page++;
-                    buyHistoryRecords = BitSkinsApi.Market.BuyHistory.GetBuyHistory(appId, page);
+                    buyHistoryRecords = BuyHistory.GetBuyHistory(appId, page);
                 }
             }
         }
@@ -25,14 +26,14 @@ namespace BitSkinsApiTests.ServerRequest
         [TestMethod]
         public void GetSellHistoryTest()
         {
-            foreach (BitSkinsApi.Market.AppId.AppName appId in Enum.GetValues(typeof(BitSkinsApi.Market.AppId.AppName)))
+            foreach (AppId.AppName appId in Enum.GetValues(typeof(AppId.AppName)))
             {
                 int page = 1;
-                List<BitSkinsApi.Market.SellHistoryRecord> sellHistoryRecords = BitSkinsApi.Market.SellHistory.GetSellHistory(appId, page);
+                List<SellHistoryRecord> sellHistoryRecords = SellHistory.GetSellHistory(appId, page);
                 while (sellHistoryRecords.Count != 0)
                 {
                     page++;
-                    sellHistoryRecords = BitSkinsApi.Market.SellHistory.GetSellHistory(appId, page);
+                    sellHistoryRecords = SellHistory.GetSellHistory(appId, page);
                 }
             }
         }
@@ -40,16 +41,14 @@ namespace BitSkinsApiTests.ServerRequest
         [TestMethod]
         public void GetItemHistoryTest()
         {
-            foreach (BitSkinsApi.Market.AppId.AppName appId in Enum.GetValues(typeof(BitSkinsApi.Market.AppId.AppName)))
+            foreach (AppId.AppName appId in Enum.GetValues(typeof(AppId.AppName)))
             {
                 int page = 1;
-                List<BitSkinsApi.Market.ItemHistoryRecord> itemHistoryRecords = BitSkinsApi.Market.ItemHistory.GetItemHistory(appId, page,
-                        new List<string>(), BitSkinsApi.Market.ItemHistory.ResultsPerPage.R480);
+                List<ItemHistoryRecord> itemHistoryRecords = ItemHistory.GetItemHistory(appId, page, new List<string>(), ItemHistory.ResultsPerPage.R480);
                 while (itemHistoryRecords.Count != 0)
                 {
                     page++;
-                    itemHistoryRecords = BitSkinsApi.Market.ItemHistory.GetItemHistory(appId, page,
-                        new List<string>(), BitSkinsApi.Market.ItemHistory.ResultsPerPage.R480);
+                    itemHistoryRecords = ItemHistory.GetItemHistory(appId, page, new List<string>(), ItemHistory.ResultsPerPage.R480);
                 }
             }
         }
@@ -57,146 +56,148 @@ namespace BitSkinsApiTests.ServerRequest
         [TestMethod]
         public void GetMarketDataTest()
         {
-            foreach (BitSkinsApi.Market.AppId.AppName appId in Enum.GetValues(typeof(BitSkinsApi.Market.AppId.AppName)))
+            foreach (AppId.AppName appId in Enum.GetValues(typeof(AppId.AppName)))
             {
-                List<BitSkinsApi.Market.MarketItem> marketDataItems = BitSkinsApi.Market.MarketData.GetMarketData(appId);
+                List<MarketItem> marketItems = MarketData.GetMarketData(appId);
             }
         }
 
         [TestMethod]
         public void GetAllItemPricesTest()
         {
-            foreach (BitSkinsApi.Market.AppId.AppName appId in Enum.GetValues(typeof(BitSkinsApi.Market.AppId.AppName)))
+            foreach (AppId.AppName appId in Enum.GetValues(typeof(AppId.AppName)))
             {
-                List<BitSkinsApi.Market.ItemPrice> priceDatabaseItems = BitSkinsApi.Market.PriceDatabase.GetAllItemPrices(appId);
+                List<ItemPrice> priceDatabaseItems = PriceDatabase.GetAllItemPrices(appId);
             }
         }
 
         [TestMethod]
         public void GetRawPriceDataTest()
         {
-            Dictionary<string, BitSkinsApi.Market.AppId.AppName> appItems = new Dictionary<string, BitSkinsApi.Market.AppId.AppName>
-            {
-                { "AK-47 | Aquamarine Revenge (Battle-Scarred)", BitSkinsApi.Market.AppId.AppName.CounterStrikGlobalOffensive },
-                { "Sealed Graffiti | Speechless (Battle Green)", BitSkinsApi.Market.AppId.AppName.CounterStrikGlobalOffensive },
-                { "2014 National Electronic Sports Tournament", BitSkinsApi.Market.AppId.AppName.DefenseOfTheAncients2 },
-                { "Infused Book of the Vizier Exile", BitSkinsApi.Market.AppId.AppName.DefenseOfTheAncients2 },
-                { "2015 Invitational Crate", BitSkinsApi.Market.AppId.AppName.Z1BattleRoyale },
-                { "Mandala Effect Pants", BitSkinsApi.Market.AppId.AppName.Z1BattleRoyale },
-                { "Haunted Macabre Mask", BitSkinsApi.Market.AppId.AppName.TeamFortress2 },
-                { "Strange Specialized Killstreak Frying Pan", BitSkinsApi.Market.AppId.AppName.TeamFortress2 },
-                { "BIKER CRATE", BitSkinsApi.Market.AppId.AppName.PlayerUnknownsBattlegrounds },
-                { "Padded Jacket (Camo)", BitSkinsApi.Market.AppId.AppName.PlayerUnknownsBattlegrounds },
-                { "3D Glasses", BitSkinsApi.Market.AppId.AppName.Unturned },
-                { "Harvest Crossbow", BitSkinsApi.Market.AppId.AppName.Unturned },
-                { "AK5 RIFLE | Billy, Well-Used", BitSkinsApi.Market.AppId.AppName.PayDay2 },
-                { "KRINKOV SUBMACHINE GUN | Chopper, Mint-Condition", BitSkinsApi.Market.AppId.AppName.PayDay2 },
-                { "Ammo Wooden Box", BitSkinsApi.Market.AppId.AppName.Rust },
-                { "Metal", BitSkinsApi.Market.AppId.AppName.Rust },
-                { "Locked Battle Royale Wearables Crate", BitSkinsApi.Market.AppId.AppName.JustSurvive },
-                { "Skin: Forest Camo T-Shirt", BitSkinsApi.Market.AppId.AppName.JustSurvive },
-                { "Bone Crusher Encrypted USB", BitSkinsApi.Market.AppId.AppName.KillingFloor2 },
-                { "Halloween Treat Ticket", BitSkinsApi.Market.AppId.AppName.KillingFloor2 },
-                { "Kar98k S | Blut (Battle Hardened)", BitSkinsApi.Market.AppId.AppName.Battalion1944 },
-                { "MP40 | Flames (War Torn)", BitSkinsApi.Market.AppId.AppName.Battalion1944 },
-                { "DPV - Halftone", BitSkinsApi.Market.AppId.AppName.Depth },
-                { "Sea Mine - Cerulean", BitSkinsApi.Market.AppId.AppName.Depth },
-                { "TOMAHAWK SHOCK", BitSkinsApi.Market.AppId.AppName.BlackSquad },
-                { "TYPE95 MOSAIC", BitSkinsApi.Market.AppId.AppName.BlackSquad }
-            };
+            Dictionary<string, AppId.AppName> appItems = new Dictionary<string, AppId.AppName>();
 
-            foreach (KeyValuePair<string, BitSkinsApi.Market.AppId.AppName> item in appItems)
+            foreach (AppId.AppName appId in Enum.GetValues(typeof(AppId.AppName)))
             {
-                BitSkinsApi.Market.SteamItemRawPriceData steamMarketItems = BitSkinsApi.Market.SteamRawPriceData.GetRawPriceData(item.Value, item.Key);
+                const int items = 2;
+                Random random = new Random();
+                List<MarketItem> marketItems = MarketData.GetMarketData(appId);
+
+                for (int i = 0; i < items; i++)
+                {
+                    int itemNumber = random.Next(0, marketItems.Count);
+                    string itemName = marketItems[itemNumber].MarketHashName;
+                    appItems.Add(itemName, appId);
+                }
+            }
+
+            foreach (KeyValuePair<string, AppId.AppName> item in appItems)
+            {
+                SteamItemRawPriceData steamMarketItems = SteamRawPriceData.GetRawPriceData(item.Value, item.Key);
             }
         }
 
         [TestMethod]
         public void GetRecentSaleInfoTest()
         {
-            Dictionary<string, BitSkinsApi.Market.AppId.AppName> appItems = new Dictionary<string, BitSkinsApi.Market.AppId.AppName>
-            {
-                { "AK-47 | Aquamarine Revenge (Battle-Scarred)", BitSkinsApi.Market.AppId.AppName.CounterStrikGlobalOffensive },
-                { "Sealed Graffiti | Speechless (Battle Green)", BitSkinsApi.Market.AppId.AppName.CounterStrikGlobalOffensive },
-                { "2014 National Electronic Sports Tournament", BitSkinsApi.Market.AppId.AppName.DefenseOfTheAncients2 },
-                { "Infused Book of the Vizier Exile", BitSkinsApi.Market.AppId.AppName.DefenseOfTheAncients2 },
-                { "2015 Invitational Crate", BitSkinsApi.Market.AppId.AppName.Z1BattleRoyale },
-                { "Mandala Effect Pants", BitSkinsApi.Market.AppId.AppName.Z1BattleRoyale },
-                { "Haunted Macabre Mask", BitSkinsApi.Market.AppId.AppName.TeamFortress2 },
-                { "Strange Specialized Killstreak Frying Pan", BitSkinsApi.Market.AppId.AppName.TeamFortress2 },
-                { "BIKER CRATE", BitSkinsApi.Market.AppId.AppName.PlayerUnknownsBattlegrounds },
-                { "Padded Jacket (Camo)", BitSkinsApi.Market.AppId.AppName.PlayerUnknownsBattlegrounds },
-                { "3D Glasses", BitSkinsApi.Market.AppId.AppName.Unturned },
-                { "Harvest Crossbow", BitSkinsApi.Market.AppId.AppName.Unturned },
-                { "AK5 RIFLE | Billy, Well-Used", BitSkinsApi.Market.AppId.AppName.PayDay2 },
-                { "KRINKOV SUBMACHINE GUN | Chopper, Mint-Condition", BitSkinsApi.Market.AppId.AppName.PayDay2 },
-                { "Ammo Wooden Box", BitSkinsApi.Market.AppId.AppName.Rust },
-                { "Metal", BitSkinsApi.Market.AppId.AppName.Rust },
-                { "Locked Battle Royale Wearables Crate", BitSkinsApi.Market.AppId.AppName.JustSurvive },
-                { "Skin: Forest Camo T-Shirt", BitSkinsApi.Market.AppId.AppName.JustSurvive },
-                { "Bone Crusher Encrypted USB", BitSkinsApi.Market.AppId.AppName.KillingFloor2 },
-                { "Halloween Treat Ticket", BitSkinsApi.Market.AppId.AppName.KillingFloor2 },
-                { "Kar98k S | Blut (Battle Hardened)", BitSkinsApi.Market.AppId.AppName.Battalion1944 },
-                { "MP40 | Flames (War Torn)", BitSkinsApi.Market.AppId.AppName.Battalion1944 },
-                { "DPV - Halftone", BitSkinsApi.Market.AppId.AppName.Depth },
-                { "Sea Mine - Cerulean", BitSkinsApi.Market.AppId.AppName.Depth },
-                { "TOMAHAWK SHOCK", BitSkinsApi.Market.AppId.AppName.BlackSquad },
-                { "TYPE95 MOSAIC", BitSkinsApi.Market.AppId.AppName.BlackSquad }
-            };
+            Dictionary<string, AppId.AppName> appItems = new Dictionary<string, AppId.AppName>();
 
-            foreach (KeyValuePair<string, BitSkinsApi.Market.AppId.AppName> item in appItems)
+            foreach (AppId.AppName appId in Enum.GetValues(typeof(AppId.AppName)))
             {
-                List<BitSkinsApi.Market.ItemRecentSale> recentSaleItems = BitSkinsApi.Market.RecentSaleInfo.GetRecentSaleInfo(item.Value, item.Key, 1);
+                const int items = 2;
+                Random random = new Random();
+                List<MarketItem> marketItems = MarketData.GetMarketData(appId);
+
+                for (int i = 0; i < items; i++)
+                {
+                    int itemNumber = random.Next(0, marketItems.Count);
+                    string itemName = marketItems[itemNumber].MarketHashName;
+                    appItems.Add(itemName, appId);
+                }
+            }
+
+            foreach (KeyValuePair<string, AppId.AppName> item in appItems)
+            {
+                for(int page = 1; page <= 5; page++)
+                {
+                    List<ItemRecentSale> recentSaleItems = RecentSaleInfo.GetRecentSaleInfo(item.Value, item.Key, page);
+                }
             }
         }
 
         [TestMethod]
         public void GetInventoryOnSaleTest()
         {
-            foreach (BitSkinsApi.Market.AppId.AppName appId in Enum.GetValues(typeof(BitSkinsApi.Market.AppId.AppName)))
+            foreach (AppId.AppName appId in Enum.GetValues(typeof(AppId.AppName)))
             {
-                List<BitSkinsApi.Market.ItemOnSale> itemsOnSale = BitSkinsApi.Market.InventoryOnSale.GetInventoryOnSale(appId, 1, "", 0, 0,
-                    BitSkinsApi.Market.InventoryOnSale.SortBy.Not,
-                    BitSkinsApi.Market.InventoryOnSale.SortOrder.Not,
-                    BitSkinsApi.Market.InventoryOnSale.ThreeChoices.NotImportant,
-                    BitSkinsApi.Market.InventoryOnSale.ThreeChoices.NotImportant,
-                    BitSkinsApi.Market.InventoryOnSale.ThreeChoices.NotImportant,
-                    BitSkinsApi.Market.InventoryOnSale.ResultsPerPage.R480,
-                    BitSkinsApi.Market.InventoryOnSale.ThreeChoices.NotImportant);
+                for (int page = 1; page <= 3; page++)
+                {
+                    try
+                    {
+                        List<ItemOnSale> itemsOnSale = InventoryOnSale.GetInventoryOnSale(appId, page, "", 0, 0, InventoryOnSale.SortBy.Not,
+                            InventoryOnSale.SortOrder.Not, InventoryOnSale.ThreeChoices.NotImportant, InventoryOnSale.ThreeChoices.NotImportant,
+                            InventoryOnSale.ThreeChoices.NotImportant, InventoryOnSale.ResultsPerPage.R480, InventoryOnSale.ThreeChoices.NotImportant);
+                    }
+                    catch (BitSkinsApi.Server.RequestServerException exception)
+                    {
+                        if (!exception.Message.Contains("(500) Internal Server Error"))
+                        {
+                            throw exception;
+                        }
+                    }
+                }
             }
         }
 
         [TestMethod]
         public void GetSpecificItemsOnSaleTest()
         {
-            List<string> itemIdsCS = new List<string>
+            foreach (AppId.AppName appId in Enum.GetValues(typeof(AppId.AppName)))
             {
-                "15735619901",
-                "15774801077"
-            };
-            BitSkinsApi.Market.SpecificItems specificItems = BitSkinsApi.Market.SpecificItemsOnSale.GetSpecificItemsOnSale(
-                BitSkinsApi.Market.AppId.AppName.CounterStrikGlobalOffensive, itemIdsCS);
+                List<string> ids = new List<string>();
 
-            List<string> itemIdsDOTA = new List<string>
-            {
-                "15674143492",
-                "15668094916"
-            };
-            specificItems = BitSkinsApi.Market.SpecificItemsOnSale.GetSpecificItemsOnSale(
-                BitSkinsApi.Market.AppId.AppName.DefenseOfTheAncients2, itemIdsDOTA);
+                List<ItemOnSale> itemsOnSale = new List<ItemOnSale>();
+                try
+                {
+                    itemsOnSale = InventoryOnSale.GetInventoryOnSale(appId, 1, "", 0, 0, InventoryOnSale.SortBy.Not,
+                        InventoryOnSale.SortOrder.Not, InventoryOnSale.ThreeChoices.NotImportant, InventoryOnSale.ThreeChoices.NotImportant,
+                        InventoryOnSale.ThreeChoices.NotImportant, InventoryOnSale.ResultsPerPage.R480, InventoryOnSale.ThreeChoices.NotImportant);
+                }
+                catch (BitSkinsApi.Server.RequestServerException exception)
+                {
+                    if (!exception.Message.Contains("(500) Internal Server Error"))
+                    {
+                        throw exception;
+                    }
+                }
+
+                if (itemsOnSale.Count > 0)
+                {
+                    ids.Add(itemsOnSale[0].ItemId);
+
+                    if (itemsOnSale.Count > 1)
+                    {
+                        ids.Add(itemsOnSale[itemsOnSale.Count - 1].ItemId);
+                    }
+                }
+
+                if (ids.Count > 0)
+                {
+                    SpecificItems specificItems = SpecificItemsOnSale.GetSpecificItemsOnSale(appId, ids);
+                }
+            }
         }
 
         [TestMethod]
         public void GetResetPriceItems()
         {
-            foreach (BitSkinsApi.Market.AppId.AppName appId in Enum.GetValues(typeof(BitSkinsApi.Market.AppId.AppName)))
+            foreach (AppId.AppName appId in Enum.GetValues(typeof(AppId.AppName)))
             {
                 int page = 1;
-                List<BitSkinsApi.Market.ResetPriceItem> resetPriceItems = BitSkinsApi.Market.ResetPriceItems.GetResetPriceItems(appId, page);
+                List<ResetPriceItem> resetPriceItems = ResetPriceItems.GetResetPriceItems(appId, page);
                 while (resetPriceItems.Count != 0)
                 {
                     page++;
-                    resetPriceItems = BitSkinsApi.Market.ResetPriceItems.GetResetPriceItems(appId, page);
+                    resetPriceItems = ResetPriceItems.GetResetPriceItems(appId, page);
                 }
             }
         }
