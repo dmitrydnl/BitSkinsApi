@@ -1,0 +1,583 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>BitSkinsApi</name>
+    </assembly>
+    <members>
+        <member name="T:BitSkinsApi.Account.AccountData">
+            <summary>
+            Work with BitSkins account data.
+            </summary>
+        </member>
+        <member name="M:BitSkinsApi.Account.AccountData.SetupAccount(System.String,System.String,System.Int32)">
+            <summary>
+            Setup of all required BitSkins account data.
+            </summary>
+            <param name="apiKey">API Key you can retrieve through the BitSkins settings page after you enable API access for your BitSkins account.</param>
+            <param name="secret">Your two-factor secret shown when you enable Secure Access to your BitSkins account.</param>
+            <param name="maxRequestsPerSecond">API throttle limits per second.</param>
+        </member>
+        <member name="M:BitSkinsApi.Account.AccountData.SetupAccount(System.String,System.String)">
+            <summary>
+            Setup of all required BitSkins account data. Default requests per second is 8.
+            </summary>
+            <param name="apiKey">API Key you can retrieve through the BitSkins settings page after you enable API access for your BitSkins account.</param>
+            <param name="secret">Your two-factor secret shown when you enable Secure Access to your BitSkins account.</param>
+        </member>
+        <member name="M:BitSkinsApi.Account.AccountData.GetTwoFactorCode">
+            <summary>
+            Get two factor code for test is correct.
+            </summary>
+            <returns>Two factor code.</returns>
+        </member>
+        <member name="T:BitSkinsApi.Balance.CurrentBalance">
+            <summary>
+            Work with current account balance.
+            </summary>
+        </member>
+        <member name="M:BitSkinsApi.Balance.CurrentBalance.GetAccountBalance">
+            <summary>
+            Allows you to retrieve your available balance.
+            </summary>
+            <returns>Account balance.</returns>
+        </member>
+        <member name="T:BitSkinsApi.Balance.AccountBalance">
+            <summary>
+            Account's balance.
+            </summary>
+        </member>
+        <member name="T:BitSkinsApi.Balance.MoneyEvents">
+            <summary>
+            Work with money events.
+            </summary>
+        </member>
+        <member name="T:BitSkinsApi.Balance.MoneyEvents.MoneyEventType">
+            <summary>
+            Types BitSkins money events.
+            </summary>
+        </member>
+        <member name="M:BitSkinsApi.Balance.MoneyEvents.GetMoneyEvents(System.Int32)">
+            <summary>
+            Allows you to retrieve historical events that caused changes in your BitSkins balance. 
+            Upto 30 items per page.
+            </summary>
+            <param name="page">Page number.</param>
+            <returns>List of money events.</returns>
+        </member>
+        <member name="T:BitSkinsApi.Balance.MoneyEvent">
+            <summary>
+            Money event.
+            </summary>
+        </member>
+        <member name="T:BitSkinsApi.Balance.MoneyWithdraw">
+            <summary>
+            Work with withdrawal money.
+            </summary>
+        </member>
+        <member name="T:BitSkinsApi.Balance.MoneyWithdraw.WithdrawalMoneyMethod">
+            <summary>
+            All BitSkins money withdrawal methods.
+            </summary>
+        </member>
+        <member name="M:BitSkinsApi.Balance.MoneyWithdraw.WithdrawMoney(System.Double,BitSkinsApi.Balance.MoneyWithdraw.WithdrawalMoneyMethod)">
+            <summary>
+            Allows you to request withdrawal of available balance on your BitSkins account. 
+            All withdrawals are finalized 15 days after this request on a rolling basis.
+            </summary>
+            <param name="amount">Amount in USD to withdraw. Must be at most equal to available balance, and over $5.00 USD.</param>
+            <param name="withdrawalMoneyMethod">Can be bitcoin, paypal, and so on.</param>
+            <returns>Whether the withdrawal was successful.</returns>
+        </member>
+        <member name="T:BitSkinsApi.Inventory.Inventories">
+            <summary>
+            Work with inventories.
+            </summary>
+        </member>
+        <member name="M:BitSkinsApi.Inventory.Inventories.GetAccountInventory(BitSkinsApi.Market.AppId.AppName,System.Int32)">
+            <summary>
+            Allows you to retrieve your account's available inventory on Steam (items listable for sale), 
+            your BitSkins inventory (items currently on sale), and your pending withdrawal inventory (items you delisted or purchased). 
+            </summary>
+            <param name="app">Inventory's game id.</param>
+            <param name="page">Page number for BitSkins inventory.</param>
+            <returns>Account's inventories.</returns>
+        </member>
+        <member name="T:BitSkinsApi.Inventory.AccountInventory">
+            <summary>
+            All user's inventories.
+            </summary>
+        </member>
+        <member name="T:BitSkinsApi.Inventory.Inventory">
+            <summary>
+            User's inventory.
+            </summary>
+        </member>
+        <member name="T:BitSkinsApi.Inventory.SteamInventory">
+            <summary>
+            User's Steam inventory.
+            </summary>
+        </member>
+        <member name="T:BitSkinsApi.Inventory.BitSkinsInventory">
+            <summary>
+            User's BitSkins inventory.
+            </summary>
+        </member>
+        <member name="T:BitSkinsApi.Inventory.PendingWithdrawalFromBitskinsInventory">
+            <summary>
+            User's pending withdrawal from BitSkins inventory.
+            </summary>
+        </member>
+        <member name="T:BitSkinsApi.Inventory.InventoryItem">
+            <summary>
+            Inventory's item.
+            </summary>
+        </member>
+        <member name="T:BitSkinsApi.Inventory.SteamInventoryItem">
+            <summary>
+            Steam inventory's item.
+            </summary>
+        </member>
+        <member name="T:BitSkinsApi.Inventory.BitSkinsInventoryItem">
+            <summary>
+            BitSkins inventory's item.
+            </summary>
+        </member>
+        <member name="T:BitSkinsApi.Inventory.PendingWithdrawalFromBitskinsInventoryItem">
+            <summary>
+            Pending withdrawal from BitSkins inventory's item.
+            </summary>
+        </member>
+        <member name="T:BitSkinsApi.Inventory.WithdrawalOfItems">
+            <summary>
+            Work with items withdrawal.
+            </summary>
+        </member>
+        <member name="M:BitSkinsApi.Inventory.WithdrawalOfItems.WithdrawItem(BitSkinsApi.Market.AppId.AppName,System.Collections.Generic.List{System.String})">
+            <summary>
+            Allows you to delist an active sale item and/or re-attempt an item pending withdrawal.
+            </summary>
+            <param name="app">Inventory's game id.</param>
+            <param name="itemIds">List of item id.</param>
+            <returns>Information about withdrawn.</returns>
+        </member>
+        <member name="T:BitSkinsApi.Inventory.InformationAboutWithdrawn">
+            <summary>
+            Information about withdrawn.
+            </summary>
+        </member>
+        <member name="T:BitSkinsApi.Inventory.WithdrawnItem">
+            <summary>
+            Information about withdrawn item.
+            </summary>
+        </member>
+        <member name="T:BitSkinsApi.Market.AppId">
+            <summary>
+            Work with App name and Id.
+            </summary>
+        </member>
+        <member name="T:BitSkinsApi.Market.AppId.AppName">
+            <summary>
+            The available games at BitSkins.
+            </summary>
+        </member>
+        <member name="T:BitSkinsApi.Market.DelistFromSale">
+            <summary>
+            Work with delist from sale.
+            </summary>
+        </member>
+        <member name="M:BitSkinsApi.Market.DelistFromSale.DelistItem(BitSkinsApi.Market.AppId.AppName,System.Collections.Generic.List{System.String})">
+            <summary>
+            Allows you to delist an active sale item.
+            </summary>
+            <param name="app">Inventory's game id.</param>
+            <param name="itemIds">List of item IDs.</param>
+            <returns>List of delisted items.</returns>
+        </member>
+        <member name="T:BitSkinsApi.Market.DelistedItem">
+            <summary>
+            Delisted item.
+            </summary>
+        </member>
+        <member name="T:BitSkinsApi.Market.BuyHistory">
+            <summary>
+            Work with your buy history on BitSkins.
+            </summary>
+        </member>
+        <member name="M:BitSkinsApi.Market.BuyHistory.GetBuyHistory(BitSkinsApi.Market.AppId.AppName,System.Int32)">
+            <summary>
+            Allows you to retrieve your history of bought items on BitSkins. 
+            Defaults to 30 items per page, with most recent appearing first.
+            </summary>
+            <param name="app">Iinventory's game id.</param>
+            <param name="page">Page number.</param>
+            <returns>List of buy history records.</returns>
+        </member>
+        <member name="T:BitSkinsApi.Market.SellHistory">
+            <summary>
+            Work with your sell history on BitSkins.
+            </summary>
+        </member>
+        <member name="M:BitSkinsApi.Market.SellHistory.GetSellHistory(BitSkinsApi.Market.AppId.AppName,System.Int32)">
+            <summary>
+            Allows you to retrieve your history of sold items on BitSkins.
+            Defaults to 30 items per page, with most recent appearing first.
+            </summary>
+            <param name="app">Inventory's game id.</param>
+            <param name="page">Page number.</param>
+            <returns>List of sell history records.</returns>
+        </member>
+        <member name="T:BitSkinsApi.Market.ItemHistory">
+            <summary>
+            Work with your items history on BitSkins.
+            </summary>
+        </member>
+        <member name="T:BitSkinsApi.Market.ItemHistory.ResultsPerPage">
+            <summary>
+            Results per page.
+            </summary>
+        </member>
+        <member name="T:BitSkinsApi.Market.ItemHistory.ItemHistoryRecordType">
+            <summary>
+            Type of item's history record.
+            </summary>
+        </member>
+        <member name="M:BitSkinsApi.Market.ItemHistory.GetItemHistory(BitSkinsApi.Market.AppId.AppName,System.Int32,System.Collections.Generic.List{System.String},BitSkinsApi.Market.ItemHistory.ResultsPerPage)">
+            <summary>
+            Allows you to retrieve bought/sold/listed item history.
+            </summary>
+            <param name="app">Inventory's game id.</param>
+            <param name="page">Page number.</param>
+            <param name="names">Item names. (optional)</param>
+            <param name="resultsPerPage">Results per page.</param>
+            <returns>List of item's history records.</returns>
+        </member>
+        <member name="T:BitSkinsApi.Market.HistoryRecord">
+            <summary>
+            BitSkins record about item buy/sell.
+            </summary>
+        </member>
+        <member name="T:BitSkinsApi.Market.BuyHistoryRecord">
+            <summary>
+            BitSkins record about item buy.
+            </summary>
+        </member>
+        <member name="T:BitSkinsApi.Market.SellHistoryRecord">
+            <summary>
+            BitSkins record about item sell.
+            </summary>
+        </member>
+        <member name="T:BitSkinsApi.Market.ItemHistoryRecord">
+            <summary>
+            BitSkins record about item history.
+            </summary>
+        </member>
+        <member name="T:BitSkinsApi.Market.InventoryOnSale">
+            <summary>
+            Work with BitSkins inventory on sale.
+            </summary>
+        </member>
+        <member name="T:BitSkinsApi.Market.InventoryOnSale.SortBy">
+            <summary>
+            Type of sorting criterion.
+            </summary>
+        </member>
+        <member name="T:BitSkinsApi.Market.InventoryOnSale.SortOrder">
+            <summary>
+            Type of sort order.
+            </summary>
+        </member>
+        <member name="T:BitSkinsApi.Market.InventoryOnSale.ThreeChoices">
+            <summary>
+            Optional parametr.
+            </summary>
+        </member>
+        <member name="T:BitSkinsApi.Market.InventoryOnSale.ResultsPerPage">
+            <summary>
+            Results per page.
+            </summary>
+        </member>
+        <member name="M:BitSkinsApi.Market.InventoryOnSale.GetInventoryOnSale(BitSkinsApi.Market.AppId.AppName,System.Int32,System.String,System.Double,System.Double,BitSkinsApi.Market.InventoryOnSale.SortBy,BitSkinsApi.Market.InventoryOnSale.SortOrder,BitSkinsApi.Market.InventoryOnSale.ThreeChoices,BitSkinsApi.Market.InventoryOnSale.ThreeChoices,BitSkinsApi.Market.InventoryOnSale.ThreeChoices,BitSkinsApi.Market.InventoryOnSale.ResultsPerPage,BitSkinsApi.Market.InventoryOnSale.ThreeChoices)">
+            <summary>
+            Allows you to retrieve the BitSkins inventory currently on sale. 
+            This includes items you cannot buy (i.e., items listed for sale by you).
+            </summary>
+            <param name="app">Inventory's game id.</param>
+            <param name="page">Page number.</param>
+            <param name="marketHashName">Full or partial item name. (optional)</param>
+            <param name="minPrice">Minimum price. (optional)</param>
+            <param name="maxPrice">Maximum price. (optional)</param>
+            <param name="sortBy">{created_at|price}. (optional)</param>
+            <param name="sortOrder">{desc|asc}. (optional)</param>
+            <param name="hasStickers">{-1|0|1}. For CS:GO only. (optional)</param>
+            <param name="isStattrak">{-1|0|1}. For CS:GO only. (optional)</param>
+            <param name="isSouvenir">{-1|0|1}. For CS:GO only. (optional)</param>
+            <param name="resultsPerPage">Results per page. Must be either 30, or 480.</param>
+            <param name="tradeDelayedItems">{-1|0|1}. For CS:GO only. (optional)</param>
+            <returns>List of items on sale.</returns>
+        </member>
+        <member name="T:BitSkinsApi.Market.SpecificItemsOnSale">
+            <summary>
+            Work with specific items on sale.
+            </summary>
+        </member>
+        <member name="M:BitSkinsApi.Market.SpecificItemsOnSale.GetSpecificItemsOnSale(BitSkinsApi.Market.AppId.AppName,System.Collections.Generic.List{System.String})">
+            <summary>
+            Allows you to retrieve data for specific Item IDs that are currently on sale. 
+            </summary>
+            <param name="app">Inventory's game id.</param>
+            <param name="itemIds">List of item ids. Upto 250 item IDs.</param>
+            <returns>Specific items on sale on BitSkins.</returns>
+        </member>
+        <member name="T:BitSkinsApi.Market.ItemOnSale">
+            <summary>
+            Item on sale in BitSkins inventory.
+            </summary>
+        </member>
+        <member name="T:BitSkinsApi.Market.SpecificItems">
+            <summary>
+            Specific items on sale on BitSkins.
+            </summary>
+        </member>
+        <member name="T:BitSkinsApi.Market.MarketData">
+            <summary>
+            Work with BitSkins market data.
+            </summary>
+        </member>
+        <member name="M:BitSkinsApi.Market.MarketData.GetMarketData(BitSkinsApi.Market.AppId.AppName)">
+            <summary>
+            Allows you to retrieve basic price data for items currently on sale at BitSkins.
+            </summary>
+            <param name="app">Inventory's game id.</param>
+            <returns>List of items currently on sale at BitSkins.</returns>
+        </member>
+        <member name="T:BitSkinsApi.Market.MarketItem">
+            <summary>
+            BitSkins market item.
+            </summary>
+        </member>
+        <member name="T:BitSkinsApi.Market.ModifySaleItems">
+            <summary>
+            Work with modify sale items.
+            </summary>
+        </member>
+        <member name="M:BitSkinsApi.Market.ModifySaleItems.ModifySale(BitSkinsApi.Market.AppId.AppName,System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.Double})">
+            <summary>
+            Allows you to change the price on an item currently on sale.
+            </summary>
+            <param name="app">Inventory's game id.</param>
+            <param name="itemIds">Item IDs to modify.</param>
+            <param name="itemPrices">New item prices, in order of item_ids.</param>
+            <returns>List of modified items.</returns>
+        </member>
+        <member name="T:BitSkinsApi.Market.ModifiedItem">
+            <summary>
+            Modified sale item.
+            </summary>
+        </member>
+        <member name="T:BitSkinsApi.Market.PriceDatabase">
+            <summary>
+            Work with price database.
+            </summary>
+        </member>
+        <member name="M:BitSkinsApi.Market.PriceDatabase.GetAllItemPrices(BitSkinsApi.Market.AppId.AppName)">
+            <summary>
+            Allows you to retrieve the entire price database used at BitSkins.
+            </summary>
+            <param name="app">Inventory's game id.</param>
+            <returns>List of price database's items.</returns>
+        </member>
+        <member name="T:BitSkinsApi.Market.ItemPrice">
+            <summary>
+            BitSkins price database's item.
+            </summary>
+        </member>
+        <member name="T:BitSkinsApi.Market.Purchase">
+            <summary>
+            Work with the purchase.
+            </summary>
+        </member>
+        <member name="M:BitSkinsApi.Market.Purchase.BuyItem(BitSkinsApi.Market.AppId.AppName,System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.Double},System.Boolean,System.Boolean)">
+            <summary>
+            Allows you to buy the item currently on sale on BitSkins. Item must not be currently be on sale to you.
+            </summary>
+            <param name="app">Inventory's game id.</param>
+            <param name="itemIds">List of item IDs.</param>
+            <param name="itemPrices">Prices at which you want to make the purchase. 
+            Important to specify this in case the prices change by the time you make this call.</param>
+            <param name="autoTrade">Initiate trade offer for purchased items' delivery.</param>
+            <param name="allowTradeDelayedPurchases">Use 'true' if you want to purchase items that are trade-delayed.</param>
+            <returns>List of purchased items.</returns>
+        </member>
+        <member name="T:BitSkinsApi.Market.BoughtItem">
+            <summary>
+            Purchased item BitSkins.
+            </summary>
+        </member>
+        <member name="T:BitSkinsApi.Market.RecentSaleInfo">
+            <summary>
+            Work with BitSkins recent sales.
+            </summary>
+        </member>
+        <member name="M:BitSkinsApi.Market.RecentSaleInfo.GetRecentSaleInfo(BitSkinsApi.Market.AppId.AppName,System.String,System.Int32)">
+            <summary>
+            Allows you to retrieve upto 5 pages worth of recent sale data for a given item name. 
+            These are the recent sales for the given item at BitSkins, in descending order.
+            </summary>
+            <param name="app">Inventory's game id.</param>
+            <param name="marketHashName">The item's name.</param>
+            <param name="page">The page number. From 1 to 5.</param>
+            <returns>List of item's recent sales.</returns>
+        </member>
+        <member name="T:BitSkinsApi.Market.ItemRecentSale">
+            <summary>
+            Information about item's recent sale. 
+            </summary>
+        </member>
+        <member name="T:BitSkinsApi.Market.RelistForSale">
+            <summary>
+            Work with relist for sale.
+            </summary>
+        </member>
+        <member name="M:BitSkinsApi.Market.RelistForSale.RelistItem(BitSkinsApi.Market.AppId.AppName,System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.Double})">
+            <summary>
+            Allows you to re-list a delisted/purchased item for sale. Re-listed items can be sold instantly, where applicable.
+            </summary>
+            <param name="app">Inventory's game id.</param>
+            <param name="itemIds">List of item IDs.</param>
+            <param name="itemPrices">Prices for the item Ids.</param>
+            <returns>List of relisted items.</returns>
+        </member>
+        <member name="T:BitSkinsApi.Market.RelistedItem">
+            <summary>
+            Relisted item.
+            </summary>
+        </member>
+        <member name="T:BitSkinsApi.Market.ResetPriceItems">
+            <summary>
+            Work with reset price items.
+            </summary>
+        </member>
+        <member name="M:BitSkinsApi.Market.ResetPriceItems.GetResetPriceItems(BitSkinsApi.Market.AppId.AppName,System.Int32)">
+            <summary>
+            Returns a paginated list of items that need their prices reset. 
+            Items need prices reset when Steam changes tracker so BitSkins are unable to match specified prices to the received items
+            when you list them for sale. 
+            Upto 30 items per page. 
+            Items that need price resets always have the reserved price of 4985.11.
+            </summary>
+            <param name="app">Inventory's game id.</param>
+            <param name="page">Page number.</param>
+            <returns>List of reset price items.</returns>
+        </member>
+        <member name="T:BitSkinsApi.Market.ResetPriceItem">
+            <summary>
+            BitSkins reset price item.
+            </summary>
+        </member>
+        <member name="T:BitSkinsApi.Market.Sale">
+            <summary>
+            Work with sale.
+            </summary>
+        </member>
+        <member name="M:BitSkinsApi.Market.Sale.SellItem(BitSkinsApi.Market.AppId.AppName,System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.Double})">
+            <summary>
+            Allows you to list an item for sale. This item comes from your Steam inventory. 
+            If successful, bots will ask you to trade in the item you want listed for sale. 
+            </summary>
+            <param name="app">Inventory's game id.</param>
+            <param name="itemIds">List of item IDs from your Steam inventory.</param>
+            <param name="itemPrices">List of prices for each item ID you want to list for sale.</param>
+            <returns>Info about sale.</returns>
+        </member>
+        <member name="T:BitSkinsApi.Market.InformationAboutSale">
+            <summary>
+            Information about sale.
+            </summary>
+        </member>
+        <member name="T:BitSkinsApi.Market.SoldItem">
+            <summary>
+            Info about sold item.
+            </summary>
+        </member>
+        <member name="T:BitSkinsApi.Market.InformationAboutSellerBot">
+            <summary>
+            Information about the bot that offers the trade.
+            </summary>
+        </member>
+        <member name="T:BitSkinsApi.Market.SteamRawPriceData">
+            <summary>
+            Work with raw Steam Market price data.
+            </summary>
+        </member>
+        <member name="M:BitSkinsApi.Market.SteamRawPriceData.GetRawPriceData(BitSkinsApi.Market.AppId.AppName,System.String)">
+            <summary>
+            Allows you to retrieve raw Steam Community Market price data for a given item. 
+            You can use this data to create your own pricing algorithm if you need it.
+            </summary>
+            <param name="app">Inventory's game id.</param>
+            <param name="marketHashName">The item's name.</param>
+            <returns>Raw Steam Market price data for a given item.</returns>
+        </member>
+        <member name="T:BitSkinsApi.Market.SteamItemRawPriceData">
+            <summary>
+            Item's sales data in Steam.
+            </summary>
+        </member>
+        <member name="T:BitSkinsApi.Market.ItemRawPrice">
+            <summary>
+            Sales data about Steam item at a certain time.
+            </summary>
+        </member>
+        <member name="T:BitSkinsApi.Trade.RecentOffers">
+            <summary>
+            Work with trade offers.
+            </summary>
+        </member>
+        <member name="T:BitSkinsApi.Trade.RecentOffers.TradeOfferStatusType">
+            <summary>
+            Types status Steam trade offer.
+            </summary>
+        </member>
+        <member name="M:BitSkinsApi.Trade.RecentOffers.GetRecentTradeOffers(System.Boolean)">
+            <summary>
+            Allows you to retrieve information about 50 most recent trade offers sent by BitSkins.
+            </summary>
+            <param name="activeOnly">Value is 'true' if you only need trade offers currently active.</param>
+            <returns>List of recent trade offers.</returns>
+        </member>
+        <member name="T:BitSkinsApi.Trade.RecentTradeOffer">
+            <summary>
+            Information about trade offer.
+            </summary>
+        </member>
+        <member name="T:BitSkinsApi.Trade.Details">
+            <summary>
+            Work with trade details.
+            </summary>
+        </member>
+        <member name="M:BitSkinsApi.Trade.Details.GetTradeDetails(System.String,System.String)">
+            <summary>
+            Allows you to retrieve information about items requested/sent in a given trade from BitSkins. 
+            Trade details will be unretrievable 7 days after the initiation of the trade.
+            </summary>
+            <param name="tradeToken">The trade token in the Steam trade's message.</param>
+            <param name="tradeId">The trade ID in the Steam trade's message.</param>
+            <returns>Details of this trade.</returns>
+        </member>
+        <member name="T:BitSkinsApi.Trade.TradeDetails">
+            <summary>
+            Trade's details.
+            </summary>
+        </member>
+        <member name="T:BitSkinsApi.Trade.SentItem">
+            <summary>
+            Sent items in this trade.
+            </summary>
+        </member>
+        <member name="T:BitSkinsApi.Trade.RetrievedItem">
+            <summary>
+            Retrieved items in this trade.
+            </summary>
+        </member>
+    </members>
+</doc>
