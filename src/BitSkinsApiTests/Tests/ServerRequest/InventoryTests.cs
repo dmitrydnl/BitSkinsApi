@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using BitSkinsApi.Inventory;
 
@@ -19,6 +20,38 @@ namespace BitSkinsApiTests.ServerRequest
                     page++;
                     accountInventorys = Inventories.GetAccountInventory(appId, page);
                 }
+            }
+        }
+
+        [TestMethod]
+        public void WithdrawItemTest()
+        {
+            BitSkinsApi.Market.AppId.AppName app = BitSkinsApi.Market.AppId.AppName.CounterStrikGlobalOffensive;
+            string itemId = "";
+            foreach (BitSkinsApi.Market.AppId.AppName appId in Enum.GetValues(typeof(BitSkinsApi.Market.AppId.AppName)))
+            {
+                AccountInventory accountInventorys = Inventories.GetAccountInventory(appId, 1);
+                foreach (var item in accountInventorys.PendingWithdrawalFromBitskinsInventory.PendingWithdrawalFromBitskinsInventoryItems)
+                {
+                    if (item.WithdrawableAt < DateTime.Now)
+                    {
+                        app = appId;
+                        itemId = item.ItemId;
+                        break;
+                    }
+                }
+
+                if (!String.IsNullOrEmpty(itemId))
+                {
+                    break;
+                }
+            }
+
+            if (!String.IsNullOrEmpty(itemId))
+            {
+                InformationAboutWithdrawn information = WithdrawalOfItems.WithdrawItem(app, new List<string> { itemId });
+                string id = information.WithdrawnItems[0].ItemId;
+                Assert.AreEqual(itemId, id);
             }
         }
     }
