@@ -1,4 +1,6 @@
-﻿```csharp
+﻿# Вывод доступных предметов с BitSkins
+
+```csharp
 using System;
 using System.Collections.Generic;
 using BitSkinsApi.Account;
@@ -36,3 +38,5 @@ namespace Example
     }
 }
 ```
+
+[<Поиск выгодных предметов в BitSkins](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/code_examples/find_profitable_items.md)

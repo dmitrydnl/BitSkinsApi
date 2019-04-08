@@ -1,4 +1,6 @@
-﻿```csharp
+﻿# Search for profitable items in BitSkins
+
+```csharp
 using System;
 using System.Collections.Generic;
 using BitSkinsApi.Account;
@@ -100,3 +102,5 @@ namespace Example
     }
 }
 ```
+
+[<Prev]() &nbsp;&nbsp;&nbsp;&nbsp; [Withdrawal available items from BitSkins>](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/code_examples/withdraw_available_items.md)
