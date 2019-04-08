@@ -53,3 +53,5 @@ foreach (BitSkinsApi.Trade.RecentTradeOffer offer in offers)
     Console.WriteLine("Created at: " + offer.CreatedAt);
 }
 ```
+
+[<Prev]() &nbsp;&nbsp;&nbsp;&nbsp; [Trade offer details>](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/trade/trade_details.md)

@@ -50,3 +50,5 @@ foreach (BitSkinsApi.Trade.RetrievedItem item in details.RetrievedItems)
     Console.WriteLine(" - " + item.ItemId);
 }
 ```
+
+[<Недавние торговые предложения](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/trade/recent_trade_offers.md) &nbsp;&nbsp;&nbsp;&nbsp; [Поиск выгодных предметов в BitSkins>](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/code_examples/find_profitable_items.md)

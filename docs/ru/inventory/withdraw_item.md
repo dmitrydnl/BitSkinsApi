@@ -52,3 +52,5 @@ foreach (BitSkinsApi.Inventory.WithdrawnItem item in information.WithdrawnItems)
     Console.WriteLine(item.ItemId);
 }
 ```
+
+[<Инвентарь аккаунта](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/inventory/account_inventory.md) &nbsp;&nbsp;&nbsp;&nbsp; [След>]()
