@@ -10,3 +10,8 @@ To successfully conduct trading operations on the BitSkins website, you need to 
 1. [Account balance](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/balance/account_balance.md)
 2. [Money events](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/balance/money_events.md)
 3. [Withdrawing money from the balance](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/balance/withdraw_money.md)
+
+Examples of simple programs written using BitSkinsApi:
+
+1. [Search for profitable items in BitSkins](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/code_examples/find_profitable_items.md)
+2. [Withdrawal available items from BitSkins](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/code_examples/withdraw_available_items.md)

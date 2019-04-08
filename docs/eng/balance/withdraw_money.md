@@ -3,7 +3,7 @@
 In order to withdraw money from the account balance BitSkins, you need to call the function:
 
 ```csharp
-BitSkinsApi.Balance.WithdrawMoney.MoneyWithdrawal(double amount, WithdrawalMethod withdrawalMethod);
+BitSkinsApi.Balance.MoneyWithdraw.WithdrawMoney(double amount, WithdrawalMethod withdrawalMethod);
 ```
 
 ## MoneyWithdrawal()
@@ -11,25 +11,25 @@ BitSkinsApi.Balance.WithdrawMoney.MoneyWithdrawal(double amount, WithdrawalMetho
 ### Is in class:
 
 ```csharp
-BitSkinsApi.Balance.WithdrawMoney
+BitSkinsApi.Balance.MoneyWithdraw
 ```
 
 ### Function:
 
 ```csharp
-BitSkinsApi.Balance.WithdrawMoney.MoneyWithdrawal(double amount, WithdrawalMethod withdrawalMethod);
+BitSkinsApi.Balance.MoneyWithdraw.WithdrawMoney(double amount, WithdrawalMethod withdrawalMethod);
 ```
 
 ### Function parameters:
 
 * double ampunt - amount in USD to withdraw. Should not be less than available for withdrawal of balance and be more than $5.00 USD.
 * WithdrawalMethod withdrawalMethod - withdrawal method. May be:
-* * PayPal
-* * Skrill
-* * Bitcoin
-* * Ethereum
-* * Litecoin
-* * BankWire
+  - PayPal
+  - Skrill
+  - Bitcoin
+  - Ethereum
+  - Litecoin
+  - BankWire
 
 ### Returns:
 
@@ -42,10 +42,10 @@ success - whether the operation was successful.
 ## Example
 
 ```csharp
-BitSkinsApi.Balance.Balance balance = BitSkinsApi.Balance.AccountBalance.GetAccountBalance();
+BitSkinsApi.Balance.AccountBalance balance = BitSkinsApi.Balance.CurrentBalance.GetAccountBalance();
 if (balance.WithdrawableBalance > 5)
 {
-    bool success = BitSkinsApi.Balance.WithdrawMoney.MoneyWithdrawal(5, BitSkinsApi.Balance.WithdrawMoney.WithdrawalMethod.PayPal);
+    bool success = BitSkinsApi.Balance.MoneyWithdraw.WithdrawMoney(5, BitSkinsApi.Balance.MoneyWithdraw.WithdrawalMethod.PayPal);
     System.Console.WriteLine(success ? "Success" : "Fail");
 }
 ```

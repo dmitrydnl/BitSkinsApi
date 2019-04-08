@@ -3,7 +3,7 @@
 To get a BitSkins account balance, you need to call the function:
 
 ```csharp
-BitSkinsApi.Balance.AccountBalance.GetAccountBalance();
+BitSkinsApi.Balance.CurrentBalance.GetAccountBalance();
 ```
 
 ## GetAccountBalance()
@@ -11,22 +11,22 @@ BitSkinsApi.Balance.AccountBalance.GetAccountBalance();
 ### Is in class:
 
 ```csharp
-BitSkinsApi.Balance.AccountBalance
+BitSkinsApi.Balance.CurrentBalance
 ```
 
 ### Function:
 
 ```csharp
-BitSkinsApi.Balance.AccountBalance.GetAccountBalance();
+BitSkinsApi.Balance.CurrentBalance.GetAccountBalance();
 ```
 
 ### Returns:
 
 ```csharp
-BitSkinsApi.Balance.Balance
+BitSkinsApi.Balance.AccountBalance
 ```
 
-Class properties ```BitSkinsApi.Balance.Balance```:
+Class properties ```BitSkinsApi.Balance.AccountBalance```:
 * AvailableBalance - funds available for spending.
 * PendingWithdrawals - funds pending withdrawals.
 * WithdrawableBalance - funds that can be withdraw.
@@ -35,7 +35,7 @@ Class properties ```BitSkinsApi.Balance.Balance```:
 ## Example
 
 ```csharp
-BitSkinsApi.Balance.Balance balance = BitSkinsApi.Balance.AccountBalance.GetAccountBalance();
+BitSkinsApi.Balance.AccountBalance balance = BitSkinsApi.Balance.CurrentBalance.GetAccountBalance();
 double availableBalance = balance.AvailableBalance;
 System.Console.WriteLine(availableBalance);
 ```

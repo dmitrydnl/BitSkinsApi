@@ -3,7 +3,7 @@
 Для того чтобы вывести деньги с баланса BitSkins аккаунта, нужно вызвать функцию:
 
 ```csharp
-BitSkinsApi.Balance.WithdrawMoney.MoneyWithdrawal(double amount, WithdrawalMethod withdrawalMethod);
+BitSkinsApi.Balance.MoneyWithdraw.WithdrawMoney(double amount, WithdrawalMoneyMethod withdrawalMethod);
 ```
 
 ## MoneyWithdrawal()
@@ -11,25 +11,25 @@ BitSkinsApi.Balance.WithdrawMoney.MoneyWithdrawal(double amount, WithdrawalMetho
 ### Находится в классе:
 
 ```csharp
-BitSkinsApi.Balance.WithdrawMoney
+BitSkinsApi.Balance.MoneyWithdraw
 ```
 
 ### Функция:
 
 ```csharp
-BitSkinsApi.Balance.WithdrawMoney.MoneyWithdrawal(double amount, WithdrawalMethod withdrawalMethod);
+BitSkinsApi.Balance.MoneyWithdraw.WithdrawMoney(double amount, WithdrawalMoneyMethod withdrawalMethod);
 ```
 
 ### Параметры функции:
 
 * double amount - сумма в долларах США для вывода. Не должна быть меньше доступного для вывода баланса и быть больше 5,00 долларов США.
-* WithdrawalMethod withdrawalMethod - способ вывода денег. Может быть:
-* * PayPal
-* * Skrill
-* * Bitcoin
-* * Ethereum
-* * Litecoin
-* * BankWire
+* WithdrawalMoneyMethod withdrawalMethod - способ вывода денег. Может быть:
+  - PayPal
+  - Skrill
+  - Bitcoin
+  - Ethereum
+  - Litecoin
+  - BankWire
 
 ### Возвращает:
 
@@ -42,10 +42,10 @@ success - успешно ли выполнена операция.
 ## Пример
 
 ```csharp
-BitSkinsApi.Balance.Balance balance = BitSkinsApi.Balance.AccountBalance.GetAccountBalance();
+BitSkinsApi.Balance.AccountBalance balance = BitSkinsApi.Balance.CurrentBalance.GetAccountBalance();
 if (balance.WithdrawableBalance > 5)
 {
-    bool success = BitSkinsApi.Balance.WithdrawMoney.MoneyWithdrawal(5, BitSkinsApi.Balance.WithdrawMoney.WithdrawalMethod.PayPal);
+    bool success = BitSkinsApi.Balance.MoneyWithdraw.WithdrawMoney(5, BitSkinsApi.Balance.MoneyWithdraw.WithdrawalMoneyMethod.PayPal);
     System.Console.WriteLine(success ? "Success" : "Fail");
 }
 ```

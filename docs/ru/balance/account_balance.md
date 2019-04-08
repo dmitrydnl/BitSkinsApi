@@ -3,7 +3,7 @@
 Для получения баланса BitSkins аккаунта нужно вызвать функцию:
 
 ```csharp
-BitSkinsApi.Balance.AccountBalance.GetAccountBalance();
+BitSkinsApi.Balance.CurrentBalance.GetAccountBalance();
 ```
 
 ## GetAccountBalance()
@@ -11,22 +11,22 @@ BitSkinsApi.Balance.AccountBalance.GetAccountBalance();
 ### Находится в классе:
 
 ```csharp
-BitSkinsApi.Balance.AccountBalance
+BitSkinsApi.Balance.CurrentBalance
 ```
 
 ### Функция:
 
 ```csharp
-BitSkinsApi.Balance.AccountBalance.GetAccountBalance();
+BitSkinsApi.Balance.CurrentBalance.GetAccountBalance();
 ```
 
 ### Возвращает:
 
 ```csharp
-BitSkinsApi.Balance.Balance
+BitSkinsApi.Balance.AccountBalance
 ```
 
-Свойства класса ```BitSkinsApi.Balance.Balance```:
+Свойства класса ```BitSkinsApi.Balance.AccountBalance```:
 * AvailableBalance - средства доступные для трат.
 * PendingWithdrawals - средства ожидающие снятия.
 * WithdrawableBalance - средства, которые можно снять.
@@ -35,7 +35,7 @@ BitSkinsApi.Balance.Balance
 ## Пример
 
 ```csharp
-BitSkinsApi.Balance.Balance balance = BitSkinsApi.Balance.AccountBalance.GetAccountBalance();
+BitSkinsApi.Balance.AccountBalance balance = BitSkinsApi.Balance.CurrentBalance.GetAccountBalance();
 double availableBalance = balance.AvailableBalance;
 System.Console.WriteLine(availableBalance);
 ```

@@ -10,3 +10,8 @@
 1. [Баланс аккаунта](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/balance/account_balance.md)
 2. [События с балансом аккаунта](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/balance/money_events.md)
 3. [Вывод денег с баланса](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/balance/withdraw_money.md)
+
+Примеры простых программ, написанных с использованием BitSkinsApi:
+
+1. [Поиск выгодных предметов в BitSkins](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/code_examples/find_profitable_items.md)
+2. [Вывод доступных предметов с BitSkins](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/code_examples/withdraw_available_items.md)
