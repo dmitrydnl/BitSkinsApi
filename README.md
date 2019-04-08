@@ -14,7 +14,7 @@ To install the NuGet package, you can the Package Manager Console. For more info
 2. Once the console opens, check that the Default project drop-down list shows the project into which you want to install the package.
 3. Enter the command:
 \
-```!!!command!!!```.
+```!!!command!!!```
 
 # How do I use BitSkinsApi?
 All about using BitSkinsApi you can find in [documentation](https://github.com/Captious99/BitSkinsApi/blob/master/docs/index.md).
@@ -47,6 +47,11 @@ Requirements for Steam inventory and BitSkins inventory for tests:
 2. In BitSkins must be at least one item currently on sale by you. This is necessary for the RelistAndDelistItemTest and ModifySaleTest test.
 3. In the BitSkins inventory must be at least one pending withdrawal item. This is necessary for the WithdrawItemTest test. If successful, you will receive a Steam trade offer, which you can decline.
 4. On BitSkins account balance must be at least 0.01 USD. This is necessary for the BuyItemTest test.
+
+## Project requirements for use the BitSkinsApi
+BitSkinsApi build on .NET Standard 2.0. To use the BitSkinsApi, version of the platform you are using must implement .NET Standart 2.0.
+\
+Learn more about [.NET implementation support](https://docs.microsoft.com/en-us/dotnet/standard/net-standard#net-implementation-support).
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/Captious99/BitSkinsApi/blob/master/LICENSE.md) file for details.
