@@ -14,7 +14,7 @@ To install the NuGet package, you can the Package Manager Console. For more info
 2. Once the console opens, check that the Default project drop-down list shows the project into which you want to install the package.
 3. Enter the command:
 \
-```$ npm install bitskins```.
+```!!!command!!!```.
 
 # How do I use BitSkinsApi?
 All about using BitSkinsApi you can find in [documentation](https://github.com/Captious99/BitSkinsApi/blob/master/docs/index.md).
@@ -30,14 +30,23 @@ In short:
 API Key you can retrieve through the BitSkins settings page. The secret code can be found when you enable two-factor authentication for your BitSkins account.
 4. Now you can use BitSkinsApi. For example to retrieve your balance BitSkins you need execute function:
 \
-```BitSkinsApi.Balance.AccountBalance.GetAccountBalance();```
+```BitSkinsApi.Balance.CurrentBalance.GetAccountBalance();```
 
 ## Features
-* Made on .NET Standard.
-* Full coverage of the BitSkins General API.
+* Made on .NET Standard
+* Easy to use
+* Full coverage of the BitSkins General API
 * Automatic two-factor authentication
 
 ## Tests
+For the tests to work it is necessary to enter your Api Key and Secret Code in the [Initilize.cs](https://github.com/Captious99/BitSkinsApi/blob/master/src/BitSkinsApiTests/Tests/Initilize.cs) file.
+\
+\
+Requirements for Steam inventory and BitSkins inventory for tests:
+1. In the Steam inventory must be at least one item available for sale. This item must be from a game that supported by BitSkins. This is necessary for the SellItemTest test. If successful, you will receive a Steam trade offer, which you can decline.
+2. In BitSkins must be at least one item currently on sale by you. This is necessary for the RelistAndDelistItemTest and ModifySaleTest test.
+3. In the BitSkins inventory must be at least one pending withdrawal item. This is necessary for the WithdrawItemTest test. If successful, you will receive a Steam trade offer, which you can decline.
+4. On BitSkins account balance must be at least 0.01 USD. This is necessary for the BuyItemTest test.
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/Captious99/BitSkinsApi/blob/master/LICENSE.md) file for details.
