@@ -17,7 +17,7 @@ namespace BitSkinsApi.Account
 
         internal static string GetApiKey()
         {
-            if (apiKey.Length == 0)
+            if (apiKey == null || apiKey.Length == 0)
             {
                 throw new SetupAccountException("First you must setup AccountData: BitSkinsApi.Account.AccountData.SetupAccount().");
             }
@@ -26,7 +26,7 @@ namespace BitSkinsApi.Account
 
         internal static string GetSecret()
         {
-            if (secret.Length == 0)
+            if (secret == null || secret.Length == 0)
             {
                 throw new SetupAccountException("First you must setup AccountData: BitSkinsApi.Account.AccountData.SetupAccount().");
             }
