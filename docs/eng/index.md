@@ -15,7 +15,7 @@ Working with your inventory (Steam inventory and BitSkins inventory).
 1. [Account inventory](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/inventory/account_inventory.md)
 2. [Withdraw items from BitSkins](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/inventory/withdraw_item.md)
 
-Getting information about trade offers that BitSkins bots sent you when buying / selling items.
+Getting information about trade offers that BitSkins bots sent you when buying/selling items.
 1. [Recent trade offers](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/trade/recent_trade_offers.md)
 2. [Trade offer details](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/trade/trade_details.md)
 

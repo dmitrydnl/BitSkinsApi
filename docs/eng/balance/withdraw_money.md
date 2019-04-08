@@ -50,4 +50,4 @@ if (balance.WithdrawableBalance > 5)
 }
 ```
 
-[<Money events](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/balance/money_events.md) &nbsp;&nbsp;&nbsp;&nbsp; [Next>]()
+[<Money events](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/balance/money_events.md) &nbsp;&nbsp;&nbsp;&nbsp; [Account inventory>](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/inventory/account_inventory.md)
