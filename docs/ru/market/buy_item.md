@@ -22,7 +22,7 @@ BitSkinsApi.Market.Purchase.BuyItem(BitSkinsApi.Market.AppId.AppName app, List<s
 
 ### Параметры функции:
 
-* BitSkinsApi.Market.AppId.AppName app - игра, для которой запрашивается база данных цен.
+* BitSkinsApi.Market.AppId.AppName app - игра, которой принадлежат покупаемые предметы.
 * List<string> itemIds - списиок id покупаемых предметов.
 * List<double> itemPrices - список цен покупаемых предметов.
 * bool autoTrade - вывести ли предметы в Steam сразу после покупки.

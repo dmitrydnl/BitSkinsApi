@@ -22,7 +22,7 @@ BitSkinsApi.Market.Purchase.BuyItem(BitSkinsApi.Market.AppId.AppName app, List<s
 
 ### Function parameters:
 
-* BitSkinsApi.Market.AppId.AppName app - game for which price database is requested.
+* BitSkinsApi.Market.AppId.AppName app - game, which owns the purchased items.
 * List<string> itemIds - id list of purchased items.
 * List<double> itemPrices - price list of purchased items.
 * bool autoTrade - whether to withdraw items to Steam immediately after purchase.
