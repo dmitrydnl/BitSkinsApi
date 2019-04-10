@@ -55,3 +55,5 @@ foreach (BitSkinsApi.Market.BoughtItem item in boughtItems)
     Console.WriteLine();
 }
 ```
+
+[<История предмета](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/market/item_history.md) &nbsp;&nbsp;&nbsp;&nbsp; [Продажа предмета>](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/market/sell_item.md)

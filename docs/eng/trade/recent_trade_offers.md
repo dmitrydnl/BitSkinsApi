@@ -54,4 +54,4 @@ foreach (BitSkinsApi.Trade.RecentTradeOffer offer in offers)
 }
 ```
 
-[<Prev]() &nbsp;&nbsp;&nbsp;&nbsp; [Trade offer details>](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/trade/trade_details.md)
+[<Items requiring a reset price](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/market/reset_price_items.md) &nbsp;&nbsp;&nbsp;&nbsp; [Trade offer details>](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/trade/trade_details.md)

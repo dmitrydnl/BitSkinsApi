@@ -50,3 +50,5 @@ foreach (BitSkinsApi.Market.ItemRecentSale recentSale in itemRecentSales)
     Console.WriteLine();
 }
 ```
+
+[<Specific items on sale at BitSkins](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/market/get_specific_items_on_sale.md) &nbsp;&nbsp;&nbsp;&nbsp; [Purchases history>](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/market/buy_history.md)

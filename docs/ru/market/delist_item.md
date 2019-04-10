@@ -48,3 +48,5 @@ foreach (BitSkinsApi.Market.DelistedItem item in delistedItems)
     Console.WriteLine();
 }
 ```
+
+[<Продажа предмета](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/market/sell_item.md) &nbsp;&nbsp;&nbsp;&nbsp; [Повторно выставить купленный предмет на продажу>](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/market/relist_item.md)

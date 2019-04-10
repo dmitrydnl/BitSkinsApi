@@ -61,3 +61,5 @@ foreach (BitSkinsApi.Market.ItemHistoryRecord record in records)
     Console.WriteLine();
 }
 ```
+
+[<Sales history](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/market/sell_history.md) &nbsp;&nbsp;&nbsp;&nbsp; [Purchase item>](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/market/buy_item.md)

@@ -52,3 +52,5 @@ foreach (BitSkinsApi.Market.MarketItem item in marketItems)
     Console.WriteLine();
 }
 ```
+
+[<Вывод предметов из BitSkins](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/inventory/withdraw_item.md) &nbsp;&nbsp;&nbsp;&nbsp; [База данных цен BitSkins>](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/market/price_database.md)

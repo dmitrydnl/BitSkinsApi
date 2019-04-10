@@ -50,3 +50,5 @@ foreach (BitSkinsApi.Market.SoldItem item in information.SoldItems)
     Console.WriteLine();
 }
 ```
+
+[<Purchase item](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/market/buy_item.md) &nbsp;&nbsp;&nbsp;&nbsp; [Delist item from sale>](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/market/delist_item.md)

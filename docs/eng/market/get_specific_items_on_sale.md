@@ -56,3 +56,5 @@ foreach (string itemId in specificItems.ItemsNotOnSale)
     Console.WriteLine();
 }
 ```
+
+[<All items on sale at BitSkins](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/market/inventory_on_sale.md) &nbsp;&nbsp;&nbsp;&nbsp; [Recent sales data>](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/market/recent_sale.md)

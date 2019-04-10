@@ -50,3 +50,5 @@ foreach (BitSkinsApi.Market.ItemPrice item in itemPrices)
     Console.WriteLine();
 }
 ```
+
+[<Рыночные данные BitSkins](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/market/market_data.md) &nbsp;&nbsp;&nbsp;&nbsp; [Все вещи на продаже в BitSkins>](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/market/inventory_on_sale.md)

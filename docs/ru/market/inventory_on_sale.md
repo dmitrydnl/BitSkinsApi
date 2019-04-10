@@ -77,3 +77,5 @@ foreach (BitSkinsApi.Market.ItemOnSale item in itemsOnSale)
     Console.WriteLine();
 }
 ```
+
+[<База данных цен BitSkins](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/market/price_database.md) &nbsp;&nbsp;&nbsp;&nbsp; [Конкретные товары на продаже в BitSkins>](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/market/get_specific_items_on_sale.md)

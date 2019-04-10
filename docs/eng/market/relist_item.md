@@ -52,3 +52,5 @@ foreach (BitSkinsApi.Market.RelistedItem item in relistedItems)
     Console.WriteLine();
 }
 ```
+
+[<Delist item from sale](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/market/delist_item.md) &nbsp;&nbsp;&nbsp;&nbsp; [Change sale item>](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/market/modify_sale.md)

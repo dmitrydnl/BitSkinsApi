@@ -57,3 +57,5 @@ foreach (BitSkinsApi.Market.ModifiedItem item in modifiedItems)
     Console.WriteLine();
 }
 ```
+
+[<Повторно выставить купленный предмет на продажу](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/market/relist_item.md) &nbsp;&nbsp;&nbsp;&nbsp; [Рыночные данные о стоимости предметов в Steam>](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/market/steam_price_data.md)

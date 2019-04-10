@@ -47,3 +47,5 @@ foreach (BitSkinsApi.Market.ResetPriceItem item in resetPriceItems)
     Console.WriteLine();
 }
 ```
+
+[<Market data of items on Steam](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/market/steam_price_data.md) &nbsp;&nbsp;&nbsp;&nbsp; [Recent trade offers>](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/trade/recent_trade_offers.md)

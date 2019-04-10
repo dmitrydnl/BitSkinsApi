@@ -49,3 +49,5 @@ foreach (BitSkinsApi.Market.ItemRawPrice rawPrice in rawPriceData.ItemRawPrices)
     Console.WriteLine();
 }
 ```
+
+[<Change sale item](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/market/modify_sale.md) &nbsp;&nbsp;&nbsp;&nbsp; [Items requiring a reset price>](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/market/reset_price_items.md)
