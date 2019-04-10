@@ -35,6 +35,9 @@ BitSkinsApi.Inventory.InformationAboutWithdrawn
 * WithdrawnItems - предметы, которые были выведены из BitSkins.
 * TradeTokens - токены предложений обмена.
 
+### Возможные исключения
+```BitSkinsApi.Server.RequestServerException``` - в случае передачи в функцию некорректных данных или проблем на сервере BitSkins.
+
 ## Пример
 
 ```csharp

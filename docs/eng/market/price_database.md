@@ -38,6 +38,9 @@ Class properties ```BitSkinsApi.Market.ItemPrice```
 * IconUrl - item image link.
 * InstantSalePrice - price of instant sale item, may be null.
 
+### Possible exceptions
+```BitSkinsApi.Server.RequestServerException``` - in case of transfer to the function incorrect data or problems on the BitSkins server.
+
 ## Example
 
 ```csharp

@@ -42,6 +42,9 @@ List<BitSkinsApi.Trade.RecentTradeOffer>
 * CreatedAt - дата создания торгового предложения.
 * UpdatedAt - дата обновления торгового предложения.
 
+### Возможные исключения
+```BitSkinsApi.Server.RequestServerException``` - в случае передачи в функцию некорректных данных или проблем на сервере BitSkins.
+
 ## Пример
 
 ```csharp

@@ -35,6 +35,9 @@ Class properties ```BitSkinsApi.Market.SpecificItems```:
 * ItemsOnSale - items that are on sale.
 * ItemsNotOnSale - list of id items that are not on sale.
 
+### Possible exceptions
+```BitSkinsApi.Server.RequestServerException``` - in case of transfer to the function incorrect data or problems on the BitSkins server.
+
 ## Example
 
 ```csharp

@@ -37,6 +37,9 @@ Class properties ```BitSkinsApi.Market.ItemRecentSale```
 * WearValue - item wear.
 * SoldAt - item sale date.
 
+### Possible exceptions
+```BitSkinsApi.Server.RequestServerException``` - in case of transfer to the function incorrect data or problems on the BitSkins server.
+
 ## Example
 
 ```csharp

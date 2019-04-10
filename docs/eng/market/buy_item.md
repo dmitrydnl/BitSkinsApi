@@ -40,6 +40,9 @@ Class properties ```BitSkinsApi.Market.BoughtItem```
 * Price - price.
 * WithdrawableAt - the date when the item can be withdraw from BitSkins.
 
+### Possible exceptions
+```BitSkinsApi.Server.RequestServerException``` - in case of transfer to the function incorrect data or problems on the BitSkins server.
+
 ## Example
 
 ```csharp

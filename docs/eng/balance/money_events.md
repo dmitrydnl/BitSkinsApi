@@ -47,6 +47,9 @@ Class properties ```BitSkinsApi.Balance.MoneyEvent```:
   - StoreCredit – “{Reason for bonuses accrual (usually "steamname" means "BitSkins.com" is inserted in your Steam name)}”.
 * Time - the time of this event.
 
+### Possible exceptions
+```BitSkinsApi.Server.RequestServerException``` - in case of transfer to the function incorrect data or problems on the BitSkins server.
+
 ## Example
 
 ```csharp

@@ -35,6 +35,9 @@ BitSkinsApi.Inventory.AccountInventory
 * BitSkinsInventory - предметы BitSkins инвентаря, которые в данный момент находятся на продаже в BitSkins.
 * PendingWithdrawalFromBitskinsInventory - предметы ожидающие вывода с BitSkins.
 
+### Возможные исключения
+```BitSkinsApi.Server.RequestServerException``` - в случае передачи в функцию некорректных данных или проблем на сервере BitSkins.
+
 ## Пример
 
 ```csharp

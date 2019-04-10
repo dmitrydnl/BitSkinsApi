@@ -38,6 +38,9 @@ List<BitSkinsApi.Market.SellHistoryRecord>
 * Price - цена продажи.
 * Time - время продажи.
 
+### Возможные исключения
+```BitSkinsApi.Server.RequestServerException``` - в случае передачи в функцию некорректных данных или проблем на сервере BitSkins.
+
 ## Пример
 
 ```csharp

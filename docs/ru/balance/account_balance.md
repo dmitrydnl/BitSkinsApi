@@ -32,6 +32,9 @@ BitSkinsApi.Balance.AccountBalance
 * WithdrawableBalance - средства, которые можно снять.
 * CouponableBalance - купонные средства.
 
+### Возможные исключения
+```BitSkinsApi.Server.RequestServerException``` - в случае передачи в функцию некорректных данных или проблем на сервере BitSkins.
+
 ## Пример
 
 ```csharp

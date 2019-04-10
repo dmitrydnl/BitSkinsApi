@@ -39,6 +39,9 @@ bool success
 
 success - успешно ли выполнена операция.
 
+### Возможные исключения
+```BitSkinsApi.Server.RequestServerException``` - в случае передачи в функцию некорректных данных или проблем на сервере BitSkins.
+
 ## Пример
 
 ```csharp

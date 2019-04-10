@@ -35,6 +35,9 @@ Class properties ```BitSkinsApi.Inventory.InformationAboutWithdrawn```:
 * WithdrawnItems - items that were withdrawn from BitSkins.
 * TradeTokens - trade tokens.
 
+### Possible exceptions
+```BitSkinsApi.Server.RequestServerException``` - in case of transfer to the function incorrect data or problems on the BitSkins server.
+
 ## Example
 
 ```csharp

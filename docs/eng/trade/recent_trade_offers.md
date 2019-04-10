@@ -42,6 +42,9 @@ Class properties ```BitSkinsApi.Trade.RecentTradeOffer```:
 * CreatedAt - trade offer creation date.
 * UpdatedAt - trade offer update date.
 
+### Possible exceptions
+```BitSkinsApi.Server.RequestServerException``` - in case of transfer to the function incorrect data or problems on the BitSkins server.
+
 ## Example
 
 ```csharp

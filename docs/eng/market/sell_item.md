@@ -37,6 +37,9 @@ Class properties ```BitSkinsApi.Market.InformationAboutSale```
 * TradeTokens - trade tokens.
 * InformationAboutSellerBot - information about the bot that sent the trade offer.
 
+### Possible exceptions
+```BitSkinsApi.Server.RequestServerException``` - in case of transfer to the function incorrect data or problems on the BitSkins server.
+
 ## Example
 
 ```csharp

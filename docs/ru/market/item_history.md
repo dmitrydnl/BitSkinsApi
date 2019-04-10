@@ -47,6 +47,9 @@ List<BitSkinsApi.Market.ItemHistoryRecord>
 * OnSale - находится ли предмет на продаже.
 * RecordTime - время события, может быть null.
 
+### Возможные исключения
+```BitSkinsApi.Server.RequestServerException``` - в случае передачи в функцию некорректных данных или проблем на сервере BitSkins.
+
 ## Пример
 
 ```csharp

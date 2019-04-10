@@ -39,6 +39,9 @@ Class properties ```BitSkinsApi.Market.BuyHistoryRecord```:
 * Withdrawn - is it possible to withdraw the item.
 * Time - buying time.
 
+### Possible exceptions
+```BitSkinsApi.Server.RequestServerException``` - in case of transfer to the function incorrect data or problems on the BitSkins server.
+
 ## Example
 
 ```csharp

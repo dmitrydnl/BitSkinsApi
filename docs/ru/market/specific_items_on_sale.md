@@ -35,6 +35,9 @@ BitSkinsApi.Market.SpecificItems
 * ItemsOnSale - предметы, которые находятся на продаже.
 * ItemsNotOnSale - список id предметов, которые не находятся на продаже.
 
+### Возможные исключения
+```BitSkinsApi.Server.RequestServerException``` - в случае передачи в функцию некорректных данных или проблем на сервере BitSkins.
+
 ## Пример
 
 ```csharp

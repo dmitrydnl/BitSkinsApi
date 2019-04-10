@@ -35,6 +35,9 @@ Class properties ```BitSkinsApi.Inventory.AccountInventory```:
 * BitSkinsInventory - BitSkins inventory items currently on sale at BitSkins.
 * PendingWithdrawalFromBitskinsInventory - items pending withdrawal from BitSkins.
 
+### Possible exceptions
+```BitSkinsApi.Server.RequestServerException``` - in case of transfer to the function incorrect data or problems on the BitSkins server.
+
 ## Example
 
 ```csharp

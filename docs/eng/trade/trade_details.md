@@ -35,6 +35,9 @@ Class properties ```BitSkinsApi.Trade.TradeDetails```:
 * RetrievedItems - list of retrieved items.
 * CreatedAt - trade offer creation date, may be null.
 
+### Possible exceptions
+```BitSkinsApi.Server.RequestServerException``` - in case of transfer to the function incorrect data or problems on the BitSkins server.
+
 ## Example
 
 ```csharp

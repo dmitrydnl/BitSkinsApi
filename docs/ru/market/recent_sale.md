@@ -37,6 +37,9 @@ List<BitSkinsApi.Market.ItemRecentSale>
 * WearValue - изношенность предмета.
 * SoldAt - дата продажи предмета.
 
+### Возможные исключения
+```BitSkinsApi.Server.RequestServerException``` - в случае передачи в функцию некорректных данных или проблем на сервере BitSkins.
+
 ## Пример
 
 ```csharp

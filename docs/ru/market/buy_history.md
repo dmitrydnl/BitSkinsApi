@@ -39,6 +39,9 @@ List<BitSkinsApi.Market.BuyHistoryRecord>
 * Withdrawn - можно ли вывести предмет.
 * Time - время покупки.
 
+### Возможные исключения
+```BitSkinsApi.Server.RequestServerException``` - в случае передачи в функцию некорректных данных или проблем на сервере BitSkins.
+
 ## Пример
 
 ```csharp

@@ -39,6 +39,9 @@ List<BitSkinsApi.Market.MarketItem>
 * RecentAveragePrice - средняя цена за последнее время.
 * UpdatedAt - дата обновления предмета, может быть null.
 
+### Возможные исключения
+```BitSkinsApi.Server.RequestServerException``` - в случае передачи в функцию некорректных данных или проблем на сервере BitSkins.
+
 ## Пример
 
 ```csharp

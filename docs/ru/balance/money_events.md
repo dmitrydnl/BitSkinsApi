@@ -44,6 +44,9 @@ List<BitSkinsApi.Balance.MoneyEvent>
   - StoreCredit – “{Прчина начисления бонусов (обычно "steamname" – значит в вашем имени Steam вставлено "BitSkins.com")}”.
 * Time - время данного события.
 
+### Возможные исключения
+```BitSkinsApi.Server.RequestServerException``` - в случае передачи в функцию некорректных данных или проблем на сервере BitSkins.
+
 ## Пример
 
 ```csharp

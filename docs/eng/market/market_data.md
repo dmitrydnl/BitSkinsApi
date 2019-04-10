@@ -39,6 +39,9 @@ Class properties ```BitSkinsApi.Market.MarketItem```:
 * RecentAveragePrice - average price lately.
 * UpdatedAt - item update date, may be null.
 
+### Possible exceptions
+```BitSkinsApi.Server.RequestServerException``` - in case of transfer to the function incorrect data or problems on the BitSkins server.
+
 ## Example
 
 ```csharp

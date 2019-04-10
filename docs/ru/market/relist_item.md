@@ -38,6 +38,9 @@ List<BitSkinsApi.Market.RelistedItem>
 * Price - цена предмета.
 * WithdrawableAt - дата, когда предмет можно будет вывести из BitSkins.
 
+### Возможные исключения
+```BitSkinsApi.Server.RequestServerException``` - в случае передачи в функцию некорректных данных или проблем на сервере BitSkins.
+
 ## Пример
 
 ```csharp

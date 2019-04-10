@@ -37,6 +37,9 @@ BitSkinsApi.Market.InformationAboutSale
 * TradeTokens - токены обмена.
 * InformationAboutSellerBot - информация о боте приславшем предложение на обмен.
 
+### Возможные исключения
+```BitSkinsApi.Server.RequestServerException``` - в случае передачи в функцию некорректных данных или проблем на сервере BitSkins.
+
 ## Пример
 
 ```csharp

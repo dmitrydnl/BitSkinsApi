@@ -38,6 +38,9 @@ Class properties ```BitSkinsApi.Market.SellHistoryRecord```:
 * Price - selling price.
 * Time - time of sale.
 
+### Possible exceptions
+```BitSkinsApi.Server.RequestServerException``` - in case of transfer to the function incorrect data or problems on the BitSkins server.
+
 ## Example
 
 ```csharp

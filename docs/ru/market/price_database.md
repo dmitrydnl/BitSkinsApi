@@ -38,6 +38,9 @@ List<BitSkinsApi.Market.ItemPrice>
 * IconUrl - ссылка на изображение предмета.
 * InstantSalePrice - цена моментальной продажи предмета, может быть null.
 
+### Возможные исключения
+```BitSkinsApi.Server.RequestServerException``` - в случае передачи в функцию некорректных данных или проблем на сервере BitSkins.
+
 ## Пример
 
 ```csharp

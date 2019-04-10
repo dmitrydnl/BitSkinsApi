@@ -35,6 +35,9 @@ BitSkinsApi.Market.SteamItemRawPriceData
 * ItemRawPrices - список записей о продаже предмета в конкретный период времени.
 * UpdatedAt - дата обновления данных, может быть null.
 
+### Возможные исключения
+```BitSkinsApi.Server.RequestServerException``` - в случае передачи в функцию некорректных данных или проблем на сервере BitSkins.
+
 ## Пример
 
 ```csharp

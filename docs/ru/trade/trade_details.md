@@ -35,6 +35,9 @@ BitSkinsApi.Trade.TradeDetails
 * RetrievedItems - список полученных предметов.
 * CreatedAt - дата создания торгового предложения, может быть равна null.
 
+### Возможные исключения
+```BitSkinsApi.Server.RequestServerException``` - в случае передачи в функцию некорректных данных или проблем на сервере BitSkins.
+
 ## Пример
 
 ```csharp
