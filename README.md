@@ -1,6 +1,4 @@
 [![nuget](https://img.shields.io/nuget/v/BitSkinsApi.svg)](https://www.nuget.org/packages/BitSkinsApi/)
-\
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/c311ec19d2f14879924882810795f4a7)](https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Captious99/BitSkinsApi&amp;utm_campaign=Badge_Grade)
 
 # What is BitSkinsApi?
 An extended wrapper for the BitSkins API. It is a NuGet Package, that build on .NET Standard 2.0. BitSkinsApi allows you to interact with your BitSkins account through methods call. You can sell/buy items, get all BitSkins market data, get your Steam inventory and more. All games available on bitSkins are supported.
