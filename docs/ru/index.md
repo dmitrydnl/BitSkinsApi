@@ -19,7 +19,7 @@
 1. [Рыночные данные BitSkins](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/market/market_data.md)
 2. [База данных цен BitSkins](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/market/price_database.md)
 3. [Все вещи на продаже в BitSkins](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/market/inventory_on_sale.md)
-4. [Конкретные товары на продаже в BitSkins](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/market/get_specific_items_on_sale.md)
+4. [Конкретные товары на продаже в BitSkins](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/market/specific_items_on_sale.md)
 5. [Данные о последних продажах](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/market/recent_sale.md)
 6. [История покупок](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/market/buy_history.md)
 7. [История продаж](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/market/sell_history.md)

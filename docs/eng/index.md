@@ -19,7 +19,7 @@ Acquiring sales data in BitSkins and trading in BitSkins.
 1. [BitSkins market data](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/market/market_data.md)
 2. [BitSkins price database](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/market/price_database.md)
 3. [All items on sale at BitSkins](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/market/inventory_on_sale.md)
-4. [Specific items on sale at BitSkins](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/market/get_specific_items_on_sale.md)
+4. [Specific items on sale at BitSkins](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/market/specific_items_on_sale.md)
 5. [Recent sales data](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/market/recent_sale.md)
 6. [Purchases history](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/market/buy_history.md)
 7. [Sales history](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/market/sell_history.md)
