@@ -29,7 +29,7 @@ BitSkinsApi.Account.AccountData.SetupAccount(ApiKey, SecreCode);
 If you have a different API request limit per second:
 
 ```csharp
-BitSkinsApi.Account.AccountData.SetupAccount(ApiKey, SecretCode, Лимит API);
+BitSkinsApi.Account.AccountData.SetupAccount(ApiKey, SecretCode, Limit API);
 ```
 
 ![alt text](https://img.icons8.com/color/48/000000/error.png "Warning icon") |

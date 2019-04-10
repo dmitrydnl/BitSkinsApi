@@ -1,6 +1,6 @@
 ﻿# Selling item
 
-In order to sell a product from your Steam inventory on BitSkins, you need to call the function:
+In order to sell a item from your Steam inventory on BitSkins, you need to call the function:
 
 ```csharp
 BitSkinsApi.Market.Sale.SellItem(BitSkinsApi.Market.AppId.AppName app, List<string> itemIds, List<double> itemPrices);

@@ -1,6 +1,6 @@
 ﻿# История покупок
 
-Для того чтобы получить историю покупок в BitSkins, нужно вызвать функцию:
+Для того чтобы получить вашу историю покупок в BitSkins, нужно вызвать функцию:
 
 ```csharp
 BitSkinsApi.Market.BuyHistory.GetBuyHistory(BitSkinsApi.Market.AppId.AppName app, int page);

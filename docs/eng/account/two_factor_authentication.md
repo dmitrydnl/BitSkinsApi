@@ -19,7 +19,7 @@ $ sudo apt-get install ntp -y
 To check whether the two-factor code is generated correctly, execute the following code, and compare the obtained result with the code issued by your Authenticator App:
 
 ```csharp
-System.Console.WriteLine(BitSkinsApi.Account.AccountData.GetTwoFactorCode());
+Console.WriteLine(BitSkinsApi.Account.AccountData.GetTwoFactorCode());
 ```
 
 [<Account setup](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/account/account_setup.md) &nbsp;&nbsp;&nbsp;&nbsp; [Account balance>](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/balance/account_balance.md)

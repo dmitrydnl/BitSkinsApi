@@ -42,10 +42,10 @@ BitSkinsApi.Market.AppId.AppName app = BitSkinsApi.Market.AppId.AppName.CounterS
 BitSkinsApi.Inventory.AccountInventory accountInventory = BitSkinsApi.Inventory.Inventories.GetAccountInventory(app, 1);
 foreach (BitSkinsApi.Inventory.SteamInventoryItem item in accountInventory.SteamInventory.SteamInventoryItems)
 {
-    System.Console.WriteLine(item.MarketHashName);
+    Console.WriteLine(item.MarketHashName);
     foreach (string id in item.ItemIds)
     {
-        System.Console.WriteLine("- " + id);
+        Console.WriteLine("- " + id);
     }
 }
 ```

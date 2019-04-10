@@ -50,11 +50,11 @@ Class properties ```BitSkinsApi.Balance.MoneyEvent```:
 ## Example
 
 ```csharp
-System.Collections.Generic.List<BitSkinsApi.Balance.MoneyEvent> moneyEvents = BitSkinsApi.Balance.MoneyEvents.GetMoneyEvents(1);
+List<BitSkinsApi.Balance.MoneyEvent> moneyEvents = BitSkinsApi.Balance.MoneyEvents.GetMoneyEvents(1);
 foreach (BitSkinsApi.Balance.MoneyEvent moneyEvent in moneyEvents)
 {
-    System.Console.WriteLine(moneyEvent.Type);
-    System.Console.WriteLine(moneyEvent.Amount);
+    Console.WriteLine(moneyEvent.Type);
+    Console.WriteLine(moneyEvent.Amount);
 }
 ```
 

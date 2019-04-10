@@ -1,6 +1,6 @@
 ﻿# История продаж
 
-Для того чтобы получить историю продаж в BitSkins, нужно вызвать функцию:
+Для того чтобы получить вашу историю продаж в BitSkins, нужно вызвать функцию:
 
 ```csharp
 BitSkinsApi.Market.SellHistory.GetSellHistory(BitSkinsApi.Market.AppId.AppName app, int page);

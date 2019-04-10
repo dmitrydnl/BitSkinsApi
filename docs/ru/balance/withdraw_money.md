@@ -46,7 +46,7 @@ BitSkinsApi.Balance.AccountBalance balance = BitSkinsApi.Balance.CurrentBalance.
 if (balance.WithdrawableBalance > 5)
 {
     bool success = BitSkinsApi.Balance.MoneyWithdraw.WithdrawMoney(5, BitSkinsApi.Balance.MoneyWithdraw.WithdrawalMoneyMethod.PayPal);
-    System.Console.WriteLine(success ? "Success" : "Fail");
+    Console.WriteLine(success ? "Success" : "Fail");
 }
 ```
 

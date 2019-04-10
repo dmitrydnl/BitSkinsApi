@@ -42,7 +42,7 @@ BitSkinsApi.Market.AppId.AppName app = BitSkinsApi.Market.AppId.AppName.CounterS
 List<string> itemIds = new List<string> { "id1", "id2" };
 
 BitSkinsApi.Market.SpecificItems specificItems = BitSkinsApi.Market.SpecificItemsOnSale.GetSpecificItemsOnSale(app, itemIds);
-Console.WriteLine("Items in sale");
+Console.WriteLine("Items on sale:");
 foreach (var a in specificItems.ItemsOnSale)
 {
     Console.WriteLine(a.MarketHashName);

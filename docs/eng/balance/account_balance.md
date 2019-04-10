@@ -37,7 +37,7 @@ Class properties ```BitSkinsApi.Balance.AccountBalance```:
 ```csharp
 BitSkinsApi.Balance.AccountBalance balance = BitSkinsApi.Balance.CurrentBalance.GetAccountBalance();
 double availableBalance = balance.AvailableBalance;
-System.Console.WriteLine(availableBalance);
+Console.WriteLine(availableBalance);
 ```
 
 [<Two-factor authentication](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/account/two_factor_authentication.md) &nbsp;&nbsp;&nbsp;&nbsp; [Money events>](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/balance/money_events.md)

@@ -22,7 +22,7 @@ BitSkinsApi.Market.RelistForSale.RelistItem(BitSkinsApi.Market.AppId.AppName app
 
 ### Параметры функции:
 
-* BitSkinsApi.Market.AppId.AppName app - игра, которой прнадлежат выставляемые на продажу предметы.
+* BitSkinsApi.Market.AppId.AppName app - игра, которой принадлежат выставляемые на продажу предметы.
 * List<string> itemIds - список id выставляемых на продажу предметов.
 * List<double> itemPrices - список цен выставляемых на продажу предметов.
 
