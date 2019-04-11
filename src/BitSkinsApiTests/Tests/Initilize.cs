@@ -9,7 +9,7 @@ namespace BitSkinsApiTests
         [AssemblyInitialize]
         public static void AssemblyInit(TestContext context)
         {
-            string jsonText = System.IO.File.ReadAllText("accoun_data.json");
+            string jsonText = System.IO.File.ReadAllText("account_data.json");
             AccountData accountData = JsonConvert.DeserializeObject<AccountData>(jsonText);
             string apiKey = accountData.ApiKey;
             string secretCode = accountData.SecretCode;

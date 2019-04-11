@@ -180,7 +180,7 @@
     <Compile Include="Tests\ServerRequest\TradeTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="accoun_data.json">
+    <None Include="account_data.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="app.config" />
