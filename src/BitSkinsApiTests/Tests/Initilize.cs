@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json;
 
 namespace BitSkinsApiTests
 {
@@ -8,7 +9,18 @@ namespace BitSkinsApiTests
         [AssemblyInitialize]
         public static void AssemblyInit(TestContext context)
         {
-            BitSkinsApi.Account.AccountData.SetupAccount("Api Key", "Secret Code");
+            string jsonText = System.IO.File.ReadAllText("accoun_data.json");
+            AccountData accountData = JsonConvert.DeserializeObject<AccountData>(jsonText);
+            string apiKey = accountData.ApiKey;
+            string secretCode = accountData.SecretCode;
+
+            BitSkinsApi.Account.AccountData.SetupAccount(apiKey, secretCode);
         }
+    }
+
+    class AccountData
+    {
+        public string ApiKey { get; set; }
+        public string SecretCode { get; set; }
     }
 }
