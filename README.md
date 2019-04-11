@@ -40,7 +40,14 @@ API Key you can retrieve through the BitSkins settings page. The secret code can
 * Automatic two-factor authentication
 
 ## Tests
-For the tests to work it is necessary to enter your Api Key and Secret Code in the [Initilize.cs](https://github.com/Captious99/BitSkinsApi/blob/master/src/BitSkinsApiTests/Tests/Initilize.cs) file.
+For the tests to work it is necessary to create ```account_data.json``` file in ```BitSkinsApiTests``` project, in properties this file you must set _Copy to Output Directory_ to _Copy always_. After that need add in ```account_data.json``` this:
+```js
+{
+  "ApiKey": "Your api key",
+  "SecretCode": "Your secret code"
+}
+```
+After that _Build Solution_.
 \
 \
 Requirements for Steam inventory and BitSkins inventory for tests:
