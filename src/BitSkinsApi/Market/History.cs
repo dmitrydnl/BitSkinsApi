@@ -19,16 +19,23 @@ namespace BitSkinsApi.Market
         /// <returns>List of buy history records.</returns>
         public static List<BuyHistoryRecord> GetBuyHistory(AppId.AppName app, int page)
         {
-            Server.UrlCreator urlCreator = new Server.UrlCreator($"https://bitskins.com/api/v1/get_buy_history/");
-            urlCreator.AppendUrl($"&page={page}");
-            urlCreator.AppendUrl($"&app_id={(int)app}");
-            
-            string result = Server.ServerRequest.RequestServer(urlCreator.ReadUrl());
+            string urlRequest = GetUrlRequest(app, page);
+            string result = Server.ServerRequest.RequestServer(urlRequest);
             List<BuyHistoryRecord> buyHistoryRecords = ReadBuyHistoryRecors(result);
+
             return buyHistoryRecords;
         }
 
-        static List<BuyHistoryRecord> ReadBuyHistoryRecors(string result)
+        private static string GetUrlRequest(AppId.AppName app, int page)
+        {
+            Server.UrlCreator urlCreator = new Server.UrlCreator($"https://bitskins.com/api/v1/get_buy_history/");
+            urlCreator.AppendUrl($"&page={page}");
+            urlCreator.AppendUrl($"&app_id={(int)app}");
+
+            return urlCreator.ReadUrl();
+        }
+
+        private static List<BuyHistoryRecord> ReadBuyHistoryRecors(string result)
         {
             dynamic responseServerD = JsonConvert.DeserializeObject(result);
             dynamic itemsD = responseServerD.data.items;
@@ -38,19 +45,25 @@ namespace BitSkinsApi.Market
             {
                 foreach (dynamic item in itemsD)
                 {
-                    AppId.AppName appId = (AppId.AppName)(int)item.app_id;
-                    string itemId = item.item_id;
-                    string marketHashName = item.market_hash_name;
-                    double buyPrice = item.buy_price;
-                    bool withdrawn = item.withdrawn;
-                    DateTime time = DateTimeExtension.FromUnixTime((long)item.time);
-
-                    BuyHistoryRecord historyBuyRecord = new BuyHistoryRecord(appId, itemId, marketHashName, buyPrice, withdrawn, time);
+                    BuyHistoryRecord historyBuyRecord = ReadBuyHistoryRecord(item);
                     historyBuyRecords.Add(historyBuyRecord);
                 }
             }
 
             return historyBuyRecords;
+        }
+
+        private static BuyHistoryRecord ReadBuyHistoryRecord(dynamic item)
+        {
+            AppId.AppName appId = (AppId.AppName)(int)item.app_id;
+            string itemId = item.item_id;
+            string marketHashName = item.market_hash_name;
+            double buyPrice = item.buy_price;
+            bool withdrawn = item.withdrawn;
+            DateTime time = DateTimeExtension.FromUnixTime((long)item.time);
+
+            BuyHistoryRecord historyBuyRecord = new BuyHistoryRecord(appId, itemId, marketHashName, buyPrice, withdrawn, time);
+            return historyBuyRecord;
         }
     }
 
@@ -68,17 +81,23 @@ namespace BitSkinsApi.Market
         /// <returns>List of sell history records.</returns>
         public static List<SellHistoryRecord> GetSellHistory(AppId.AppName app, int page)
         {
-            Server.UrlCreator urlCreator = new Server.UrlCreator($"https://bitskins.com/api/v1/get_sell_history/");
-            urlCreator.AppendUrl($"&page={page}");
-            urlCreator.AppendUrl($"&app_id={(int)app}");
-
-            string result = Server.ServerRequest.RequestServer(urlCreator.ReadUrl());
+            string urlRequest = GetUrlRequest(app, page);
+            string result = Server.ServerRequest.RequestServer(urlRequest);
             List<SellHistoryRecord> sellHistoryRecords = ReadSellHistoryRecors(result);
 
             return sellHistoryRecords;
         }
 
-        static List<SellHistoryRecord> ReadSellHistoryRecors(string result)
+        private static string GetUrlRequest(AppId.AppName app, int page)
+        {
+            Server.UrlCreator urlCreator = new Server.UrlCreator($"https://bitskins.com/api/v1/get_sell_history/");
+            urlCreator.AppendUrl($"&page={page}");
+            urlCreator.AppendUrl($"&app_id={(int)app}");
+
+            return urlCreator.ReadUrl();
+        }
+
+        private static List<SellHistoryRecord> ReadSellHistoryRecors(string result)
         {
             dynamic responseServerD = JsonConvert.DeserializeObject(result);
             dynamic itemsD = responseServerD.data.items;
@@ -88,18 +107,24 @@ namespace BitSkinsApi.Market
             {
                 foreach (dynamic item in itemsD)
                 {
-                    AppId.AppName appId = (AppId.AppName)(int)item.app_id;
-                    string itemId = item.item_id;
-                    string marketHashName = item.market_hash_name;
-                    double salePrice = item.sale_price;
-                    DateTime time = DateTimeExtension.FromUnixTime((long)item.time);
-
-                    SellHistoryRecord sellHistoryRecord = new SellHistoryRecord(appId, itemId, marketHashName, salePrice, time);
+                    SellHistoryRecord sellHistoryRecord = ReadSellHistoryRecord(item);
                     sellHistoryRecords.Add(sellHistoryRecord);
                 }
             }
 
             return sellHistoryRecords;
+        }
+
+        private static SellHistoryRecord ReadSellHistoryRecord(dynamic item)
+        {
+            AppId.AppName appId = (AppId.AppName)(int)item.app_id;
+            string itemId = item.item_id;
+            string marketHashName = item.market_hash_name;
+            double salePrice = item.sale_price;
+            DateTime time = DateTimeExtension.FromUnixTime((long)item.time);
+
+            SellHistoryRecord sellHistoryRecord = new SellHistoryRecord(appId, itemId, marketHashName, salePrice, time);
+            return sellHistoryRecord;
         }
     }
 
@@ -127,6 +152,15 @@ namespace BitSkinsApi.Market
         /// <returns>List of item's history records.</returns>
         public static List<ItemHistoryRecord> GetItemHistory(AppId.AppName app, int page, List<string> names, ResultsPerPage resultsPerPage)
         {
+            string urlRequest = GetUrlRequest(app, page, names, resultsPerPage);
+            string result = Server.ServerRequest.RequestServer(urlRequest);
+            List<ItemHistoryRecord> itemHistoryRecords = ReadItemHistoryRecords(result);
+
+            return itemHistoryRecords;
+        }
+
+        private static string GetUrlRequest(AppId.AppName app, int page, List<string> names, ResultsPerPage resultsPerPage)
+        {
             const string delimiter = ",";
 
             Server.UrlCreator urlCreator = new Server.UrlCreator($"https://bitskins.com/api/v1/get_item_history/");
@@ -140,13 +174,10 @@ namespace BitSkinsApi.Market
                 urlCreator.AppendUrl($"&delimiter={delimiter}");
             }
 
-            string result = Server.ServerRequest.RequestServer(urlCreator.ReadUrl());
-            List<ItemHistoryRecord> itemHistoryRecords = ReadItemHistoryRecords(result);
-
-            return itemHistoryRecords;
+            return urlCreator.ReadUrl();
         }
 
-        static List<ItemHistoryRecord> ReadItemHistoryRecords(string result)
+        private static List<ItemHistoryRecord> ReadItemHistoryRecords(string result)
         {
             dynamic responseServerD = JsonConvert.DeserializeObject(result);
             dynamic itemsD = responseServerD.data.items;
@@ -156,48 +187,55 @@ namespace BitSkinsApi.Market
             {
                 foreach (dynamic item in itemsD)
                 {
-                    AppId.AppName appId = (AppId.AppName)(int)item.app_id;
-                    string itemId = item.item_id;
-                    string marketHashName = item.market_hash_name;
-                    double price = item.price;
-                    DateTime lastUpdateAt = DateTimeExtension.FromUnixTime((long)item.last_update_at);
-                    DateTime listedAt = DateTimeExtension.FromUnixTime((long)item.listed_at);
-                    DateTime? withdrawnAt = null;
-                    if (item.withdrawn_at != null)
-                    {
-                        withdrawnAt = DateTimeExtension.FromUnixTime((long)item.withdrawn_at);
-                    }
-                    bool listedByMe = item.listed_by_me;
-                    bool onHold = item.on_hold;
-                    bool onSale = item.on_sale;
-                    ItemHistoryRecordType recordType = (item.bought_at != null) ? ItemHistoryRecordType.BoughtAt : ItemHistoryRecordType.SoldAt;
-                    DateTime? recordTime = null;
-                    if (recordType == ItemHistoryRecordType.BoughtAt)
-                    {
-                        recordTime = DateTimeExtension.FromUnixTime((long)item.bought_at);
-                    }
-                    else if (recordType == ItemHistoryRecordType.SoldAt)
-                    {
-                        if (item.sold_at != null)
-                        {
-                            recordTime = DateTimeExtension.FromUnixTime((long)item.sold_at);
-                        }
-                    }
-
-                    ItemHistoryRecord itemHistoryRecord = new ItemHistoryRecord(appId, itemId, marketHashName, price,
-                        recordType, lastUpdateAt, listedAt, withdrawnAt, listedByMe, onHold, onSale, recordTime);
+                    ItemHistoryRecord itemHistoryRecord = ReadItemHistoryRecord(item);
                     itemHistoryRecords.Add(itemHistoryRecord);
                 }
             }
 
             return itemHistoryRecords;
         }
+
+        private static ItemHistoryRecord ReadItemHistoryRecord(dynamic item)
+        {
+            AppId.AppName appId = (AppId.AppName)(int)item.app_id;
+            string itemId = item.item_id;
+            string marketHashName = item.market_hash_name;
+            double price = item.price;
+            DateTime lastUpdateAt = DateTimeExtension.FromUnixTime((long)item.last_update_at);
+            DateTime listedAt = DateTimeExtension.FromUnixTime((long)item.listed_at);
+            DateTime? withdrawnAt = null;
+            if (item.withdrawn_at != null)
+            {
+                withdrawnAt = DateTimeExtension.FromUnixTime((long)item.withdrawn_at);
+            }
+            bool listedByMe = item.listed_by_me;
+            bool onHold = item.on_hold;
+            bool onSale = item.on_sale;
+            ItemHistoryRecordType recordType = (item.bought_at != null) ? ItemHistoryRecordType.BoughtAt : ItemHistoryRecordType.SoldAt;
+            DateTime? recordTime;
+            if (recordType == ItemHistoryRecordType.BoughtAt)
+            {
+                recordTime = DateTimeExtension.FromUnixTime((long)item.bought_at);
+            }
+            else if (recordType == ItemHistoryRecordType.SoldAt && item.sold_at != null)
+            {
+                recordTime = DateTimeExtension.FromUnixTime((long)item.sold_at);
+            }
+            else
+            {
+                recordTime = null;
+            }
+
+            ItemHistoryRecord itemHistoryRecord = new ItemHistoryRecord(appId, itemId, marketHashName, price,
+                recordType, lastUpdateAt, listedAt, withdrawnAt, listedByMe, onHold, onSale, recordTime);
+            return itemHistoryRecord;
+        }
     }
 
     /// <summary>
     /// BitSkins record about item buy/sell.
     /// </summary>
-    public abstract class HistoryRecord
+    public class HistoryRecord
     {
         public AppId.AppName AppId { get; private set; }
         public string ItemId { get; private set; }

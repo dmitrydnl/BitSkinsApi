@@ -19,17 +19,23 @@ namespace BitSkinsApi.Trade
         /// <returns>Details of this trade.</returns>
         public static TradeDetails GetTradeDetails(string tradeToken, string tradeId)
         {
-            Server.UrlCreator urlCreator = new Server.UrlCreator($"https://bitskins.com/api/v1/get_trade_details/");
-            urlCreator.AppendUrl($"&trade_token={tradeToken}");
-            urlCreator.AppendUrl($"&trade_id={tradeId}");
-
-            string result = Server.ServerRequest.RequestServer(urlCreator.ReadUrl());
+            string urlRequest = GetUrlRequest(tradeToken, tradeId);
+            string result = Server.ServerRequest.RequestServer(urlRequest);
             TradeDetails tradeDetails = ReadTradeDetails(result);
 
             return tradeDetails;
         }
 
-        static TradeDetails ReadTradeDetails(string result)
+        private static string GetUrlRequest(string tradeToken, string tradeId)
+        {
+            Server.UrlCreator urlCreator = new Server.UrlCreator($"https://bitskins.com/api/v1/get_trade_details/");
+            urlCreator.AppendUrl($"&trade_token={tradeToken}");
+            urlCreator.AppendUrl($"&trade_id={tradeId}");
+
+            return urlCreator.ReadUrl();
+        }
+
+        private static TradeDetails ReadTradeDetails(string result)
         {
             dynamic responseServerD = JsonConvert.DeserializeObject(result);
             dynamic createdAtD = responseServerD.data.created_at;
@@ -45,38 +51,29 @@ namespace BitSkinsApi.Trade
             return tradeDetails;
         }
 
-        static DateTime? ReadCreatedAt(dynamic createdAtD)
+        private static DateTime? ReadCreatedAt(dynamic createdAtD)
         {
-            DateTime? createdAt = null;
+            DateTime? createdAt;
             if (createdAtD != null)
             {
                 createdAt = DateTimeExtension.FromUnixTime((long)createdAtD);
+            }
+            else
+            {
+                createdAt = null;
             }
 
             return createdAt;
         }
 
-        static List<SentItem> ReadSentItems(dynamic itemsSentD)
+        private static List<SentItem> ReadSentItems(dynamic itemsSentD)
         {
             List<SentItem> sentItems = new List<SentItem>();
             if (itemsSentD != null)
             {
                 foreach (dynamic item in itemsSentD)
                 {
-                    Market.AppId.AppName appId = (Market.AppId.AppName)(int)item.app_id;
-                    string itemId = item.item_id;
-                    string marketHashName = item.market_hash_name;
-                    string image = item.image;
-                    double price = item.price;
-                    double suggestedPrice = item.suggested_price;
-                    DateTime withdrawableAt = DateTimeExtension.FromUnixTime((long)item.withdrawable_at);
-                    DateTime? deliveredAt = null;
-                    if (item.delivered_at != null)
-                    {
-                        deliveredAt = DateTimeExtension.FromUnixTime((long)item.delivered_at);
-                    }
-
-                    SentItem sentItem = new SentItem(appId, itemId, marketHashName, image, price, suggestedPrice, withdrawableAt, deliveredAt);
+                    SentItem sentItem = ReadSentItem(item);
                     sentItems.Add(sentItem);
                 }
             }
@@ -84,22 +81,47 @@ namespace BitSkinsApi.Trade
             return sentItems;
         }
 
-        static List<RetrievedItem> ReadRetrievedItems(dynamic itemsRetrievedD)
+        private static SentItem ReadSentItem(dynamic item)
+        {
+            Market.AppId.AppName appId = (Market.AppId.AppName)(int)item.app_id;
+            string itemId = item.item_id;
+            string marketHashName = item.market_hash_name;
+            string image = item.image;
+            double price = item.price;
+            double suggestedPrice = item.suggested_price;
+            DateTime withdrawableAt = DateTimeExtension.FromUnixTime((long)item.withdrawable_at);
+            DateTime? deliveredAt = null;
+            if (item.delivered_at != null)
+            {
+                deliveredAt = DateTimeExtension.FromUnixTime((long)item.delivered_at);
+            }
+
+            SentItem sentItem = new SentItem(appId, itemId, marketHashName, image, price, suggestedPrice, withdrawableAt, deliveredAt);
+            return sentItem;
+        }
+
+        private static List<RetrievedItem> ReadRetrievedItems(dynamic itemsRetrievedD)
         {
             List<RetrievedItem> retrievedItems = new List<RetrievedItem>();
             if (itemsRetrievedD != null)
             {
                 foreach (dynamic item in itemsRetrievedD)
                 {
-                    Market.AppId.AppName appId = (Market.AppId.AppName)(int)item.app_id;
-                    string itemId = item.item_id;
-
-                    RetrievedItem retrievedItem = new RetrievedItem(appId, itemId);
+                    RetrievedItem retrievedItem = ReadRetrievedItem(item);
                     retrievedItems.Add(retrievedItem);
                 }
             }
 
             return retrievedItems;
+        }
+
+        private static RetrievedItem ReadRetrievedItem(dynamic item)
+        {
+            Market.AppId.AppName appId = (Market.AppId.AppName)(int)item.app_id;
+            string itemId = item.item_id;
+
+            RetrievedItem retrievedItem = new RetrievedItem(appId, itemId);
+            return retrievedItem;
         }
     }
 

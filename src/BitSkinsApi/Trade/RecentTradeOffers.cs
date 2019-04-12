@@ -22,15 +22,22 @@ namespace BitSkinsApi.Trade
         /// <returns>List of recent trade offers.</returns>
         public static List<RecentTradeOffer> GetRecentTradeOffers(bool activeOnly)
         {
-            Server.UrlCreator urlCreator = new Server.UrlCreator($"https://bitskins.com/api/v1/get_recent_trade_offers/");
-            urlCreator.AppendUrl($"&active_only={activeOnly}");
-
-            string result = Server.ServerRequest.RequestServer(urlCreator.ReadUrl());
+            string urlRequest = GetUrlRequest(activeOnly);
+            string result = Server.ServerRequest.RequestServer(urlRequest);
             List<RecentTradeOffer> recentTradeOffers = ReadRecentTradeOffers(result);
+
             return recentTradeOffers;
         }
 
-        static List<RecentTradeOffer> ReadRecentTradeOffers(string result)
+        private static string GetUrlRequest(bool activeOnly)
+        {
+            Server.UrlCreator urlCreator = new Server.UrlCreator($"https://bitskins.com/api/v1/get_recent_trade_offers/");
+            urlCreator.AppendUrl($"&active_only={activeOnly}");
+
+            return urlCreator.ReadUrl();
+        }
+
+        private static List<RecentTradeOffer> ReadRecentTradeOffers(string result)
         {
             dynamic responseServerD = JsonConvert.DeserializeObject(result);
             dynamic offersD = responseServerD.data.offers;
@@ -40,19 +47,7 @@ namespace BitSkinsApi.Trade
             {
                 foreach (dynamic offer in offersD)
                 {
-                    string steamTradeOfferId = offer.steam_trade_offer_id;
-                    TradeOfferStatusType steamTradeOfferStatus = (TradeOfferStatusType)(int)offer.steam_trade_offer_state;
-                    string senderUid = offer.sender_uid;
-                    string recipientUid = offer.recipient_uid;
-                    int numItemsSent = offer.num_items_sent;
-                    int numItemsRetrieved = offer.num_items_retrieved;
-                    string tradeMessage = offer.trade_message;
-                    TradeTokenAndTradeIdFromString(tradeMessage, out string bitSkinsTradeToken, out string bitSkinsTradeId);
-                    DateTime createdAt = DateTimeExtension.FromUnixTime((long)offer.created_at);
-                    DateTime updatedAt = DateTimeExtension.FromUnixTime((long)offer.updated_at);
-
-                    RecentTradeOffer recentTradeOffer = new RecentTradeOffer(steamTradeOfferId, steamTradeOfferStatus, senderUid, recipientUid, numItemsSent,
-                        numItemsRetrieved, bitSkinsTradeToken, bitSkinsTradeId, tradeMessage, createdAt, updatedAt);
+                    RecentTradeOffer recentTradeOffer = ReadRecentTradeOffer(offer);
                     recentTradeOffers.Add(recentTradeOffer);
                 }
             }
@@ -60,7 +55,25 @@ namespace BitSkinsApi.Trade
             return recentTradeOffers;
         }
 
-        static void TradeTokenAndTradeIdFromString(string tradeMessage, out string bitSkinsTradeToken, out string bitSkinsTradeId)
+        private static RecentTradeOffer ReadRecentTradeOffer(dynamic offer)
+        {
+            string steamTradeOfferId = offer.steam_trade_offer_id;
+            TradeOfferStatusType steamTradeOfferStatus = (TradeOfferStatusType)(int)offer.steam_trade_offer_state;
+            string senderUid = offer.sender_uid;
+            string recipientUid = offer.recipient_uid;
+            int numItemsSent = offer.num_items_sent;
+            int numItemsRetrieved = offer.num_items_retrieved;
+            string tradeMessage = offer.trade_message;
+            TradeTokenAndTradeIdFromString(tradeMessage, out string bitSkinsTradeToken, out string bitSkinsTradeId);
+            DateTime createdAt = DateTimeExtension.FromUnixTime((long)offer.created_at);
+            DateTime updatedAt = DateTimeExtension.FromUnixTime((long)offer.updated_at);
+
+            RecentTradeOffer recentTradeOffer = new RecentTradeOffer(steamTradeOfferId, steamTradeOfferStatus, senderUid, recipientUid, numItemsSent,
+                numItemsRetrieved, bitSkinsTradeToken, bitSkinsTradeId, tradeMessage, createdAt, updatedAt);
+            return recentTradeOffer;
+        }
+
+        private static void TradeTokenAndTradeIdFromString(string tradeMessage, out string bitSkinsTradeToken, out string bitSkinsTradeId)
         {
             const string tokenStr = "BitSkins Trade Token: ";
             const string idStr = ", Trade ID: ";
