@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Security;
 using System.Runtime.InteropServices;
+using System.Runtime.Serialization;
 
 namespace BitSkinsApi.Account
 {
@@ -106,6 +107,7 @@ namespace BitSkinsApi.Account
         }
     }
 
+    [Serializable]
     public class SetupAccountException : Exception
     {
         internal SetupAccountException()
@@ -119,6 +121,11 @@ namespace BitSkinsApi.Account
 
         internal SetupAccountException(string message, Exception inner)
             : base(message, inner)
+        {
+        }
+
+        protected SetupAccountException(SerializationInfo info, StreamingContext context)
+            : base(info, context)
         {
         }
     }

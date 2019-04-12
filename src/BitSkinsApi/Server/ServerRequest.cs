@@ -2,6 +2,7 @@
 using System.Net;
 using System.IO;
 using System.Threading;
+using System.Runtime.Serialization;
 
 namespace BitSkinsApi.Server
 {
@@ -44,6 +45,7 @@ namespace BitSkinsApi.Server
         }
     }
 
+    [Serializable]
     public class RequestServerException : Exception
     {
         internal RequestServerException()
@@ -57,6 +59,11 @@ namespace BitSkinsApi.Server
 
         internal RequestServerException(string message, Exception inner)
             : base(message, inner)
+        {
+        }
+
+        protected RequestServerException(SerializationInfo info, StreamingContext context)
+            : base(info, context)
         {
         }
     }
