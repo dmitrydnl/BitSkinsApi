@@ -20,16 +20,22 @@ namespace BitSkinsApi.Market
         /// <returns>List of reset price items.</returns>
         public static List<ResetPriceItem> GetResetPriceItems(AppId.AppName app, int page)
         {
-            Server.UrlCreator urlCreator = new Server.UrlCreator($"https://bitskins.com/api/v1/get_reset_price_items/");
-            urlCreator.AppendUrl($"&app_id={(int)app}");
-            urlCreator.AppendUrl($"&page={page}");
-
-            string result = Server.ServerRequest.RequestServer(urlCreator.ReadUrl());
+            string urlRequest = GetUrlRequest(app, page);
+            string result = Server.ServerRequest.RequestServer(urlRequest);
             List<ResetPriceItem> resetPriceItems = ReadResetPriceItems(result);
             return resetPriceItems;
         }
 
-        static List<ResetPriceItem> ReadResetPriceItems(string result)
+        private static string GetUrlRequest(AppId.AppName app, int page)
+        {
+            Server.UrlCreator urlCreator = new Server.UrlCreator($"https://bitskins.com/api/v1/get_reset_price_items/");
+            urlCreator.AppendUrl($"&app_id={(int)app}");
+            urlCreator.AppendUrl($"&page={page}");
+
+            return urlCreator.ReadUrl();
+        }
+
+        private static List<ResetPriceItem> ReadResetPriceItems(string result)
         {
             dynamic responseServerD = JsonConvert.DeserializeObject(result);
             dynamic itemsD = responseServerD.data.items;
@@ -39,19 +45,25 @@ namespace BitSkinsApi.Market
             {
                 foreach (dynamic item in itemsD)
                 {
-                    string marketHashName = item.market_hash_name;
-                    double? price = null;
-                    if (item.price != null)
-                    {
-                        price = (double)item.price;
-                    }
-
-                    ResetPriceItem resetPriceItem = new ResetPriceItem(marketHashName, price);
+                    ResetPriceItem resetPriceItem = ReadResetPriceItem(item);
                     resetPriceItems.Add(resetPriceItem);
                 }
             }
 
             return resetPriceItems;
+        }
+
+        private static ResetPriceItem ReadResetPriceItem(dynamic item)
+        {
+            string marketHashName = item.market_hash_name;
+            double? price = null;
+            if (item.price != null)
+            {
+                price = (double)item.price;
+            }
+
+            ResetPriceItem resetPriceItem = new ResetPriceItem(marketHashName, price);
+            return resetPriceItem;
         }
     }
 

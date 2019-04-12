@@ -19,6 +19,14 @@ namespace BitSkinsApi.Market
         /// <returns>List of modified items.</returns>
         public static List<ModifiedItem> ModifySale(AppId.AppName app, List<string> itemIds, List<double> itemPrices)
         {
+            string urlRequest = GetUrlRequest(app, itemIds, itemPrices);
+            string result = Server.ServerRequest.RequestServer(urlRequest);
+            List<ModifiedItem> modifiedItems = ReadModifiedItems(result);
+            return modifiedItems;
+        }
+
+        private static string GetUrlRequest(AppId.AppName app, List<string> itemIds, List<double> itemPrices)
+        {
             const string delimiter = ",";
 
             Server.UrlCreator urlCreator = new Server.UrlCreator($"https://bitskins.com/api/v1/modify_sale_item/");
@@ -26,13 +34,10 @@ namespace BitSkinsApi.Market
             urlCreator.AppendUrl($"&item_ids={itemIds.ToStringWithDelimiter(delimiter)}");
             urlCreator.AppendUrl($"&prices={itemPrices.ToStringWithDelimiter(delimiter)}");
 
-            string result = Server.ServerRequest.RequestServer(urlCreator.ReadUrl());
-            List<ModifiedItem> modifiedItems = ReadModifiedItems(result);
-
-            return modifiedItems;
+            return urlCreator.ReadUrl();
         }
 
-        static List<ModifiedItem> ReadModifiedItems(string result)
+        private static List<ModifiedItem> ReadModifiedItems(string result)
         {
             dynamic responseServerD = JsonConvert.DeserializeObject(result);
             dynamic itemsD = responseServerD.data.items;
@@ -42,20 +47,26 @@ namespace BitSkinsApi.Market
             {
                 foreach (dynamic item in itemsD)
                 {
-                    string itemId = item.item_id;
-                    string marketHashName = item.market_hash_name;
-                    string image = item.image;
-                    double price = item.price;
-                    double oldPrice = item.old_price;
-                    double discount = item.discount;
-                    DateTime withdrawableAt = DateTimeExtension.FromUnixTime((long)item.withdrawable_at);
-
-                    ModifiedItem modifiedItem = new ModifiedItem(itemId, marketHashName, image, price, oldPrice, discount, withdrawableAt);
+                    ModifiedItem modifiedItem = ReadModifiedItem(item);
                     modifiedItems.Add(modifiedItem);
                 }
             }
 
             return modifiedItems;
+        }
+
+        private static ModifiedItem ReadModifiedItem(dynamic item)
+        {
+            string itemId = item.item_id;
+            string marketHashName = item.market_hash_name;
+            string image = item.image;
+            double price = item.price;
+            double oldPrice = item.old_price;
+            double discount = item.discount;
+            DateTime withdrawableAt = DateTimeExtension.FromUnixTime((long)item.withdrawable_at);
+
+            ModifiedItem modifiedItem = new ModifiedItem(itemId, marketHashName, image, price, oldPrice, discount, withdrawableAt);
+            return modifiedItem;
         }
     }
 

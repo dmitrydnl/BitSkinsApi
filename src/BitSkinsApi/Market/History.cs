@@ -22,7 +22,6 @@ namespace BitSkinsApi.Market
             string urlRequest = GetUrlRequest(app, page);
             string result = Server.ServerRequest.RequestServer(urlRequest);
             List<BuyHistoryRecord> buyHistoryRecords = ReadBuyHistoryRecors(result);
-
             return buyHistoryRecords;
         }
 
@@ -84,7 +83,6 @@ namespace BitSkinsApi.Market
             string urlRequest = GetUrlRequest(app, page);
             string result = Server.ServerRequest.RequestServer(urlRequest);
             List<SellHistoryRecord> sellHistoryRecords = ReadSellHistoryRecors(result);
-
             return sellHistoryRecords;
         }
 
@@ -155,7 +153,6 @@ namespace BitSkinsApi.Market
             string urlRequest = GetUrlRequest(app, page, names, resultsPerPage);
             string result = Server.ServerRequest.RequestServer(urlRequest);
             List<ItemHistoryRecord> itemHistoryRecords = ReadItemHistoryRecords(result);
-
             return itemHistoryRecords;
         }
 
@@ -217,13 +214,16 @@ namespace BitSkinsApi.Market
             {
                 recordTime = DateTimeExtension.FromUnixTime((long)item.bought_at);
             }
-            else if (recordType == ItemHistoryRecordType.SoldAt && item.sold_at != null)
-            {
-                recordTime = DateTimeExtension.FromUnixTime((long)item.sold_at);
-            }
             else
             {
-                recordTime = null;
+                if (item.sold_at != null)
+                {
+                    recordTime = DateTimeExtension.FromUnixTime((long)item.sold_at);
+                }
+                else
+                {
+                    recordTime = null;
+                }
             }
 
             ItemHistoryRecord itemHistoryRecord = new ItemHistoryRecord(appId, itemId, marketHashName, price,

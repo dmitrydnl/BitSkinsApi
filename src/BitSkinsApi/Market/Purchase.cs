@@ -23,6 +23,15 @@ namespace BitSkinsApi.Market
         public static List<BoughtItem> BuyItem(AppId.AppName app, List<string> itemIds, List<double> itemPrices, 
             bool autoTrade, bool allowTradeDelayedPurchases)
         {
+            string urlRequest = GetUrlRequest(app, itemIds, itemPrices, autoTrade, allowTradeDelayedPurchases);
+            string result = Server.ServerRequest.RequestServer(urlRequest);
+            List<BoughtItem> boughtItems = ReadBoughtItems(result);
+            return boughtItems;
+        }
+
+        private static string GetUrlRequest(AppId.AppName app, List<string> itemIds, List<double> itemPrices,
+            bool autoTrade, bool allowTradeDelayedPurchases)
+        {
             const string delimiter = ",";
 
             Server.UrlCreator urlCreator = new Server.UrlCreator($"https://bitskins.com/api/v1/buy_item/");
@@ -31,13 +40,11 @@ namespace BitSkinsApi.Market
             urlCreator.AppendUrl($"&prices={itemPrices.ToStringWithDelimiter(delimiter)}");
             urlCreator.AppendUrl($"&auto_trade={autoTrade}");
             urlCreator.AppendUrl($"&allow_trade_delayed_purchases={allowTradeDelayedPurchases}");
-            
-            string result = Server.ServerRequest.RequestServer(urlCreator.ReadUrl());
-            List<BoughtItem> boughtItems = ReadBoughtItems(result);
-            return boughtItems;
+
+            return urlCreator.ReadUrl();
         }
 
-        static List<BoughtItem> ReadBoughtItems(string result)
+        private static List<BoughtItem> ReadBoughtItems(string result)
         {
             dynamic responseServerD = JsonConvert.DeserializeObject(result);
             dynamic itemsD = responseServerD.data.items;
@@ -47,17 +54,23 @@ namespace BitSkinsApi.Market
             {
                 foreach (dynamic item in itemsD)
                 {
-                    string itemId = item.item_id;
-                    string marketHashName = item.market_hash_name;
-                    double price = item.price;
-                    DateTime withdrawableAt = DateTimeExtension.FromUnixTime((long)item.withdrawable_at);
-
-                    BoughtItem boughtItem = new BoughtItem(itemId, marketHashName, price, withdrawableAt);
+                    BoughtItem boughtItem = ReadBoughtItem(item);
                     boughtItems.Add(boughtItem);
                 }
             }
 
             return boughtItems;
+        }
+
+        private static BoughtItem ReadBoughtItem(dynamic item)
+        {
+            string itemId = item.item_id;
+            string marketHashName = item.market_hash_name;
+            double price = item.price;
+            DateTime withdrawableAt = DateTimeExtension.FromUnixTime((long)item.withdrawable_at);
+
+            BoughtItem boughtItem = new BoughtItem(itemId, marketHashName, price, withdrawableAt);
+            return boughtItem;
         }
     }
 

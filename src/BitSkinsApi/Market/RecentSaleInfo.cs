@@ -20,17 +20,23 @@ namespace BitSkinsApi.Market
         /// <returns>List of item's recent sales.</returns>
         public static List<ItemRecentSale> GetRecentSaleInfo(AppId.AppName app, string marketHashName, int page)
         {
+            string urlRequest = GetUrlRequest(app, marketHashName, page);
+            string result = Server.ServerRequest.RequestServer(urlRequest);
+            List<ItemRecentSale> itemRecentSales = ReadItemRecentSales(result);
+            return itemRecentSales;
+        }
+
+        private static string GetUrlRequest(AppId.AppName app, string marketHashName, int page)
+        {
             Server.UrlCreator urlCreator = new Server.UrlCreator($"https://bitskins.com/api/v1/get_sales_info/");
             urlCreator.AppendUrl($"&app_id={(int)app}");
             urlCreator.AppendUrl($"&market_hash_name={marketHashName}");
             urlCreator.AppendUrl($"&page={page}");
 
-            string result = Server.ServerRequest.RequestServer(urlCreator.ReadUrl());
-            List<ItemRecentSale> itemRecentSales = ReadItemRecentSales(result);
-            return itemRecentSales;
+            return urlCreator.ReadUrl();
         }
 
-        static List<ItemRecentSale> ReadItemRecentSales(string result)
+        private static List<ItemRecentSale> ReadItemRecentSales(string result)
         {
             dynamic responseServerD = JsonConvert.DeserializeObject(result);
             dynamic salesD = responseServerD.data.sales;
@@ -40,16 +46,22 @@ namespace BitSkinsApi.Market
             {
                 foreach (dynamic item in salesD)
                 {
-                    double price = item.price;
-                    double wearValue = item.wear_value;
-                    DateTime soldAt = DateTimeExtension.FromUnixTime((long)item.sold_at);
-
-                    ItemRecentSale recentSaleItem = new ItemRecentSale(price, wearValue, soldAt);
+                    ItemRecentSale recentSaleItem = ReadItemRecentSale(item);
                     itemRecentSales.Add(recentSaleItem);
                 }
             }
 
             return itemRecentSales;
+        }
+
+        private static ItemRecentSale ReadItemRecentSale(dynamic item)
+        {
+            double price = item.price;
+            double wearValue = item.wear_value;
+            DateTime soldAt = DateTimeExtension.FromUnixTime((long)item.sold_at);
+
+            ItemRecentSale recentSaleItem = new ItemRecentSale(price, wearValue, soldAt);
+            return recentSaleItem;
         }
     }
 

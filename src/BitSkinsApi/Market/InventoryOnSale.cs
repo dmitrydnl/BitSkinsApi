@@ -48,11 +48,22 @@ namespace BitSkinsApi.Market
             SortBy sortBy, SortOrder sortOrder, ThreeChoices hasStickers, ThreeChoices isStattrak, ThreeChoices isSouvenir, 
             ResultsPerPage resultsPerPage, ThreeChoices tradeDelayedItems)
         {
+            string urlRequest = GetUrlRequest(app, page, marketHashName, minPrice, maxPrice, sortBy, sortOrder, hasStickers, 
+                isStattrak, isSouvenir, resultsPerPage, tradeDelayedItems);
+            string result = Server.ServerRequest.RequestServer(urlRequest);
+            List<ItemOnSale> itemsOnSale = ReadItemsOnSale(result);
+            return itemsOnSale;
+        }
+
+        private static string GetUrlRequest(AppId.AppName app, int page, string marketHashName, double minPrice, double maxPrice,
+            SortBy sortBy, SortOrder sortOrder, ThreeChoices hasStickers, ThreeChoices isStattrak, ThreeChoices isSouvenir,
+            ResultsPerPage resultsPerPage, ThreeChoices tradeDelayedItems)
+        {
             Server.UrlCreator urlCreator = new Server.UrlCreator($"https://bitskins.com/api/v1/get_inventory_on_sale/");
             urlCreator.AppendUrl($"&page={page}");
             urlCreator.AppendUrl($"&app_id={(int)app}");
             urlCreator.AppendUrl($"&per_page={(int)resultsPerPage}");
-            
+
             if (!string.IsNullOrEmpty(marketHashName))
             {
                 urlCreator.AppendUrl($"&market_hash_name={marketHashName}");
@@ -72,12 +83,12 @@ namespace BitSkinsApi.Market
             {
                 urlCreator.AppendUrl($"&sort_by={SortByToString(sortBy)}");
             }
-            
+
             if (sortOrder != SortOrder.Not)
             {
                 urlCreator.AppendUrl($"&order={SortOrderToString(sortOrder)}");
             }
-            
+
             if (app == AppId.AppName.CounterStrikGlobalOffensive)
             {
                 urlCreator.AppendUrl($"&has_stickers={(int)hasStickers}");
@@ -85,14 +96,11 @@ namespace BitSkinsApi.Market
                 urlCreator.AppendUrl($"&is_souvenir={(int)isSouvenir}");
                 urlCreator.AppendUrl($"&show_trade_delayed_items={(int)tradeDelayedItems}");
             }
-            
-            string result = Server.ServerRequest.RequestServer(urlCreator.ReadUrl());
-            List<ItemOnSale> itemsOnSale = ReadItemsOnSale(result);
 
-            return itemsOnSale;
+            return urlCreator.ReadUrl();
         }
 
-        static List<ItemOnSale> ReadItemsOnSale(string result)
+        private static List<ItemOnSale> ReadItemsOnSale(string result)
         {
             dynamic responseServerD = JsonConvert.DeserializeObject(result);
             dynamic itemsD = responseServerD.data.items;
@@ -136,7 +144,7 @@ namespace BitSkinsApi.Market
             return itemOnSale;
         }
 
-        static string SortOrderToString(SortOrder sortOrder)
+        private static string SortOrderToString(SortOrder sortOrder)
         {
             switch (sortOrder)
             {
@@ -149,7 +157,7 @@ namespace BitSkinsApi.Market
             }
         }
 
-        static string SortByToString(SortBy sortBy)
+        private static string SortByToString(SortBy sortBy)
         {
             switch (sortBy)
             {
@@ -178,19 +186,24 @@ namespace BitSkinsApi.Market
         /// <returns>Specific items on sale on BitSkins.</returns>
         public static SpecificItems GetSpecificItemsOnSale(AppId.AppName app, List<string> itemIds)
         {
+            string urlRequest = GetUrlRequest(app, itemIds);
+            string result = Server.ServerRequest.RequestServer(urlRequest);
+            SpecificItems specificItems = ReadSpecificItems(result);
+            return specificItems;
+        }
+
+        private static string GetUrlRequest(AppId.AppName app, List<string> itemIds)
+        {
             const string delimiter = ",";
 
             Server.UrlCreator urlCreator = new Server.UrlCreator($"https://bitskins.com/api/v1/get_specific_items_on_sale/");
             urlCreator.AppendUrl($"&item_ids={itemIds.ToStringWithDelimiter(delimiter)}");
             urlCreator.AppendUrl($"&app_id={(int)app}");
 
-            string result = Server.ServerRequest.RequestServer(urlCreator.ReadUrl());
-            SpecificItems specificItems = ReadSpecificItems(result);
-
-            return specificItems;
+            return urlCreator.ReadUrl();
         }
 
-        static SpecificItems ReadSpecificItems(string result)
+        private static SpecificItems ReadSpecificItems(string result)
         {
             dynamic responseServerD = JsonConvert.DeserializeObject(result);
             dynamic itemsOnSaleD = responseServerD.data.items_on_sale;
@@ -200,11 +213,10 @@ namespace BitSkinsApi.Market
             List<string> itemsNotOnSale = ReadItemsNotOnSale(itemsNotOnSaleD);
 
             SpecificItems specificItems = new SpecificItems(itemsOnSale, itemsNotOnSale);
-
             return specificItems;
         }
 
-        static List<ItemOnSale> ReadItemsOnSale(dynamic itemsOnSaleD)
+        private static List<ItemOnSale> ReadItemsOnSale(dynamic itemsOnSaleD)
         {
             List<ItemOnSale> itemsOnSale = new List<ItemOnSale>();
             if (itemsOnSaleD != null)
@@ -219,7 +231,7 @@ namespace BitSkinsApi.Market
             return itemsOnSale;
         }
 
-        static List<string> ReadItemsNotOnSale(dynamic itemsNotOnSaleD)
+        private static List<string> ReadItemsNotOnSale(dynamic itemsNotOnSaleD)
         {
             List<string> itemsNotOnSale = new List<string>();
             if (itemsNotOnSaleD != null)

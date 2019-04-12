@@ -17,15 +17,21 @@ namespace BitSkinsApi.Market
         /// <returns>List of price database's items.</returns>
         public static List<ItemPrice> GetAllItemPrices(AppId.AppName app)
         {
-            Server.UrlCreator urlCreator = new Server.UrlCreator($"https://bitskins.com/api/v1/get_all_item_prices/");
-            urlCreator.AppendUrl($"&app_id={(int)app}");
-            
-            string result = Server.ServerRequest.RequestServer(urlCreator.ReadUrl());
+            string urlRequest = GetUrlRequest(app);
+            string result = Server.ServerRequest.RequestServer(urlRequest);
             List<ItemPrice> itemsPrices = ReadItemsPrices(result);
             return itemsPrices;
         }
 
-        static List<ItemPrice> ReadItemsPrices(string result)
+        private static string GetUrlRequest(AppId.AppName app)
+        {
+            Server.UrlCreator urlCreator = new Server.UrlCreator($"https://bitskins.com/api/v1/get_all_item_prices/");
+            urlCreator.AppendUrl($"&app_id={(int)app}");
+
+            return urlCreator.ReadUrl();
+        }
+
+        private static List<ItemPrice> ReadItemsPrices(string result)
         {
             dynamic responseServerD = JsonConvert.DeserializeObject(result);
             dynamic pricesD = responseServerD.prices;
@@ -35,19 +41,25 @@ namespace BitSkinsApi.Market
             {
                 foreach (dynamic item in pricesD)
                 {
-                    string marketHashName = item.market_hash_name;
-                    double price = item.price;
-                    string pricingMode = item.pricing_mode;
-                    DateTime createdAt = DateTimeExtension.FromUnixTime((long)item.created_at);
-                    string iconUrl = item.icon_url;
-                    double? instantSalePrice = item.instant_sale_price;
-
-                    ItemPrice databaseItem = new ItemPrice(marketHashName, price, pricingMode, createdAt, iconUrl, instantSalePrice);
+                    ItemPrice databaseItem = ReadItemPrice(item);
                     itemsPrices.Add(databaseItem);
                 }
             }
 
             return itemsPrices;
+        }
+
+        private static ItemPrice ReadItemPrice(dynamic item)
+        {
+            string marketHashName = item.market_hash_name;
+            double price = item.price;
+            string pricingMode = item.pricing_mode;
+            DateTime createdAt = DateTimeExtension.FromUnixTime((long)item.created_at);
+            string iconUrl = item.icon_url;
+            double? instantSalePrice = item.instant_sale_price;
+
+            ItemPrice databaseItem = new ItemPrice(marketHashName, price, pricingMode, createdAt, iconUrl, instantSalePrice);
+            return databaseItem;
         }
     }
 

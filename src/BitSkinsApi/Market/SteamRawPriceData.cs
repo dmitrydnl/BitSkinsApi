@@ -19,16 +19,22 @@ namespace BitSkinsApi.Market
         /// <returns>Raw Steam Market price data for a given item.</returns>
         public static SteamItemRawPriceData GetRawPriceData(AppId.AppName app, string marketHashName)
         {
-            Server.UrlCreator urlCreator = new Server.UrlCreator($"https://bitskins.com/api/v1/get_steam_price_data/");
-            urlCreator.AppendUrl($"&app_id={(int)app}");
-            urlCreator.AppendUrl($"&market_hash_name={marketHashName}");
-
-            string result = Server.ServerRequest.RequestServer(urlCreator.ReadUrl());
+            string urlRequest = GetUrlRequest(app, marketHashName);
+            string result = Server.ServerRequest.RequestServer(urlRequest);
             SteamItemRawPriceData steamItemRawPriceData = ReadSteamItemRawPrice(result);
             return steamItemRawPriceData;
         }
 
-        static SteamItemRawPriceData ReadSteamItemRawPrice(string result)
+        private static string GetUrlRequest(AppId.AppName app, string marketHashName)
+        {
+            Server.UrlCreator urlCreator = new Server.UrlCreator($"https://bitskins.com/api/v1/get_steam_price_data/");
+            urlCreator.AppendUrl($"&app_id={(int)app}");
+            urlCreator.AppendUrl($"&market_hash_name={marketHashName}");
+
+            return urlCreator.ReadUrl();
+        }
+
+        private static SteamItemRawPriceData ReadSteamItemRawPrice(string result)
         {
             dynamic responseServerD = JsonConvert.DeserializeObject(result);
             dynamic updatedAtD = responseServerD.data.updated_at;
@@ -38,11 +44,10 @@ namespace BitSkinsApi.Market
             List<ItemRawPrice> itemRawPrices = ReadItemRawPrices(rawDataD);
 
             SteamItemRawPriceData steamItemRawPriceData = new SteamItemRawPriceData(itemRawPrices, updatedAt);
-
             return steamItemRawPriceData;
         }
 
-        static DateTime? ReadUpdatedAt(dynamic updatedAtD)
+        private static DateTime? ReadUpdatedAt(dynamic updatedAtD)
         {
             DateTime? updatedAt = null;
             if (updatedAtD != null)
@@ -53,23 +58,29 @@ namespace BitSkinsApi.Market
             return updatedAt;
         }
 
-        static List<ItemRawPrice> ReadItemRawPrices(dynamic rawDataD)
+        private static List<ItemRawPrice> ReadItemRawPrices(dynamic rawDataD)
         {
             List<ItemRawPrice> itemRawPrices = new List<ItemRawPrice>();
             if (rawDataD != null)
             {
                 foreach (dynamic item in rawDataD)
                 {
-                    DateTime time = DateTimeExtension.FromUnixTime((long)item.time);
-                    double price = item.price;
-                    int volume = item.volume;
-
-                    ItemRawPrice itemRawPrice = new ItemRawPrice(time, price, volume);
+                    ItemRawPrice itemRawPrice = ReadItemRawPrice(item);
                     itemRawPrices.Add(itemRawPrice);
                 }
             }
 
             return itemRawPrices;
+        }
+
+        private static ItemRawPrice ReadItemRawPrice(dynamic item)
+        {
+            DateTime time = DateTimeExtension.FromUnixTime((long)item.time);
+            double price = item.price;
+            int volume = item.volume;
+
+            ItemRawPrice itemRawPrice = new ItemRawPrice(time, price, volume);
+            return itemRawPrice;
         }
     }
 

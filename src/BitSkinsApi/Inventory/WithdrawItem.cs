@@ -18,18 +18,24 @@ namespace BitSkinsApi.Inventory
         /// <returns>Information about withdrawn.</returns>
         public static InformationAboutWithdrawn WithdrawItem(Market.AppId.AppName app, List<string> itemIds)
         {
+            string urlRequest = GetUrlRequest(app, itemIds);
+            string result = Server.ServerRequest.RequestServer(urlRequest);
+            InformationAboutWithdrawn informationAboutWithdrawn = ReadInformationAboutWithdrawn(result);
+            return informationAboutWithdrawn;
+        }
+
+        private static string GetUrlRequest(Market.AppId.AppName app, List<string> itemIds)
+        {
             const string delimiter = ",";
 
             Server.UrlCreator urlCreator = new Server.UrlCreator($"https://bitskins.com/api/v1/withdraw_item/");
             urlCreator.AppendUrl($"&app_id={(int)app}");
             urlCreator.AppendUrl($"&item_ids={itemIds.ToStringWithDelimiter(delimiter)}");
 
-            string result = Server.ServerRequest.RequestServer(urlCreator.ReadUrl());
-            InformationAboutWithdrawn informationAboutWithdrawn = ReadInformationAboutWithdrawn(result);
-            return informationAboutWithdrawn;
+            return urlCreator.ReadUrl();
         }
 
-        static InformationAboutWithdrawn ReadInformationAboutWithdrawn(string result)
+        private static InformationAboutWithdrawn ReadInformationAboutWithdrawn(string result)
         {
             dynamic responseServerD = JsonConvert.DeserializeObject(result);
             dynamic itemsD = responseServerD.data.items;
@@ -39,27 +45,32 @@ namespace BitSkinsApi.Inventory
             List<string> tradeTokens = ReadTradeTokens(tradeTokensD);
 
             InformationAboutWithdrawn withdrawnInformation = new InformationAboutWithdrawn(withdrawnItems, tradeTokens);
-
             return withdrawnInformation;
         }
 
-        static List<WithdrawnItem> ReadWithdrawnItems(dynamic itemsD)
+        private static List<WithdrawnItem> ReadWithdrawnItems(dynamic itemsD)
         {
             List<WithdrawnItem> withdrawnItems = new List<WithdrawnItem>();
             if (itemsD != null)
             {
                 foreach (dynamic item in itemsD)
                 {
-                    Market.AppId.AppName appId = (Market.AppId.AppName)(int)item.app_id;
-                    string itemId = item.item_id;
-                    DateTime withdrawableAt = DateTimeExtension.FromUnixTime((long)item.withdrawable_at);
-
-                    WithdrawnItem withdrawnItem = new WithdrawnItem(appId, itemId, withdrawableAt);
+                    WithdrawnItem withdrawnItem = ReadWithdrawnItem(item);
                     withdrawnItems.Add(withdrawnItem);
                 }
             }
 
             return withdrawnItems;
+        }
+
+        private static WithdrawnItem ReadWithdrawnItem(dynamic item)
+        {
+            Market.AppId.AppName appId = (Market.AppId.AppName)(int)item.app_id;
+            string itemId = item.item_id;
+            DateTime withdrawableAt = DateTimeExtension.FromUnixTime((long)item.withdrawable_at);
+
+            WithdrawnItem withdrawnItem = new WithdrawnItem(appId, itemId, withdrawableAt);
+            return withdrawnItem;
         }
 
         static List<string> ReadTradeTokens(dynamic tradeTokensD)
@@ -70,7 +81,6 @@ namespace BitSkinsApi.Inventory
                 foreach (dynamic token in tradeTokensD)
                 {
                     string tradeToken = (string)token;
-
                     tradeTokens.Add(tradeToken);
                 }
             }

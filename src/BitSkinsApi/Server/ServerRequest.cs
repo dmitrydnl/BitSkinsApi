@@ -7,12 +7,7 @@ namespace BitSkinsApi.Server
 {
     static class ServerRequest
     {
-        static DateTime lastRequestTime;
-
-        static ServerRequest()
-        {
-            lastRequestTime = DateTime.Now;
-        }
+        private static DateTime lastRequestTime = DateTime.Now;
 
         internal static string RequestServer(string url)
         {

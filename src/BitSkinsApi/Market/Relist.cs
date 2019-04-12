@@ -19,19 +19,25 @@ namespace BitSkinsApi.Market
         /// <returns>List of relisted items.</returns>
         public static List<RelistedItem> RelistItem(AppId.AppName app, List<string> itemIds, List<double> itemPrices)
         {
+            string urlRequest = GetUrlRequest(app, itemIds, itemPrices);
+            string result = Server.ServerRequest.RequestServer(urlRequest);
+            List<RelistedItem> relistedItems = ReadRelistedItems(result);
+            return relistedItems;
+        }
+
+        private static string GetUrlRequest(AppId.AppName app, List<string> itemIds, List<double> itemPrices)
+        {
             const string delimiter = ",";
 
             Server.UrlCreator urlCreator = new Server.UrlCreator($"https://bitskins.com/api/v1/relist_item/");
             urlCreator.AppendUrl($"&app_id={(int)app}");
             urlCreator.AppendUrl($"&item_ids={itemIds.ToStringWithDelimiter(delimiter)}");
             urlCreator.AppendUrl($"&prices={itemPrices.ToStringWithDelimiter(delimiter)}");
-            
-            string result = Server.ServerRequest.RequestServer(urlCreator.ReadUrl());
-            List<RelistedItem> relistedItems = ReadRelistedItems(result);
-            return relistedItems;
+
+            return urlCreator.ReadUrl();
         }
 
-        static List<RelistedItem> ReadRelistedItems(string result)
+        private static List<RelistedItem> ReadRelistedItems(string result)
         {
             dynamic responseServerD = JsonConvert.DeserializeObject(result);
             dynamic itemsD = responseServerD.data.items;
@@ -41,17 +47,23 @@ namespace BitSkinsApi.Market
             {
                 foreach (dynamic item in itemsD)
                 {
-                    string itemId = item.item_id;
-                    bool instantSale = item.instant_sale;
-                    double price = item.price;
-                    DateTime withdrawableAt = DateTimeExtension.FromUnixTime((long)item.withdrawable_at);
-
-                    RelistedItem relistedItem = new RelistedItem(itemId, instantSale, price, withdrawableAt);
+                    RelistedItem relistedItem = ReadRelistedItem(item);
                     relistedItems.Add(relistedItem);
                 }
             }
             
             return relistedItems;
+        }
+
+        private static RelistedItem ReadRelistedItem(dynamic item)
+        {
+            string itemId = item.item_id;
+            bool instantSale = item.instant_sale;
+            double price = item.price;
+            DateTime withdrawableAt = DateTimeExtension.FromUnixTime((long)item.withdrawable_at);
+
+            RelistedItem relistedItem = new RelistedItem(itemId, instantSale, price, withdrawableAt);
+            return relistedItem;
         }
     }
 

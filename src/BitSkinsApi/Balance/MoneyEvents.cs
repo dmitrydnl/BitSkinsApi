@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using Newtonsoft.Json;
 using BitSkinsApi.Extensions;
 
@@ -24,15 +23,21 @@ namespace BitSkinsApi.Balance
         /// <returns>List of money events.</returns>
         public static List<MoneyEvent> GetMoneyEvents(int page)
         {
-            Server.UrlCreator urlCreator = new Server.UrlCreator($"https://bitskins.com/api/v1/get_money_events/");
-            urlCreator.AppendUrl($"&page={page}");
-
-            string result = Server.ServerRequest.RequestServer(urlCreator.ReadUrl());
+            string urlRequest = GetUrlRequest(page);
+            string result = Server.ServerRequest.RequestServer(urlRequest);
             List<MoneyEvent> moneyEvents = ReadMoneyEvents(result);
             return moneyEvents;
         }
 
-        static List<MoneyEvent> ReadMoneyEvents(string result)
+        private static string GetUrlRequest(int page)
+        {
+            Server.UrlCreator urlCreator = new Server.UrlCreator($"https://bitskins.com/api/v1/get_money_events/");
+            urlCreator.AppendUrl($"&page={page}");
+
+            return urlCreator.ReadUrl();
+        }
+
+        private static List<MoneyEvent> ReadMoneyEvents(string result)
         {
             dynamic responseServerD = JsonConvert.DeserializeObject(result);
             dynamic moneyEventsD = responseServerD.data.events;
@@ -42,36 +47,49 @@ namespace BitSkinsApi.Balance
             {
                 foreach (dynamic moneyEventD in moneyEventsD)
                 {
-                    MoneyEventType type = StringToMoneyEventType((string)moneyEventD.type);
-                    if (type == MoneyEventType.Unknown)
+                    MoneyEvent moneyEvent = ReadMoneyEvent(moneyEventD);
+                    if (moneyEvent != null)
                     {
-                        continue;
+                        moneyEvents.Add(moneyEvent);
                     }
-
-                    DateTime time = DateTimeExtension.FromUnixTime((long)moneyEventD.time);
-
-                    double amount = 0;
-                    string description = "";
-                    if (type == MoneyEventType.ItemBought || type == MoneyEventType.ItemSold)
-                    {
-                        amount = moneyEventD.price;
-                        description = $"{moneyEventD.medium.app_id}:{moneyEventD.medium.market_hash_name}";
-                    }
-                    else if (type == MoneyEventType.SaleFee || type == MoneyEventType.BuyCredit || type == MoneyEventType.StoreCredit)
-                    {
-                        amount = moneyEventD.amount;
-                        description = $"{moneyEventD.medium}";
-                    }
-
-                    MoneyEvent moneyEvent = new MoneyEvent(type, amount, description, time);
-                    moneyEvents.Add(moneyEvent);
                 }
             }
 
             return moneyEvents;
         }
 
-        static MoneyEventType StringToMoneyEventType(string eventType)
+        private static MoneyEvent ReadMoneyEvent(dynamic moneyEventD)
+        {
+            MoneyEventType type = StringToMoneyEventType((string)moneyEventD.type);
+            if (type == MoneyEventType.Unknown)
+            {
+                return null;
+            }
+
+            DateTime time = DateTimeExtension.FromUnixTime((long)moneyEventD.time);
+
+            double amount = 0;
+            string description = "";
+            if (type == MoneyEventType.ItemBought || type == MoneyEventType.ItemSold)
+            {
+                amount = moneyEventD.price;
+                description = $"{moneyEventD.medium.app_id}:{moneyEventD.medium.market_hash_name}";
+            }
+            else if (type == MoneyEventType.SaleFee || type == MoneyEventType.BuyCredit || type == MoneyEventType.StoreCredit)
+            {
+                amount = moneyEventD.amount;
+                description = $"{moneyEventD.medium}";
+            }
+            else
+            {
+                throw new InvalidOperationException();
+            }
+
+            MoneyEvent moneyEvent = new MoneyEvent(type, amount, description, time);
+            return moneyEvent;
+        }
+
+        private static MoneyEventType StringToMoneyEventType(string eventType)
         {
             switch (eventType)
             {

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 using BitSkinsApi.Extensions;
 
@@ -20,19 +19,25 @@ namespace BitSkinsApi.Market
         /// <returns>Info about sale.</returns>
         public static InformationAboutSale SellItem(AppId.AppName app, List<string> itemIds, List<double> itemPrices)
         {
+            string urlRequest = GetUrlRequest(app, itemIds, itemPrices);
+            string result = Server.ServerRequest.RequestServer(urlRequest);
+            InformationAboutSale informationAboutSale = ReadInformationAboutSale(result);
+            return informationAboutSale;
+        }
+
+        private static string GetUrlRequest(AppId.AppName app, List<string> itemIds, List<double> itemPrices)
+        {
             const string delimiter = ",";
-            
+
             Server.UrlCreator urlCreator = new Server.UrlCreator($"https://bitskins.com/api/v1/list_item_for_sale/");
             urlCreator.AppendUrl($"&app_id={(int)app}");
             urlCreator.AppendUrl($"&item_ids={itemIds.ToStringWithDelimiter(delimiter)}");
             urlCreator.AppendUrl($"&prices={itemPrices.ToStringWithDelimiter(delimiter)}");
 
-            string result = Server.ServerRequest.RequestServer(urlCreator.ReadUrl());
-            InformationAboutSale informationAboutSale = ReadInformationAboutSale(result);
-            return informationAboutSale;
+            return urlCreator.ReadUrl();
         }
 
-        static InformationAboutSale ReadInformationAboutSale(string result)
+        private static InformationAboutSale ReadInformationAboutSale(string result)
         {
             dynamic responseServerD = JsonConvert.DeserializeObject(result);
             dynamic soldItemsD = responseServerD.data.items;
@@ -47,16 +52,14 @@ namespace BitSkinsApi.Market
             return soldInformation;
         }
 
-        static List<SoldItem> ReadSoldItems(dynamic soldItemsD)
+        private static List<SoldItem> ReadSoldItems(dynamic soldItemsD)
         {
             List<SoldItem> soldItems = new List<SoldItem>();
             if (soldItemsD != null)
             {
                 foreach (dynamic item in soldItemsD)
                 {
-                    string itemId = item.item_id;
-
-                    SoldItem soldItem = new SoldItem(itemId);
+                    SoldItem soldItem = ReadSoldItem(item);
                     soldItems.Add(soldItem);
                 }
             }
@@ -64,7 +67,15 @@ namespace BitSkinsApi.Market
             return soldItems;
         }
 
-        static List<string> ReadTradeTokens(dynamic tradeTokensD)
+        private static SoldItem ReadSoldItem(dynamic item)
+        {
+            string itemId = item.item_id;
+
+            SoldItem soldItem = new SoldItem(itemId);
+            return soldItem;
+        }
+
+        private static List<string> ReadTradeTokens(dynamic tradeTokensD)
         {
             List<string> tradeTokens = new List<string>();
             if (tradeTokensD != null)
@@ -78,7 +89,7 @@ namespace BitSkinsApi.Market
             return tradeTokens;
         }
 
-        static InformationAboutSellerBot ReadSoldBotInformation(dynamic botInfoD)
+        private static InformationAboutSellerBot ReadSoldBotInformation(dynamic botInfoD)
         {
             InformationAboutSellerBot soldBotInformation = null;
             if (botInfoD != null)

@@ -25,7 +25,6 @@ namespace BitSkinsApi.Trade
             string urlRequest = GetUrlRequest(activeOnly);
             string result = Server.ServerRequest.RequestServer(urlRequest);
             List<RecentTradeOffer> recentTradeOffers = ReadRecentTradeOffers(result);
-
             return recentTradeOffers;
         }
 

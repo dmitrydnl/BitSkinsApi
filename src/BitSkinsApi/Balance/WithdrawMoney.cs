@@ -21,25 +21,31 @@ namespace BitSkinsApi.Balance
         /// <returns>Whether the withdrawal was successful.</returns>
         public static bool WithdrawMoney(double amount, WithdrawalMoneyMethod withdrawalMoneyMethod)
         {
+            string urlRequest = GetUrlRequest(amount, withdrawalMoneyMethod);
+            string result = Server.ServerRequest.RequestServer(urlRequest);
+            bool success = ReadStatus(result) == "success";
+            return success;
+        }
+
+        private static string GetUrlRequest(double amount, WithdrawalMoneyMethod withdrawalMoneyMethod)
+        {
             string method = WithdrawalMoneyMethodToString(withdrawalMoneyMethod);
 
             Server.UrlCreator urlCreator = new Server.UrlCreator($"https://bitskins.com/api/v1/request_withdrawal/");
             urlCreator.AppendUrl($"&amount={amount}");
             urlCreator.AppendUrl($"&withdrawal_method={method}");
 
-            string result = Server.ServerRequest.RequestServer(urlCreator.ReadUrl());
-            bool success = ReadStatus(result) == "success";
-            return success;
+            return urlCreator.ReadUrl();
         }
 
-        static string ReadStatus(string result)
+        private static string ReadStatus(string result)
         {
             dynamic responseServer = JsonConvert.DeserializeObject(result);
             string status = responseServer.status;
             return status;
         }
 
-        static string WithdrawalMoneyMethodToString(WithdrawalMoneyMethod withdrawalMoneyMethod)
+        private static string WithdrawalMoneyMethodToString(WithdrawalMoneyMethod withdrawalMoneyMethod)
         {
             switch (withdrawalMoneyMethod)
             {

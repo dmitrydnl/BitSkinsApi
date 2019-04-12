@@ -19,16 +19,22 @@ namespace BitSkinsApi.Inventory
         /// <returns>Account's inventories.</returns>
         public static AccountInventory GetAccountInventory(Market.AppId.AppName app, int page)
         {
-            Server.UrlCreator urlCreator = new Server.UrlCreator($"https://bitskins.com/api/v1/get_my_inventory/");
-            urlCreator.AppendUrl($"&page={page}");
-            urlCreator.AppendUrl($"&app_id={(int)app}");
-
-            string result = Server.ServerRequest.RequestServer(urlCreator.ReadUrl());
+            string urlRequest = GetUrlRequest(app, page);
+            string result = Server.ServerRequest.RequestServer(urlRequest);
             AccountInventory accountInventory = ReadAccountInventory(result);
             return accountInventory;
         }
 
-        static AccountInventory ReadAccountInventory(string result)
+        private static string GetUrlRequest(Market.AppId.AppName app, int page)
+        {
+            Server.UrlCreator urlCreator = new Server.UrlCreator($"https://bitskins.com/api/v1/get_my_inventory/");
+            urlCreator.AppendUrl($"&page={page}");
+            urlCreator.AppendUrl($"&app_id={(int)app}");
+
+            return urlCreator.ReadUrl();
+        }
+
+        private static AccountInventory ReadAccountInventory(string result)
         {
             dynamic responseServerD = JsonConvert.DeserializeObject(result);
             dynamic steamInventoryD = responseServerD.data.steam_inventory;
@@ -40,11 +46,10 @@ namespace BitSkinsApi.Inventory
             PendingWithdrawalFromBitskinsInventory pendingWithdrawalFromBitskinsInventory = ReadPendingWithdrawalFromBitskinsInventory(pendingWithdrawalInventoryD);
 
             AccountInventory accountInventorys = new AccountInventory(steamInventory, bitSkinsInventory, pendingWithdrawalFromBitskinsInventory);
-
             return accountInventorys;
         }
 
-        static SteamInventory ReadSteamInventory(dynamic steamInventoryD)
+        private static SteamInventory ReadSteamInventory(dynamic steamInventoryD)
         {
             SteamInventory steamInventory = null;
             if (steamInventoryD != null)
@@ -58,11 +63,7 @@ namespace BitSkinsApi.Inventory
                 {
                     foreach (dynamic item in items)
                     {
-                        ReadSteamInventoryItem(item, out string marketHashName, out double suggestedPrice, out string itemType,
-                            out string image, out int numberOfItems, out double recentAveragePrice, out List<string> itemIds);
-
-                        SteamInventoryItem steamInventoryItem = new SteamInventoryItem(marketHashName, suggestedPrice,
-                            itemType, image, numberOfItems, itemIds, recentAveragePrice);
+                        SteamInventoryItem steamInventoryItem = ReadSteamInventoryItem(item);
                         steamInventoryItems.Add(steamInventoryItem);
                     }
                 }
@@ -73,7 +74,7 @@ namespace BitSkinsApi.Inventory
             return steamInventory;
         }
 
-        static BitSkinsInventory ReadBitSkinsInventory(dynamic bitskinsInventoryD)
+        private static BitSkinsInventory ReadBitSkinsInventory(dynamic bitskinsInventoryD)
         {
             BitSkinsInventory bitSkinsInventory = null;
             if (bitskinsInventoryD != null)
@@ -88,12 +89,7 @@ namespace BitSkinsApi.Inventory
                 {
                     foreach (dynamic item in items)
                     {
-                        ReadBitskinsInventoryItem(item, out string marketHashName, out double suggestedPrice, out string itemType, out string image,
-                            out int numberOfItems, out double recentAveragePrice, out List<string> itemIds, out List<double> prices,
-                            out List<DateTime> createdAt, out List<DateTime> updatedAt, out List<DateTime> withdrawableAt);
-
-                        BitSkinsInventoryItem bitSkinsInventoryItem = new BitSkinsInventoryItem(marketHashName, suggestedPrice, itemType, image,
-                            numberOfItems, itemIds, prices, createdAt, updatedAt, withdrawableAt, recentAveragePrice);
+                        BitSkinsInventoryItem bitSkinsInventoryItem = ReadBitskinsInventoryItem(item);
                         bitSkinsInventoryItems.Add(bitSkinsInventoryItem);
                     }
                 }
@@ -104,7 +100,7 @@ namespace BitSkinsApi.Inventory
             return bitSkinsInventory;
         }
 
-        static PendingWithdrawalFromBitskinsInventory ReadPendingWithdrawalFromBitskinsInventory(dynamic pendingWithdrawalInventoryD)
+        private static PendingWithdrawalFromBitskinsInventory ReadPendingWithdrawalFromBitskinsInventory(dynamic pendingWithdrawalInventoryD)
         {
             PendingWithdrawalFromBitskinsInventory pendingWithdrawalFromBitskinsInventory = null;
             if (pendingWithdrawalInventoryD != null)
@@ -118,11 +114,7 @@ namespace BitSkinsApi.Inventory
                 {
                     foreach (dynamic item in items)
                     {
-                        ReadPendingWithdrawalFromBitskinsInventoryItem(item, out string marketHashName, out double suggestedPrice, out string itemType,
-                            out string image, out string itemId, out DateTime withdrawableAt, out double lastPrice);
-
-                        PendingWithdrawalFromBitskinsInventoryItem pendingWithdrawalFromBitskinsInventoryItem = new PendingWithdrawalFromBitskinsInventoryItem(
-                            marketHashName, suggestedPrice, itemType, image, itemId, withdrawableAt, lastPrice);
+                        PendingWithdrawalFromBitskinsInventoryItem pendingWithdrawalFromBitskinsInventoryItem = ReadPendingWithdrawalFromBitskinsInventoryItem(item);
                         pendingWithdrawalFromBitskinsInventoryItems.Add(pendingWithdrawalFromBitskinsInventoryItem);
                     }
                 }
@@ -133,7 +125,7 @@ namespace BitSkinsApi.Inventory
             return pendingWithdrawalFromBitskinsInventory;
         }
 
-        static void ReadInventoryItem(dynamic item, out string marketHashName, out double suggestedPrice, out string itemType, out string image)
+        private static void ReadInventoryItem(dynamic item, out string marketHashName, out double suggestedPrice, out string itemType, out string image)
         {
             marketHashName = item.market_hash_name;
             suggestedPrice = item.suggested_price;
@@ -141,66 +133,72 @@ namespace BitSkinsApi.Inventory
             image = item.image;
         }
 
-        static void ReadSteamInventoryItem(dynamic item, out string marketHashName, out double suggestedPrice, out string itemType, out string image,
-            out int numberOfItems, out double recentAveragePrice, out List<string> itemIds)
+        private static SteamInventoryItem ReadSteamInventoryItem(dynamic item)
         {
-            ReadInventoryItem(item, out marketHashName, out suggestedPrice, out itemType, out image);
-            numberOfItems = item.number_of_items;
-            recentAveragePrice = (item.recent_sales_info != null) ? (double)item.recent_sales_info.average_price : 0;
-
-            itemIds = new List<string>();
+            ReadInventoryItem(item, out string marketHashName, out double suggestedPrice, out string itemType, out string image);
+            int numberOfItems = item.number_of_items;
+            double recentAveragePrice = (item.recent_sales_info != null) ? (double)item.recent_sales_info.average_price : 0;
+            List<string> itemIds = new List<string>();
             foreach (dynamic itemId in item.item_ids)
             {
                 itemIds.Add((string)itemId);
             }
+
+            SteamInventoryItem steamInventoryItem = new SteamInventoryItem(marketHashName, suggestedPrice, itemType, image, numberOfItems, itemIds, recentAveragePrice);
+            return steamInventoryItem;
         }
 
-        static void ReadBitskinsInventoryItem(dynamic item, out string marketHashName, out double suggestedPrice, out string itemType, out string image,
-            out int numberOfItems, out double recentAveragePrice, out List<string> itemIds, out List<double> prices, out List<DateTime> createdAt,
-            out List<DateTime> updatedAt, out List<DateTime> withdrawableAt)
+        private static BitSkinsInventoryItem ReadBitskinsInventoryItem(dynamic item)
         {
-            ReadInventoryItem(item, out marketHashName, out suggestedPrice, out itemType, out image);
-            numberOfItems = item.number_of_items;
-            recentAveragePrice = (item.recent_sales_info != null) ? (double)item.recent_sales_info.average_price : 0;
+            ReadInventoryItem(item, out string marketHashName, out double suggestedPrice, out string itemType, out string image);
+            int numberOfItems = item.number_of_items;
+            double recentAveragePrice = (item.recent_sales_info != null) ? (double)item.recent_sales_info.average_price : 0;
 
-            itemIds = new List<string>();
+            List<string> itemIds = new List<string>();
             foreach (dynamic itemId in item.item_ids)
             {
                 itemIds.Add((string)itemId);
             }
 
-            prices = new List<double>();
+            List<double> prices = new List<double>();
             foreach (dynamic price in item.prices)
             {
                 prices.Add((double)price);
             }
 
-            createdAt = new List<DateTime>();
+            List<DateTime> createdAt = new List<DateTime>();
             foreach (dynamic date in item.created_at)
             {
                 createdAt.Add(DateTimeExtension.FromUnixTime((long)date));
             }
 
-            updatedAt = new List<DateTime>();
+            List<DateTime> updatedAt = new List<DateTime>();
             foreach (dynamic date in item.updated_at)
             {
                 updatedAt.Add(DateTimeExtension.FromUnixTime((long)date));
             }
 
-            withdrawableAt = new List<DateTime>();
+            List<DateTime> withdrawableAt = new List<DateTime>();
             foreach (dynamic date in item.withdrawable_at)
             {
                 withdrawableAt.Add(DateTimeExtension.FromUnixTime((long)date));
             }
+
+            BitSkinsInventoryItem bitSkinsInventoryItem = new BitSkinsInventoryItem(marketHashName, suggestedPrice, itemType, image,
+                            numberOfItems, itemIds, prices, createdAt, updatedAt, withdrawableAt, recentAveragePrice);
+            return bitSkinsInventoryItem;
         }
 
-        static void ReadPendingWithdrawalFromBitskinsInventoryItem(dynamic item, out string marketHashName, out double suggestedPrice, 
-            out string itemType, out string image, out string itemId, out DateTime withdrawableAt, out double lastPrice)
+        private static PendingWithdrawalFromBitskinsInventoryItem ReadPendingWithdrawalFromBitskinsInventoryItem(dynamic item)
         {
-            ReadInventoryItem(item, out marketHashName, out suggestedPrice, out itemType, out image);
-            itemId = item.item_id;
-            withdrawableAt = DateTimeExtension.FromUnixTime((long)item.withdrawable_at);
-            lastPrice = item.last_price;
+            ReadInventoryItem(item, out string marketHashName, out double suggestedPrice, out string itemType, out string image);
+            string itemId = item.item_id;
+            DateTime withdrawableAt = DateTimeExtension.FromUnixTime((long)item.withdrawable_at);
+            double lastPrice = item.last_price;
+
+            PendingWithdrawalFromBitskinsInventoryItem pendingWithdrawalFromBitskinsInventoryItem = new PendingWithdrawalFromBitskinsInventoryItem(
+                            marketHashName, suggestedPrice, itemType, image, itemId, withdrawableAt, lastPrice);
+            return pendingWithdrawalFromBitskinsInventoryItem;
         }
     }
 

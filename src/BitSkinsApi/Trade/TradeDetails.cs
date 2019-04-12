@@ -22,7 +22,6 @@ namespace BitSkinsApi.Trade
             string urlRequest = GetUrlRequest(tradeToken, tradeId);
             string result = Server.ServerRequest.RequestServer(urlRequest);
             TradeDetails tradeDetails = ReadTradeDetails(result);
-
             return tradeDetails;
         }
 
@@ -47,7 +46,6 @@ namespace BitSkinsApi.Trade
             List<RetrievedItem> retrievedItems = ReadRetrievedItems(itemsRetrievedD);
 
             TradeDetails tradeDetails = new TradeDetails(sentItems, retrievedItems, createdAt);
-
             return tradeDetails;
         }
 

@@ -13,14 +13,19 @@ namespace BitSkinsApi.Balance
         /// <returns>Account balance.</returns>
         public static AccountBalance GetAccountBalance()
         {
-            Server.UrlCreator urlCreator = new Server.UrlCreator($"https://bitskins.com/api/v1/get_account_balance/");
-
-            string result = Server.ServerRequest.RequestServer(urlCreator.ReadUrl());
+            string urlRequest = GetUrlRequest();
+            string result = Server.ServerRequest.RequestServer(urlRequest);
             AccountBalance accountBalance = ReadAccountBalance(result);
             return accountBalance;
         }
 
-        static AccountBalance ReadAccountBalance(string result)
+        private static string GetUrlRequest()
+        {
+            Server.UrlCreator urlCreator = new Server.UrlCreator($"https://bitskins.com/api/v1/get_account_balance/");
+            return urlCreator.ReadUrl();
+        }
+
+        private static AccountBalance ReadAccountBalance(string result)
         {
             dynamic responseServerD = JsonConvert.DeserializeObject(result);
             dynamic dataD = responseServerD.data;
