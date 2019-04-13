@@ -1,11 +1,24 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <Company />
+    <Product>BitSkinsApi</Product>
+    <PackageProjectUrl>https://github.com/Captious99/BitSkinsApi</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Captious99/BitSkinsApi</RepositoryUrl>
+    <PackageTags>api api-wrapper bitskins steam</PackageTags>
+    <PackageLicenseUrl>https://github.com/Captious99/BitSkinsApi/blob/master/LICENSE.md</PackageLicenseUrl>
+    <RepositoryType>git</RepositoryType>
+    <Copyright>Copyright 2019</Copyright>
+    <Authors>Captious99</Authors>
+    <Description>A wrapper for the BitSkins API, build on .NET Standard 2.0</Description>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>C:\Projects\Visual Studio Projects\BitSkinsApi\src\BitSkinsApi\BitSkinsApi.xml</DocumentationFile>
+    <DocumentationFile>BitSkinsApi.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
