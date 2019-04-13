@@ -223,7 +223,7 @@ namespace BitSkinsApi.Inventory
     /// <summary>
     /// User's inventory.
     /// </summary>
-    public abstract class Inventory
+    public class Inventory
     {
         public int TotalItems { get; private set; }
 
@@ -281,7 +281,7 @@ namespace BitSkinsApi.Inventory
     /// <summary>
     /// Inventory's item.
     /// </summary>
-    public abstract class InventoryItem
+    public class InventoryItem
     {
         public string MarketHashName { get; private set; }
         public double SuggestedPrice { get; private set; }
