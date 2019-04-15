@@ -1,2 +1,8 @@
 language: csharp
-solution: BitSkinsApi.sln
+mono: none
+dotnet: 2.0.0
+dist: trusty
+script:
+ - cd src/BitSkinsApi
+ - dotnet restore
+ - dotnet build
