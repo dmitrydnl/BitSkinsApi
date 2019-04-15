@@ -1,10 +1,11 @@
 [![nuget](https://img.shields.io/nuget/v/BitSkinsApi.svg?color=blue)](https://www.nuget.org/packages/BitSkinsApi/)
-[![nuget](https://img.shields.io/nuget/dt/BitSkinsApi.svg?color=blue)](https://www.nuget.org/packages/BitSkinsApi/)
+[![nuget downloads](https://img.shields.io/nuget/dt/BitSkinsApi.svg?color=blue)](https://www.nuget.org/packages/BitSkinsApi/)
 \
-[![nuget](https://img.shields.io/github/release-date/Captious99/BitSkinsApi.svg?color=yellowgreen)](https://github.com/Captious99/BitSkinsApi/)
-[![nuget](https://img.shields.io/github/repo-size/Captious99/BitSkinsApi.svg?color=yellowgreen)](https://github.com/Captious99/BitSkinsApi/)
+[![release date](https://img.shields.io/github/release-date/Captious99/BitSkinsApi.svg?color=yellowgreen)](https://github.com/Captious99/BitSkinsApi/)
+[![repo size](https://img.shields.io/github/repo-size/Captious99/BitSkinsApi.svg?color=yellowgreen)](https://github.com/Captious99/BitSkinsApi/)
 \
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/3f24aba6cce349a9b4813791f831f2a7)](https://www.codacy.com/app/Captious99/BitSkinsApi?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Captious99/BitSkinsApi&amp;utm_campaign=Badge_Grade)
+[![code quality](https://api.codacy.com/project/badge/Grade/3f24aba6cce349a9b4813791f831f2a7)](https://www.codacy.com/app/Captious99/BitSkinsApi?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Captious99/BitSkinsApi&amp;utm_campaign=Badge_Grade)
+[![build status](https://travis-ci.com/Captious99/BitSkinsApi.svg?branch=master)](https://travis-ci.com/Captious99/BitSkinsApi)
 
 # What is BitSkinsApi?
 An extended wrapper for the BitSkins API. It is a NuGet Package, that build on .NET Standard 2.0. BitSkinsApi allows you to interact with your BitSkins account through methods call. You can sell/buy items, get all BitSkins market data, get your Steam inventory and more. All games available on bitSkins are supported.
