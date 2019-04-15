@@ -2,7 +2,6 @@
 [![nuget](https://img.shields.io/nuget/dt/BitSkinsApi.svg?color=blue)](https://www.nuget.org/packages/BitSkinsApi/)
 \
 [![nuget](https://img.shields.io/github/release-date/Captious99/BitSkinsApi.svg?color=yellowgreen)](https://github.com/Captious99/BitSkinsApi/)
-[![nuget](https://img.shields.io/github/last-commit/Captious99/BitSkinsApi.svg?color=yellowgreen)](https://github.com/Captious99/BitSkinsApi/)
 [![nuget](https://img.shields.io/github/repo-size/Captious99/BitSkinsApi.svg?color=yellowgreen)](https://github.com/Captious99/BitSkinsApi/)
 \
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/3f24aba6cce349a9b4813791f831f2a7)](https://www.codacy.com/app/Captious99/BitSkinsApi?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Captious99/BitSkinsApi&amp;utm_campaign=Badge_Grade)
@@ -68,4 +67,4 @@ BitSkinsApi build on .NET Standard 2.0. To use the BitSkinsApi, version of the p
 Learn more about [.NET implementation support](https://docs.microsoft.com/en-us/dotnet/standard/net-standard#net-implementation-support).
 
 ## License
-This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/Captious99/BitSkinsApi/blob/master/LICENSE.md) file for details.
+This project is licensed under the GNU General Public License v3.0 - see the [LICENSE.md](https://github.com/Captious99/BitSkinsApi/blob/master/LICENSE.md) file for details.
