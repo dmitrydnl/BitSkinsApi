@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <Company />
     <Product>BitSkinsApi</Product>
     <PackageProjectUrl>https://github.com/Captious99/BitSkinsApi</PackageProjectUrl>
@@ -10,11 +10,12 @@
     <PackageTags>api api-wrapper bitskins steam</PackageTags>
     <PackageLicenseUrl>https://github.com/Captious99/BitSkinsApi/blob/master/LICENSE.md</PackageLicenseUrl>
     <RepositoryType>git</RepositoryType>
-    <Copyright>Copyright 2019</Copyright>
+    <Copyright>Copyright (C) 2019 Dmitry</Copyright>
     <Authors>Captious99</Authors>
     <Description>A wrapper for the BitSkins API, build on .NET Standard 2.0</Description>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
     <FileVersion>1.0.0.0</FileVersion>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
