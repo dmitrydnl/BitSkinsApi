@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.0] - 2019-04-11
 ### Added
 - Automatic two-factor authentication
-- Full coverage BitSkins General Api:
+- Full coverage BitSkins General API:
   - Get Account Balance
   - Get All Item Prices
   - Get Market Data
