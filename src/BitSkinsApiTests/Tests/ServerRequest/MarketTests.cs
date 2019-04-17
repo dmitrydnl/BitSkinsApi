@@ -22,6 +22,8 @@ namespace BitSkinsApiTests.ServerRequest
                     buyHistoryRecords = BuyHistory.GetBuyHistory(appId, page);
                 }
             }
+
+            Assert.IsTrue(true);
         }
 
         [TestMethod]
@@ -37,6 +39,8 @@ namespace BitSkinsApiTests.ServerRequest
                     sellHistoryRecords = SellHistory.GetSellHistory(appId, page);
                 }
             }
+
+            Assert.IsTrue(true);
         }
 
         [TestMethod]
@@ -52,6 +56,8 @@ namespace BitSkinsApiTests.ServerRequest
                     itemHistoryRecords = ItemHistory.GetItemHistory(appId, page, new List<string>(), ItemHistory.ResultsPerPage.R480);
                 }
             }
+
+            Assert.IsTrue(true);
         }
 
         [TestMethod]
@@ -59,8 +65,10 @@ namespace BitSkinsApiTests.ServerRequest
         {
             foreach (AppId.AppName appId in Enum.GetValues(typeof(AppId.AppName)))
             {
-                List<MarketItem> marketItems = MarketData.GetMarketData(appId);
+                MarketData.GetMarketData(appId);
             }
+
+            Assert.IsTrue(true);
         }
 
         [TestMethod]
@@ -68,8 +76,10 @@ namespace BitSkinsApiTests.ServerRequest
         {
             foreach (AppId.AppName appId in Enum.GetValues(typeof(AppId.AppName)))
             {
-                List<ItemPrice> priceDatabaseItems = PriceDatabase.GetAllItemPrices(appId);
+                PriceDatabase.GetAllItemPrices(appId);
             }
+
+            Assert.IsTrue(true);
         }
 
         [TestMethod]
@@ -93,8 +103,10 @@ namespace BitSkinsApiTests.ServerRequest
 
             foreach (KeyValuePair<string, AppId.AppName> item in appItems)
             {
-                SteamItemRawPriceData steamMarketItems = SteamRawPriceData.GetRawPriceData(item.Value, item.Key);
+                SteamRawPriceData.GetRawPriceData(item.Value, item.Key);
             }
+
+            Assert.IsTrue(true);
         }
 
         [TestMethod]
@@ -120,9 +132,11 @@ namespace BitSkinsApiTests.ServerRequest
             {
                 for (int page = 1; page <= 5; page++)
                 {
-                    List<ItemRecentSale> recentSaleItems = RecentSaleInfo.GetRecentSaleInfo(item.Value, item.Key, page);
+                    RecentSaleInfo.GetRecentSaleInfo(item.Value, item.Key, page);
                 }
             }
+
+            Assert.IsTrue(true);
         }
 
         [TestMethod]
@@ -134,9 +148,14 @@ namespace BitSkinsApiTests.ServerRequest
                 {
                     try
                     {
-                        List<ItemOnSale> itemsOnSale = InventoryOnSale.GetInventoryOnSale(appId, page, "", 0, 0, InventoryOnSale.SortBy.Not,
-                            InventoryOnSale.SortOrder.Not, InventoryOnSale.ThreeChoices.NotImportant, InventoryOnSale.ThreeChoices.NotImportant,
-                            InventoryOnSale.ThreeChoices.NotImportant, InventoryOnSale.ResultsPerPage.R480, InventoryOnSale.ThreeChoices.NotImportant);
+                        InventoryOnSale.GetInventoryOnSale(appId, page, "", 0, 0, 
+                            InventoryOnSale.SortBy.Not, 
+                            InventoryOnSale.SortOrder.Not, 
+                            InventoryOnSale.ThreeChoices.NotImportant, 
+                            InventoryOnSale.ThreeChoices.NotImportant,
+                            InventoryOnSale.ThreeChoices.NotImportant, 
+                            InventoryOnSale.ResultsPerPage.R480, 
+                            InventoryOnSale.ThreeChoices.NotImportant);
                     }
                     catch (BitSkinsApi.Server.RequestServerException exception)
                     {
@@ -147,6 +166,8 @@ namespace BitSkinsApiTests.ServerRequest
                     }
                 }
             }
+
+            Assert.IsTrue(true);
         }
 
         [TestMethod]
@@ -159,9 +180,14 @@ namespace BitSkinsApiTests.ServerRequest
                 List<ItemOnSale> itemsOnSale = new List<ItemOnSale>();
                 try
                 {
-                    itemsOnSale = InventoryOnSale.GetInventoryOnSale(appId, 1, "", 0, 0, InventoryOnSale.SortBy.Not,
-                        InventoryOnSale.SortOrder.Not, InventoryOnSale.ThreeChoices.NotImportant, InventoryOnSale.ThreeChoices.NotImportant,
-                        InventoryOnSale.ThreeChoices.NotImportant, InventoryOnSale.ResultsPerPage.R480, InventoryOnSale.ThreeChoices.NotImportant);
+                    itemsOnSale = InventoryOnSale.GetInventoryOnSale(appId, 1, "", 0, 0, 
+                        InventoryOnSale.SortBy.Not,
+                        InventoryOnSale.SortOrder.Not, 
+                        InventoryOnSale.ThreeChoices.NotImportant, 
+                        InventoryOnSale.ThreeChoices.NotImportant,
+                        InventoryOnSale.ThreeChoices.NotImportant, 
+                        InventoryOnSale.ResultsPerPage.R480, 
+                        InventoryOnSale.ThreeChoices.NotImportant);
                 }
                 catch (BitSkinsApi.Server.RequestServerException exception)
                 {
@@ -183,9 +209,11 @@ namespace BitSkinsApiTests.ServerRequest
 
                 if (ids.Count > 0)
                 {
-                    SpecificItems specificItems = SpecificItemsOnSale.GetSpecificItemsOnSale(appId, ids);
+                    SpecificItemsOnSale.GetSpecificItemsOnSale(appId, ids);
                 }
             }
+
+            Assert.IsTrue(true);
         }
 
         [TestMethod]
@@ -201,6 +229,8 @@ namespace BitSkinsApiTests.ServerRequest
                     resetPriceItems = ResetPriceItems.GetResetPriceItems(appId, page);
                 }
             }
+
+            Assert.IsTrue(true);
         }
 
         [TestMethod]
@@ -228,6 +258,8 @@ namespace BitSkinsApiTests.ServerRequest
                 Assert.AreEqual(itemId, delistedItems[0].ItemId);
                 List<RelistedItem> relistedItems = RelistForSale.RelistItem(app, new List<string> { itemId }, new List<double> { itemPrice });
             }
+
+            Assert.IsTrue(true);
         }
 
         [TestMethod]
@@ -256,6 +288,8 @@ namespace BitSkinsApiTests.ServerRequest
                 modifiedItems = ModifySaleItems.ModifySale(app, new List<string> { itemId }, new List<double> { itemPrice });
                 Assert.AreEqual(itemId, modifiedItems[0].ItemId);
             }
+
+            Assert.IsTrue(true);
         }
 
         [TestMethod]
@@ -273,6 +307,8 @@ namespace BitSkinsApiTests.ServerRequest
                 string itemId = boughtItems[0].ItemId;
                 Assert.AreEqual(item.ItemId, itemId);
             }
+
+            Assert.IsTrue(true);
         }
 
         [TestMethod]
@@ -299,6 +335,8 @@ namespace BitSkinsApiTests.ServerRequest
                 string id = information.SoldItems[0].ItemId;
                 Assert.AreEqual(itemId, id);
             }
+
+            Assert.IsTrue(true);
         }
     }
 }

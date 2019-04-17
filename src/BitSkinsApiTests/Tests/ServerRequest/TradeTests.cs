@@ -11,9 +11,10 @@ namespace BitSkinsApiTests.ServerRequest
         [TestMethod]
         public void GetRecentTradeOffersTest()
         {
-            List<RecentTradeOffer> tradeOffersItems = null;
-            tradeOffersItems = RecentOffers.GetRecentTradeOffers(false);
-            tradeOffersItems = RecentOffers.GetRecentTradeOffers(true);
+            RecentOffers.GetRecentTradeOffers(false);
+            RecentOffers.GetRecentTradeOffers(true);
+
+            Assert.IsTrue(true);
         }
 
         [TestMethod]
@@ -35,8 +36,10 @@ namespace BitSkinsApiTests.ServerRequest
             
             foreach (KeyValuePair<string, string> pair in tradeTokenAndTradeId)
             {
-                TradeDetails tradeDetail = Details.GetTradeDetails(pair.Value, pair.Key);
+                Details.GetTradeDetails(pair.Value, pair.Key);
             }
+
+            Assert.IsTrue(true);
         }
     }
 }

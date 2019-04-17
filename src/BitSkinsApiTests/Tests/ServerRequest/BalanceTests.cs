@@ -10,7 +10,9 @@ namespace BitSkinsApiTests.ServerRequest
         [TestMethod]
         public void GetAccountBalanceTest()
         {
-            AccountBalance balance = CurrentBalance.GetAccountBalance();
+            CurrentBalance.GetAccountBalance();
+
+            Assert.IsTrue(true);
         }
 
         [TestMethod]
@@ -23,6 +25,8 @@ namespace BitSkinsApiTests.ServerRequest
                 page++;
                 moneyEvents = MoneyEvents.GetMoneyEvents(page);
             }
+
+            Assert.IsTrue(true);
         }
     }
 }

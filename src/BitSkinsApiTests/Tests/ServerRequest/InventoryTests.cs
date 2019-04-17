@@ -21,6 +21,8 @@ namespace BitSkinsApiTests.ServerRequest
                     accountInventorys = Inventories.GetAccountInventory(appId, page);
                 }
             }
+
+            Assert.IsTrue(true);
         }
 
         [TestMethod]
@@ -53,6 +55,8 @@ namespace BitSkinsApiTests.ServerRequest
                 string id = information.WithdrawnItems[0].ItemId;
                 Assert.AreEqual(itemId, id);
             }
+
+            Assert.IsTrue(true);
         }
     }
 }
