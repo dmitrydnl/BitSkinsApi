@@ -1,0 +1,89 @@
+﻿/*
+ * BitSkinsApi
+ * Copyright (C) 2019 Dmitry
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+using Newtonsoft.Json;
+
+namespace BitSkinsApi.Crypto
+{
+    /// <summary>
+    /// Work with account's Bitcoin deposit address.
+    /// </summary>
+    public static class AccountBitcoinDepositAddress
+    {
+        /// <summary>
+        /// Allows you to retrieve your account's permanent Bitcoin deposit address. 
+        /// Any funds sent to this address are credited to BitSkins at the current conversion rate. 
+        /// Conversion rates are locked in when the Bitcoin network broadcasts your transaction.
+        /// </summary>
+        /// <returns>Account's permanent Bitcoin deposit address.</returns>
+        public static BitcoinDepositAddress GetBitcoinDepositAddress()
+        {
+            string urlRequest = GetUrlRequest();
+            string result = Server.ServerRequest.RequestServer(urlRequest);
+            BitcoinDepositAddress bitcoinDepositAddress = ReadBitcoinDepositAddress(result);
+            return bitcoinDepositAddress;
+        }
+
+        private static string GetUrlRequest()
+        {
+            Server.UrlCreator urlCreator = new Server.UrlCreator($"https://bitskins.com/api/v1/get_permanent_deposit_address/");
+            return urlCreator.ReadUrl();
+        }
+
+        private static BitcoinDepositAddress ReadBitcoinDepositAddress(string result)
+        {
+            dynamic responseServerD = JsonConvert.DeserializeObject(result);
+            dynamic dataD = responseServerD.data;
+
+            BitcoinDepositAddress bitcoinDepositAddress = null;
+            if (dataD != null)
+            {
+                string address = dataD.address;
+                string network = dataD.network;
+                double minimumAcceptableDepositAmount = dataD.minimum_acceptable_deposit_amount;
+                string depositCurrency = dataD.deposit_currency;
+                string uri = dataD.uri;
+                
+                bitcoinDepositAddress = new BitcoinDepositAddress(address, network, minimumAcceptableDepositAmount, depositCurrency, uri);
+            }
+
+            return bitcoinDepositAddress;
+        }
+    }
+
+    /// <summary>
+    /// Account's permanent Bitcoin deposit address.
+    /// </summary>
+    public class BitcoinDepositAddress
+    {
+        public string Address { get; private set; }
+        public string Network { get; private set; }
+        public double MinimumAcceptableDepositAmount { get; private set; }
+        public string DepositCurrency { get; private set; }
+        public string Uri { get; private set; }
+
+        internal BitcoinDepositAddress(string address, string network, double minimumAcceptableDepositAmount, string depositCurrency, string uri)
+        {
+            Address = address;
+            Network = network;
+            MinimumAcceptableDepositAmount = minimumAcceptableDepositAmount;
+            DepositCurrency = depositCurrency;
+            Uri = uri;
+        }
+    }
+}
