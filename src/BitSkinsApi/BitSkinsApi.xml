@@ -122,6 +122,24 @@
             Current conversion rate per Bitcoin (in USD), and the time this conversion rate will expire.
             </summary>
         </member>
+        <member name="T:BitSkinsApi.Crypto.AccountCreateBitcoinDeposit">
+            <summary>
+            Creating a payment request for Bitcoin. 
+            </summary>
+        </member>
+        <member name="M:BitSkinsApi.Crypto.AccountCreateBitcoinDeposit.CreateBitcoinDeposit(System.Double)">
+            <summary>
+            Allows you to generate a payment request for Bitcoin. 
+            You can deposit any amount of Bitcoin (more than 0.0002 BTC).
+            </summary>
+            <param name="amount">Amount to deposit in USD.</param>
+            <returns>Payment request for Bitcoin. </returns>
+        </member>
+        <member name="T:BitSkinsApi.Crypto.CreatedBitcoinDeposit">
+             <summary>
+            Payment request for Bitcoin. 
+             </summary>
+        </member>
         <member name="T:BitSkinsApi.Inventory.Inventories">
             <summary>
             Work with inventories.
