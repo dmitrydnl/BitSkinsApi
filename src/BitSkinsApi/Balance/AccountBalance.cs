@@ -51,12 +51,12 @@ namespace BitSkinsApi.Balance
             AccountBalance accountBalance = null;
             if (dataD != null)
             {
-                double available_balance = dataD.available_balance;
-                double pending_withdrawals = dataD.pending_withdrawals;
-                double withdrawable_balance = dataD.withdrawable_balance;
-                double couponable_balance = dataD.couponable_balance;
+                double availableBalance = dataD.available_balance;
+                double pendingWithdrawals = dataD.pending_withdrawals;
+                double withdrawableBalance = dataD.withdrawable_balance;
+                double couponableBalance = dataD.couponable_balance;
 
-                accountBalance = new AccountBalance(available_balance, pending_withdrawals, withdrawable_balance, couponable_balance);
+                accountBalance = new AccountBalance(availableBalance, pendingWithdrawals, withdrawableBalance, couponableBalance);
             }
 
             return accountBalance;
