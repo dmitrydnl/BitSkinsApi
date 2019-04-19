@@ -10,7 +10,7 @@
     <PackageTags>api api-wrapper bitskins steam</PackageTags>
     <PackageLicenseUrl>https://github.com/Captious99/BitSkinsApi/blob/master/LICENSE.md</PackageLicenseUrl>
     <RepositoryType>git</RepositoryType>
-    <Copyright>Copyright (C) 2019 Dmitry</Copyright>
+    <Copyright>Copyright (C) 2019 Captious99</Copyright>
     <Authors>Captious99</Authors>
     <Description>A wrapper for the BitSkins API, build on .NET Standard 2.0</Description>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
