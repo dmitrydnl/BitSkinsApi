@@ -106,12 +106,12 @@
             Account's permanent Bitcoin deposit address.
             </summary>
         </member>
-        <member name="T:BitSkinsApi.Crypto.AccountBitcoinDepositRate">
+        <member name="T:BitSkinsApi.Crypto.BitcoinConversionRate">
             <summary>
             Work with Bitcoin deposit rate.
             </summary>
         </member>
-        <member name="M:BitSkinsApi.Crypto.AccountBitcoinDepositRate.GetBitcoinDepositRate">
+        <member name="M:BitSkinsApi.Crypto.BitcoinConversionRate.GetBitcoinDepositRate">
             <summary>
             Allows you to retrieve the current conversion rate per Bitcoin (in USD), and the time this conversion rate will expire.
             </summary>
@@ -122,23 +122,23 @@
             Current conversion rate per Bitcoin (in USD), and the time this conversion rate will expire.
             </summary>
         </member>
-        <member name="T:BitSkinsApi.Crypto.AccountCreateBitcoinDeposit">
+        <member name="T:BitSkinsApi.Crypto.CreatingBitcoinDeposit">
             <summary>
             Creating a payment request for Bitcoin. 
             </summary>
         </member>
-        <member name="M:BitSkinsApi.Crypto.AccountCreateBitcoinDeposit.CreateBitcoinDeposit(System.Double)">
+        <member name="M:BitSkinsApi.Crypto.CreatingBitcoinDeposit.CreateBitcoinDeposit(System.Double)">
             <summary>
             Allows you to generate a payment request for Bitcoin. 
             You can deposit any amount of Bitcoin (more than 0.0002 BTC).
             </summary>
             <param name="amount">Amount to deposit in USD.</param>
-            <returns>Payment request for Bitcoin. </returns>
+            <returns>Payment request for Bitcoin.</returns>
         </member>
         <member name="T:BitSkinsApi.Crypto.CreatedBitcoinDeposit">
-             <summary>
+            <summary>
             Payment request for Bitcoin. 
-             </summary>
+            </summary>
         </member>
         <member name="T:BitSkinsApi.Inventory.Inventories">
             <summary>

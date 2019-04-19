@@ -25,14 +25,14 @@ namespace BitSkinsApi.Crypto
     /// <summary>
     /// Creating a payment request for Bitcoin. 
     /// </summary>
-    public static class AccountCreateBitcoinDeposit
+    public static class CreatingBitcoinDeposit
     {
         /// <summary>
         /// Allows you to generate a payment request for Bitcoin. 
         /// You can deposit any amount of Bitcoin (more than 0.0002 BTC).
         /// </summary>
         /// <param name="amount">Amount to deposit in USD.</param>
-        /// <returns>Payment request for Bitcoin. </returns>
+        /// <returns>Payment request for Bitcoin.</returns>
         public static CreatedBitcoinDeposit CreateBitcoinDeposit(double amount)
         {
             string urlRequest = GetUrlRequest(amount);
@@ -57,11 +57,7 @@ namespace BitSkinsApi.Crypto
             CreatedBitcoinDeposit createdBitcoinDeposit = null;
             if (orderD != null)
             {
-                string id = null;
-                if (orderD.id != null)
-                {
-                    id = orderD.id;
-                }
+                string id = orderD.id;
                 double amountInUsd = orderD.amount_in_usd;
                 string bitcoinAddress = orderD.bitcoin_address;
                 double bitcoinAmount = orderD.bitcoin_amount;
@@ -90,7 +86,7 @@ namespace BitSkinsApi.Crypto
     }
 
     /// <summary>
-    ///Payment request for Bitcoin. 
+    /// Payment request for Bitcoin. 
     /// </summary>
     public class CreatedBitcoinDeposit
     {
