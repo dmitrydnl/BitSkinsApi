@@ -88,6 +88,40 @@
             <param name="withdrawalMoneyMethod">Can be bitcoin, paypal, and so on.</param>
             <returns>Whether the withdrawal was successful.</returns>
         </member>
+        <member name="T:BitSkinsApi.Crypto.AccountBitcoinDepositAddress">
+            <summary>
+            Work with account's Bitcoin deposit address.
+            </summary>
+        </member>
+        <member name="M:BitSkinsApi.Crypto.AccountBitcoinDepositAddress.GetBitcoinDepositAddress">
+            <summary>
+            Allows you to retrieve your account's permanent Bitcoin deposit address. 
+            Any funds sent to this address are credited to BitSkins at the current conversion rate. 
+            Conversion rates are locked in when the Bitcoin network broadcasts your transaction.
+            </summary>
+            <returns>Account's permanent Bitcoin deposit address.</returns>
+        </member>
+        <member name="T:BitSkinsApi.Crypto.BitcoinDepositAddress">
+            <summary>
+            Account's permanent Bitcoin deposit address.
+            </summary>
+        </member>
+        <member name="T:BitSkinsApi.Crypto.AccountBitcoinDepositRate">
+            <summary>
+            Work with Bitcoin deposit rate.
+            </summary>
+        </member>
+        <member name="M:BitSkinsApi.Crypto.AccountBitcoinDepositRate.GetBitcoinDepositRate">
+            <summary>
+            Allows you to retrieve the current conversion rate per Bitcoin (in USD), and the time this conversion rate will expire.
+            </summary>
+            <returns>Bitcoin deposit rate and the time this rate will expire.</returns>
+        </member>
+        <member name="T:BitSkinsApi.Crypto.BitcoinDepositRate">
+            <summary>
+            Current conversion rate per Bitcoin (in USD), and the time this conversion rate will expire.
+            </summary>
+        </member>
         <member name="T:BitSkinsApi.Inventory.Inventories">
             <summary>
             Work with inventories.
