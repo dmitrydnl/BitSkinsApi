@@ -25,10 +25,10 @@ namespace BitSkinsApi.Crypto
     /// <summary>
     /// Work with Bitcoin deposit rate.
     /// </summary>
-    public static class BitcoinConversionRate
+    public static class BitcoinExchangeRate
     {
         /// <summary>
-        /// Allows you to retrieve the current conversion rate per Bitcoin (in USD), and the time this conversion rate will expire.
+        /// Allows you to retrieve the current exchange rate per Bitcoin (in USD), and the time this conversion rate will expire.
         /// </summary>
         /// <returns>Bitcoin deposit rate and the time this rate will expire.</returns>
         public static BitcoinDepositRate GetBitcoinDepositRate()

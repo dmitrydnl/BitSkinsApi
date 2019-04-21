@@ -74,11 +74,10 @@ namespace BitSkinsApi.Crypto
                     expiresAt = DateTimeExtension.FromUnixTime((long)orderD.expires_at);
                 }
                 string note = orderD.note;
-                bool forSelf = orderD.for_self;
                 string provider = orderD.provider;
 
                 createdBitcoinDeposit = new CreatedBitcoinDeposit(id, amountInUsd, bitcoinAddress, bitcoinAmount, 
-                    bitcoinUri, currentPricePerBitcoinInUsd, createdAt, expiresAt, note, forSelf, provider);
+                    bitcoinUri, currentPricePerBitcoinInUsd, createdAt, expiresAt, note, provider);
             }
 
             return createdBitcoinDeposit;
@@ -99,11 +98,10 @@ namespace BitSkinsApi.Crypto
         public DateTime? CreatedAt { get; private set; }
         public DateTime? ExpiresAt { get; private set; }
         public string Note { get; private set; }
-        public bool ForSelf { get; private set; }
         public string Provider { get; private set; }
 
         internal CreatedBitcoinDeposit(string id, double amountInUsd, string bitcoinAddress, double bitcoinAmount, string bitcoinUri,
-            double currentPricePerBitcoinInUsd, DateTime? createdAt, DateTime? expiresAt, string note, bool forSelf, string provider)
+            double currentPricePerBitcoinInUsd, DateTime? createdAt, DateTime? expiresAt, string note, string provider)
         {
             Id = id;
             AmountInUsd = amountInUsd;
@@ -114,7 +112,6 @@ namespace BitSkinsApi.Crypto
             CreatedAt = createdAt;
             ExpiresAt = expiresAt;
             Note = note;
-            ForSelf = forSelf;
             Provider = provider;
         }
     }

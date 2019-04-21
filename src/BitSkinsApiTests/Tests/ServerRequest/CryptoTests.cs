@@ -18,7 +18,7 @@ namespace BitSkinsApiTests.ServerRequest
         [TestMethod]
         public void GetBitcoinDepositRateTest()
         {
-            BitcoinConversionRate.GetBitcoinDepositRate();
+            BitcoinExchangeRate.GetBitcoinDepositRate();
 
             Assert.IsTrue(true);
         }
@@ -26,7 +26,7 @@ namespace BitSkinsApiTests.ServerRequest
         [TestMethod]
         public void CreateBitcoinDepositTest()
         {
-            BitcoinDepositRate bitcoinDepositRate = BitcoinConversionRate.GetBitcoinDepositRate();
+            BitcoinDepositRate bitcoinDepositRate = BitcoinExchangeRate.GetBitcoinDepositRate();
             double usd = Math.Round(bitcoinDepositRate.PricePerBitcoinInUsd * 0.001, 2);
             CreatingBitcoinDeposit.CreateBitcoinDeposit(usd);
 
