@@ -106,14 +106,14 @@
             Account's permanent Bitcoin deposit address.
             </summary>
         </member>
-        <member name="T:BitSkinsApi.Crypto.BitcoinConversionRate">
+        <member name="T:BitSkinsApi.Crypto.BitcoinExchangeRate">
             <summary>
             Work with Bitcoin deposit rate.
             </summary>
         </member>
-        <member name="M:BitSkinsApi.Crypto.BitcoinConversionRate.GetBitcoinDepositRate">
+        <member name="M:BitSkinsApi.Crypto.BitcoinExchangeRate.GetBitcoinDepositRate">
             <summary>
-            Allows you to retrieve the current conversion rate per Bitcoin (in USD), and the time this conversion rate will expire.
+            Allows you to retrieve the current exchange rate per Bitcoin (in USD), and the time this conversion rate will expire.
             </summary>
             <returns>Bitcoin deposit rate and the time this rate will expire.</returns>
         </member>
