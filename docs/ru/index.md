@@ -1,12 +1,10 @@
-﻿# Содержание
+﻿﻿# Содержание
 
 В самом начале, перед тем как начать работу с BitSkins API, вам нужно настроить аккаунт.
-
 1. [Настройка аккаунта](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/account/account_setup.md)
 2. [Двухфакторная аутентификация](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/account/two_factor_authentication.md)
 
 Для успешного проведения торговых операций на сайте BitSkins, вам нужно работать с балансом вашего аккаунта BitSkins.
-
 1. [Баланс аккаунта](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/balance/account_balance.md)
 2. [События с балансом аккаунта](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/balance/money_events.md)
 3. [Вывод денег с баланса](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/balance/withdraw_money.md)
@@ -35,6 +33,11 @@
 Получение информации о торговых предложениях, которые вам отправляли боты BitSkins при покупке/продаже вещей.
 1. [Недавние торговые предложения](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/trade/recent_trade_offers.md)
 2. [Подробности торгового предложения](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/trade/trade_details.md)
+
+Депозиты в биткойнах - это быстрый и эффективный способ пополнить свой счет в BitSkins с комиссией за депозит 0%. Этот API поможет вам автоматизировать перевод средств в BitSkins (мгновенные депозиты Bitcoin доступны пользователям мультивалютного кошелька Block.io, для внесения средств через другие кошельки потребуется 1 подтверждение сети, прежде чем средства станут доступны для расходов в BitSkins).
+1. [Bitcoin адрес для депозита](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/crypto/bitcoin_deposit_address.md)
+2. [Текущий курс обмена Bitcoin к доллару США](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/crypto/bitcoin_deposit_rate.md)
+3. [Запрос на оплату Bitcoin](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/crypto/create_bitcoin_deposit.md)
 
 Примеры простых программ, написанных с использованием BitSkinsApi:
 1. [Поиск выгодных предметов в BitSkins](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/code_examples/find_profitable_items.md)
