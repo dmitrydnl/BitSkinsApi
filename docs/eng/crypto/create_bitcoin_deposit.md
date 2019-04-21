@@ -55,4 +55,4 @@ Console.WriteLine(createdBitcoinDeposit.BitcoinAmount);
 Console.WriteLine(createdBitcoinDeposit.BitcoinUri);
 ```
 
-[<Двухфакторная аутентификация](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/account/two_factor_authentication.md) &nbsp;&nbsp;&nbsp;&nbsp; [События с балансом аккаунта>](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/balance/money_events.md)
+[<Current exchange rate Bitcoin to USD](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/crypto/bitcoin_deposit_rate.md) &nbsp;&nbsp;&nbsp;&nbsp; [Search for profitable items in BitSkins>](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/code_examples/find_profitable_items.md)

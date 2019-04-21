@@ -41,4 +41,4 @@ Console.WriteLine(bitcoinDepositAddress.Address);
 Console.WriteLine(bitcoinDepositAddress.MinimumAcceptableDepositAmount);
 ```
 
-[<Двухфакторная аутентификация](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/account/two_factor_authentication.md) &nbsp;&nbsp;&nbsp;&nbsp; [События с балансом аккаунта>](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/balance/money_events.md)
+[<Подробности торгового предложения](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/trade/trade_details.md) &nbsp;&nbsp;&nbsp;&nbsp; [Текущий курс обмена Bitcoin к доллару США>](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/crypto/bitcoin_deposit_rate.md)

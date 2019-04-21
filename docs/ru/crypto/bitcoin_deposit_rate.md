@@ -42,4 +42,4 @@ Console.WriteLine(bitcoinDepositRate.PricePerBitcoinInUsd);
 Console.WriteLine(bitcoinDepositRate.ExpiresIn);
 ```
 
-[<Двухфакторная аутентификация](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/account/two_factor_authentication.md) &nbsp;&nbsp;&nbsp;&nbsp; [События с балансом аккаунта>](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/balance/money_events.md)
+[<Bitcoin адрес для депозита](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/crypto/bitcoin_deposit_address.md) &nbsp;&nbsp;&nbsp;&nbsp; [Запрос на оплату Bitcoin>](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/crypto/create_bitcoin_deposit.md)

@@ -103,4 +103,4 @@ namespace Example
 }
 ```
 
-[<Trade offer details](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/trade/trade_details.md) &nbsp;&nbsp;&nbsp;&nbsp; [Withdrawal available items from BitSkins>](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/code_examples/withdraw_available_items.md)
+[<Bitcoin payment request](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/crypto/create_bitcoin_deposit.md) &nbsp;&nbsp;&nbsp;&nbsp; [Withdrawal available items from BitSkins>](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/code_examples/withdraw_available_items.md)
