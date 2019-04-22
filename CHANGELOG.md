@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.1.0] - 2019-04-21
 ### Added
-- Full coverage BitSkins General API:
+- Full coverage BitSkins Crypto Deposits API:
   - Get Bitcoin Deposit Address
   - Get Bitcoin Deposit Rate
   - Create Bitcoin Deposit
