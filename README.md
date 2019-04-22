@@ -1,13 +1,8 @@
-[![nuget](https://img.shields.io/nuget/v/BitSkinsApi.svg?color=blue)](https://www.nuget.org/packages/BitSkinsApi/)
-[![nuget downloads](https://img.shields.io/nuget/dt/BitSkinsApi.svg?color=blue)](https://www.nuget.org/packages/BitSkinsApi/)
-\
-[![release date](https://img.shields.io/github/release-date/Captious99/BitSkinsApi.svg?color=yellowgreen)](https://github.com/Captious99/BitSkinsApi/)
-[![repo size](https://img.shields.io/github/repo-size/Captious99/BitSkinsApi.svg?color=yellowgreen)](https://github.com/Captious99/BitSkinsApi/)
-\
+# What is BitSkinsApi?
+
 [![code quality](https://api.codacy.com/project/badge/Grade/3f24aba6cce349a9b4813791f831f2a7)](https://www.codacy.com/app/Captious99/BitSkinsApi?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Captious99/BitSkinsApi&amp;utm_campaign=Badge_Grade)
 [![build status](https://travis-ci.com/Captious99/BitSkinsApi.svg?branch=master)](https://travis-ci.com/Captious99/BitSkinsApi)
 
-# What is BitSkinsApi?
 An extended wrapper for the BitSkins API. It is a NuGet Package, that build on .NET Standard 2.0. BitSkinsApi allows you to interact with your BitSkins account through methods call. You can sell/buy items, get all BitSkins market data, get your Steam inventory and more. All games available on bitSkins are supported.
 \
 \
@@ -16,6 +11,10 @@ Learn more about BitSkins API you can an official [BitSkins website](https://bit
 Learn more about [NuGet](https://www.nuget.org).
 
 # How do I install BitSkinsApi?
+
+[![nuget](https://img.shields.io/nuget/v/BitSkinsApi.svg?color=blue)](https://www.nuget.org/packages/BitSkinsApi/)
+[![last release](https://img.shields.io/github/release-date/Captious99/BitSkinsApi.svg?color=blue&label=last%20release)](https://www.nuget.org/packages/BitSkinsApi/)
+
 To install the NuGet package, you can the Package Manager Console. For more information, see [Package consumption overview and workflow](https://docs.microsoft.com/en-us/nuget/consume-packages/overview-and-workflow).
 1. In Visual Studio select the Tools > NuGet Package Manager > Package Manager Console menu command.
 2. Once the console opens, check that the Default project drop-down list shows the project into which you want to install the package.
@@ -42,8 +41,9 @@ API Key you can retrieve through the BitSkins settings page. The secret code can
 ## Features
 * Made on .NET Standard
 * Easy to use
-* Full coverage of the BitSkins General API
 * Automatic two-factor authentication
+* Full coverage of the BitSkins General API
+* Full coverage of the BitSkins Crypto Deposits API
 
 ## Tests
 For the tests to work it is necessary to create ```account_data.json``` file in ```BitSkinsApiTests``` project, in properties this file you must set _Copy to Output Directory_ to _Copy always_. After that need add in ```account_data.json``` this:
