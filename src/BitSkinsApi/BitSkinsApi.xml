@@ -88,6 +88,29 @@
             <param name="withdrawalMoneyMethod">Can be bitcoin, paypal, and so on.</param>
             <returns>Whether the withdrawal was successful.</returns>
         </member>
+        <member name="T:BitSkinsApi.BuyOrder.CreatingBuyOrder">
+            <summary>
+            Work with creating buy orders.
+            </summary>
+        </member>
+        <member name="M:BitSkinsApi.BuyOrder.CreatingBuyOrder.CreateBuyOrder(BitSkinsApi.Market.AppId.AppName,System.String,System.Double,System.Int32)">
+            <summary>
+            Allows you to create a buy order for a single item. 
+            Buy orders are executed within 30 seconds if someone lists an item for sale that is at or below your buy order price. 
+            Funds are not withheld because of pending buy orders, 
+            but will be automatically cancelled if your account has insufficient funds to execute a buy order when an eligible item is up for sale.
+            </summary>
+            <param name="app">Inventory's game id.</param>
+            <param name="name">The name of the item you want to purchase.</param>
+            <param name="price">The price at which you want to purchase the item.</param>
+            <param name="quantity">Number of buy orders to create at this price for this item.</param>
+            <returns>List of created buy orders.</returns>
+        </member>
+        <member name="T:BitSkinsApi.BuyOrder.CreatedBuyOrder">
+            <summary>
+            Created buy order.
+            </summary>
+        </member>
         <member name="T:BitSkinsApi.Crypto.AccountBitcoinDepositAddress">
             <summary>
             Work with account's Bitcoin deposit address.
