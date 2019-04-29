@@ -111,6 +111,20 @@
             Created buy order.
             </summary>
         </member>
+        <member name="T:BitSkinsApi.BuyOrder.PlaceInQueue">
+            <summary>
+            Work with expected place in queue.
+            </summary>
+        </member>
+        <member name="M:BitSkinsApi.BuyOrder.PlaceInQueue.GetExpectedPlaceInQueue(BitSkinsApi.Market.AppId.AppName,System.String,System.Double)">
+            <summary>
+            Allows you to retrieve the expected place in queue for a new buy order without creating the buy order.
+            </summary>
+            <param name="app">Inventory's game id.</param>
+            <param name="name">The name of the item you want to purchase.</param>
+            <param name="price">The price at which you want to purchase the item.</param>
+            <returns>Expected place in queue.</returns>
+        </member>
         <member name="T:BitSkinsApi.Crypto.AccountBitcoinDepositAddress">
             <summary>
             Work with account's Bitcoin deposit address.
