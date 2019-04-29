@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 
-namespace BitSkinsApiTests
+namespace BitSkinsApi.Tests
 {
     [TestClass]
     public class Initilize

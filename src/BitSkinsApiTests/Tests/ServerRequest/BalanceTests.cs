@@ -2,7 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using BitSkinsApi.Balance;
 
-namespace BitSkinsApiTests.ServerRequest
+namespace BitSkinsApi.Tests.ServerRequest
 {
     [TestClass]
     public class BalanceTests

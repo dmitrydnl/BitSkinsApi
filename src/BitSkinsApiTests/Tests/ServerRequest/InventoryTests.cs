@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using BitSkinsApi.Inventory;
 
-namespace BitSkinsApiTests.ServerRequest
+namespace BitSkinsApi.Tests.ServerRequest
 {
     [TestClass]
     public class InventoryTests

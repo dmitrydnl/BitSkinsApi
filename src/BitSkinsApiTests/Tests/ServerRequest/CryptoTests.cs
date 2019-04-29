@@ -2,7 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using BitSkinsApi.Crypto;
 
-namespace BitSkinsApiTests.ServerRequest
+namespace BitSkinsApi.Tests.ServerRequest
 {
     [TestClass]
     public class CryptoTests

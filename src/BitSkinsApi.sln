@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.28307.489
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BitSkinsApi", "BitSkinsApi\BitSkinsApi.csproj", "{D0B3D99E-A672-49FF-AB56-9719100F6DA5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BitSkinsApiTests", "BitSkinsApiTests\BitSkinsApiTests.csproj", "{25249DC0-706B-4FDA-84E2-4B098CFF1443}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BitSkinsApi.Tests", "BitSkinsApiTests\BitSkinsApi.Tests.csproj", "{25249DC0-706B-4FDA-84E2-4B098CFF1443}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

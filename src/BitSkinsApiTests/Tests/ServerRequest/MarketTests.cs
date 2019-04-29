@@ -4,7 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using BitSkinsApi.Market;
 using BitSkinsApi.Inventory;
 
-namespace BitSkinsApiTests.ServerRequest
+namespace BitSkinsApi.Tests.ServerRequest
 {
     [TestClass]
     public class MarketTests
