@@ -88,6 +88,11 @@
             <param name="withdrawalMoneyMethod">Can be bitcoin, paypal, and so on.</param>
             <returns>Whether the withdrawal was successful.</returns>
         </member>
+        <member name="T:BitSkinsApi.BuyOrder.BuyOrder">
+            <summary>
+            Created buy order.
+            </summary>
+        </member>
         <member name="T:BitSkinsApi.BuyOrder.CancelingBuyOrders">
             <summary>
             Work with canceling buy orders.
@@ -132,11 +137,6 @@
             <param name="quantity">Number of buy orders to create at this price for this item.</param>
             <returns>List of created buy orders.</returns>
         </member>
-        <member name="T:BitSkinsApi.BuyOrder.CreatedBuyOrder">
-            <summary>
-            Created buy order.
-            </summary>
-        </member>
         <member name="T:BitSkinsApi.BuyOrder.PlaceInQueue">
             <summary>
             Work with expected place in queue.
@@ -150,6 +150,26 @@
             <param name="name">The name of the item you want to purchase.</param>
             <param name="price">The price at which you want to purchase the item.</param>
             <returns>Expected place in queue.</returns>
+        </member>
+        <member name="T:BitSkinsApi.BuyOrder.MyBuyOrders">
+            <summary>
+            Working with my buy orders.
+            </summary>
+        </member>
+        <member name="T:BitSkinsApi.BuyOrder.MyBuyOrders.BuyOrderType">
+            <summary>
+            Types of buy orders.
+            </summary>
+        </member>
+        <member name="M:BitSkinsApi.BuyOrder.MyBuyOrders.GetMyBuyOrders(BitSkinsApi.Market.AppId.AppName,System.String,BitSkinsApi.BuyOrder.MyBuyOrders.BuyOrderType,System.Int32)">
+            <summary>
+            Allows you to retrieve all buy orders you have placed, whether active or not.
+            </summary>
+            <param name="app">Inventory's game id.</param>
+            <param name="name">An item's name. (optional)</param>
+            <param name="type">Type of buy orders. (optional)</param>
+            <param name="page">The page number.</param>
+            <returns>My buy orders.</returns>
         </member>
         <member name="T:BitSkinsApi.Crypto.AccountBitcoinDepositAddress">
             <summary>
