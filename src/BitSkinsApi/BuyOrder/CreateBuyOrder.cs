@@ -40,11 +40,11 @@ namespace BitSkinsApi.BuyOrder
         /// <param name="price">The price at which you want to purchase the item.</param>
         /// <param name="quantity">Number of buy orders to create at this price for this item.</param>
         /// <returns>List of created buy orders.</returns>
-        public static List<CreatedBuyOrder> CreateBuyOrder(AppId.AppName app, string name, double price, int quantity)
+        public static List<BuyOrder> CreateBuyOrder(AppId.AppName app, string name, double price, int quantity)
         {
             string urlRequest = GetUrlRequest(app, name, price, quantity);
             string result = Server.ServerRequest.RequestServer(urlRequest);
-            List<CreatedBuyOrder> createdBuyOrders = ReadCreatedBuyOrders(result);
+            List<BuyOrder> createdBuyOrders = ReadCreatedBuyOrders(result);
             return createdBuyOrders;
         }
 
@@ -59,17 +59,17 @@ namespace BitSkinsApi.BuyOrder
             return urlCreator.ReadUrl();
         }
 
-        private static List<CreatedBuyOrder> ReadCreatedBuyOrders(string result)
+        private static List<BuyOrder> ReadCreatedBuyOrders(string result)
         {
             dynamic responseServerD = JsonConvert.DeserializeObject(result);
             dynamic ordersD = responseServerD.data.orders;
 
-            List<CreatedBuyOrder> createdBuyOrders = new List<CreatedBuyOrder>();
+            List<BuyOrder> createdBuyOrders = new List<BuyOrder>();
             if (ordersD != null)
             {
                 foreach (dynamic order in ordersD)
                 {
-                    CreatedBuyOrder createdBuyOrder = ReadCreatedBuyOrder(order);
+                    BuyOrder createdBuyOrder = ReadCreatedBuyOrder(order);
                     createdBuyOrders.Add(createdBuyOrder);
                 }
             }
@@ -77,7 +77,7 @@ namespace BitSkinsApi.BuyOrder
             return createdBuyOrders;
         }
 
-        private static CreatedBuyOrder ReadCreatedBuyOrder(dynamic order)
+        private static BuyOrder ReadCreatedBuyOrder(dynamic order)
         {
             string buyOrderId = order.buy_order_id;
             string marketHashName = order.market_hash_name;
@@ -88,36 +88,8 @@ namespace BitSkinsApi.BuyOrder
             DateTime updatedAt = DateTimeExtension.FromUnixTime((long)order.updated_at);
             int? placeInQueue = order.place_in_queue;
 
-            CreatedBuyOrder createdBuyOrder = new CreatedBuyOrder(buyOrderId, marketHashName, price, suggestedPrice, state, createdAt, updatedAt, placeInQueue);
+            BuyOrder createdBuyOrder = new BuyOrder(buyOrderId, marketHashName, price, suggestedPrice, state, createdAt, updatedAt, placeInQueue);
             return createdBuyOrder;
-        }
-    }
-
-    /// <summary>
-    /// Created buy order.
-    /// </summary>
-    public class CreatedBuyOrder
-    {
-        public string BuyOrderId { get; private set; }
-        public string MarketHashName { get; private set; }
-        public double Price { get; private set; }
-        public double SuggestedPrice { get; private set; }
-        public string State { get; private set; }
-        public DateTime CreatedAt { get; private set; }
-        public DateTime UpdatedAt { get; private set; }
-        public int? PlaceInQueue { get; private set; }
-
-        internal CreatedBuyOrder(string buyOrderId, string marketHashName, double price, double suggestedPrice, 
-            string state, DateTime createdAt, DateTime updatedAt, int? placeInQueue)
-        {
-            BuyOrderId = buyOrderId;
-            MarketHashName = marketHashName;
-            Price = price;
-            SuggestedPrice = suggestedPrice;
-            State = state;
-            CreatedAt = createdAt;
-            UpdatedAt = updatedAt;
-            PlaceInQueue = placeInQueue;
         }
     }
 }
