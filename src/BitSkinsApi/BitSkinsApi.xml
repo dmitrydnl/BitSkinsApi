@@ -88,6 +88,32 @@
             <param name="withdrawalMoneyMethod">Can be bitcoin, paypal, and so on.</param>
             <returns>Whether the withdrawal was successful.</returns>
         </member>
+        <member name="T:BitSkinsApi.BuyOrder.CancelingBuyOrders">
+            <summary>
+            Work with canceling buy orders.
+            </summary>
+        </member>
+        <member name="M:BitSkinsApi.BuyOrder.CancelingBuyOrders.CancelBuyOrders(BitSkinsApi.Market.AppId.AppName,System.Collections.Generic.List{System.String})">
+            <summary>
+            Allows you to cancel upto 999 active buy orders.
+            </summary>
+            <param name="app">Inventory's game id.</param>
+            <param name="buyOrderIds">Up to 999 buy order IDs.</param>
+            <returns>Canceled buy orders.</returns>
+        </member>
+        <member name="M:BitSkinsApi.BuyOrder.CancelingBuyOrders.CancelAllBuyOrders(BitSkinsApi.Market.AppId.AppName,System.String)">
+            <summary>
+            Allows you to cancel all buy orders for a given item name.
+            </summary>
+            <param name="app">Inventory's game id.</param>
+            <param name="marketHashName">The item name.</param>
+            <returns>Canceled buy orders.</returns>
+        </member>
+        <member name="T:BitSkinsApi.BuyOrder.CanceledBuyOrders">
+            <summary>
+            Canceled buy orders.
+            </summary>
+        </member>
         <member name="T:BitSkinsApi.BuyOrder.CreatingBuyOrder">
             <summary>
             Work with creating buy orders.
