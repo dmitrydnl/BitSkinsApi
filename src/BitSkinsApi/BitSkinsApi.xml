@@ -151,6 +151,25 @@
             <param name="price">The price at which you want to purchase the item.</param>
             <returns>Expected place in queue.</returns>
         </member>
+        <member name="T:BitSkinsApi.BuyOrder.MarketBuyOrders">
+            <summary>
+            Work with market buy orders.
+            </summary>
+        </member>
+        <member name="M:BitSkinsApi.BuyOrder.MarketBuyOrders.GetMarketBuyOrders(BitSkinsApi.Market.AppId.AppName,System.String,System.Int32)">
+            <summary>
+            Allows you to retrieve all market orders by all buyers (except your own) that need fulfillment.
+            </summary>
+            <param name="app">Inventory's game id.</param>
+            <param name="name">The item name for which you seek buy orders.</param>
+            <param name="page">Page number.</param>
+            <returns>List of market buy orders.</returns>
+        </member>
+        <member name="T:BitSkinsApi.BuyOrder.MarketBuyOrder">
+            <summary>
+            Market buy order.
+            </summary>
+        </member>
         <member name="T:BitSkinsApi.BuyOrder.MyBuyOrders">
             <summary>
             Working with my buy orders.
