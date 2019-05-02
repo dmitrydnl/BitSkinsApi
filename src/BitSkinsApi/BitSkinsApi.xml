@@ -190,6 +190,23 @@
             <param name="page">The page number.</param>
             <returns>My buy orders.</returns>
         </member>
+        <member name="T:BitSkinsApi.BuyOrder.SummationBuyOrders">
+            <summary>
+            Work with summation buy orders.
+            </summary>
+        </member>
+        <member name="M:BitSkinsApi.BuyOrder.SummationBuyOrders.SummarizeBuyOrders(BitSkinsApi.Market.AppId.AppName)">
+            <summary>
+            Allows you to retrieve a summary of all market buy orders. Results include your own buy orders, where applicable.
+            </summary>
+            <param name="app">Inventory's game id.</param>
+            <returns>List of items of buy order.</returns>
+        </member>
+        <member name="T:BitSkinsApi.BuyOrder.ItemBuyOrder">
+            <summary>
+            Item of buy order.
+            </summary>
+        </member>
         <member name="T:BitSkinsApi.Crypto.AccountBitcoinDepositAddress">
             <summary>
             Work with account's Bitcoin deposit address.
