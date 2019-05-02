@@ -3,7 +3,7 @@
 [![code quality](https://api.codacy.com/project/badge/Grade/3f24aba6cce349a9b4813791f831f2a7)](https://www.codacy.com/app/Captious99/BitSkinsApi?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Captious99/BitSkinsApi&amp;utm_campaign=Badge_Grade)
 [![build status](https://travis-ci.com/Captious99/BitSkinsApi.svg?branch=master)](https://travis-ci.com/Captious99/BitSkinsApi)
 
-An extended wrapper for the BitSkins API. It is a NuGet Package, that build on .NET Standard 2.0. BitSkinsApi allows you to interact with your BitSkins account through methods call. You can sell/buy items, get all BitSkins market data, get your Steam inventory and more. All games available on bitSkins are supported.
+An extended wrapper for the BitSkins API. It is a NuGet Package, that build on .NET Standard 2.0. BitSkinsApi allows you to interact with your BitSkins account through methods call. You can sell/buy items, get all BitSkins market data, get your Steam inventory and more. All games available on BitSkins are supported.
 \
 \
 Learn more about BitSkins API you can an official [BitSkins website](https://bitskins.com/api).
