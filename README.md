@@ -20,7 +20,7 @@ To install the NuGet package, you can the Package Manager Console. For more info
 2. Once the console opens, check that the Default project drop-down list shows the project into which you want to install the package.
 3. Enter the command:
 \
-```Install-Package BitSkinsApi -Version 1.1.0```
+```Install-Package BitSkinsApi -Version 1.2.0```
 
 # How do I use BitSkinsApi?
 All about using BitSkinsApi you can find in [documentation](https://github.com/Captious99/BitSkinsApi/blob/master/docs/index.md).
@@ -43,6 +43,7 @@ API Key you can retrieve through the BitSkins settings page. The secret code can
 * Easy to use
 * Automatic two-factor authentication
 * Full coverage of the BitSkins General API
+* Full coverage of the BitSkins Buy Orders API
 * Full coverage of the BitSkins Crypto Deposits API
 
 ## Tests
