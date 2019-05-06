@@ -34,6 +34,15 @@ Getting information about trade offers that BitSkins bots sent you when buying/s
 1. [Recent trade offers](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/trade/recent_trade_offers.md)
 2. [Trade offer details](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/trade/trade_details.md)
 
+Buy orders are a function of requesting items that you want to buy at a selected price.
+1. [Create buy order](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/buy_order/create_buy_order.md)
+2. [Expected place in the queue for buy order](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/buy_order/expected_place_in_queue.md)
+3. [Cancel buy orders](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/buy_order/cancel_buy_orders.md)
+4. [Cancel all buy orders](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/buy_order/cancel_all_buy_orders.md)
+5. [My buy orders](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/buy_order/my_buy_orders.md)
+6. [Market buy orders](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/buy_order/market_buy_orders.md)
+7. [Summary of all market buy orders](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/buy_order/summarize_buy_orders.md)
+
 Bitcoin deposits are a fast and efficient way to fund your account at BitSkins, at 0% deposit fees. This API will help you automate fund transfers to BitSkins (instant deposits via Bitcoin are available to users of the Block.io multi-currency wallet, deposits made through other wallets will need 1 network confirmation before the funds become available for spending at BitSkins).
 1. [Bitcoin address for deposit](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/crypto/bitcoin_deposit_address.md)
 2. [Current exchange rate Bitcoin to USD](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/crypto/bitcoin_deposit_rate.md)

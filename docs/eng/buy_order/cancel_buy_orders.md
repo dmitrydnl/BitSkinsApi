@@ -50,4 +50,4 @@ foreach (string id in canceledBuyOrders.BuyOrderIds)
 }
 ```
 
-[<Данные о последних продажах](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/market/recent_sale.md) &nbsp;&nbsp;&nbsp;&nbsp; [История продаж>](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/market/sell_history.md)
+[<Expected place in the queue for buy order](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/buy_order/expected_place_in_queue.md) &nbsp;&nbsp;&nbsp;&nbsp; [Cancel all buy orders>](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/buy_order/cancel_all_buy_orders.md)

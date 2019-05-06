@@ -1,4 +1,4 @@
-# Содержание
+﻿# Содержание
 
 В самом начале, перед тем как начать работу с BitSkins API, вам нужно настроить аккаунт.
 1. [Настройка аккаунта](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/account/account_setup.md)
@@ -33,6 +33,15 @@
 Получение информации о торговых предложениях, которые вам отправляли боты BitSkins при покупке/продаже вещей.
 1. [Недавние торговые предложения](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/trade/recent_trade_offers.md)
 2. [Подробности торгового предложения](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/trade/trade_details.md)
+
+Заказы на покупку - это функция запроса товаров, которые вы хотите купить по выбранной цене.
+1. [Создать заказ на покупку](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/buy_order/create_buy_order.md)
+2. [Ожидаемое место в очереди заказов на покупку](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/buy_order/expected_place_in_queue.md)
+3. [Отменить заказы на покупку](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/buy_order/cancel_buy_orders.md)
+4. [Отменить все заказы на покупку](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/buy_order/cancel_all_buy_orders.md)
+5. [Ваши заказы на покупку](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/buy_order/my_buy_orders.md)
+6. [Рыночные заказы на покупку](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/buy_order/market_buy_orders.md)
+7. [Сводка всех рыночных заказов на покупку](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/buy_order/summarize_buy_orders.md)
 
 Депозиты в биткойнах - это быстрый и эффективный способ пополнить свой счет в BitSkins с комиссией за депозит 0%. Этот API поможет вам автоматизировать перевод средств в BitSkins (мгновенные депозиты Bitcoin доступны пользователям мультивалютного кошелька Block.io, для внесения средств через другие кошельки потребуется 1 подтверждение сети, прежде чем средства станут доступны для расходов в BitSkins).
 1. [Bitcoin адрес для депозита](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/crypto/bitcoin_deposit_address.md)

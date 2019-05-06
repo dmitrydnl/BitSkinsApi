@@ -45,4 +45,4 @@ int placeInQueue = BitSkinsApi.BuyOrder.PlaceInQueue.GetExpectedPlaceInQueue(app
 Console.WriteLine(placeInQueue);
 ```
 
-[<События с балансом аккаунта](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/balance/money_events.md) &nbsp;&nbsp;&nbsp;&nbsp; [Инвентарь аккаунта>](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/inventory/account_inventory.md)
+[<Create buy order](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/buy_order/create_buy_order.md) &nbsp;&nbsp;&nbsp;&nbsp; [Cancel buy orders>](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/buy_order/cancel_buy_orders.md)

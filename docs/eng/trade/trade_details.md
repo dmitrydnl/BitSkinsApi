@@ -54,4 +54,4 @@ foreach (BitSkinsApi.Trade.RetrievedItem item in details.RetrievedItems)
 }
 ```
 
-[<Recent trade offers](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/trade/recent_trade_offers.md) &nbsp;&nbsp;&nbsp;&nbsp; [Bitcoin address for deposit>](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/crypto/bitcoin_deposit_address.md)
+[<Recent trade offers](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/trade/recent_trade_offers.md) &nbsp;&nbsp;&nbsp;&nbsp; [Create buy order>](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/buy_order/create_buy_order.md)
