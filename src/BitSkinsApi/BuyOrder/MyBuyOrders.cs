@@ -107,7 +107,7 @@ namespace BitSkinsApi.BuyOrder
             string buyOrderId = order.buy_order_id;
             string marketHashName = order.market_hash_name;
             double price = order.price;
-            double suggestedPrice = order.suggested_price;
+            double? suggestedPrice = order.suggested_price;
             string state = order.state;
             DateTime createdAt = DateTimeExtension.FromUnixTime((long)order.created_at);
             DateTime updatedAt = DateTimeExtension.FromUnixTime((long)order.updated_at);

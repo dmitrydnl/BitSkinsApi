@@ -74,7 +74,7 @@ namespace BitSkinsApi.Market
             double lowestPrice = item.lowest_price;
             double highestPrice = item.highest_price;
             double cumulativePrice = item.cumulative_price;
-            double recentAveragePrice = (item.recent_sales_info != null) ? (double)item.recent_sales_info.average_price : 0;
+            double? recentAveragePrice = (item.recent_sales_info == null) ? null : item.recent_sales_info.average_price;
             DateTime? updatedAt = null;
             if (item.updated_at != null)
             {
@@ -97,11 +97,11 @@ namespace BitSkinsApi.Market
         public double LowestPrice { get; private set; }
         public double HighestPrice { get; private set; }
         public double CumulativePrice { get; private set; }
-        public double RecentAveragePrice { get; private set; }
+        public double? RecentAveragePrice { get; private set; }
         public DateTime? UpdatedAt { get; private set; }
 
         internal MarketItem(string marketHashName, int totalItems, double lowestPrice, double highestPrice, 
-            double cumulativePrice, double recentAveragePrice, DateTime? updatedAt)
+            double cumulativePrice, double? recentAveragePrice, DateTime? updatedAt)
         {
             MarketHashName = marketHashName;
             TotalItems = totalItems;

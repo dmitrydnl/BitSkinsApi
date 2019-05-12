@@ -143,16 +143,8 @@ namespace BitSkinsApi.Market
             string itemType = item.item_type;
             string image = item.image;
             double price = item.price;
-            double? suggestedPrice = null;
-            if (item.suggested_price != null)
-            {
-                suggestedPrice = (double)item.suggested_price;
-            }
-            double? floatValue = null;
-            if (item.float_value != null)
-            {
-                floatValue = (double)item.float_value;
-            }
+            double? suggestedPrice = item.suggested_price;
+            double? floatValue = item.float_value;
             bool isMine = item.is_mine;
             DateTime updatedAt = DateTimeExtension.FromUnixTime((long)item.updated_at);
             DateTime withdrawableAt = DateTimeExtension.FromUnixTime((long)item.withdrawable_at);

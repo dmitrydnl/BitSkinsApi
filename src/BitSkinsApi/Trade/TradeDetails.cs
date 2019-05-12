@@ -104,7 +104,7 @@ namespace BitSkinsApi.Trade
             string marketHashName = item.market_hash_name;
             string image = item.image;
             double price = item.price;
-            double suggestedPrice = item.suggested_price;
+            double? suggestedPrice = item.suggested_price;
             DateTime withdrawableAt = DateTimeExtension.FromUnixTime((long)item.withdrawable_at);
             DateTime? deliveredAt = null;
             if (item.delivered_at != null)
@@ -168,12 +168,12 @@ namespace BitSkinsApi.Trade
         public string MarketHashName { get; private set; }
         public string Image { get; private set; }
         public double Price { get; private set; }
-        public double SuggestedPrice { get; private set; }
+        public double? SuggestedPrice { get; private set; }
         public DateTime WithdrawableAt { get; private set; }
         public DateTime? DeliveredAt { get; private set; }
 
         internal SentItem(Market.AppId.AppName appId, string itemId, string marketHashName, string image, 
-            double price, double suggestedPrice, DateTime withdrawableAt, DateTime? deliveredAt)
+            double price, double? suggestedPrice, DateTime withdrawableAt, DateTime? deliveredAt)
         {
             AppId = appId;
             ItemId = itemId;

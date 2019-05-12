@@ -330,7 +330,7 @@ namespace BitSkinsApi.Tests.ServerRequest
             if (item != null)
             {
                 string itemId = item.ItemIds[0];
-                double itemPrice = item.SuggestedPrice * 5;
+                double itemPrice = item.SuggestedPrice.Value * 5;
                 InformationAboutSale information = Sale.SellItem(app, new List<string> { itemId }, new List<double> { itemPrice });
                 string id = information.SoldItems[0].ItemId;
                 Assert.AreEqual(itemId, id);
