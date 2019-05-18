@@ -41,10 +41,19 @@ namespace BitSkinsApi.Balance
         /// <returns>List of money events.</returns>
         public static List<MoneyEvent> GetMoneyEvents(int page)
         {
+            CheckParameters(page);
             string urlRequest = GetUrlRequest(page);
             string result = Server.ServerRequest.RequestServer(urlRequest);
             List<MoneyEvent> moneyEvents = ReadMoneyEvents(result);
             return moneyEvents;
+        }
+
+        private static void CheckParameters(int page)
+        {
+            if (page < 1)
+            {
+                throw new ArgumentException("\"page\" must be positive number.");
+            }
         }
 
         private static string GetUrlRequest(int page)
