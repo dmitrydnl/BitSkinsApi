@@ -37,10 +37,23 @@ namespace BitSkinsApi.Trade
         /// <returns>Details of this trade.</returns>
         public static TradeDetails GetTradeDetails(string tradeToken, string tradeId)
         {
+            CheckParameters(tradeToken, tradeId);
             string urlRequest = GetUrlRequest(tradeToken, tradeId);
             string result = Server.ServerRequest.RequestServer(urlRequest);
             TradeDetails tradeDetails = ReadTradeDetails(result);
             return tradeDetails;
+        }
+
+        private static void CheckParameters(string tradeToken, string tradeId)
+        {
+            if (String.IsNullOrEmpty(tradeToken))
+            {
+                throw new ArgumentException("\"tradeToken\" must be not empty.");
+            }
+            if (String.IsNullOrEmpty(tradeId))
+            {
+                throw new ArgumentException("\"tradeId\" must be not empty.");
+            }
         }
 
         private static string GetUrlRequest(string tradeToken, string tradeId)
