@@ -16,6 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using Newtonsoft.Json;
 using BitSkinsApi.Market;
 
@@ -35,10 +36,23 @@ namespace BitSkinsApi.BuyOrder
         /// <returns>Expected place in queue.</returns>
         public static int GetExpectedPlaceInQueue(AppId.AppName app, string name, double price)
         {
+            CheckParameters(name, price);
             string urlRequest = GetUrlRequest(app, name, price);
             string result = Server.ServerRequest.RequestServer(urlRequest);
             int expectedPlaceInQueue = ReadExpectedPlaceInQueue(result);
             return expectedPlaceInQueue;
+        }
+
+        private static void CheckParameters(string name, double price)
+        {
+            if (String.IsNullOrEmpty(name))
+            {
+                throw new ArgumentException("\"name\" must be not empty.");
+            }
+            if (price < 0 || price == 0)
+            {
+                throw new ArgumentException("\"price\" must be positive number.");
+            }
         }
 
         private static string GetUrlRequest(AppId.AppName app, string name, double price)

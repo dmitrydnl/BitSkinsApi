@@ -42,10 +42,27 @@ namespace BitSkinsApi.BuyOrder
         /// <returns>List of created buy orders.</returns>
         public static List<BuyOrder> CreateBuyOrder(AppId.AppName app, string name, double price, int quantity)
         {
+            CheckParameters(name, price, quantity);
             string urlRequest = GetUrlRequest(app, name, price, quantity);
             string result = Server.ServerRequest.RequestServer(urlRequest);
             List<BuyOrder> createdBuyOrders = ReadCreatedBuyOrders(result);
             return createdBuyOrders;
+        }
+
+        private static void CheckParameters(string name, double price, int quantity)
+        {
+            if (String.IsNullOrEmpty(name))
+            {
+                throw new ArgumentException("\"name\" must be not empty.");
+            }
+            if (price < 0 || price == 0)
+            {
+                throw new ArgumentException("\"price\" must be positive number.");
+            }
+            if (quantity < 1)
+            {
+                throw new ArgumentException("\"quantity\" must be positive number.");
+            }
         }
 
         private static string GetUrlRequest(AppId.AppName app, string name, double price, int quantity)

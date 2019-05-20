@@ -38,10 +38,23 @@ namespace BitSkinsApi.BuyOrder
         /// <returns>List of market buy orders.</returns>
         public static List<MarketBuyOrder> GetMarketBuyOrders(AppId.AppName app, string name, int page)
         {
+            CheckParameters(name, page);
             string urlRequest = GetUrlRequest(app, name, page);
             string result = Server.ServerRequest.RequestServer(urlRequest);
             List<MarketBuyOrder> marketBuyOrders = ReadMarketBuyOrders(result);
             return marketBuyOrders;
+        }
+
+        private static void CheckParameters(string name, int page)
+        {
+            if (String.IsNullOrEmpty(name))
+            {
+                throw new ArgumentException("\"name\" must be not empty.");
+            }
+            if (page < 1)
+            {
+                throw new ArgumentException("\"page\" must be positive number.");
+            }
         }
 
         private static string GetUrlRequest(AppId.AppName app, string name, int page)
