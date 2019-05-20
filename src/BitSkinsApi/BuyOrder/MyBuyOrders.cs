@@ -44,10 +44,19 @@ namespace BitSkinsApi.BuyOrder
         /// <returns>My buy orders.</returns>
         public static List<BuyOrder> GetMyBuyOrders(AppId.AppName app, string name, BuyOrderType type, int page)
         {
+            CheckParameters(page);
             string urlRequest = GetUrlRequest(app, name, type, page);
             string result = Server.ServerRequest.RequestServer(urlRequest);
             List<BuyOrder> myBuyOrders = ReadMyBuyOrders(result);
             return myBuyOrders;
+        }
+
+        private static void CheckParameters(int page)
+        {
+            if (page < 1)
+            {
+                throw new ArgumentException("\"page\" must be positive number.");
+            }
         }
 
         private static string GetUrlRequest(AppId.AppName app, string name, BuyOrderType type, int page)
