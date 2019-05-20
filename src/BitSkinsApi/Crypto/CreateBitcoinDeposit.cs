@@ -35,10 +35,19 @@ namespace BitSkinsApi.Crypto
         /// <returns>Payment request for Bitcoin.</returns>
         public static CreatedBitcoinDeposit CreateBitcoinDeposit(double amount)
         {
+            CheckParameters(amount);
             string urlRequest = GetUrlRequest(amount);
             string result = Server.ServerRequest.RequestServer(urlRequest);
             CreatedBitcoinDeposit createdBitcoinDeposit = ReadCreatedBitcoinDeposit(result);
             return createdBitcoinDeposit;
+        }
+
+        private static void CheckParameters(double amount)
+        {
+            if (amount < 0 || amount == 0)
+            {
+                throw new ArgumentException("\"amount\" must be positive number.");
+            }
         }
 
         private static string GetUrlRequest(double amount)

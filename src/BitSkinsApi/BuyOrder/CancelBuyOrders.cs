@@ -63,7 +63,7 @@ namespace BitSkinsApi.BuyOrder
         {
             if (buyOrderIds == null)
             {
-                throw new ArgumentNullException("\"buyOrderIds\" must be not null.");
+                throw new ArgumentNullException("buyOrderIds", "\"buyOrderIds\" must be not null.");
             }
             if (buyOrderIds.Count < 1)
             {
