@@ -16,6 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using BitSkinsApi.Market;
@@ -36,6 +37,7 @@ namespace BitSkinsApi.BuyOrder
         /// <returns>Canceled buy orders.</returns>
         public static CanceledBuyOrders CancelBuyOrders(AppId.AppName app, List<string> buyOrderIds)
         {
+            CheckParametersForCancelBuyOrders(buyOrderIds);
             string urlRequest = GetUrlRequestForBuyOrders(app, buyOrderIds);
             string result = Server.ServerRequest.RequestServer(urlRequest);
             CanceledBuyOrders canceledBuyOrders = ReadCanceledBuyOrders(result);
@@ -50,10 +52,31 @@ namespace BitSkinsApi.BuyOrder
         /// <returns>Canceled buy orders.</returns>
         public static CanceledBuyOrders CancelAllBuyOrders(AppId.AppName app, string marketHashName)
         {
+            CheckParametersCancelAllBuyOrders(marketHashName);
             string urlRequest = GetUrlRequestForAllBuyOrders(app, marketHashName);
             string result = Server.ServerRequest.RequestServer(urlRequest);
             CanceledBuyOrders canceledBuyOrders = ReadCanceledBuyOrders(result);
             return canceledBuyOrders;
+        }
+
+        private static void CheckParametersForCancelBuyOrders(List<string> buyOrderIds)
+        {
+            if (buyOrderIds == null)
+            {
+                throw new ArgumentNullException("\"buyOrderIds\" must be not null.");
+            }
+            if (buyOrderIds.Count < 1)
+            {
+                throw new ArgumentException("In \"buyOrderIds\" count must be at least one.");
+            }
+        }
+
+        private static void CheckParametersCancelAllBuyOrders(string marketHashName)
+        {
+            if (String.IsNullOrEmpty(marketHashName))
+            {
+                throw new ArgumentException("\"marketHashName\" must be not empty.");
+            }
         }
 
         private static string GetUrlRequestForBuyOrders(AppId.AppName app, List<string> buyOrderIds)
