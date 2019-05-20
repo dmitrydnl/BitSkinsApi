@@ -16,6 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using Newtonsoft.Json;
 
 namespace BitSkinsApi.Balance
@@ -39,10 +40,19 @@ namespace BitSkinsApi.Balance
         /// <returns>Whether the withdrawal was successful.</returns>
         public static bool WithdrawMoney(double amount, WithdrawalMoneyMethod withdrawalMoneyMethod)
         {
+            CheckParameters(amount);
             string urlRequest = GetUrlRequest(amount, withdrawalMoneyMethod);
             string result = Server.ServerRequest.RequestServer(urlRequest);
             bool success = ReadStatus(result) == "success";
             return success;
+        }
+
+        private static void CheckParameters(double amount)
+        {
+            if (amount < 5)
+            {
+                throw new ArgumentException("\"amount\" must be over $5.00 USD.");
+            }
         }
 
         private static string GetUrlRequest(double amount, WithdrawalMoneyMethod withdrawalMoneyMethod)
