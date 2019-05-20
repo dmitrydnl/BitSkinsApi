@@ -55,7 +55,7 @@ namespace BitSkinsApi.BuyOrder
             {
                 throw new ArgumentException("\"name\" must be not empty.");
             }
-            if (price < 0 || price == 0)
+            if (price <= 0)
             {
                 throw new ArgumentException("\"price\" must be positive number.");
             }

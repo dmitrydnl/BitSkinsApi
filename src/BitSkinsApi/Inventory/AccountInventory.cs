@@ -37,10 +37,19 @@ namespace BitSkinsApi.Inventory
         /// <returns>Account's inventories.</returns>
         public static AccountInventory GetAccountInventory(Market.AppId.AppName app, int page)
         {
+            CheckParameters(page);
             string urlRequest = GetUrlRequest(app, page);
             string result = Server.ServerRequest.RequestServer(urlRequest);
             AccountInventory accountInventory = ReadAccountInventory(result);
             return accountInventory;
+        }
+
+        private static void CheckParameters(int page)
+        {
+            if (page < 1)
+            {
+                throw new ArgumentException("\"page\" must be positive number.");
+            }
         }
 
         private static string GetUrlRequest(Market.AppId.AppName app, int page)

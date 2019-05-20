@@ -44,7 +44,7 @@ namespace BitSkinsApi.Crypto
 
         private static void CheckParameters(double amount)
         {
-            if (amount < 0 || amount == 0)
+            if (amount <= 0)
             {
                 throw new ArgumentException("\"amount\" must be positive number.");
             }

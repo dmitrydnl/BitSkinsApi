@@ -36,10 +36,23 @@ namespace BitSkinsApi.Inventory
         /// <returns>Information about withdrawn.</returns>
         public static InformationAboutWithdrawn WithdrawItem(Market.AppId.AppName app, List<string> itemIds)
         {
+            CheckParameters(itemIds);
             string urlRequest = GetUrlRequest(app, itemIds);
             string result = Server.ServerRequest.RequestServer(urlRequest);
             InformationAboutWithdrawn informationAboutWithdrawn = ReadInformationAboutWithdrawn(result);
             return informationAboutWithdrawn;
+        }
+
+        private static void CheckParameters(List<string> itemIds)
+        {
+            if (itemIds == null)
+            {
+                throw new ArgumentNullException("itemIds", "\"itemIds\" must be not null.");
+            }
+            if (itemIds.Count < 1)
+            {
+                throw new ArgumentException("In \"itemIds\" count must be at least one.");
+            }
         }
 
         private static string GetUrlRequest(Market.AppId.AppName app, List<string> itemIds)
