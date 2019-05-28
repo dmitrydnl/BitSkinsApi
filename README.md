@@ -1,3 +1,5 @@
+![alt text](https://user-images.githubusercontent.com/48892069/58495142-65303a80-817f-11e9-839d-fdaa362bd3a7.jpg "BitSkins Logo")
+
 # What is BitSkinsApi?
 
 [![code quality](https://api.codacy.com/project/badge/Grade/3f24aba6cce349a9b4813791f831f2a7)](https://www.codacy.com/app/Captious99/BitSkinsApi?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Captious99/BitSkinsApi&amp;utm_campaign=Badge_Grade)
