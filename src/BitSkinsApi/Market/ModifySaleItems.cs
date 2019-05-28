@@ -37,10 +37,31 @@ namespace BitSkinsApi.Market
         /// <returns>List of modified items.</returns>
         public static List<ModifiedItem> ModifySale(AppId.AppName app, List<string> itemIds, List<double> itemPrices)
         {
+            CheckParameters(itemIds, itemPrices);
             string urlRequest = GetUrlRequest(app, itemIds, itemPrices);
             string result = Server.ServerRequest.RequestServer(urlRequest);
             List<ModifiedItem> modifiedItems = ReadModifiedItems(result);
             return modifiedItems;
+        }
+
+        private static void CheckParameters(List<string> itemIds, List<double> itemPrices)
+        {
+            if (itemIds == null)
+            {
+                throw new ArgumentNullException("itemIds", "\"itemIds\" must be not null.");
+            }
+            if (itemIds.Count < 1)
+            {
+                throw new ArgumentException("In \"itemIds\" count must be at least one.");
+            }
+            if (itemPrices == null)
+            {
+                throw new ArgumentNullException("itemPrices", "\"itemPrices\" must be not null.");
+            }
+            if (itemPrices.Count < 1)
+            {
+                throw new ArgumentException("In \"itemPrices\" count must be at least one.");
+            }
         }
 
         private static string GetUrlRequest(AppId.AppName app, List<string> itemIds, List<double> itemPrices)

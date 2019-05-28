@@ -66,11 +66,20 @@ namespace BitSkinsApi.Market
             SortBy sortBy, SortOrder sortOrder, ThreeChoices hasStickers, ThreeChoices isStattrak, ThreeChoices isSouvenir, 
             ResultsPerPage resultsPerPage, ThreeChoices tradeDelayedItems)
         {
+            CheckParameters(page);
             string urlRequest = GetUrlRequest(app, page, marketHashName, minPrice, maxPrice, sortBy, sortOrder, hasStickers, 
                 isStattrak, isSouvenir, resultsPerPage, tradeDelayedItems);
             string result = Server.ServerRequest.RequestServer(urlRequest);
             List<ItemOnSale> itemsOnSale = ReadItemsOnSale(result);
             return itemsOnSale;
+        }
+
+        private static void CheckParameters(int page)
+        {
+            if (page < 1)
+            {
+                throw new ArgumentException("\"page\" must be positive number.");
+            }
         }
 
         private static string GetUrlRequest(AppId.AppName app, int page, string marketHashName, double minPrice, double maxPrice,
@@ -196,10 +205,27 @@ namespace BitSkinsApi.Market
         /// <returns>Specific items on sale on BitSkins.</returns>
         public static SpecificItems GetSpecificItemsOnSale(AppId.AppName app, List<string> itemIds)
         {
+            CheckParameters(itemIds);
             string urlRequest = GetUrlRequest(app, itemIds);
             string result = Server.ServerRequest.RequestServer(urlRequest);
             SpecificItems specificItems = ReadSpecificItems(result);
             return specificItems;
+        }
+
+        private static void CheckParameters(List<string> itemIds)
+        {
+            if (itemIds == null)
+            {
+                throw new ArgumentNullException("itemIds", "\"itemIds\" must be not null.");
+            }
+            if (itemIds.Count < 1)
+            {
+                throw new ArgumentException("In \"itemIds\" count must be at least one.");
+            }
+            if (itemIds.Count > 250)
+            {
+                throw new ArgumentException("In \"itemIds\" count must be upto 250.");
+            }
         }
 
         private static string GetUrlRequest(AppId.AppName app, List<string> itemIds)
