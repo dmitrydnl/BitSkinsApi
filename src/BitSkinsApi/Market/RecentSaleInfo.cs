@@ -38,10 +38,27 @@ namespace BitSkinsApi.Market
         /// <returns>List of item's recent sales.</returns>
         public static List<ItemRecentSale> GetRecentSaleInfo(AppId.AppName app, string marketHashName, int page)
         {
+            CheckParameters(marketHashName, page);
             string urlRequest = GetUrlRequest(app, marketHashName, page);
             string result = Server.ServerRequest.RequestServer(urlRequest);
             List<ItemRecentSale> itemRecentSales = ReadItemRecentSales(result);
             return itemRecentSales;
+        }
+
+        private static void CheckParameters(string marketHashName, int page)
+        {
+            if (String.IsNullOrEmpty(marketHashName))
+            {
+                throw new ArgumentException("\"marketHashName\" must be not empty.");
+            }
+            if (page < 1)
+            {
+                throw new ArgumentException("\"page\" must be positive number.");
+            }
+            if (page > 5)
+            {
+                throw new ArgumentException("\"page\" must be from 1 to 5.");
+            }
         }
 
         private static string GetUrlRequest(AppId.AppName app, string marketHashName, int page)
