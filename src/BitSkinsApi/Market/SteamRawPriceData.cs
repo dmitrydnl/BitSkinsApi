@@ -37,10 +37,19 @@ namespace BitSkinsApi.Market
         /// <returns>Raw Steam Market price data for a given item.</returns>
         public static SteamItemRawPriceData GetRawPriceData(AppId.AppName app, string marketHashName)
         {
+            CheckParameters(marketHashName);
             string urlRequest = GetUrlRequest(app, marketHashName);
             string result = Server.ServerRequest.RequestServer(urlRequest);
             SteamItemRawPriceData steamItemRawPriceData = ReadSteamItemRawPrice(result);
             return steamItemRawPriceData;
+        }
+
+        private static void CheckParameters(string marketHashName)
+        {
+            if (String.IsNullOrEmpty(marketHashName))
+            {
+                throw new ArgumentException("\"marketHashName\" must be not empty.");
+            }
         }
 
         private static string GetUrlRequest(AppId.AppName app, string marketHashName)

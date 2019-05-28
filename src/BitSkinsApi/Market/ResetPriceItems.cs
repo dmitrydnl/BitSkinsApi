@@ -16,6 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
@@ -38,10 +39,19 @@ namespace BitSkinsApi.Market
         /// <returns>List of reset price items.</returns>
         public static List<ResetPriceItem> GetResetPriceItems(AppId.AppName app, int page)
         {
+            CheckParameters(page);
             string urlRequest = GetUrlRequest(app, page);
             string result = Server.ServerRequest.RequestServer(urlRequest);
             List<ResetPriceItem> resetPriceItems = ReadResetPriceItems(result);
             return resetPriceItems;
+        }
+
+        private static void CheckParameters(int page)
+        {
+            if (page < 1)
+            {
+                throw new ArgumentException("\"page\" must be positive number.");
+            }
         }
 
         private static string GetUrlRequest(AppId.AppName app, int page)

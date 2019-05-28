@@ -16,6 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using BitSkinsApi.Extensions;
@@ -37,10 +38,31 @@ namespace BitSkinsApi.Market
         /// <returns>Info about sale.</returns>
         public static InformationAboutSale SellItem(AppId.AppName app, List<string> itemIds, List<double> itemPrices)
         {
+            CheckParameters(itemIds, itemPrices);
             string urlRequest = GetUrlRequest(app, itemIds, itemPrices);
             string result = Server.ServerRequest.RequestServer(urlRequest);
             InformationAboutSale informationAboutSale = ReadInformationAboutSale(result);
             return informationAboutSale;
+        }
+
+        private static void CheckParameters(List<string> itemIds, List<double> itemPrices)
+        {
+            if (itemIds == null)
+            {
+                throw new ArgumentNullException("itemIds", "\"itemIds\" must be not null.");
+            }
+            if (itemIds.Count < 1)
+            {
+                throw new ArgumentException("In \"itemIds\" count must be at least one.");
+            }
+            if (itemPrices == null)
+            {
+                throw new ArgumentNullException("itemPrices", "\"itemPrices\" must be not null.");
+            }
+            if (itemPrices.Count < 1)
+            {
+                throw new ArgumentException("In \"itemPrices\" count must be at least one.");
+            }
         }
 
         private static string GetUrlRequest(AppId.AppName app, List<string> itemIds, List<double> itemPrices)
