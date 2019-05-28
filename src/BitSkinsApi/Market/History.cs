@@ -37,10 +37,19 @@ namespace BitSkinsApi.Market
         /// <returns>List of buy history records.</returns>
         public static List<BuyHistoryRecord> GetBuyHistory(AppId.AppName app, int page)
         {
+            CheckParameters(page);
             string urlRequest = GetUrlRequest(app, page);
             string result = Server.ServerRequest.RequestServer(urlRequest);
             List<BuyHistoryRecord> buyHistoryRecords = ReadBuyHistoryRecors(result);
             return buyHistoryRecords;
+        }
+
+        private static void CheckParameters(int page)
+        {
+            if (page < 1)
+            {
+                throw new ArgumentException("\"page\" must be positive number.");
+            }
         }
 
         private static string GetUrlRequest(AppId.AppName app, int page)
@@ -98,10 +107,19 @@ namespace BitSkinsApi.Market
         /// <returns>List of sell history records.</returns>
         public static List<SellHistoryRecord> GetSellHistory(AppId.AppName app, int page)
         {
+            CheckParameters(page);
             string urlRequest = GetUrlRequest(app, page);
             string result = Server.ServerRequest.RequestServer(urlRequest);
             List<SellHistoryRecord> sellHistoryRecords = ReadSellHistoryRecors(result);
             return sellHistoryRecords;
+        }
+
+        private static void CheckParameters(int page)
+        {
+            if (page < 1)
+            {
+                throw new ArgumentException("\"page\" must be positive number.");
+            }
         }
 
         private static string GetUrlRequest(AppId.AppName app, int page)
@@ -168,10 +186,19 @@ namespace BitSkinsApi.Market
         /// <returns>List of item's history records.</returns>
         public static List<ItemHistoryRecord> GetItemHistory(AppId.AppName app, int page, List<string> names, ResultsPerPage resultsPerPage)
         {
+            CheckParameters(page);
             string urlRequest = GetUrlRequest(app, page, names, resultsPerPage);
             string result = Server.ServerRequest.RequestServer(urlRequest);
             List<ItemHistoryRecord> itemHistoryRecords = ReadItemHistoryRecords(result);
             return itemHistoryRecords;
+        }
+
+        private static void CheckParameters(int page)
+        {
+            if (page < 1)
+            {
+                throw new ArgumentException("\"page\" must be positive number.");
+            }
         }
 
         private static string GetUrlRequest(AppId.AppName app, int page, List<string> names, ResultsPerPage resultsPerPage)
@@ -183,7 +210,7 @@ namespace BitSkinsApi.Market
             urlCreator.AppendUrl($"&app_id={(int)app}");
             urlCreator.AppendUrl($"&per_page={(int)resultsPerPage}");
 
-            if (names.Count > 0)
+            if (names != null && names.Count > 0)
             {
                 urlCreator.AppendUrl($"&names={names.ToStringWithDelimiter(delimiter)}");
                 urlCreator.AppendUrl($"&delimiter={delimiter}");

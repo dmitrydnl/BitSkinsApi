@@ -36,10 +36,23 @@ namespace BitSkinsApi.Market
         /// <returns>List of delisted items.</returns>
         public static List<DelistedItem> DelistItem(AppId.AppName app, List<string> itemIds)
         {
+            CheckParameters(itemIds);
             string urlRequest = GetUrlRequest(app, itemIds);
             string result = Server.ServerRequest.RequestServer(urlRequest);
             List<DelistedItem> delistedItems = ReadDelistedItems(result);
             return delistedItems;
+        }
+
+        private static void CheckParameters(List<string> itemIds)
+        {
+            if (itemIds == null)
+            {
+                throw new ArgumentNullException("itemIds", "\"itemIds\" must be not null.");
+            }
+            if (itemIds.Count < 1)
+            {
+                throw new ArgumentException("In \"itemIds\" count must be at least one.");
+            }
         }
 
         private static string GetUrlRequest(AppId.AppName app, List<string> itemIds)
