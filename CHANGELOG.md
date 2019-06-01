@@ -7,7 +7,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.2.2] - 2019-05-29
 ### Added
 - Validation of the entered data for all API call methods
-
+  - Get Money Events
+  - Money Withdrawal
+  - Get Account Inventory
+  - Withdraw Item
+  - Delist Item
+  - Get Buy History
+  - Get Sell History
+  - Get Item History
+  - Get Inventory On Sale
+  - Get Specific Items on Sale
+  - Modify Sale
+  - Buy Item
+  - Get Recent Sale Info
+  - Re-list Item
+  - Get Reset-Price Items
+  - Sell Item
+  - Get Raw Price Data
+  - Get Trade Details
+  - Create Bitcoin Deposit
+  - Cancel Buy Orders
+  - Cancel All BuyOrders
+  - Create Buy Order
+  - Get Market Buy Orders
+  - Get My Buy Orders
+  
 ## [1.2.1] - 2019-05-13
 ### Changed
 - Type of value ```suggestedPrice``` from ```double``` to ```Nullable<double>```
