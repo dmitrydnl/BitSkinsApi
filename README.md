@@ -63,10 +63,17 @@ Requirements for Steam inventory and BitSkins inventory for tests:
 1. In the Steam inventory must be at least one item available for sale. This item must be from a game that supported by BitSkins. This is necessary for the _SellItemTest_ test. If successful, you will receive a Steam trade offer, which you can decline.
 2. In BitSkins must be at least one item currently on sale by you. This is necessary for the _RelistAndDelistItemTest_ and _ModifySaleTest_ tests.
 3. In the BitSkins inventory must be at least one pending withdrawal item. This is necessary for the _WithdrawItemTest_ test. If successful, you will receive a Steam trade offer, which you can decline.
-4. On BitSkins account balance must be at least 0.01 USD. This is necessary for the _BuyItemTest_ test.
+4. On BitSkins account balance must be at least $ 0.01. This is necessary for the _BuyItemTest_ test.
+\
+\
+Changes in the inventory BitSkins and Steam after passing tests:
+1) In BitSkins, an item is bought for $ 0.01 and stays in the BitSkins inventory.
+2) In BitSkins creates a buy order for $ 0.01.
+3) There will be several trade offers on Steam, you can cancel them all.
 
 ## Project requirements for use the BitSkinsApi
 BitSkinsApi build on .NET Standard 2.0. To use the BitSkinsApi, version of the platform you are using must implement .NET Standart 2.0.
+\
 \
 Learn more about [.NET implementation support](https://docs.microsoft.com/en-us/dotnet/standard/net-standard#net-implementation-support).
 
