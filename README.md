@@ -33,7 +33,7 @@ In short:
 2. Enable API access and two-factor authentication for your BitSkins account.
 3. Initialize your BitSkins account in code:
 \
-```BitSkinsApi.Account.AccountData.SetupAccount(ApiKey, SecreCode);```
+```BitSkinsApi.Account.AccountData.SetupAccount(ApiKey, SecretCode);```
 \
 API Key you can retrieve through the BitSkins settings page. The secret code can be found when you enable two-factor authentication for your BitSkins account.
 4. Now you can use BitSkinsApi. For example to retrieve your balance BitSkins you need execute function:
