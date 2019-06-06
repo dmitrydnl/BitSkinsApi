@@ -36,7 +36,7 @@ List<BitSkinsApi.BuyOrder.MarketBuyOrder>
 * BuyOrderId - id заказа на покупку.
 * MarketHashName - название предмета.
 * Price - цена.
-* SuggestedPrice - средняя цена этого предмета в BitSkins.
+* SuggestedPrice - средняя цена этого предмета в BitSkins, может быть null.
 * IsMine - является ли заказ на покупку вашим.
 * CreatedAt - дата создания.
 * PlaceInQueue - номер в очереди заказов на покупку.

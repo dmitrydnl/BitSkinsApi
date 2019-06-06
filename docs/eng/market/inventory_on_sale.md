@@ -47,7 +47,7 @@ Class properties ```BitSkinsApi.Market.ItemOnSale```:
 * ItemType - item type.
 * Image - item image link.
 * Price - item price.
-* SuggestedPrice - suggested price, maybe null, может быть null.
+* SuggestedPrice - suggested price, maybe null.
 * FloatValue - item wear, maybe null (only CS:GO).
 * IsMine - is the item your.
 * UpdatedAt - item update date.
