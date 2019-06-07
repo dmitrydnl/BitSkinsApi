@@ -39,7 +39,7 @@ List<BitSkinsApi.BuyOrder.MarketBuyOrder>
 * SuggestedPrice - средняя цена этого предмета в BitSkins, может быть null.
 * IsMine - является ли заказ на покупку вашим.
 * CreatedAt - дата создания.
-* PlaceInQueue - номер в очереди заказов на покупку.
+* PlaceInQueue - номер в очереди заказов на покупку, может быть null.
 
 ### Возможные исключения
 ```BitSkinsApi.Server.RequestServerException``` - в случае передачи в функцию некорректных данных или проблем на сервере BitSkins.
