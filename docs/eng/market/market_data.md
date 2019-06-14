@@ -36,7 +36,7 @@ Class properties ```BitSkinsApi.Market.MarketItem```:
 * LowestPrice - minimum price.
 * HighestPrice - maximum price.
 * CumulativePrice - cost of all items together.
-* RecentAveragePrice - average price lately.
+* RecentAveragePrice - average price lately, may be null.
 * UpdatedAt - item update date, may be null.
 
 ### Possible exceptions
