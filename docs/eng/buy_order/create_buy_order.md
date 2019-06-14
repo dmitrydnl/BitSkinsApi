@@ -37,11 +37,11 @@ Class properties ```BitSkinsApi.BuyOrder.BuyOrder```:
 * BuyOrderId - buy order id.
 * MarketHashName - item name.
 * Price - price.
-* SuggestedPrice - the average price of this item in BitSkins, maybe null.
+* SuggestedPrice - the average price of this item in BitSkins, may be null.
 * State - buy order status.
 * CreatedAt - date of creation.
 * UpdatedAt - update date.
-* PlaceInQueue - number in the queue of purchase orders, maybe null.
+* PlaceInQueue - number in the queue of purchase orders, may be null.
 
 ### Possible exceptions
 ```BitSkinsApi.Server.RequestServerException``` - in case of transfer to the function incorrect data or problems on the BitSkins server.
