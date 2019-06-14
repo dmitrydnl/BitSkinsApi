@@ -32,7 +32,7 @@ BitSkinsApi.BuyOrder.PlaceInQueue.GetExpectedPlaceInQueue(BitSkinsApi.Market.App
 int placeInQueue
 ```
 
-placeInQueue - expected place in queue for new buy order.
+placeInQueue - expected place in queue for new buy order, may be null.
 
 ### Possible exceptions
 ```BitSkinsApi.Server.RequestServerException``` - in case of transfer to the function incorrect data or problems on the BitSkins server.
