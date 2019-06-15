@@ -42,6 +42,8 @@ List<BitSkinsApi.BuyOrder.MarketBuyOrder>
 * PlaceInQueue - номер в очереди заказов на покупку, может быть null.
 
 ### Возможные исключения
+```ArgumentException``` - в случае передачи в функцию некорректных данных, в сообщение содержится подробная информация.
+\
 ```BitSkinsApi.Server.RequestServerException``` - в случае передачи в функцию некорректных данных или проблем на сервере BitSkins.
 
 ## Пример

@@ -6,7 +6,7 @@ In order to get the inventory BitSkins currently on sale, you need to call the f
 BitSkinsApi.Market.InventoryOnSale.GetInventoryOnSale(BitSkinsApi.Market.AppId.AppName app, int page, string marketHashName, double minPrice, double maxPrice, BitSkinsApi.Market.InventoryOnSale.SortBy sortBy, BitSkinsApi.Market.InventoryOnSale.SortOrder sortOrder, BitSkinsApi.Market.InventoryOnSale.ThreeChoices hasStickers, BitSkinsApi.Market.InventoryOnSale.ThreeChoices isStattrak, BitSkinsApi.Market.InventoryOnSale.ThreeChoices isSouvenir, BitSkinsApi.Market.InventoryOnSale.ResultsPerPage resultsPerPage, BitSkinsApi.Market.InventoryOnSale.ThreeChoices tradeDelayedItems);
 ```
 
-## DelistItem()
+## GetInventoryOnSale()
 
 ### Is in class:
 

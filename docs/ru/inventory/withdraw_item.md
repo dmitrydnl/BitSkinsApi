@@ -36,6 +36,10 @@ BitSkinsApi.Inventory.InformationAboutWithdrawn
 * TradeTokens - токены предложений обмена.
 
 ### Возможные исключения
+```ArgumentNullException``` - в случае передачи в функцию некорректных данных, в сообщение содержится подробная информация.
+\
+```ArgumentException``` - в случае передачи в функцию некорректных данных, в сообщение содержится подробная информация.
+\
 ```BitSkinsApi.Server.RequestServerException``` - в случае передачи в функцию некорректных данных или проблем на сервере BitSkins.
 
 ## Пример

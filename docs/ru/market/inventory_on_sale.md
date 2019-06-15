@@ -6,7 +6,7 @@
 BitSkinsApi.Market.InventoryOnSale.GetInventoryOnSale(BitSkinsApi.Market.AppId.AppName app, int page, string marketHashName, double minPrice, double maxPrice, BitSkinsApi.Market.InventoryOnSale.SortBy sortBy, BitSkinsApi.Market.InventoryOnSale.SortOrder sortOrder, BitSkinsApi.Market.InventoryOnSale.ThreeChoices hasStickers, BitSkinsApi.Market.InventoryOnSale.ThreeChoices isStattrak, BitSkinsApi.Market.InventoryOnSale.ThreeChoices isSouvenir, BitSkinsApi.Market.InventoryOnSale.ResultsPerPage resultsPerPage, BitSkinsApi.Market.InventoryOnSale.ThreeChoices tradeDelayedItems);
 ```
 
-## DelistItem()
+## GetInventoryOnSale()
 
 ### Находится в классе:
 
@@ -54,6 +54,8 @@ List<BitSkinsApi.Market.ItemOnSale>
 * WithdrawableAt - дата, когда предмет можно будет вывести из BitSkins.
 
 ### Возможные исключения
+```ArgumentException``` - в случае передачи в функцию некорректных данных, в сообщение содержится подробная информация.
+\
 ```BitSkinsApi.Server.RequestServerException``` - в случае передачи в функцию некорректных данных или проблем на сервере BitSkins.
 
 ## Пример

@@ -36,6 +36,8 @@ BitSkinsApi.Inventory.AccountInventory
 * PendingWithdrawalFromBitskinsInventory - предметы ожидающие вывода с BitSkins.
 
 ### Возможные исключения
+```ArgumentException``` - в случае передачи в функцию некорректных данных, в сообщение содержится подробная информация.
+\
 ```BitSkinsApi.Server.RequestServerException``` - в случае передачи в функцию некорректных данных или проблем на сервере BitSkins.
 
 ## Пример

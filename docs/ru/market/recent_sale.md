@@ -38,6 +38,8 @@ List<BitSkinsApi.Market.ItemRecentSale>
 * SoldAt - дата продажи предмета.
 
 ### Возможные исключения
+```ArgumentException``` - в случае передачи в функцию некорректных данных, в сообщение содержится подробная информация.
+\
 ```BitSkinsApi.Server.RequestServerException``` - в случае передачи в функцию некорректных данных или проблем на сервере BitSkins.
 
 ## Пример

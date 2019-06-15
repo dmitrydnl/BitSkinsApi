@@ -36,6 +36,8 @@ BitSkinsApi.Market.SteamItemRawPriceData
 * UpdatedAt - дата обновления данных, может быть null.
 
 ### Возможные исключения
+```ArgumentException``` - в случае передачи в функцию некорректных данных, в сообщение содержится подробная информация.
+\
 ```BitSkinsApi.Server.RequestServerException``` - в случае передачи в функцию некорректных данных или проблем на сервере BitSkins.
 
 ## Пример

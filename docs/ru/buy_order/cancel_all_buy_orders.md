@@ -36,6 +36,8 @@ BitSkinsApi.BuyOrder.CanceledBuyOrders
 * BuyOrderIds - список id отмененных заказов на покупку.
 
 ### Возможные исключения
+```ArgumentException``` - в случае передачи в функцию некорректных данных, в сообщение содержится подробная информация.
+\
 ```BitSkinsApi.Server.RequestServerException``` - в случае передачи в функцию некорректных данных или проблем на сервере BitSkins.
 
 ## Пример
