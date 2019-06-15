@@ -41,11 +41,11 @@ Class properties ```BitSkinsApi.Market.ItemHistoryRecord```:
 * RecordType - event type.
 * LastUpdateAt - date of last update event.
 * ListedAt - date the item was put up for sale.
-* WithdrawnAt - the date when the item can be withdraw from BitSkins, maybe null.
+* WithdrawnAt - the date when the item can be withdraw from BitSkins, may be null.
 * ListedByMe - is the item for sale by you.
 * OnHold - is the item hold.
 * OnSale - whether the item is on sale.
-* RecordTime - event time, maybe null.
+* RecordTime - event time, may be null.
 
 ### Possible exceptions
 ```BitSkinsApi.Server.RequestServerException``` - in case of transfer to the function incorrect data or problems on the BitSkins server.

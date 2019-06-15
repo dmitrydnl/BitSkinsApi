@@ -33,7 +33,7 @@ List<BitSkinsApi.Market.ResetPriceItem>
 
 Class properties ``BitSkinsApi.Market.ResetPriceItem```
 * MarketHashName - item name.
-* Price - item price, maybe null.
+* Price - item price, may be null.
 
 ### Possible exceptions
 ```BitSkinsApi.Server.RequestServerException``` - in case of transfer to the function incorrect data or problems on the BitSkins server.

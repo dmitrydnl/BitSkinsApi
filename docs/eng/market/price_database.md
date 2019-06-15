@@ -17,7 +17,7 @@ BitSkinsApi.Market.PriceDatabase
 ### Function:
 
 ```csharp
-BitSkinsApi.Market.PriceDatabase.GetAllItemPrices(BitSkinsApi.Market.AppId.AppName app,);
+BitSkinsApi.Market.PriceDatabase.GetAllItemPrices(BitSkinsApi.Market.AppId.AppName app);
 ```
 
 ### Function parameters:

@@ -31,14 +31,14 @@ BitSkinsApi.Crypto.CreatedBitcoinDeposit
 ```
 
 Class properties ```BitSkinsApi.Crypto.CreatedBitcoinDeposit```:
-* Id - request id (maybe null).
+* Id - request id, may be null.
 * AmountInUsd - amount in USD.
 * BitcoinAddress - your bitcoin deposit address.
 * BitcoinAmount - amount in Bitcoin.
 * BitcoinUri - Bitcoin URI.
 * CurrentPricePerBitcoinInUsd - the price of one Bitcoin in USD.
-* CreatedAt - request creation date (maybe null).
-* ExpiresAt - request expiration date (maybe null).
+* CreatedAt - request creation date, may be null.
+* ExpiresAt - request expiration date, may be null.
 * Note - note.
 * Provider - provider.
 
