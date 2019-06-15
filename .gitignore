@@ -333,4 +333,5 @@ ASALocalRun/
 # Local History for Visual Studio
 .localhistory/
 
+#User's data
 src/BitSkinsApiTests/account_data.json
