@@ -40,6 +40,8 @@ bool success
 success - whether the operation was successful.
 
 ### Possible exceptions
+```ArgumentException``` - in case of transfer to the function incorrect data, the message contains detailed information.
+\
 ```BitSkinsApi.Server.RequestServerException``` - in case of transfer to the function incorrect data or problems on the BitSkins server.
 
 ## Example

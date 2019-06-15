@@ -41,6 +41,10 @@ Class properties ```BitSkinsApi.Market.BoughtItem```
 * WithdrawableAt - the date when the item can be withdraw from BitSkins.
 
 ### Possible exceptions
+```ArgumentNullException``` - in case of transfer to the function incorrect data, the message contains detailed information.
+\
+```ArgumentException``` - in case of transfer to the function incorrect data, the message contains detailed information.
+\
 ```BitSkinsApi.Server.RequestServerException``` - in case of transfer to the function incorrect data or problems on the BitSkins server.
 
 ## Example

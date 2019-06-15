@@ -38,6 +38,10 @@ Class properties ```BitSkinsApi.Market.InformationAboutSale```
 * InformationAboutSellerBot - information about the bot that sent the trade offer.
 
 ### Possible exceptions
+```ArgumentNullException``` - in case of transfer to the function incorrect data, the message contains detailed information.
+\
+```ArgumentException``` - in case of transfer to the function incorrect data, the message contains detailed information.
+\
 ```BitSkinsApi.Server.RequestServerException``` - in case of transfer to the function incorrect data or problems on the BitSkins server.
 
 ## Example
