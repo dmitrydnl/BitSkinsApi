@@ -36,7 +36,7 @@ List<BitSkinsApi.Market.MarketItem>
 * LowestPrice - минимальная цена.
 * HighestPrice - максимальная цена.
 * CumulativePrice - стоимость всех предметов вместе.
-* RecentAveragePrice - средняя цена за последнее время.
+* RecentAveragePrice - средняя цена за последнее время, может быть null.
 * UpdatedAt - дата обновления предмета, может быть null.
 
 ### Возможные исключения
