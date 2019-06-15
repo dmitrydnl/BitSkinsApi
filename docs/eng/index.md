@@ -48,6 +48,6 @@ Bitcoin deposits are a fast and efficient way to fund your account at BitSkins, 
 2. [Current exchange rate Bitcoin to USD](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/crypto/bitcoin_deposit_rate.md)
 3. [Bitcoin payment request](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/crypto/create_bitcoin_deposit.md)
 
-Examples of simple programs written using BitSkinsApi:
+Examples of simple programs written using BitSkinsApi.
 1. [Search for profitable items in BitSkins](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/code_examples/find_profitable_items.md)
 2. [Withdrawal available items from BitSkins](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/code_examples/withdraw_available_items.md)

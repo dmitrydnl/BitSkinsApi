@@ -48,6 +48,6 @@
 2. [Текущий курс обмена Bitcoin к доллару США](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/crypto/bitcoin_deposit_rate.md)
 3. [Запрос на оплату Bitcoin](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/crypto/create_bitcoin_deposit.md)
 
-Примеры простых программ, написанных с использованием BitSkinsApi:
+Примеры простых программ, написанных с использованием BitSkinsApi.
 1. [Поиск выгодных предметов в BitSkins](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/code_examples/find_profitable_items.md)
 2. [Вывод доступных предметов с BitSkins](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/code_examples/withdraw_available_items.md)
