@@ -33,7 +33,7 @@ BitSkinsApi.Trade.TradeDetails
 Свойства класса ```BitSkinsApi.Trade.TradeDetails```:
 * SentItems - список отправленных предметов.
 * RetrievedItems - список полученных предметов.
-* CreatedAt - дата создания торгового предложения, может быть равна null.
+* CreatedAt - дата создания торгового предложения, может быть null.
 
 ### Возможные исключения
 ```BitSkinsApi.Server.RequestServerException``` - в случае передачи в функцию некорректных данных или проблем на сервере BitSkins.

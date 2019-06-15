@@ -31,14 +31,14 @@ BitSkinsApi.Crypto.CreatedBitcoinDeposit
 ```
 
 Свойства класса ```BitSkinsApi.Crypto.CreatedBitcoinDeposit```:
-* Id - id запроса (может быть null).
+* Id - id запроса, может быть null.
 * AmountInUsd - сумма в долларах США.
 * BitcoinAddress - ваш Bitcoin адрес для пополнения.
 * BitcoinAmount - сумма в Bitcoin.
 * BitcoinUri - Bitcoin URI.
 * CurrentPricePerBitcoinInUsd - цена одного Bitcoin в долларах США.
-* CreatedAt - дата создания запроса (может быть null).
-* ExpiresAt - дата истечения запроса (может быть null).
+* CreatedAt - дата создания запроса, может быть null.
+* ExpiresAt - дата истечения запроса, может быть null.
 * Note - заметка.
 * Provider - провайдер.
 
