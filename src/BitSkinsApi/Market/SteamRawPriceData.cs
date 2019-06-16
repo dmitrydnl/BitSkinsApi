@@ -20,6 +20,7 @@ using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using BitSkinsApi.Extensions;
+using BitSkinsApi.CheckParameters;
 
 namespace BitSkinsApi.Market
 {
@@ -46,10 +47,7 @@ namespace BitSkinsApi.Market
 
         private static void CheckParameters(string marketHashName)
         {
-            if (String.IsNullOrEmpty(marketHashName))
-            {
-                throw new ArgumentException("\"marketHashName\" must be not empty.");
-            }
+            Checking.NotEmptyString(marketHashName, "marketHashName");
         }
 
         private static string GetUrlRequest(AppId.AppName app, string marketHashName)

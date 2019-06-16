@@ -16,9 +16,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System;
 using Newtonsoft.Json;
 using BitSkinsApi.Market;
+using BitSkinsApi.CheckParameters;
 
 namespace BitSkinsApi.BuyOrder
 {
@@ -45,14 +45,8 @@ namespace BitSkinsApi.BuyOrder
 
         private static void CheckParameters(string name, double price)
         {
-            if (String.IsNullOrEmpty(name))
-            {
-                throw new ArgumentException("\"name\" must be not empty.");
-            }
-            if (price <= 0)
-            {
-                throw new ArgumentException("\"price\" must be positive number.");
-            }
+            Checking.NotEmptyString(name, "name");
+            Checking.PositiveDouble(price, "price");
         }
 
         private static string GetUrlRequest(AppId.AppName app, string name, double price)

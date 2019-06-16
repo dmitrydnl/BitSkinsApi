@@ -21,6 +21,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using BitSkinsApi.Extensions;
 using BitSkinsApi.Market;
+using BitSkinsApi.CheckParameters;
 
 namespace BitSkinsApi.BuyOrder
 {
@@ -51,18 +52,9 @@ namespace BitSkinsApi.BuyOrder
 
         private static void CheckParameters(string name, double price, int quantity)
         {
-            if (String.IsNullOrEmpty(name))
-            {
-                throw new ArgumentException("\"name\" must be not empty.");
-            }
-            if (price <= 0)
-            {
-                throw new ArgumentException("\"price\" must be positive number.");
-            }
-            if (quantity < 1)
-            {
-                throw new ArgumentException("\"quantity\" must be positive number.");
-            }
+            Checking.NotEmptyString(name, "name");
+            Checking.PositiveDouble(price, "price");
+            Checking.PositiveInt(quantity, "quantity");
         }
 
         private static string GetUrlRequest(AppId.AppName app, string name, double price, int quantity)

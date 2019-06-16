@@ -20,6 +20,7 @@ using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using BitSkinsApi.Extensions;
+using BitSkinsApi.CheckParameters;
 
 namespace BitSkinsApi.Trade
 {
@@ -46,14 +47,8 @@ namespace BitSkinsApi.Trade
 
         private static void CheckParameters(string tradeToken, string tradeId)
         {
-            if (String.IsNullOrEmpty(tradeToken))
-            {
-                throw new ArgumentException("\"tradeToken\" must be not empty.");
-            }
-            if (String.IsNullOrEmpty(tradeId))
-            {
-                throw new ArgumentException("\"tradeId\" must be not empty.");
-            }
+            Checking.NotEmptyString(tradeToken, "tradeToken");
+            Checking.NotEmptyString(tradeId, "tradeId");
         }
 
         private static string GetUrlRequest(string tradeToken, string tradeId)

@@ -16,10 +16,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using BitSkinsApi.Extensions;
+using BitSkinsApi.CheckParameters;
 
 namespace BitSkinsApi.Market
 {
@@ -47,22 +47,8 @@ namespace BitSkinsApi.Market
 
         private static void CheckParameters(List<string> itemIds, List<double> itemPrices)
         {
-            if (itemIds == null)
-            {
-                throw new ArgumentNullException("itemIds", "\"itemIds\" must be not null.");
-            }
-            if (itemIds.Count < 1)
-            {
-                throw new ArgumentException("In \"itemIds\" count must be at least one.");
-            }
-            if (itemPrices == null)
-            {
-                throw new ArgumentNullException("itemPrices", "\"itemPrices\" must be not null.");
-            }
-            if (itemPrices.Count < 1)
-            {
-                throw new ArgumentException("In \"itemPrices\" count must be at least one.");
-            }
+            Checking.NotEmptyList(itemIds, "itemIds");
+            Checking.NotEmptyList(itemPrices, "itemPrices");
         }
 
         private static string GetUrlRequest(AppId.AppName app, List<string> itemIds, List<double> itemPrices)

@@ -15,12 +15,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-using System;
+ 
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using BitSkinsApi.Market;
 using BitSkinsApi.Extensions;
+using BitSkinsApi.CheckParameters;
 
 namespace BitSkinsApi.BuyOrder
 {
@@ -61,22 +61,12 @@ namespace BitSkinsApi.BuyOrder
 
         private static void CheckParametersForCancelBuyOrders(List<string> buyOrderIds)
         {
-            if (buyOrderIds == null)
-            {
-                throw new ArgumentNullException("buyOrderIds", "\"buyOrderIds\" must be not null.");
-            }
-            if (buyOrderIds.Count < 1)
-            {
-                throw new ArgumentException("In \"buyOrderIds\" count must be at least one.");
-            }
+            Checking.NotEmptyList(buyOrderIds, "buyOrderIds");
         }
 
         private static void CheckParametersCancelAllBuyOrders(string marketHashName)
         {
-            if (String.IsNullOrEmpty(marketHashName))
-            {
-                throw new ArgumentException("\"marketHashName\" must be not empty.");
-            }
+            Checking.NotEmptyString(marketHashName, "marketHashName");
         }
 
         private static string GetUrlRequestForBuyOrders(AppId.AppName app, List<string> buyOrderIds)
@@ -103,7 +93,6 @@ namespace BitSkinsApi.BuyOrder
         {
             dynamic responseServerD = JsonConvert.DeserializeObject(result);
             dynamic dataD = responseServerD.data;
-            dynamic buyOrderIdsD = dataD.buy_order_ids;
 
             int count = 0;
             List<string> buyOrderIds = new List<string>();
@@ -111,7 +100,7 @@ namespace BitSkinsApi.BuyOrder
             {
                 count = dataD.num;
 
-                foreach (dynamic buyOrderId in buyOrderIdsD)
+                foreach (dynamic buyOrderId in dataD.buy_order_ids)
                 {
                     buyOrderIds.Add((string)buyOrderId);
                 }

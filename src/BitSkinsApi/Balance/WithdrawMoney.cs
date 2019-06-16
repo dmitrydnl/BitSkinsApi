@@ -16,8 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System;
 using Newtonsoft.Json;
+using BitSkinsApi.CheckParameters;
 
 namespace BitSkinsApi.Balance
 {
@@ -49,10 +49,7 @@ namespace BitSkinsApi.Balance
 
         private static void CheckParameters(double amount)
         {
-            if (amount < 5)
-            {
-                throw new ArgumentException("\"amount\" must be over $5.00 USD.");
-            }
+            Checking.OverThanDouble(amount, "amount", 5);
         }
 
         private static string GetUrlRequest(double amount, WithdrawalMoneyMethod withdrawalMoneyMethod)

@@ -20,6 +20,7 @@ using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using BitSkinsApi.Extensions;
+using BitSkinsApi.CheckParameters;
 
 namespace BitSkinsApi.Market
 {
@@ -45,14 +46,7 @@ namespace BitSkinsApi.Market
 
         private static void CheckParameters(List<string> itemIds)
         {
-            if (itemIds == null)
-            {
-                throw new ArgumentNullException("itemIds", "\"itemIds\" must be not null.");
-            }
-            if (itemIds.Count < 1)
-            {
-                throw new ArgumentException("In \"itemIds\" count must be at least one.");
-            }
+            Checking.NotEmptyList(itemIds, "itemIds");
         }
 
         private static string GetUrlRequest(AppId.AppName app, List<string> itemIds)

@@ -19,6 +19,7 @@
 using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using BitSkinsApi.CheckParameters;
 
 namespace BitSkinsApi.Market
 {
@@ -48,10 +49,7 @@ namespace BitSkinsApi.Market
 
         private static void CheckParameters(int page)
         {
-            if (page < 1)
-            {
-                throw new ArgumentException("\"page\" must be positive number.");
-            }
+            Checking.PositiveInt(page, "page");
         }
 
         private static string GetUrlRequest(AppId.AppName app, int page)

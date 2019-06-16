@@ -19,6 +19,7 @@
 using System;
 using Newtonsoft.Json;
 using BitSkinsApi.Extensions;
+using BitSkinsApi.CheckParameters;
 
 namespace BitSkinsApi.Crypto
 {
@@ -44,10 +45,7 @@ namespace BitSkinsApi.Crypto
 
         private static void CheckParameters(double amount)
         {
-            if (amount <= 0)
-            {
-                throw new ArgumentException("\"amount\" must be positive number.");
-            }
+            Checking.PositiveDouble(amount, "amount");
         }
 
         private static string GetUrlRequest(double amount)

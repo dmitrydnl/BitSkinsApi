@@ -20,6 +20,7 @@ using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using BitSkinsApi.Extensions;
+using BitSkinsApi.CheckParameters;
 
 namespace BitSkinsApi.Market
 {
@@ -76,10 +77,7 @@ namespace BitSkinsApi.Market
 
         private static void CheckParameters(int page)
         {
-            if (page < 1)
-            {
-                throw new ArgumentException("\"page\" must be positive number.");
-            }
+            Checking.PositiveInt(page, "page");
         }
 
         private static string GetUrlRequest(AppId.AppName app, int page, string marketHashName, double minPrice, double maxPrice,
@@ -214,18 +212,8 @@ namespace BitSkinsApi.Market
 
         private static void CheckParameters(List<string> itemIds)
         {
-            if (itemIds == null)
-            {
-                throw new ArgumentNullException("itemIds", "\"itemIds\" must be not null.");
-            }
-            if (itemIds.Count < 1)
-            {
-                throw new ArgumentException("In \"itemIds\" count must be at least one.");
-            }
-            if (itemIds.Count > 250)
-            {
-                throw new ArgumentException("In \"itemIds\" count must be upto 250.");
-            }
+            Checking.NotEmptyList(itemIds, "itemIds");
+            Checking.CountUptoList(itemIds, "itemIds", 250);
         }
 
         private static string GetUrlRequest(AppId.AppName app, List<string> itemIds)
