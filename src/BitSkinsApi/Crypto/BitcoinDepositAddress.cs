@@ -26,6 +26,7 @@ namespace BitSkinsApi.Crypto
     public static class AccountBitcoinDepositAddress
     {
         /// <summary>
+        /// WARNING!!! BitSkins stop support CryptoAPI! This api call can work not correct!
         /// Allows you to retrieve your account's permanent Bitcoin deposit address. 
         /// Any funds sent to this address are credited to BitSkins at the current conversion rate. 
         /// Conversion rates are locked in when the Bitcoin network broadcasts your transaction.

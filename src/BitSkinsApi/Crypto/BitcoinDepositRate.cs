@@ -28,6 +28,7 @@ namespace BitSkinsApi.Crypto
     public static class BitcoinExchangeRate
     {
         /// <summary>
+        /// WARNING!!! BitSkins stop support CryptoAPI! This api call can work not correct!
         /// Allows you to retrieve the current exchange rate per Bitcoin (in USD), and the time this conversion rate will expire.
         /// </summary>
         /// <returns>Bitcoin deposit rate and the time this rate will expire.</returns>

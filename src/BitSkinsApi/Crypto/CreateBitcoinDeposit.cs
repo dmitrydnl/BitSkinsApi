@@ -29,6 +29,7 @@ namespace BitSkinsApi.Crypto
     public static class CreatingBitcoinDeposit
     {
         /// <summary>
+        /// WARNING!!! BitSkins stop support CryptoAPI! This api call can work not correct!
         /// Allows you to generate a payment request for Bitcoin. 
         /// You can deposit any amount of Bitcoin (more than 0.0002 BTC).
         /// </summary>
