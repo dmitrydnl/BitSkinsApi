@@ -29,8 +29,11 @@ namespace BitSkinsApi.Market
     /// </summary>
     public static class RelistForSale
     {
+        private static DateTime lastRelistItemTime = DateTime.Now;
+
         /// <summary>
-        /// Allows you to re-list a delisted/purchased item for sale. Re-listed items can be sold instantly, where applicable.
+        /// Allows you to re-list a delisted/purchased item for sale. 
+        /// Re-listed items can be sold instantly, where applicable.
         /// </summary>
         /// <param name="app">Inventory's game id.</param>
         /// <param name="itemIds">List of item IDs.</param>
@@ -42,6 +45,31 @@ namespace BitSkinsApi.Market
             string urlRequest = GetUrlRequest(app, itemIds, itemPrices);
             string result = Server.ServerRequest.RequestServer(urlRequest);
             List<RelistedItem> relistedItems = ReadRelistedItems(result);
+            return relistedItems;
+        }
+
+        /// <summary>
+        /// New version of method RelistItem(). 
+        /// This method considering that now items cannot be relisted more than once an hour.
+        /// Allows you to re-list a delisted/purchased item for sale. 
+        /// Re-listed items can be sold instantly, where applicable.
+        /// </summary>
+        /// <param name="app">Inventory's game id.</param>
+        /// <param name="itemIds">List of item IDs.</param>
+        /// <param name="itemPrices">Prices for the item Ids.</param>
+        /// <returns>List of relisted items.</returns>
+        public static List<RelistedItem> RelistItemDelayHour(AppId.AppName app, List<string> itemIds, List<double> itemPrices)
+        {
+            TimeSpan timeSinceLastRelistItem = DateTime.Now - lastRelistItemTime;
+            TimeSpan minTime = new TimeSpan(0, 1, 0, 0);
+
+            if (timeSinceLastRelistItem <= minTime)
+            {
+                return new List<RelistedItem>();
+            }
+
+            List<RelistedItem> relistedItems = RelistItem(app, itemIds, itemPrices);
+            lastRelistItemTime = DateTime.Now;
             return relistedItems;
         }
 
