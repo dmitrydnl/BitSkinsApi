@@ -15,7 +15,7 @@ Learn more about [NuGet](https://www.nuget.org).
 # How do I install BitSkinsApi?
 
 [![nuget](https://img.shields.io/nuget/v/BitSkinsApi.svg?color=blue)](https://www.nuget.org/packages/BitSkinsApi/)
-[![last release](https://img.shields.io/github/release-date/Captious99/BitSkinsApi.svg?color=blue&label=last%20release)](https://www.nuget.org/packages/BitSkinsApi/)
+[![last release](https://img.shields.io/github/release-date/dmitrydnl/BitSkinsApi.svg?color=blue&label=last%20release)](https://www.nuget.org/packages/BitSkinsApi/)
 
 To install the NuGet package, you can the Package Manager Console. For more information, see [Package consumption overview and workflow](https://docs.microsoft.com/en-us/nuget/consume-packages/overview-and-workflow).
 1. In Visual Studio select the Tools > NuGet Package Manager > Package Manager Console menu command.
@@ -25,7 +25,7 @@ To install the NuGet package, you can the Package Manager Console. For more info
 ```Install-Package BitSkinsApi -Version 1.2.2```
 
 # How do I use BitSkinsApi?
-All about using BitSkinsApi you can find in [documentation](https://github.com/Captious99/BitSkinsApi/blob/master/docs/index.md).
+All about using BitSkinsApi you can find in [documentation](https://github.com/dmitrydnl/BitSkinsApi/blob/master/docs/index.md).
 \
 \
 In short:
@@ -77,4 +77,4 @@ BitSkinsApi build on .NET Standard 2.0. To use the BitSkinsApi, version of the p
 Learn more about [.NET implementation support](https://docs.microsoft.com/en-us/dotnet/standard/net-standard#net-implementation-support).
 
 ## License
-This project is licensed under the GNU General Public License v3.0 - see the [LICENSE.md](https://github.com/Captious99/BitSkinsApi/blob/master/LICENSE.md) file for details.
+This project is licensed under the GNU General Public License v3.0 - see the [LICENSE.md](https://github.com/dmitrydnl/BitSkinsApi/blob/master/LICENSE.md) file for details.
