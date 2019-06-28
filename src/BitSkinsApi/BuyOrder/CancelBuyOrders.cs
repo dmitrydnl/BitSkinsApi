@@ -1,6 +1,6 @@
 ﻿/*
  * BitSkinsApi
- * Copyright (C) 2019 Captious99
+ * Copyright (C) 2019 dmitrydnl
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using BitSkinsApi.Market;
