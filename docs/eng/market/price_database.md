@@ -54,4 +54,4 @@ foreach (BitSkinsApi.Market.ItemPrice item in itemPrices)
 }
 ```
 
-[<BitSkins market data](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/market/market_data.md) &nbsp;&nbsp;&nbsp;&nbsp; [All items on sale at BitSkins>](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/market/inventory_on_sale.md)
+[<BitSkins market data](https://github.com/dmitrydnl/BitSkinsApi/blob/master/docs/eng/market/market_data.md) &nbsp;&nbsp;&nbsp;&nbsp; [All items on sale at BitSkins>](https://github.com/dmitrydnl/BitSkinsApi/blob/master/docs/eng/market/inventory_on_sale.md)

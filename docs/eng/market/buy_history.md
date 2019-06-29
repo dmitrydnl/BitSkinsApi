@@ -58,4 +58,4 @@ foreach (BitSkinsApi.Market.BuyHistoryRecord record in buyHistoryRecords)
 }
 ```
 
-[<Recent sales data](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/market/recent_sale.md) &nbsp;&nbsp;&nbsp;&nbsp; [Sales history>](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/market/sell_history.md)
+[<Recent sales data](https://github.com/dmitrydnl/BitSkinsApi/blob/master/docs/eng/market/recent_sale.md) &nbsp;&nbsp;&nbsp;&nbsp; [Sales history>](https://github.com/dmitrydnl/BitSkinsApi/blob/master/docs/eng/market/sell_history.md)

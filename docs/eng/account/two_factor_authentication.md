@@ -22,4 +22,4 @@ To check whether the two-factor code is generated correctly, execute the followi
 Console.WriteLine(BitSkinsApi.Account.AccountData.GetTwoFactorCode());
 ```
 
-[<Account setup](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/account/account_setup.md) &nbsp;&nbsp;&nbsp;&nbsp; [Account balance>](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/balance/account_balance.md)
+[<Account setup](https://github.com/dmitrydnl/BitSkinsApi/blob/master/docs/eng/account/account_setup.md) &nbsp;&nbsp;&nbsp;&nbsp; [Account balance>](https://github.com/dmitrydnl/BitSkinsApi/blob/master/docs/eng/balance/account_balance.md)

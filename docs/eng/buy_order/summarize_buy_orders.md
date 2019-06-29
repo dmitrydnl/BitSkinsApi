@@ -57,4 +57,4 @@ foreach (BitSkinsApi.BuyOrder.ItemBuyOrder itemBuyOrder in itemBuyOrders)
 }
 ```
 
-[<Market buy orders](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/buy_order/market_buy_orders.md) &nbsp;&nbsp;&nbsp;&nbsp; [Bitcoin address for deposit>](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/crypto/bitcoin_deposit_address.md)
+[<Market buy orders](https://github.com/dmitrydnl/BitSkinsApi/blob/master/docs/eng/buy_order/market_buy_orders.md) &nbsp;&nbsp;&nbsp;&nbsp; [Bitcoin address for deposit>](https://github.com/dmitrydnl/BitSkinsApi/blob/master/docs/eng/crypto/bitcoin_deposit_address.md)

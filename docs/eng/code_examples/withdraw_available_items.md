@@ -39,4 +39,4 @@ namespace Example
 }
 ```
 
-[<Search for profitable items in BitSkins](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/code_examples/find_profitable_items.md)
+[<Search for profitable items in BitSkins](https://github.com/dmitrydnl/BitSkinsApi/blob/master/docs/eng/code_examples/find_profitable_items.md)

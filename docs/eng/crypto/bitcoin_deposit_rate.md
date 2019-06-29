@@ -42,4 +42,4 @@ Console.WriteLine(bitcoinDepositRate.PricePerBitcoinInUsd);
 Console.WriteLine(bitcoinDepositRate.ExpiresIn);
 ```
 
-[<Bitcoin address for deposit](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/crypto/bitcoin_deposit_address.md) &nbsp;&nbsp;&nbsp;&nbsp; [Bitcoin payment request>](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/crypto/create_bitcoin_deposit.md)
+[<Bitcoin address for deposit](https://github.com/dmitrydnl/BitSkinsApi/blob/master/docs/eng/crypto/bitcoin_deposit_address.md) &nbsp;&nbsp;&nbsp;&nbsp; [Bitcoin payment request>](https://github.com/dmitrydnl/BitSkinsApi/blob/master/docs/eng/crypto/create_bitcoin_deposit.md)

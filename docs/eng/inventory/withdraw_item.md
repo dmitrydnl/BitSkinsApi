@@ -60,4 +60,4 @@ foreach (BitSkinsApi.Inventory.WithdrawnItem item in information.WithdrawnItems)
 }
 ```
 
-[<Account inventory](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/inventory/account_inventory.md) &nbsp;&nbsp;&nbsp;&nbsp; [BitSkins market data>](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/market/market_data.md)
+[<Account inventory](https://github.com/dmitrydnl/BitSkinsApi/blob/master/docs/eng/inventory/account_inventory.md) &nbsp;&nbsp;&nbsp;&nbsp; [BitSkins market data>](https://github.com/dmitrydnl/BitSkinsApi/blob/master/docs/eng/market/market_data.md)

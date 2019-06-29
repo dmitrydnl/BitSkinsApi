@@ -12,7 +12,7 @@ Before you start working with the BitSkins API, you need to initialize your BitS
 
 API Key you can retrieve through the BitSkins [settings](https://bitskins.com/settings) page after you enable API access for your account.
 
-The secret code can be found when you enable [two-factor authentication](https://bitskins.com/settings) for your BitSkins account. If you do not have this code, simply disable two-factor authentication and re-enable it. [Learn more about two-factor authentication in the BitSkins API.](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/account/two_factor_authentication.md)
+The secret code can be found when you enable [two-factor authentication](https://bitskins.com/settings) for your BitSkins account. If you do not have this code, simply disable two-factor authentication and re-enable it. [Learn more about two-factor authentication in the BitSkins API.](https://github.com/dmitrydnl/BitSkinsApi/blob/master/docs/eng/account/two_factor_authentication.md)
 
 Default API limits are 8 requests per second. [Contact](https://bitskins.com/contact) with BitSkins if you need higher limits.
 
@@ -39,4 +39,4 @@ If you try to call any API function before initializing the account, you will ge
 
 Now everything is set up, and you can start working with the BitSkins API.
 
-[Two-factor authentication>](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/account/two_factor_authentication.md)
+[Two-factor authentication>](https://github.com/dmitrydnl/BitSkinsApi/blob/master/docs/eng/account/two_factor_authentication.md)

@@ -65,4 +65,4 @@ foreach (BitSkinsApi.Market.ModifiedItem item in modifiedItems)
 }
 ```
 
-[<Re-list the purchased item for sale](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/market/relist_item.md) &nbsp;&nbsp;&nbsp;&nbsp; [Market data of items on Steam>](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/market/steam_price_data.md)
+[<Re-list the purchased item for sale](https://github.com/dmitrydnl/BitSkinsApi/blob/master/docs/eng/market/relist_item.md) &nbsp;&nbsp;&nbsp;&nbsp; [Market data of items on Steam>](https://github.com/dmitrydnl/BitSkinsApi/blob/master/docs/eng/market/steam_price_data.md)

@@ -51,4 +51,4 @@ foreach (string id in canceledBuyOrders.BuyOrderIds)
 }
 ```
 
-[<Cancel buy orders](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/buy_order/cancel_buy_orders.md) &nbsp;&nbsp;&nbsp;&nbsp; [My buy orders>](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/buy_order/my_buy_orders.md)
+[<Cancel buy orders](https://github.com/dmitrydnl/BitSkinsApi/blob/master/docs/eng/buy_order/cancel_buy_orders.md) &nbsp;&nbsp;&nbsp;&nbsp; [My buy orders>](https://github.com/dmitrydnl/BitSkinsApi/blob/master/docs/eng/buy_order/my_buy_orders.md)

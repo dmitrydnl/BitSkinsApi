@@ -56,4 +56,4 @@ foreach (BitSkinsApi.Market.DelistedItem item in delistedItems)
 }
 ```
 
-[<Selling item](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/market/sell_item.md) &nbsp;&nbsp;&nbsp;&nbsp; [Re-list the purchased item for sale>](https://github.com/Captious99/BitSkinsApi/blob/master/docs/eng/market/relist_item.md)
+[<Selling item](https://github.com/dmitrydnl/BitSkinsApi/blob/master/docs/eng/market/sell_item.md) &nbsp;&nbsp;&nbsp;&nbsp; [Re-list the purchased item for sale>](https://github.com/dmitrydnl/BitSkinsApi/blob/master/docs/eng/market/relist_item.md)
