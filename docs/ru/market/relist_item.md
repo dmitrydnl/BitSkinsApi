@@ -60,4 +60,4 @@ foreach (BitSkinsApi.Market.RelistedItem item in relistedItems)
 }
 ```
 
-[<Удалить предмет с продажи](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/market/delist_item.md) &nbsp;&nbsp;&nbsp;&nbsp; [Изменить продаваемый предмет>](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/market/modify_sale.md)
+[<Удалить предмет с продажи](https://github.com/dmitrydnl/BitSkinsApi/blob/master/docs/ru/market/delist_item.md) &nbsp;&nbsp;&nbsp;&nbsp; [Изменить продаваемый предмет>](https://github.com/dmitrydnl/BitSkinsApi/blob/master/docs/ru/market/modify_sale.md)

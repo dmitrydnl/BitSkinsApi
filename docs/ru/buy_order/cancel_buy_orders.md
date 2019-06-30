@@ -54,4 +54,4 @@ foreach (string id in canceledBuyOrders.BuyOrderIds)
 }
 ```
 
-[<Ожидаемое место в очереди заказов на покупку](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/buy_order/expected_place_in_queue.md) &nbsp;&nbsp;&nbsp;&nbsp; [Отменить все заказы на покупку>](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/buy_order/cancel_all_buy_orders.md)
+[<Ожидаемое место в очереди заказов на покупку](https://github.com/dmitrydnl/BitSkinsApi/blob/master/docs/ru/buy_order/expected_place_in_queue.md) &nbsp;&nbsp;&nbsp;&nbsp; [Отменить все заказы на покупку>](https://github.com/dmitrydnl/BitSkinsApi/blob/master/docs/ru/buy_order/cancel_all_buy_orders.md)

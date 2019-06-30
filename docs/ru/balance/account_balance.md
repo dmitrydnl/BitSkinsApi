@@ -43,4 +43,4 @@ double availableBalance = balance.AvailableBalance;
 Console.WriteLine(availableBalance);
 ```
 
-[<Двухфакторная аутентификация](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/account/two_factor_authentication.md) &nbsp;&nbsp;&nbsp;&nbsp; [События с балансом аккаунта>](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/balance/money_events.md)
+[<Двухфакторная аутентификация](https://github.com/dmitrydnl/BitSkinsApi/blob/master/docs/ru/account/two_factor_authentication.md) &nbsp;&nbsp;&nbsp;&nbsp; [События с балансом аккаунта>](https://github.com/dmitrydnl/BitSkinsApi/blob/master/docs/ru/balance/money_events.md)

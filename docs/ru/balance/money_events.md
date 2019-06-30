@@ -60,4 +60,4 @@ foreach (BitSkinsApi.Balance.MoneyEvent moneyEvent in moneyEvents)
 }
 ```
 
-[<Баланс аккаунта](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/balance/account_balance.md) &nbsp;&nbsp;&nbsp;&nbsp; [Вывод денег с баланса>](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/balance/withdraw_money.md)
+[<Баланс аккаунта](https://github.com/dmitrydnl/BitSkinsApi/blob/master/docs/ru/balance/account_balance.md) &nbsp;&nbsp;&nbsp;&nbsp; [Вывод денег с баланса>](https://github.com/dmitrydnl/BitSkinsApi/blob/master/docs/ru/balance/withdraw_money.md)

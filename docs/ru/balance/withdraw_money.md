@@ -55,4 +55,4 @@ if (balance.WithdrawableBalance > 5)
 }
 ```
 
-[<События с балансом аккаунта](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/balance/money_events.md) &nbsp;&nbsp;&nbsp;&nbsp; [Инвентарь аккаунта>](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/inventory/account_inventory.md)
+[<События с балансом аккаунта](https://github.com/dmitrydnl/BitSkinsApi/blob/master/docs/ru/balance/money_events.md) &nbsp;&nbsp;&nbsp;&nbsp; [Инвентарь аккаунта>](https://github.com/dmitrydnl/BitSkinsApi/blob/master/docs/ru/inventory/account_inventory.md)

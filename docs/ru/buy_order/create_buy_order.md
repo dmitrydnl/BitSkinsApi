@@ -63,4 +63,4 @@ foreach (BitSkinsApi.BuyOrder.BuyOrder buyOrder in buyOrders)
 }
 ```
 
-[<Подробности торгового предложения](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/trade/trade_details.md) &nbsp;&nbsp;&nbsp;&nbsp; [Ожидаемое место в очереди заказов на покупку>](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/buy_order/expected_place_in_queue.md)
+[<Подробности торгового предложения](https://github.com/dmitrydnl/BitSkinsApi/blob/master/docs/ru/trade/trade_details.md) &nbsp;&nbsp;&nbsp;&nbsp; [Ожидаемое место в очереди заказов на покупку>](https://github.com/dmitrydnl/BitSkinsApi/blob/master/docs/ru/buy_order/expected_place_in_queue.md)

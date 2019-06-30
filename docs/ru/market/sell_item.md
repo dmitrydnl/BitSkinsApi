@@ -58,4 +58,4 @@ foreach (BitSkinsApi.Market.SoldItem item in information.SoldItems)
 }
 ```
 
-[<Покупка предмета](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/market/buy_item.md) &nbsp;&nbsp;&nbsp;&nbsp; [Удалить предмет с продажи>](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/market/delist_item.md)
+[<Покупка предмета](https://github.com/dmitrydnl/BitSkinsApi/blob/master/docs/ru/market/buy_item.md) &nbsp;&nbsp;&nbsp;&nbsp; [Удалить предмет с продажи>](https://github.com/dmitrydnl/BitSkinsApi/blob/master/docs/ru/market/delist_item.md)

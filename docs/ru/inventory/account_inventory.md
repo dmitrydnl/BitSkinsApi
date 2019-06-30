@@ -55,4 +55,4 @@ foreach (BitSkinsApi.Inventory.SteamInventoryItem item in accountInventory.Steam
 }
 ```
 
-[<Вывод денег с баланса](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/balance/withdraw_money.md) &nbsp;&nbsp;&nbsp;&nbsp; [Вывод предметов из BitSkins>](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/inventory/withdraw_item.md)
+[<Вывод денег с баланса](https://github.com/dmitrydnl/BitSkinsApi/blob/master/docs/ru/balance/withdraw_money.md) &nbsp;&nbsp;&nbsp;&nbsp; [Вывод предметов из BitSkins>](https://github.com/dmitrydnl/BitSkinsApi/blob/master/docs/ru/inventory/withdraw_item.md)

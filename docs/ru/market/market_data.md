@@ -56,4 +56,4 @@ foreach (BitSkinsApi.Market.MarketItem item in marketItems)
 }
 ```
 
-[<Вывод предметов из BitSkins](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/inventory/withdraw_item.md) &nbsp;&nbsp;&nbsp;&nbsp; [База данных цен BitSkins>](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/market/price_database.md)
+[<Вывод предметов из BitSkins](https://github.com/dmitrydnl/BitSkinsApi/blob/master/docs/ru/inventory/withdraw_item.md) &nbsp;&nbsp;&nbsp;&nbsp; [База данных цен BitSkins>](https://github.com/dmitrydnl/BitSkinsApi/blob/master/docs/ru/market/price_database.md)

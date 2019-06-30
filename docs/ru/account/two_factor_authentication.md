@@ -22,4 +22,4 @@ $ sudo apt-get install ntp -y
 System.Console.WriteLine(BitSkinsApi.Account.AccountData.GetTwoFactorCode());
 ```
 
-[<Настройка аккаунта](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/account/account_setup.md) &nbsp;&nbsp;&nbsp;&nbsp; [Баланс аккаунта>](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/balance/account_balance.md)
+[<Настройка аккаунта](https://github.com/dmitrydnl/BitSkinsApi/blob/master/docs/ru/account/account_setup.md) &nbsp;&nbsp;&nbsp;&nbsp; [Баланс аккаунта>](https://github.com/dmitrydnl/BitSkinsApi/blob/master/docs/ru/balance/account_balance.md)

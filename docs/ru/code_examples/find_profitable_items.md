@@ -103,4 +103,4 @@ namespace Example
 }
 ```
 
-[<Запрос на оплату Bitcoin](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/crypto/create_bitcoin_deposit.md) &nbsp;&nbsp;&nbsp;&nbsp; [Вывод доступных предметов с BitSkins>](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/code_examples/withdraw_available_items.md)
+[<Запрос на оплату Bitcoin](https://github.com/dmitrydnl/BitSkinsApi/blob/master/docs/ru/crypto/create_bitcoin_deposit.md) &nbsp;&nbsp;&nbsp;&nbsp; [Вывод доступных предметов с BitSkins>](https://github.com/dmitrydnl/BitSkinsApi/blob/master/docs/ru/code_examples/withdraw_available_items.md)

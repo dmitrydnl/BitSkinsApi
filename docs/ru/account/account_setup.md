@@ -12,7 +12,7 @@
 
 ApiKey можно получить на странице [настроек](https://bitskins.com/settings) BitSkins аккаунта, после активации доступа к API для вашей учетной записи.
 
-Secret Code можно узнать при включении [двухфакторной аутентификации](https://bitskins.com/settings) для вашей учетной записи BitSkins. Если у вас нет этого кода, то просто отключите двухфакторную аутентификацию и включите её заново. [Более подробно про двухфакторную аутентификацию в BitSkins API](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/account/two_factor_authentication.md).
+Secret Code можно узнать при включении [двухфакторной аутентификации](https://bitskins.com/settings) для вашей учетной записи BitSkins. Если у вас нет этого кода, то просто отключите двухфакторную аутентификацию и включите её заново. [Более подробно про двухфакторную аутентификацию в BitSkins API](https://github.com/dmitrydnl/BitSkinsApi/blob/master/docs/ru/account/two_factor_authentication.md).
 
 Лимит API запросов в секунду по умолчанию равен 8. [Свяжитесь](https://bitskins.com/contact) с BitSkins если вам нужны более высокие лимиты.
 
@@ -38,4 +38,4 @@ BitSkinsApi.Account.AccountData.SetupAccount(ApiKey, SecretCode, Лимит API)
 
 Теперь всё настроено и можно приступить к работе с BitSkins API.
 
-[Двухфакторная аутентификация>](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/account/two_factor_authentication.md)
+[Двухфакторная аутентификация>](https://github.com/dmitrydnl/BitSkinsApi/blob/master/docs/ru/account/two_factor_authentication.md)

@@ -57,4 +57,4 @@ foreach (BitSkinsApi.Trade.RecentTradeOffer offer in offers)
 }
 ```
 
-[<Предметы требующие сброса цены](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/market/reset_price_items.md) &nbsp;&nbsp;&nbsp;&nbsp; [Подробности торгового предложения>](https://github.com/Captious99/BitSkinsApi/blob/master/docs/ru/trade/trade_details.md)
+[<Предметы требующие сброса цены](https://github.com/dmitrydnl/BitSkinsApi/blob/master/docs/ru/market/reset_price_items.md) &nbsp;&nbsp;&nbsp;&nbsp; [Подробности торгового предложения>](https://github.com/dmitrydnl/BitSkinsApi/blob/master/docs/ru/trade/trade_details.md)
