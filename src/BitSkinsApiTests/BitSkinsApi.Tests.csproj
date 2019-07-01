@@ -182,7 +182,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tests\ServerRequest\BalanceTests.cs" />
     <Compile Include="Tests\ServerRequest\BuyOrderTests.cs" />
-    <Compile Include="Tests\ServerRequest\CryptoTests.cs" />
     <Compile Include="Tests\ServerRequest\InventoryTests.cs" />
     <Compile Include="Tests\ServerRequest\MarketTests.cs" />
     <Compile Include="Tests\ServerRequest\TradeTests.cs" />
