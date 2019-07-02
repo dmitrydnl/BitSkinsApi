@@ -21,7 +21,7 @@ using System.Collections.Generic;
 
 namespace BitSkinsApi.Extensions
 {
-    static class ListGenericExtension
+    internal static class ListGenericExtension
     {
         internal static string ToStringWithDelimiter(this List<string> list, string delimiter)
         {

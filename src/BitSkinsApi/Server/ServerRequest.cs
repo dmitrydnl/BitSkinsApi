@@ -24,7 +24,7 @@ using System.Runtime.Serialization;
 
 namespace BitSkinsApi.Server
 {
-    static class ServerRequest
+    internal static class ServerRequest
     {
         private static DateTime lastRequestTime = DateTime.Now;
 

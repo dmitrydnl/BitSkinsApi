@@ -21,7 +21,7 @@ using Albireo.Base32;
 
 namespace BitSkinsApi.Account
 {
-    static class Secret
+    internal static class Secret
     {
         internal static string GetTwoFactorCode()
         {

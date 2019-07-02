@@ -20,7 +20,7 @@ using System.Text;
 
 namespace BitSkinsApi.Server
 {
-    class UrlCreator
+    internal class UrlCreator
     {
         private readonly StringBuilder Url;
 

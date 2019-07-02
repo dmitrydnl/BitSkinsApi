@@ -20,7 +20,7 @@ using System;
 
 namespace BitSkinsApi.Extensions
 {
-    static class DateTimeExtension
+    internal static class DateTimeExtension
     {
         internal static DateTime FromUnixTime(this long unixTime)
         {
