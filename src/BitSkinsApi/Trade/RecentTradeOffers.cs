@@ -74,16 +74,28 @@ namespace BitSkinsApi.Trade
 
         private static RecentTradeOffer ReadRecentTradeOffer(dynamic offer)
         {
-            string steamTradeOfferId = offer.steam_trade_offer_id;
-            TradeOfferStatusType steamTradeOfferStatus = (TradeOfferStatusType)(int)offer.steam_trade_offer_state;
-            string senderUid = offer.sender_uid;
-            string recipientUid = offer.recipient_uid;
-            int numItemsSent = offer.num_items_sent;
-            int numItemsRetrieved = offer.num_items_retrieved;
-            string tradeMessage = offer.trade_message;
+            string steamTradeOfferId = offer.steam_trade_offer_id ?? null;
+            TradeOfferStatusType? steamTradeOfferStatus = null;
+            if (offer.steam_trade_offer_state != null)
+            {
+                steamTradeOfferStatus = (TradeOfferStatusType)(int)offer.steam_trade_offer_state;
+            }
+            string senderUid = offer.sender_uid ?? null;
+            string recipientUid = offer.recipient_uid ?? null;
+            int? numItemsSent = offer.num_items_sent ?? null;
+            int? numItemsRetrieved = offer.num_items_retrieved ?? null;
+            string tradeMessage = offer.trade_message ?? null;
             TradeTokenAndTradeIdFromString(tradeMessage, out string bitSkinsTradeToken, out string bitSkinsTradeId);
-            DateTime createdAt = DateTimeExtension.FromUnixTime((long)offer.created_at);
-            DateTime updatedAt = DateTimeExtension.FromUnixTime((long)offer.updated_at);
+            DateTime? createdAt = null;
+            if (offer.created_at != null)
+            {
+                createdAt = DateTimeExtension.FromUnixTime((long)offer.created_at);
+            }
+            DateTime? updatedAt = null;
+            if (offer.updated_at != null)
+            {
+                updatedAt = DateTimeExtension.FromUnixTime((long)offer.updated_at);
+            }
 
             RecentTradeOffer recentTradeOffer = new RecentTradeOffer(steamTradeOfferId, steamTradeOfferStatus, senderUid, recipientUid, numItemsSent,
                 numItemsRetrieved, bitSkinsTradeToken, bitSkinsTradeId, tradeMessage, createdAt, updatedAt);
@@ -110,20 +122,20 @@ namespace BitSkinsApi.Trade
     public class RecentTradeOffer
     {
         public string SteamTradeOfferId { get; private set; }
-        public RecentOffers.TradeOfferStatusType SteamTradeOfferStatus { get; private set; }
+        public RecentOffers.TradeOfferStatusType? SteamTradeOfferStatus { get; private set; }
         public string SenderUid { get; private set; }
         public string RecipientUid { get; private set; }
-        public int NumItemsSent { get; private set; }
-        public int NumItemsRetrieved { get; private set; }
+        public int? NumItemsSent { get; private set; }
+        public int? NumItemsRetrieved { get; private set; }
         public string BitSkinsTradeToken { get; private set; }
         public string BitSkinsTradeId { get; private set; }
         public string TradeMessage { get; private set; }
-        public DateTime CreatedAt { get; private set; }
-        public DateTime UpdatedAt { get; private set; }
+        public DateTime? CreatedAt { get; private set; }
+        public DateTime? UpdatedAt { get; private set; }
 
-        internal RecentTradeOffer(string steamTradeOfferId, RecentOffers.TradeOfferStatusType steamTradeOfferStatus, string senderUid, 
-            string recipientUid, int numItemsSent, int numItemsRetrieved, string bitSkinsTradeToken, 
-            string bitSkinsTradeId, string tradeMessage, DateTime createdAt, DateTime updatedAt)
+        internal RecentTradeOffer(string steamTradeOfferId, RecentOffers.TradeOfferStatusType? steamTradeOfferStatus, string senderUid,
+            string recipientUid, int? numItemsSent, int? numItemsRetrieved, string bitSkinsTradeToken,
+            string bitSkinsTradeId, string tradeMessage, DateTime? createdAt, DateTime? updatedAt)
         {
             SteamTradeOfferId = steamTradeOfferId;
             SteamTradeOfferStatus = steamTradeOfferStatus;

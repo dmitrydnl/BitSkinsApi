@@ -67,27 +67,16 @@ namespace BitSkinsApi.Trade
             dynamic itemsSentD = responseServerD.data.items_sent;
             dynamic itemsRetrievedD = responseServerD.data.items_retrieved;
 
-            DateTime? createdAt = ReadCreatedAt(createdAtD);
+            DateTime? createdAt = null;
+            if (createdAtD != null)
+            {
+                createdAt = DateTimeExtension.FromUnixTime((long)createdAtD);
+            }
             List<SentItem> sentItems = ReadSentItems(itemsSentD);
             List<RetrievedItem> retrievedItems = ReadRetrievedItems(itemsRetrievedD);
 
             TradeDetails tradeDetails = new TradeDetails(sentItems, retrievedItems, createdAt);
             return tradeDetails;
-        }
-
-        private static DateTime? ReadCreatedAt(dynamic createdAtD)
-        {
-            DateTime? createdAt;
-            if (createdAtD != null)
-            {
-                createdAt = DateTimeExtension.FromUnixTime((long)createdAtD);
-            }
-            else
-            {
-                createdAt = null;
-            }
-
-            return createdAt;
         }
 
         private static List<SentItem> ReadSentItems(dynamic itemsSentD)
@@ -107,13 +96,21 @@ namespace BitSkinsApi.Trade
 
         private static SentItem ReadSentItem(dynamic item)
         {
-            Market.AppId.AppName appId = (Market.AppId.AppName)(int)item.app_id;
-            string itemId = item.item_id;
-            string marketHashName = item.market_hash_name;
-            string image = item.image;
-            double price = item.price;
-            double? suggestedPrice = item.suggested_price;
-            DateTime withdrawableAt = DateTimeExtension.FromUnixTime((long)item.withdrawable_at);
+            Market.AppId.AppName? appId = null;
+            if (item.app_id != null)
+            {
+                appId = (Market.AppId.AppName)(int)item.app_id;
+            }
+            string itemId = item.item_id ?? null;
+            string marketHashName = item.market_hash_name ?? null;
+            string image = item.image ?? null;
+            double? price = item.price ?? null;
+            double? suggestedPrice = item.suggested_price ?? null;
+            DateTime? withdrawableAt = null;
+            if (item.withdrawable_at != null)
+            {
+                withdrawableAt = DateTimeExtension.FromUnixTime((long)item.withdrawable_at);
+            }
             DateTime? deliveredAt = null;
             if (item.delivered_at != null)
             {
@@ -141,8 +138,12 @@ namespace BitSkinsApi.Trade
 
         private static RetrievedItem ReadRetrievedItem(dynamic item)
         {
-            Market.AppId.AppName appId = (Market.AppId.AppName)(int)item.app_id;
-            string itemId = item.item_id;
+            Market.AppId.AppName? appId = null;
+            if (item.app_id != null)
+            {
+                appId = (Market.AppId.AppName)(int)item.app_id;
+            }
+            string itemId = item.item_id ?? null;
 
             RetrievedItem retrievedItem = new RetrievedItem(appId, itemId);
             return retrievedItem;
@@ -171,17 +172,17 @@ namespace BitSkinsApi.Trade
     /// </summary>
     public class SentItem
     {
-        public Market.AppId.AppName AppId { get; private set; }
+        public Market.AppId.AppName? AppId { get; private set; }
         public string ItemId { get; private set; }
         public string MarketHashName { get; private set; }
         public string Image { get; private set; }
-        public double Price { get; private set; }
+        public double? Price { get; private set; }
         public double? SuggestedPrice { get; private set; }
-        public DateTime WithdrawableAt { get; private set; }
+        public DateTime? WithdrawableAt { get; private set; }
         public DateTime? DeliveredAt { get; private set; }
 
-        internal SentItem(Market.AppId.AppName appId, string itemId, string marketHashName, string image, 
-            double price, double? suggestedPrice, DateTime withdrawableAt, DateTime? deliveredAt)
+        internal SentItem(Market.AppId.AppName? appId, string itemId, string marketHashName, string image,
+            double? price, double? suggestedPrice, DateTime? withdrawableAt, DateTime? deliveredAt)
         {
             AppId = appId;
             ItemId = itemId;
@@ -199,10 +200,10 @@ namespace BitSkinsApi.Trade
     /// </summary>
     public class RetrievedItem
     {
-        public Market.AppId.AppName AppId { get; private set; }
+        public Market.AppId.AppName? AppId { get; private set; }
         public string ItemId { get; private set; }
 
-        internal RetrievedItem(Market.AppId.AppName appId, string itemId)
+        internal RetrievedItem(Market.AppId.AppName? appId, string itemId)
         {
             AppId = appId;
             ItemId = itemId;
