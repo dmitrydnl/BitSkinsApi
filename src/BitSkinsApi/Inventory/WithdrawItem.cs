@@ -90,9 +90,17 @@ namespace BitSkinsApi.Inventory
 
         private static WithdrawnItem ReadWithdrawnItem(dynamic item)
         {
-            Market.AppId.AppName appId = (Market.AppId.AppName)(int)item.app_id;
-            string itemId = item.item_id;
-            DateTime withdrawableAt = DateTimeExtension.FromUnixTime((long)item.withdrawable_at);
+            Market.AppId.AppName? appId = null;
+            if (item.app_id != null)
+            {
+                appId = (Market.AppId.AppName)(int)item.app_id;
+            }
+            string itemId = item.item_id ?? null;
+            DateTime? withdrawableAt = null;
+            if (item.withdrawable_at != null)
+            {
+                withdrawableAt = DateTimeExtension.FromUnixTime((long)item.withdrawable_at);
+            }
 
             WithdrawnItem withdrawnItem = new WithdrawnItem(appId, itemId, withdrawableAt);
             return withdrawnItem;
@@ -134,11 +142,11 @@ namespace BitSkinsApi.Inventory
     /// </summary>
     public class WithdrawnItem
     {
-        public Market.AppId.AppName AppId { get; private set; }
+        public Market.AppId.AppName? AppId { get; private set; }
         public string ItemId { get; private set; }
-        public DateTime WithdrawableAt { get; private set; }
+        public DateTime? WithdrawableAt { get; private set; }
 
-        internal WithdrawnItem(Market.AppId.AppName appId, string itemId, DateTime withdrawableAt)
+        internal WithdrawnItem(Market.AppId.AppName? appId, string itemId, DateTime? withdrawableAt)
         {
             AppId = appId;
             ItemId = itemId;

@@ -81,7 +81,7 @@ namespace BitSkinsApi.Inventory
             {
                 dynamic items = steamInventoryD.items;
 
-                int totalItems = steamInventoryD.total_items;
+                int? totalItems = steamInventoryD.total_items ?? null;
 
                 List<SteamInventoryItem> steamInventoryItems = new List<SteamInventoryItem>();
                 if (items != null)
@@ -106,8 +106,8 @@ namespace BitSkinsApi.Inventory
             {
                 dynamic items = bitskinsInventoryD.items;
 
-                int totalItems = bitskinsInventoryD.total_items;
-                double TotalPrice = bitskinsInventoryD.total_price;
+                int? totalItems = bitskinsInventoryD.total_items ?? null;
+                double? TotalPrice = bitskinsInventoryD.total_price ?? null;
 
                 List<BitSkinsInventoryItem> bitSkinsInventoryItems = new List<BitSkinsInventoryItem>();
                 if (items != null)
@@ -132,7 +132,7 @@ namespace BitSkinsApi.Inventory
             {
                 dynamic items = pendingWithdrawalInventoryD.items;
 
-                int totalItems = pendingWithdrawalInventoryD.total_items;
+                int? totalItems = pendingWithdrawalInventoryD.total_items ?? null;
 
                 List<PendingWithdrawalFromBitskinsInventoryItem> pendingWithdrawalFromBitskinsInventoryItems = new List<PendingWithdrawalFromBitskinsInventoryItem>();
                 if (items != null)
@@ -152,16 +152,16 @@ namespace BitSkinsApi.Inventory
 
         private static void ReadInventoryItem(dynamic item, out string marketHashName, out double? suggestedPrice, out string itemType, out string image)
         {
-            marketHashName = item.market_hash_name;
-            suggestedPrice = item.suggested_price;
-            itemType = item.item_type;
-            image = item.image;
+            marketHashName = item.market_hash_name ?? null;
+            suggestedPrice = item.suggested_price ?? null;
+            itemType = item.item_type ?? null;
+            image = item.image ?? null;
         }
 
         private static SteamInventoryItem ReadSteamInventoryItem(dynamic item)
         {
             ReadInventoryItem(item, out string marketHashName, out double? suggestedPrice, out string itemType, out string image);
-            int numberOfItems = item.number_of_items;
+            int? numberOfItems = item.number_of_items ?? null;
             double? recentAveragePrice = (item.recent_sales_info == null) ? null : item.recent_sales_info.average_price;
             List<string> itemIds = new List<string>();
             foreach (dynamic itemId in item.item_ids)
@@ -176,7 +176,7 @@ namespace BitSkinsApi.Inventory
         private static BitSkinsInventoryItem ReadBitskinsInventoryItem(dynamic item)
         {
             ReadInventoryItem(item, out string marketHashName, out double? suggestedPrice, out string itemType, out string image);
-            int numberOfItems = item.number_of_items;
+            int? numberOfItems = item.number_of_items ?? null;
             double? recentAveragePrice = (item.recent_sales_info == null) ? null : item.recent_sales_info.average_price;
 
             List<string> itemIds = new List<string>();
@@ -217,9 +217,13 @@ namespace BitSkinsApi.Inventory
         private static PendingWithdrawalFromBitskinsInventoryItem ReadPendingWithdrawalFromBitskinsInventoryItem(dynamic item)
         {
             ReadInventoryItem(item, out string marketHashName, out double? suggestedPrice, out string itemType, out string image);
-            string itemId = item.item_id;
-            DateTime withdrawableAt = DateTimeExtension.FromUnixTime((long)item.withdrawable_at);
-            double lastPrice = item.last_price;
+            string itemId = item.item_id ?? null;
+            DateTime? withdrawableAt = null;
+            if (item.withdrawable_at != null)
+            {
+                withdrawableAt = DateTimeExtension.FromUnixTime((long)item.withdrawable_at);
+            }
+            double? lastPrice = item.last_price ?? null;
 
             PendingWithdrawalFromBitskinsInventoryItem pendingWithdrawalFromBitskinsInventoryItem = new PendingWithdrawalFromBitskinsInventoryItem(
                             marketHashName, suggestedPrice, itemType, image, itemId, withdrawableAt, lastPrice);
@@ -250,9 +254,9 @@ namespace BitSkinsApi.Inventory
     /// </summary>
     public class Inventory
     {
-        public int TotalItems { get; private set; }
+        public int? TotalItems { get; private set; }
 
-        protected Inventory(int totalItems)
+        protected Inventory(int? totalItems)
         {
             TotalItems = totalItems;
         }
@@ -265,7 +269,7 @@ namespace BitSkinsApi.Inventory
     {
         public List<SteamInventoryItem> SteamInventoryItems { get; private set; }
 
-        internal SteamInventory(int totalItems, List<SteamInventoryItem> steamInventoryItems)
+        internal SteamInventory(int? totalItems, List<SteamInventoryItem> steamInventoryItems)
             : base(totalItems)
         {
             SteamInventoryItems = steamInventoryItems;
@@ -277,10 +281,10 @@ namespace BitSkinsApi.Inventory
     /// </summary>
     public class BitSkinsInventory : Inventory
     {
-        public double TotalPrice { get; private set; }
+        public double? TotalPrice { get; private set; }
         public List<BitSkinsInventoryItem> BitSkinsInventoryItems { get; private set; }
 
-        internal BitSkinsInventory(int totalItems, double totalPrice, List<BitSkinsInventoryItem> bitSkinsInventoryItems)
+        internal BitSkinsInventory(int? totalItems, double? totalPrice, List<BitSkinsInventoryItem> bitSkinsInventoryItems)
              : base(totalItems)
         {
             TotalPrice = totalPrice;
@@ -295,7 +299,7 @@ namespace BitSkinsApi.Inventory
     {
         public List<PendingWithdrawalFromBitskinsInventoryItem> PendingWithdrawalFromBitskinsInventoryItems { get; private set; }
 
-        internal PendingWithdrawalFromBitskinsInventory(int totalItems, 
+        internal PendingWithdrawalFromBitskinsInventory(int? totalItems,
             List<PendingWithdrawalFromBitskinsInventoryItem> pendingWithdrawalFromBitskinsInventoryItems)
             : base(totalItems)
         {
@@ -327,12 +331,12 @@ namespace BitSkinsApi.Inventory
     /// </summary>
     public class SteamInventoryItem : InventoryItem
     {
-        public int NumberOfItems { get; private set; }
+        public int? NumberOfItems { get; private set; }
         public List<string> ItemIds { get; private set; }
         public double? RecentAveragePrice { get; private set; }
 
-        internal SteamInventoryItem(string marketHashName, double? suggestedPrice, string itemType, string image, 
-            int numberOfItems, List<string> itemIds, double? recentAveragePrice)
+        internal SteamInventoryItem(string marketHashName, double? suggestedPrice, string itemType, string image,
+            int? numberOfItems, List<string> itemIds, double? recentAveragePrice)
             : base(marketHashName, suggestedPrice, itemType, image)
         {
             NumberOfItems = numberOfItems;
@@ -346,7 +350,7 @@ namespace BitSkinsApi.Inventory
     /// </summary>
     public class BitSkinsInventoryItem : InventoryItem
     {
-        public int NumberOfItems { get; private set; }
+        public int? NumberOfItems { get; private set; }
         public List<string> ItemIds { get; private set; }
         public List<double> Prices { get; private set; }
         public List<DateTime> CreatedAt { get; private set; }
@@ -355,7 +359,7 @@ namespace BitSkinsApi.Inventory
         public double? RecentAveragePrice { get; private set; }
 
         internal BitSkinsInventoryItem(string marketHashName, double? suggestedPrice, string itemType, string image,
-            int numberOfItems, List<string> itemIds, List<double> prices, List<DateTime> createdAt, List<DateTime> updatedAt,
+            int? numberOfItems, List<string> itemIds, List<double> prices, List<DateTime> createdAt, List<DateTime> updatedAt,
             List<DateTime> withdrawableAt, double? recentAveragePrice)
             : base(marketHashName, suggestedPrice, itemType, image)
         {
@@ -375,11 +379,11 @@ namespace BitSkinsApi.Inventory
     public class PendingWithdrawalFromBitskinsInventoryItem : InventoryItem
     {
         public string ItemId { get; private set; }
-        public DateTime WithdrawableAt { get; private set; }
-        public double LastPrice { get; private set; }
+        public DateTime? WithdrawableAt { get; private set; }
+        public double? LastPrice { get; private set; }
 
         internal PendingWithdrawalFromBitskinsInventoryItem(string marketHashName, double? suggestedPrice, string itemType, string image,
-            string itemId, DateTime withdrawableAt, double lastPrice)
+            string itemId, DateTime? withdrawableAt, double? lastPrice)
             : base(marketHashName, suggestedPrice, itemType, image)
         {
             ItemId = itemId;
