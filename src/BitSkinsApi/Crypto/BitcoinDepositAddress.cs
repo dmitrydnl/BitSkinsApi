@@ -54,9 +54,9 @@ namespace BitSkinsApi.Crypto
             BitcoinDepositAddress bitcoinDepositAddress = null;
             if (dataD != null)
             {
-                string address = dataD.address;
-                double minimumAcceptableDepositAmount = dataD.minimum_acceptable_deposit_amount;
-                
+                string address = dataD.address ?? null;
+                double? minimumAcceptableDepositAmount = dataD.minimum_acceptable_deposit_amount ?? null;
+
                 bitcoinDepositAddress = new BitcoinDepositAddress(address, minimumAcceptableDepositAmount);
             }
 
@@ -70,9 +70,9 @@ namespace BitSkinsApi.Crypto
     public class BitcoinDepositAddress
     {
         public string Address { get; private set; }
-        public double MinimumAcceptableDepositAmount { get; private set; }
+        public double? MinimumAcceptableDepositAmount { get; private set; }
 
-        internal BitcoinDepositAddress(string address, double minimumAcceptableDepositAmount)
+        internal BitcoinDepositAddress(string address, double? minimumAcceptableDepositAmount)
         {
             Address = address;
             MinimumAcceptableDepositAmount = minimumAcceptableDepositAmount;

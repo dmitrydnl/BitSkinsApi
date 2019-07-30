@@ -54,9 +54,13 @@ namespace BitSkinsApi.Crypto
             BitcoinDepositRate bitcoinDepositRate = null;
             if (dataD != null)
             {
-                double pricePerBitcoinInUsd = dataD.price_per_bitcoin_in_usd;
-                DateTime expiresAt = DateTimeExtension.FromUnixTime((long)dataD.expires_at);
-                int expiresIn = dataD.expires_in;
+                double? pricePerBitcoinInUsd = dataD.price_per_bitcoin_in_usd ?? null;
+                DateTime? expiresAt = null;
+                if (dataD.expires_at != null)
+                {
+                    expiresAt = DateTimeExtension.FromUnixTime((long)dataD.expires_at);
+                }
+                int? expiresIn = dataD.expires_in ?? null;
 
                 bitcoinDepositRate = new BitcoinDepositRate(pricePerBitcoinInUsd, expiresAt, expiresIn);
             }
@@ -70,11 +74,11 @@ namespace BitSkinsApi.Crypto
     /// </summary>
     public class BitcoinDepositRate
     {
-        public double PricePerBitcoinInUsd { get; private set; }
-        public DateTime ExpiresAt { get; private set; }
-        public int ExpiresIn { get; private set; }
+        public double? PricePerBitcoinInUsd { get; private set; }
+        public DateTime? ExpiresAt { get; private set; }
+        public int? ExpiresIn { get; private set; }
 
-        internal BitcoinDepositRate(double pricePerBitcoinInUsd, DateTime expiresAt, int expiresIn)
+        internal BitcoinDepositRate(double? pricePerBitcoinInUsd, DateTime? expiresAt, int? expiresIn)
         {
             PricePerBitcoinInUsd = pricePerBitcoinInUsd;
             ExpiresAt = expiresAt;

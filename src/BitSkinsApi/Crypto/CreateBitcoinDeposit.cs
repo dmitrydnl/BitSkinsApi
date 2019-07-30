@@ -65,12 +65,12 @@ namespace BitSkinsApi.Crypto
             CreatedBitcoinDeposit createdBitcoinDeposit = null;
             if (orderD != null)
             {
-                string id = orderD.id;
-                double amountInUsd = orderD.amount_in_usd;
-                string bitcoinAddress = orderD.bitcoin_address;
-                double bitcoinAmount = orderD.bitcoin_amount;
-                string bitcoinUri = orderD.bitcoin_uri;
-                double currentPricePerBitcoinInUsd = orderD.current_price_per_bitcoin_in_usd;
+                string id = orderD.id ?? null;
+                double? amountInUsd = orderD.amount_in_usd ?? null;
+                string bitcoinAddress = orderD.bitcoin_address ?? null;
+                double? bitcoinAmount = orderD.bitcoin_amount ?? null;
+                string bitcoinUri = orderD.bitcoin_uri ?? null;
+                double? currentPricePerBitcoinInUsd = orderD.current_price_per_bitcoin_in_usd ?? null;
                 DateTime? createdAt = null;
                 if (orderD.created_at != null)
                 {
@@ -81,10 +81,10 @@ namespace BitSkinsApi.Crypto
                 {
                     expiresAt = DateTimeExtension.FromUnixTime((long)orderD.expires_at);
                 }
-                string note = orderD.note;
-                string provider = orderD.provider;
+                string note = orderD.note ?? null;
+                string provider = orderD.provider ?? null;
 
-                createdBitcoinDeposit = new CreatedBitcoinDeposit(id, amountInUsd, bitcoinAddress, bitcoinAmount, 
+                createdBitcoinDeposit = new CreatedBitcoinDeposit(id, amountInUsd, bitcoinAddress, bitcoinAmount,
                     bitcoinUri, currentPricePerBitcoinInUsd, createdAt, expiresAt, note, provider);
             }
 
@@ -98,18 +98,18 @@ namespace BitSkinsApi.Crypto
     public class CreatedBitcoinDeposit
     {
         public string Id { get; private set; }
-        public double AmountInUsd { get; private set; }
+        public double? AmountInUsd { get; private set; }
         public string BitcoinAddress { get; private set; }
-        public double BitcoinAmount { get; private set; }
+        public double? BitcoinAmount { get; private set; }
         public string BitcoinUri { get; private set; }
-        public double CurrentPricePerBitcoinInUsd { get; private set; }
+        public double? CurrentPricePerBitcoinInUsd { get; private set; }
         public DateTime? CreatedAt { get; private set; }
         public DateTime? ExpiresAt { get; private set; }
         public string Note { get; private set; }
         public string Provider { get; private set; }
 
-        internal CreatedBitcoinDeposit(string id, double amountInUsd, string bitcoinAddress, double bitcoinAmount, string bitcoinUri,
-            double currentPricePerBitcoinInUsd, DateTime? createdAt, DateTime? expiresAt, string note, string provider)
+        internal CreatedBitcoinDeposit(string id, double? amountInUsd, string bitcoinAddress, double? bitcoinAmount, string bitcoinUri,
+            double? currentPricePerBitcoinInUsd, DateTime? createdAt, DateTime? expiresAt, string note, string provider)
         {
             Id = id;
             AmountInUsd = amountInUsd;
