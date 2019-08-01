@@ -66,7 +66,7 @@ namespace BitSkinsApi.Balance
         {
             dynamic responseServerD = JsonConvert.DeserializeObject(result);
             dynamic moneyEventsD = responseServerD.data.events;
-            
+
             List<MoneyEvent> moneyEvents = new List<MoneyEvent>();
             if (moneyEventsD != null)
             {
@@ -85,25 +85,39 @@ namespace BitSkinsApi.Balance
 
         private static MoneyEvent ReadMoneyEvent(dynamic moneyEventD)
         {
-            MoneyEventType type = StringToMoneyEventType((string)moneyEventD.type);
-            if (type == MoneyEventType.Unknown)
+            MoneyEventType? type = null;
+            if (moneyEventD.type != null)
             {
-                return null;
+                type = StringToMoneyEventType((string)moneyEventD.type);
+                if (type == MoneyEventType.Unknown)
+                {
+                    return null;
+                }
             }
 
-            DateTime time = DateTimeExtension.FromUnixTime((long)moneyEventD.time);
+            DateTime? time = null;
+            if (moneyEventD.time != null)
+            {
+                time = DateTimeExtension.FromUnixTime((long)moneyEventD.time);
+            }
 
-            double amount = 0;
+            double? amount = 0;
             string description = "";
             if (type == MoneyEventType.ItemBought || type == MoneyEventType.ItemSold)
             {
-                amount = moneyEventD.price;
-                description = $"{moneyEventD.medium.app_id}:{moneyEventD.medium.market_hash_name}";
+                amount = moneyEventD.price ?? null;
+                if (moneyEventD.medium.app_id != null && moneyEventD.medium.market_hash_name != null)
+                {
+                    description = $"{moneyEventD.medium.app_id}:{moneyEventD.medium.market_hash_name}";
+                }
             }
             else if (type == MoneyEventType.SaleFee || type == MoneyEventType.BuyCredit || type == MoneyEventType.StoreCredit)
             {
-                amount = moneyEventD.amount;
-                description = $"{moneyEventD.medium}";
+                amount = moneyEventD.amount ?? null;
+                if (moneyEventD.medium != null)
+                {
+                    description = $"{moneyEventD.medium}";
+                }
             }
             else
             {
@@ -139,12 +153,12 @@ namespace BitSkinsApi.Balance
     /// </summary>
     public class MoneyEvent
     {
-        public MoneyEvents.MoneyEventType Type { get; private set; }
-        public double Amount { get; private set; }
+        public MoneyEvents.MoneyEventType? Type { get; private set; }
+        public double? Amount { get; private set; }
         public string Description { get; private set; }
-        public DateTime Time { get; private set; }
+        public DateTime? Time { get; private set; }
 
-        internal MoneyEvent(MoneyEvents.MoneyEventType type, double amount, string description, DateTime time)
+        internal MoneyEvent(MoneyEvents.MoneyEventType? type, double? amount, string description, DateTime? time)
         {
             Type = type;
             Amount = amount;

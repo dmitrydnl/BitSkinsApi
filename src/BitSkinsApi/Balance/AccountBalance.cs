@@ -51,10 +51,10 @@ namespace BitSkinsApi.Balance
             AccountBalance accountBalance = null;
             if (dataD != null)
             {
-                double availableBalance = dataD.available_balance;
-                double pendingWithdrawals = dataD.pending_withdrawals;
-                double withdrawableBalance = dataD.withdrawable_balance;
-                double couponableBalance = dataD.couponable_balance;
+                double? availableBalance = dataD.available_balance ?? null;
+                double? pendingWithdrawals = dataD.pending_withdrawals ?? null;
+                double? withdrawableBalance = dataD.withdrawable_balance ?? null;
+                double? couponableBalance = dataD.couponable_balance ?? null;
 
                 accountBalance = new AccountBalance(availableBalance, pendingWithdrawals, withdrawableBalance, couponableBalance);
             }
@@ -68,12 +68,12 @@ namespace BitSkinsApi.Balance
     /// </summary>
     public class AccountBalance
     {
-        public double AvailableBalance { get; private set; }
-        public double PendingWithdrawals { get; private set; }
-        public double WithdrawableBalance { get; private set; }
-        public double CouponableBalance { get; private set; }
+        public double? AvailableBalance { get; private set; }
+        public double? PendingWithdrawals { get; private set; }
+        public double? WithdrawableBalance { get; private set; }
+        public double? CouponableBalance { get; private set; }
 
-        internal AccountBalance(double availableBalance, double pendingWithdrawals, double withdrawableBalance, double couponableBalance)
+        internal AccountBalance(double? availableBalance, double? pendingWithdrawals, double? withdrawableBalance, double? couponableBalance)
         {
             AvailableBalance = availableBalance;
             PendingWithdrawals = pendingWithdrawals;
