@@ -68,18 +68,18 @@ namespace BitSkinsApi.BuyOrder
 
         private static ItemBuyOrder ReadItemBuyOrder(dynamic item)
         {
-            string marketHashName = item[0];
-            int numberOfBuyOrders = item[1].number_of_buy_orders;
-            double maxPrice = item[1].max_price;
-            double minPrice = item[1].min_price;
-            int numberOfMyBuyOrders = 0;
-            double maxPriceMyBuyOrders = 0;
-            double minPriceMyBuyOrders = 0;
+            string marketHashName = item[0] ?? null;
+            int? numberOfBuyOrders = item[1].number_of_buy_orders ?? null;
+            double? maxPrice = item[1].max_price ?? null;
+            double? minPrice = item[1].min_price ?? null;
+            int? numberOfMyBuyOrders = 0;
+            double? maxPriceMyBuyOrders = 0;
+            double? minPriceMyBuyOrders = 0;
             if (item[1].my_buy_orders != null)
             {
-                numberOfMyBuyOrders = item[1].my_buy_orders.number_of_buy_orders;
-                maxPriceMyBuyOrders = item[1].my_buy_orders.max_price;
-                minPriceMyBuyOrders = item[1].my_buy_orders.min_price;
+                numberOfMyBuyOrders = item[1].my_buy_orders.number_of_buy_orders ?? null;
+                maxPriceMyBuyOrders = item[1].my_buy_orders.max_price ?? null;
+                minPriceMyBuyOrders = item[1].my_buy_orders.min_price ?? null;
             }
 
             ItemBuyOrder itemBuyOrder = new ItemBuyOrder(marketHashName, numberOfBuyOrders, maxPrice, minPrice,
@@ -94,15 +94,15 @@ namespace BitSkinsApi.BuyOrder
     public class ItemBuyOrder
     {
         public string MarketHashName { get; private set; }
-        public int NumberOfBuyOrders { get; private set; }
-        public double MaxPrice { get; private set; }
-        public double MinPrice { get; private set; }
-        public int NumberOfMyBuyOrders { get; private set; }
-        public double MaxPriceMyBuyOrders { get; private set; }
-        public double MinPriceMyBuyOrders { get; private set; }
+        public int? NumberOfBuyOrders { get; private set; }
+        public double? MaxPrice { get; private set; }
+        public double? MinPrice { get; private set; }
+        public int? NumberOfMyBuyOrders { get; private set; }
+        public double? MaxPriceMyBuyOrders { get; private set; }
+        public double? MinPriceMyBuyOrders { get; private set; }
 
-        internal ItemBuyOrder(string marketHashName, int numberOfBuyOrders, double maxPrice, double minPrice,
-            int numberOfMyBuyOrders, double maxPriceMyBuyOrders, double minPriceMyBuyOrders)
+        internal ItemBuyOrder(string marketHashName, int? numberOfBuyOrders, double? maxPrice, double? minPrice,
+            int? numberOfMyBuyOrders, double? maxPriceMyBuyOrders, double? minPriceMyBuyOrders)
         {
             MarketHashName = marketHashName;
             NumberOfBuyOrders = numberOfBuyOrders;

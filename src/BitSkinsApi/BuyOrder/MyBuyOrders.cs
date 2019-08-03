@@ -111,14 +111,22 @@ namespace BitSkinsApi.BuyOrder
 
         private static BuyOrder ReadMyBuyOrder(dynamic order)
         {
-            string buyOrderId = order.buy_order_id;
-            string marketHashName = order.market_hash_name;
-            double price = order.price;
-            double? suggestedPrice = order.suggested_price;
-            string state = order.state;
-            DateTime createdAt = DateTimeExtension.FromUnixTime((long)order.created_at);
-            DateTime updatedAt = DateTimeExtension.FromUnixTime((long)order.updated_at);
-            int? placeInQueue = order.place_in_queue;
+            string buyOrderId = order.buy_order_id ?? null;
+            string marketHashName = order.market_hash_name ?? null;
+            double? price = order.price ?? null;
+            double? suggestedPrice = order.suggested_price ?? null;
+            string state = order.state ?? null;
+            DateTime? createdAt = null;
+            if (order.created_at != null)
+            {
+                createdAt = DateTimeExtension.FromUnixTime((long)order.created_at);
+            }
+            DateTime? updatedAt = null;
+            if (order.updated_at != null)
+            {
+                updatedAt = DateTimeExtension.FromUnixTime((long)order.updated_at);
+            }
+            int? placeInQueue = order.place_in_queue ?? null;
 
             BuyOrder myBuyOrder = new BuyOrder(buyOrderId, marketHashName, price, suggestedPrice, state, createdAt, updatedAt, placeInQueue);
             return myBuyOrder;

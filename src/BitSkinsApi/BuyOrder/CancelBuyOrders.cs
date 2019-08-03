@@ -94,11 +94,11 @@ namespace BitSkinsApi.BuyOrder
             dynamic responseServerD = JsonConvert.DeserializeObject(result);
             dynamic dataD = responseServerD.data;
 
-            int count = 0;
+            int? count = 0;
             List<string> buyOrderIds = new List<string>();
             if (dataD != null)
             {
-                count = dataD.num;
+                count = dataD.num ?? null;
 
                 foreach (dynamic buyOrderId in dataD.buy_order_ids)
                 {
@@ -116,10 +116,10 @@ namespace BitSkinsApi.BuyOrder
     /// </summary>
     public class CanceledBuyOrders
     {
-        public int Count { get; private set; }
+        public int? Count { get; private set; }
         public List<string> BuyOrderIds { get; private set; }
 
-        internal CanceledBuyOrders(int count, List<string> buyOrderIds)
+        internal CanceledBuyOrders(int? count, List<string> buyOrderIds)
         {
             Count = count;
             BuyOrderIds = buyOrderIds;
