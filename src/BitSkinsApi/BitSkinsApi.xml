@@ -214,6 +214,7 @@
         </member>
         <member name="M:BitSkinsApi.Crypto.AccountBitcoinDepositAddress.GetBitcoinDepositAddress">
             <summary>
+            WARNING!!! BitSkins stop support CryptoAPI! This api call can work not correct!
             Allows you to retrieve your account's permanent Bitcoin deposit address. 
             Any funds sent to this address are credited to BitSkins at the current conversion rate. 
             Conversion rates are locked in when the Bitcoin network broadcasts your transaction.
@@ -232,6 +233,7 @@
         </member>
         <member name="M:BitSkinsApi.Crypto.BitcoinExchangeRate.GetBitcoinDepositRate">
             <summary>
+            WARNING!!! BitSkins stop support CryptoAPI! This api call can work not correct!
             Allows you to retrieve the current exchange rate per Bitcoin (in USD), and the time this conversion rate will expire.
             </summary>
             <returns>Bitcoin deposit rate and the time this rate will expire.</returns>
@@ -248,6 +250,7 @@
         </member>
         <member name="M:BitSkinsApi.Crypto.CreatingBitcoinDeposit.CreateBitcoinDeposit(System.Double)">
             <summary>
+            WARNING!!! BitSkins stop support CryptoAPI! This api call can work not correct!
             Allows you to generate a payment request for Bitcoin. 
             You can deposit any amount of Bitcoin (more than 0.0002 BTC).
             </summary>
@@ -611,7 +614,20 @@
         </member>
         <member name="M:BitSkinsApi.Market.RelistForSale.RelistItem(BitSkinsApi.Market.AppId.AppName,System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.Double})">
             <summary>
-            Allows you to re-list a delisted/purchased item for sale. Re-listed items can be sold instantly, where applicable.
+            Allows you to re-list a delisted/purchased item for sale. 
+            Re-listed items can be sold instantly, where applicable.
+            </summary>
+            <param name="app">Inventory's game id.</param>
+            <param name="itemIds">List of item IDs.</param>
+            <param name="itemPrices">Prices for the item Ids.</param>
+            <returns>List of relisted items.</returns>
+        </member>
+        <member name="M:BitSkinsApi.Market.RelistForSale.RelistItemDelayHour(BitSkinsApi.Market.AppId.AppName,System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.Double})">
+            <summary>
+            New version of method RelistItem(). 
+            This method considering that now items cannot be relisted more than once an hour.
+            Allows you to re-list a delisted/purchased item for sale. 
+            Re-listed items can be sold instantly, where applicable.
             </summary>
             <param name="app">Inventory's game id.</param>
             <param name="itemIds">List of item IDs.</param>
