@@ -81,7 +81,11 @@ namespace BitSkinsApi.Market
         private static DelistedItem ReadDelistedItem(dynamic item)
         {
             string itemId = item.item_id;
-            DateTime withdrawableAt = DateTimeExtension.FromUnixTime((long)item.withdrawable_at);
+            DateTime? withdrawableAt = null;
+            if (item.withdrawable_at != null)
+            {
+                withdrawableAt = DateTimeExtension.FromUnixTime((long)item.withdrawable_at);
+            }
 
             DelistedItem delistedItem = new DelistedItem(itemId, withdrawableAt);
             return delistedItem;
@@ -94,9 +98,9 @@ namespace BitSkinsApi.Market
     public class DelistedItem
     {
         public string ItemId { get; private set; }
-        public DateTime WithdrawableAt { get; private set; }
+        public DateTime? WithdrawableAt { get; private set; }
 
-        internal DelistedItem(string itemId, DateTime withdrawableAt)
+        internal DelistedItem(string itemId, DateTime? withdrawableAt)
         {
             ItemId = itemId;
             WithdrawableAt = withdrawableAt;

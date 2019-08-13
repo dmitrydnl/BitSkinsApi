@@ -79,12 +79,20 @@ namespace BitSkinsApi.Market
 
         private static BuyHistoryRecord ReadBuyHistoryRecord(dynamic item)
         {
-            AppId.AppName appId = (AppId.AppName)(int)item.app_id;
+            AppId.AppName? appId = null;
+            if (item.app_id != null)
+            {
+                appId = (AppId.AppName)(int)item.app_id;
+            }
             string itemId = item.item_id;
             string marketHashName = item.market_hash_name;
-            double buyPrice = item.buy_price;
-            bool withdrawn = item.withdrawn;
-            DateTime time = DateTimeExtension.FromUnixTime((long)item.time);
+            double? buyPrice = item.buy_price ?? null;
+            bool? withdrawn = item.withdrawn ?? null;
+            DateTime? time = null;
+            if (item.time != null)
+            {
+                time = DateTimeExtension.FromUnixTime((long)item.time);
+            }
 
             BuyHistoryRecord historyBuyRecord = new BuyHistoryRecord(appId, itemId, marketHashName, buyPrice, withdrawn, time);
             return historyBuyRecord;
@@ -146,11 +154,19 @@ namespace BitSkinsApi.Market
 
         private static SellHistoryRecord ReadSellHistoryRecord(dynamic item)
         {
-            AppId.AppName appId = (AppId.AppName)(int)item.app_id;
+            AppId.AppName? appId = null;
+            if (item.app_id != null)
+            {
+                appId = (AppId.AppName)(int)item.app_id;
+            }
             string itemId = item.item_id;
             string marketHashName = item.market_hash_name;
-            double salePrice = item.sale_price;
-            DateTime time = DateTimeExtension.FromUnixTime((long)item.time);
+            double? salePrice = item.sale_price ?? null;
+            DateTime? time = null;
+            if (item.time != null)
+            {
+                time = DateTimeExtension.FromUnixTime((long)item.time);
+            }
 
             SellHistoryRecord sellHistoryRecord = new SellHistoryRecord(appId, itemId, marketHashName, salePrice, time);
             return sellHistoryRecord;
@@ -231,20 +247,32 @@ namespace BitSkinsApi.Market
 
         private static ItemHistoryRecord ReadItemHistoryRecord(dynamic item)
         {
-            AppId.AppName appId = (AppId.AppName)(int)item.app_id;
+            AppId.AppName? appId = null;
+            if (item.app_id != null)
+            {
+                appId = (AppId.AppName)(int)item.app_id;
+            }
             string itemId = item.item_id;
             string marketHashName = item.market_hash_name;
-            double price = item.price;
-            DateTime lastUpdateAt = DateTimeExtension.FromUnixTime((long)item.last_update_at);
-            DateTime listedAt = DateTimeExtension.FromUnixTime((long)item.listed_at);
+            double? price = item.price ?? null;
+            DateTime? lastUpdateAt = null;
+            if (item.last_update_at != null)
+            {
+                lastUpdateAt = DateTimeExtension.FromUnixTime((long)item.last_update_at);
+            }
+            DateTime? listedAt = null;
+            if (item.listed_at != null)
+            {
+                listedAt = DateTimeExtension.FromUnixTime((long)item.listed_at);
+            }
             DateTime? withdrawnAt = null;
             if (item.withdrawn_at != null)
             {
                 withdrawnAt = DateTimeExtension.FromUnixTime((long)item.withdrawn_at);
             }
-            bool listedByMe = item.listed_by_me;
-            bool onHold = item.on_hold;
-            bool onSale = item.on_sale;
+            bool? listedByMe = item.listed_by_me ?? null;
+            bool? onHold = item.on_hold ?? null;
+            bool? onSale = item.on_sale ?? null;
             ItemHistoryRecordType recordType = (item.bought_at != null) ? ItemHistoryRecordType.BoughtAt : ItemHistoryRecordType.SoldAt;
             DateTime? recordTime;
             if (recordType == ItemHistoryRecordType.BoughtAt)
@@ -274,12 +302,12 @@ namespace BitSkinsApi.Market
     /// </summary>
     public class HistoryRecord
     {
-        public AppId.AppName AppId { get; private set; }
+        public AppId.AppName? AppId { get; private set; }
         public string ItemId { get; private set; }
         public string MarketHashName { get; private set; }
-        public double Price { get; private set; }
+        public double? Price { get; private set; }
 
-        protected HistoryRecord(AppId.AppName appId, string itemId, string marketHashName, double price)
+        protected HistoryRecord(AppId.AppName? appId, string itemId, string marketHashName, double? price)
         {
             AppId = appId;
             ItemId = itemId;
@@ -293,10 +321,10 @@ namespace BitSkinsApi.Market
     /// </summary>
     public class BuyHistoryRecord : HistoryRecord
     {
-        public bool Withdrawn { get; private set; }
-        public DateTime Time { get; private set; }
+        public bool? Withdrawn { get; private set; }
+        public DateTime? Time { get; private set; }
 
-        internal BuyHistoryRecord(AppId.AppName appId, string itemId, string marketHashName, double buyPrice, bool withdrawn, DateTime time)
+        internal BuyHistoryRecord(AppId.AppName? appId, string itemId, string marketHashName, double? buyPrice, bool? withdrawn, DateTime? time)
             : base(appId, itemId, marketHashName, buyPrice)
         {
             Withdrawn = withdrawn;
@@ -309,9 +337,9 @@ namespace BitSkinsApi.Market
     /// </summary>
     public class SellHistoryRecord : HistoryRecord
     {
-        public DateTime Time { get; private set; }
+        public DateTime? Time { get; private set; }
 
-        internal SellHistoryRecord(AppId.AppName appId, string itemId, string marketHashName, double salePrice, DateTime time)
+        internal SellHistoryRecord(AppId.AppName? appId, string itemId, string marketHashName, double? salePrice, DateTime? time)
             : base(appId, itemId, marketHashName, salePrice)
         {
             Time = time;
@@ -324,16 +352,16 @@ namespace BitSkinsApi.Market
     public class ItemHistoryRecord : HistoryRecord
     {
         public ItemHistory.ItemHistoryRecordType RecordType { get; private set; }
-        public DateTime LastUpdateAt { get; private set; }
-        public DateTime ListedAt { get; private set; }
+        public DateTime? LastUpdateAt { get; private set; }
+        public DateTime? ListedAt { get; private set; }
         public DateTime? WithdrawnAt { get; private set; }
-        public bool ListedByMe { get; private set; }
-        public bool OnHold { get; private set; }
-        public bool OnSale { get; private set; }
+        public bool? ListedByMe { get; private set; }
+        public bool? OnHold { get; private set; }
+        public bool? OnSale { get; private set; }
         public DateTime? RecordTime { get; private set; }
 
-        internal ItemHistoryRecord(AppId.AppName appId, string itemId, string marketHashName, double price, ItemHistory.ItemHistoryRecordType recordType,
-            DateTime lastUpdateAt, DateTime listedAt, DateTime? withdrawnAt, bool listedByMe, bool onHold, bool onSale, DateTime? recordTime)
+        internal ItemHistoryRecord(AppId.AppName? appId, string itemId, string marketHashName, double? price, ItemHistory.ItemHistoryRecordType recordType,
+            DateTime? lastUpdateAt, DateTime? listedAt, DateTime? withdrawnAt, bool? listedByMe, bool? onHold, bool? onSale, DateTime? recordTime)
             : base(appId, itemId, marketHashName, price)
         {
             RecordType = recordType;

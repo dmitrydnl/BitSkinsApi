@@ -149,12 +149,20 @@ namespace BitSkinsApi.Market
             string marketHashName = item.market_hash_name;
             string itemType = item.item_type;
             string image = item.image;
-            double price = item.price;
-            double? suggestedPrice = item.suggested_price;
-            double? floatValue = item.float_value;
-            bool isMine = item.is_mine;
-            DateTime updatedAt = DateTimeExtension.FromUnixTime((long)item.updated_at);
-            DateTime withdrawableAt = DateTimeExtension.FromUnixTime((long)item.withdrawable_at);
+            double? price = item.price ?? null;
+            double? suggestedPrice = item.suggested_price ?? null;
+            double? floatValue = item.float_value ?? null;
+            bool? isMine = item.is_mine ?? null;
+            DateTime? updatedAt = null;
+            if (item.updated_at != null)
+            {
+                updatedAt = DateTimeExtension.FromUnixTime((long)item.updated_at);
+            }
+            DateTime? withdrawableAt = null;
+            if (item.withdrawable_at != null)
+            {
+                withdrawableAt = DateTimeExtension.FromUnixTime((long)item.withdrawable_at);
+            }
 
             ItemOnSale itemOnSale = new ItemOnSale(itemId, marketHashName, itemType, image, price,
                 suggestedPrice, floatValue, isMine, updatedAt, withdrawableAt);
@@ -280,15 +288,15 @@ namespace BitSkinsApi.Market
         public string MarketHashName { get; private set; }
         public string ItemType { get; private set; }
         public string Image { get; private set; }
-        public double Price { get; private set; }
+        public double? Price { get; private set; }
         public double? SuggestedPrice { get; private set; }
         public double? FloatValue { get; private set; }
-        public bool IsMine { get; private set; }
-        public DateTime UpdatedAt { get; private set; }
-        public DateTime WithdrawableAt { get; private set; }
+        public bool? IsMine { get; private set; }
+        public DateTime? UpdatedAt { get; private set; }
+        public DateTime? WithdrawableAt { get; private set; }
 
-        internal ItemOnSale(string itemId, string marketHashName, string itemType, string image, double price, 
-            double? suggestedPrice, double? floatValue, bool isMine, DateTime updatedAt, DateTime withdrawableAt)
+        internal ItemOnSale(string itemId, string marketHashName, string itemType, string image, double? price, 
+            double? suggestedPrice, double? floatValue, bool? isMine, DateTime? updatedAt, DateTime? withdrawableAt)
         {
             ItemId = itemId;
             MarketHashName = marketHashName;
