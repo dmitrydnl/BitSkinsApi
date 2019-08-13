@@ -66,7 +66,7 @@ namespace BitSkinsApi.Balance
         private static string ReadStatus(string result)
         {
             dynamic responseServer = JsonConvert.DeserializeObject(result);
-            string status = responseServer.status;
+            string status = responseServer.status ?? "fail";
             return status;
         }
 

@@ -101,7 +101,7 @@ namespace BitSkinsApi.Balance
                 time = DateTimeExtension.FromUnixTime((long)moneyEventD.time);
             }
 
-            double? amount = 0;
+            double? amount = null;
             string description = "";
             if (type == MoneyEventType.ItemBought || type == MoneyEventType.ItemSold)
             {

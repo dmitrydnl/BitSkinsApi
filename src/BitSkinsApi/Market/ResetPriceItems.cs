@@ -81,7 +81,7 @@ namespace BitSkinsApi.Market
 
         private static ResetPriceItem ReadResetPriceItem(dynamic item)
         {
-            string marketHashName = item.market_hash_name;
+            string marketHashName = item.market_hash_name ?? null;
             double? price = item.price ?? null;
 
             ResetPriceItem resetPriceItem = new ResetPriceItem(marketHashName, price);

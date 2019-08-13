@@ -69,15 +69,15 @@ namespace BitSkinsApi.Market
 
         private static ItemPrice ReadItemPrice(dynamic item)
         {
-            string marketHashName = item.market_hash_name;
+            string marketHashName = item.market_hash_name ?? null;
             double? price = item.price ?? null;
-            string pricingMode = item.pricing_mode;
+            string pricingMode = item.pricing_mode ?? null;
             DateTime? createdAt = null;
             if (item.created_at != null)
             {
                 createdAt = DateTimeExtension.FromUnixTime((long)item.created_at);
             }
-            string iconUrl = item.icon_url;
+            string iconUrl = item.icon_url ?? null;
             double? instantSalePrice = item.instant_sale_price ?? null;
 
             ItemPrice databaseItem = new ItemPrice(marketHashName, price, pricingMode, createdAt, iconUrl, instantSalePrice);

@@ -34,12 +34,12 @@ namespace BitSkinsApi.BuyOrder
         /// <param name="name">The name of the item you want to purchase.</param>
         /// <param name="price">The price at which you want to purchase the item.</param>
         /// <returns>Expected place in queue.</returns>
-        public static int GetExpectedPlaceInQueue(AppId.AppName app, string name, double price)
+        public static int? GetExpectedPlaceInQueue(AppId.AppName app, string name, double price)
         {
             CheckParameters(name, price);
             string urlRequest = GetUrlRequest(app, name, price);
             string result = Server.ServerRequest.RequestServer(urlRequest);
-            int expectedPlaceInQueue = ReadExpectedPlaceInQueue(result);
+            int? expectedPlaceInQueue = ReadExpectedPlaceInQueue(result);
             return expectedPlaceInQueue;
         }
 
@@ -59,12 +59,12 @@ namespace BitSkinsApi.BuyOrder
             return urlCreator.ReadUrl();
         }
 
-        private static int ReadExpectedPlaceInQueue(string result)
+        private static int? ReadExpectedPlaceInQueue(string result)
         {
             dynamic responseServerD = JsonConvert.DeserializeObject(result);
             dynamic dataD = responseServerD.data;
 
-            int expectedPlaceInQueue = dataD.expected_place_in_queue;
+            int? expectedPlaceInQueue = dataD.expected_place_in_queue ?? null;
             return expectedPlaceInQueue;
         }
     }

@@ -69,7 +69,7 @@ namespace BitSkinsApi.Market
 
         private static MarketItem ReadMarketItem(dynamic item)
         {
-            string marketHashName = item.market_hash_name;
+            string marketHashName = item.market_hash_name ?? null;
             int? totalItems = item.total_items ?? null;
             double? lowestPrice = item.lowest_price ?? null;
             double? highestPrice = item.highest_price ?? null;

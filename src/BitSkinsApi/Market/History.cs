@@ -84,8 +84,8 @@ namespace BitSkinsApi.Market
             {
                 appId = (AppId.AppName)(int)item.app_id;
             }
-            string itemId = item.item_id;
-            string marketHashName = item.market_hash_name;
+            string itemId = item.item_id ?? null;
+            string marketHashName = item.market_hash_name ?? null;
             double? buyPrice = item.buy_price ?? null;
             bool? withdrawn = item.withdrawn ?? null;
             DateTime? time = null;
@@ -252,8 +252,8 @@ namespace BitSkinsApi.Market
             {
                 appId = (AppId.AppName)(int)item.app_id;
             }
-            string itemId = item.item_id;
-            string marketHashName = item.market_hash_name;
+            string itemId = item.item_id ?? null;
+            string marketHashName = item.market_hash_name ?? null;
             double? price = item.price ?? null;
             DateTime? lastUpdateAt = null;
             if (item.last_update_at != null)

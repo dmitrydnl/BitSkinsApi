@@ -83,9 +83,9 @@ namespace BitSkinsApi.Market
 
         private static ModifiedItem ReadModifiedItem(dynamic item)
         {
-            string itemId = item.item_id;
-            string marketHashName = item.market_hash_name;
-            string image = item.image;
+            string itemId = item.item_id ?? null;
+            string marketHashName = item.market_hash_name ?? null;
+            string image = item.image ?? null;
             double? price = item.price ?? null;
             double? oldPrice = item.old_price ?? null;
             double? discount = item.discount ?? null;

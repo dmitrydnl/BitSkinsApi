@@ -111,7 +111,7 @@ namespace BitSkinsApi.Market
 
         private static RelistedItem ReadRelistedItem(dynamic item)
         {
-            string itemId = item.item_id;
+            string itemId = item.item_id ?? null;
             bool? instantSale = item.instant_sale ?? null;
             double? price = item.price ?? null;
             DateTime? withdrawableAt = null;

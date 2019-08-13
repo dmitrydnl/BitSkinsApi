@@ -94,7 +94,7 @@ namespace BitSkinsApi.BuyOrder
             dynamic responseServerD = JsonConvert.DeserializeObject(result);
             dynamic dataD = responseServerD.data;
 
-            int? count = 0;
+            int? count = null;
             List<string> buyOrderIds = new List<string>();
             if (dataD != null)
             {

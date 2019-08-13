@@ -90,8 +90,8 @@ namespace BitSkinsApi.Market
 
         private static BoughtItem ReadBoughtItem(dynamic item)
         {
-            string itemId = item.item_id;
-            string marketHashName = item.market_hash_name;
+            string itemId = item.item_id ?? null;
+            string marketHashName = item.market_hash_name ?? null;
             double? price = item.price ?? null;
             DateTime? withdrawableAt = null;
             if (item.withdrawable_at != null)

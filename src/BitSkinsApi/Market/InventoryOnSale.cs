@@ -145,10 +145,10 @@ namespace BitSkinsApi.Market
 
         internal static ItemOnSale ReadItemOnSale(dynamic item)
         {
-            string itemId = item.item_id;
-            string marketHashName = item.market_hash_name;
-            string itemType = item.item_type;
-            string image = item.image;
+            string itemId = item.item_id ?? null;
+            string marketHashName = item.market_hash_name ?? null;
+            string itemType = item.item_type ?? null;
+            string image = item.image ?? null;
             double? price = item.price ?? null;
             double? suggestedPrice = item.suggested_price ?? null;
             double? floatValue = item.float_value ?? null;
