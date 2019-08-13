@@ -100,9 +100,13 @@ namespace BitSkinsApi.Market
 
         private static ItemRawPrice ReadItemRawPrice(dynamic item)
         {
-            DateTime time = DateTimeExtension.FromUnixTime((long)item.time);
-            double price = item.price;
-            int volume = item.volume;
+            DateTime? time = null;
+            if (item.time != null)
+            {
+                time = DateTimeExtension.FromUnixTime((long)item.time);
+            }
+            double? price = item.price ?? null;
+            int? volume = item.volume ?? null;
 
             ItemRawPrice itemRawPrice = new ItemRawPrice(time, price, volume);
             return itemRawPrice;
@@ -129,11 +133,11 @@ namespace BitSkinsApi.Market
     /// </summary>
     public class ItemRawPrice
     {
-        public DateTime Time { get; private set; }
-        public double Price { get; private set; }
-        public int Volume { get; private set; }
+        public DateTime? Time { get; private set; }
+        public double? Price { get; private set; }
+        public int? Volume { get; private set; }
 
-        internal ItemRawPrice(DateTime time, double price, int volume)
+        internal ItemRawPrice(DateTime? time, double? price, int? volume)
         {
             Time = time;
             Price = price;

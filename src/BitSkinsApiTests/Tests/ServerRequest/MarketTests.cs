@@ -303,7 +303,7 @@ namespace BitSkinsApi.Tests.ServerRequest
             if (itemsOnSale.Count > 0)
             {
                 ItemOnSale item = itemsOnSale[0];
-                List<BoughtItem> boughtItems = Purchase.BuyItem(app, new List<string> { item.ItemId }, new List<double> { item.Price }, false, false);
+                List<BoughtItem> boughtItems = Purchase.BuyItem(app, new List<string> { item.ItemId }, new List<double> { item.Price.Value }, false, false);
                 string itemId = boughtItems[0].ItemId;
                 Assert.AreEqual(item.ItemId, itemId);
             }
