@@ -92,8 +92,12 @@ namespace BitSkinsApi.Market
         {
             string itemId = item.item_id;
             string marketHashName = item.market_hash_name;
-            double price = item.price;
-            DateTime withdrawableAt = DateTimeExtension.FromUnixTime((long)item.withdrawable_at);
+            double? price = item.price ?? null;
+            DateTime? withdrawableAt = null;
+            if (item.withdrawable_at != null)
+            {
+                withdrawableAt = DateTimeExtension.FromUnixTime((long)item.withdrawable_at);
+            }
 
             BoughtItem boughtItem = new BoughtItem(itemId, marketHashName, price, withdrawableAt);
             return boughtItem;
@@ -107,10 +111,10 @@ namespace BitSkinsApi.Market
     {
         public string ItemId { get; private set; }
         public string MarketHashName { get; private set; }
-        public double Price { get; private set; }
-        public DateTime WithdrawableAt { get; private set; }
+        public double? Price { get; private set; }
+        public DateTime? WithdrawableAt { get; private set; }
 
-        internal BoughtItem(string itemId, string marketHashName, double price, DateTime withdrawableAt)
+        internal BoughtItem(string itemId, string marketHashName, double? price, DateTime? withdrawableAt)
         {
             ItemId = itemId;
             MarketHashName = marketHashName;

@@ -83,9 +83,13 @@ namespace BitSkinsApi.Market
 
         private static ItemRecentSale ReadItemRecentSale(dynamic item)
         {
-            double price = item.price;
-            double wearValue = item.wear_value;
-            DateTime soldAt = DateTimeExtension.FromUnixTime((long)item.sold_at);
+            double? price = item.price ?? null;
+            double? wearValue = item.wear_value ?? null;
+            DateTime? soldAt = null;
+            if (item.sold_at != null)
+            {
+                soldAt = DateTimeExtension.FromUnixTime((long)item.sold_at);
+            }
 
             ItemRecentSale recentSaleItem = new ItemRecentSale(price, wearValue, soldAt);
             return recentSaleItem;
@@ -97,11 +101,11 @@ namespace BitSkinsApi.Market
     /// </summary>
     public class ItemRecentSale
     {
-        public double Price { get; private set; }
-        public double WearValue { get; private set; }
-        public DateTime SoldAt { get; private set; }
+        public double? Price { get; private set; }
+        public double? WearValue { get; private set; }
+        public DateTime? SoldAt { get; private set; }
 
-        internal ItemRecentSale(double price, double wearValue, DateTime soldAt)
+        internal ItemRecentSale(double? price, double? wearValue, DateTime? soldAt)
         {
             Price = price;
             WearValue = wearValue;

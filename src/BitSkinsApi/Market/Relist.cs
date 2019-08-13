@@ -112,9 +112,13 @@ namespace BitSkinsApi.Market
         private static RelistedItem ReadRelistedItem(dynamic item)
         {
             string itemId = item.item_id;
-            bool instantSale = item.instant_sale;
-            double price = item.price;
-            DateTime withdrawableAt = DateTimeExtension.FromUnixTime((long)item.withdrawable_at);
+            bool? instantSale = item.instant_sale ?? null;
+            double? price = item.price ?? null;
+            DateTime? withdrawableAt = null;
+            if (item.withdrawable_at != null)
+            {
+                withdrawableAt = DateTimeExtension.FromUnixTime((long)item.withdrawable_at);
+            }
 
             RelistedItem relistedItem = new RelistedItem(itemId, instantSale, price, withdrawableAt);
             return relistedItem;
@@ -127,11 +131,11 @@ namespace BitSkinsApi.Market
     public class RelistedItem
     {
         public string ItemId { get; private set; }
-        public bool InstantSale { get; private set; }
-        public double Price { get; private set; }
-        public DateTime WithdrawableAt { get; private set; }
+        public bool? InstantSale { get; private set; }
+        public double? Price { get; private set; }
+        public DateTime? WithdrawableAt { get; private set; }
 
-        internal RelistedItem(string itemId, bool instantSale, double price, DateTime withdrawableAt)
+        internal RelistedItem(string itemId, bool? instantSale, double? price, DateTime? withdrawableAt)
         {
             ItemId = itemId;
             InstantSale = instantSale;
