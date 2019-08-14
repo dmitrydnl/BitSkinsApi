@@ -63,6 +63,9 @@ namespace BitSkinsApi.Server
         }
     }
 
+    /// <summary>
+    /// Exception during request to server.
+    /// </summary>
     [Serializable]
     public class RequestServerException : Exception
     {

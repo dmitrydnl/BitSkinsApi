@@ -125,6 +125,9 @@ namespace BitSkinsApi.Account
         }
     }
 
+    /// <summary>
+    /// Exception during setup account.
+    /// </summary>
     [Serializable]
     public class SetupAccountException : Exception
     {
