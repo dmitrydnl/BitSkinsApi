@@ -5,18 +5,18 @@
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <Company />
     <Product>BitSkinsApi</Product>
-    <PackageProjectUrl>https://github.com/Captious99/BitSkinsApi</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/Captious99/BitSkinsApi</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/dmitrydnl/BitSkinsApi</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/dmitrydnl/BitSkinsApi</RepositoryUrl>
     <PackageTags>api api-wrapper steam bitskins</PackageTags>
-    <PackageLicenseUrl>https://github.com/Captious99/BitSkinsApi/blob/master/LICENSE.md</PackageLicenseUrl>
+    <PackageLicenseUrl>https://github.com/dmitrydnl/BitSkinsApi/blob/master/LICENSE.md</PackageLicenseUrl>
     <RepositoryType>git</RepositoryType>
-    <Copyright>Copyright (C) 2019 Captious99</Copyright>
-    <Authors>Captious99</Authors>
+    <Copyright>Copyright (C) 2019 dmitrydnl</Copyright>
+    <Authors>dmitrydnl</Authors>
     <Description>A wrapper for the BitSkins API, build on .NET Standard 2.0</Description>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
     <FileVersion>1.0.0.0</FileVersion>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.2.2</Version>
+    <Version>1.2.3</Version>
     <PackageIconUrl>https://user-images.githubusercontent.com/48892069/58589355-58d4dc00-826a-11e9-82d2-c37a72977d7c.jpg</PackageIconUrl>
   </PropertyGroup>
 

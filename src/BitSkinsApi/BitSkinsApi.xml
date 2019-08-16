@@ -30,6 +30,11 @@
             </summary>
             <returns>Two factor code.</returns>
         </member>
+        <member name="T:BitSkinsApi.Account.SetupAccountException">
+            <summary>
+            Exception during setup account.
+            </summary>
+        </member>
         <member name="T:BitSkinsApi.Balance.CurrentBalance">
             <summary>
             Work with current account balance.
@@ -713,6 +718,11 @@
         <member name="T:BitSkinsApi.Market.ItemRawPrice">
             <summary>
             Sales data about Steam item at a certain time.
+            </summary>
+        </member>
+        <member name="T:BitSkinsApi.Server.RequestServerException">
+            <summary>
+            Exception during request to server.
             </summary>
         </member>
         <member name="T:BitSkinsApi.Trade.RecentOffers">
