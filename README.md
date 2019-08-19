@@ -22,7 +22,7 @@ To install the NuGet package, you can the Package Manager Console. For more info
 2. Once the console opens, check that the Default project drop-down list shows the project into which you want to install the package.
 3. Enter the command:
 \
-```Install-Package BitSkinsApi -Version 1.2.2```
+```Install-Package BitSkinsApi -Version 1.2.3```
 
 # How do I use BitSkinsApi?
 All about using BitSkinsApi you can find in [documentation](https://github.com/dmitrydnl/BitSkinsApi/blob/master/docs/index.md).
