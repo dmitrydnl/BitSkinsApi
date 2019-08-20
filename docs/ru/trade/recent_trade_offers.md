@@ -31,16 +31,16 @@ List<BitSkinsApi.Trade.RecentTradeOffer>
 
 Свойства класса ```BitSkinsApi.Trade.RecentTradeOffer```:
 * SteamTradeOfferId - id торгового предложения.
-* SteamTradeOfferStatus - статус торгового предложения.
+* SteamTradeOfferStatus? - статус торгового предложения.
 * SenderUid - uid отправителя.
 * RecipientUid - uid получателя.
-* NumItemsSent - кол-во отправленных предметов.
-* NumItemsRetrieved - кол-во полученных предметов.
+* NumItemsSent? - кол-во отправленных предметов.
+* NumItemsRetrieved? - кол-во полученных предметов.
 * BitSkinsTradeToken - BitSkins trade токен, для верификации торгового предложения.
 * BitSkinsTradeId - BitSkins trade id, для верификации торгового предложения.
 * TradeMessage - сообщение в торговом предложении, содержит BitSkinsTradeToken и BitSkinsTradeId.
-* CreatedAt - дата создания торгового предложения.
-* UpdatedAt - дата обновления торгового предложения.
+* CreatedAt? - дата создания торгового предложения.
+* UpdatedAt? - дата обновления торгового предложения.
 
 ### Возможные исключения
 ```BitSkinsApi.Server.RequestServerException``` - в случае передачи в функцию некорректных данных или проблем на сервере BitSkins.

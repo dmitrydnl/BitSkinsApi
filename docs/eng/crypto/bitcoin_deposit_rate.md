@@ -27,9 +27,9 @@ BitSkinsApi.Crypto.BitcoinDepositRate
 ```
 
 Class properties ```BitSkinsApi.Crypto.BitcoinDepositRate```:
-* PricePerBitcoinInUsd - the price of one Bitcoin in USD.
-* ExpiresAt - the expiration date of this exchange rate.
-* ExpiresIn - seconds before the expiration of this exchange rate.
+* PricePerBitcoinInUsd? - the price of one Bitcoin in USD.
+* ExpiresAt? - the expiration date of this exchange rate.
+* ExpiresIn? - seconds before the expiration of this exchange rate.
 
 ### Possible exceptions
 ```BitSkinsApi.Server.RequestServerException``` - in case of transfer to the function incorrect data or problems on the BitSkins server.

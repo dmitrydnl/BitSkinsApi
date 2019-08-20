@@ -28,7 +28,7 @@ BitSkinsApi.Crypto.BitcoinDepositAddress
 
 Свойства класса ```BitSkinsApi.Crypto.BitcoinDepositAddress```:
 * Address - ваш постоянный bitcoin адрес на сайте BitSkins.
-* MinimumAcceptableDepositAmount - минимальная допустимая сумма для перевода.
+* MinimumAcceptableDepositAmount? - минимальная допустимая сумма для перевода.
 
 ### Возможные исключения
 ```BitSkinsApi.Server.RequestServerException``` - в случае передачи в функцию некорректных данных или проблем на сервере BitSkins.

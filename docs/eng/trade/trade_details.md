@@ -33,7 +33,7 @@ BitSkinsApi.Trade.TradeDetails
 Class properties ```BitSkinsApi.Trade.TradeDetails```:
 * SentItems - list of sent items.
 * RetrievedItems - list of retrieved items.
-* CreatedAt - trade offer creation date, may be null.
+* CreatedAt? - trade offer creation date.
 
 ### Possible exceptions
 ```ArgumentException``` - in case of transfer to the function incorrect data, the message contains detailed information.
