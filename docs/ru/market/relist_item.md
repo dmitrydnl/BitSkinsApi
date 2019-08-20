@@ -34,9 +34,9 @@ List<BitSkinsApi.Market.RelistedItem>
 
 Свойства класса ```BitSkinsApi.Market.RelistedItem```:
 * ItemId - id предмета.
-* InstantSale - цена мгновенной продажи предмета.
-* Price - цена предмета.
-* WithdrawableAt - дата, когда предмет можно будет вывести из BitSkins.
+* InstantSale? - цена мгновенной продажи предмета.
+* Price? - цена предмета.
+* WithdrawableAt? - дата, когда предмет можно будет вывести из BitSkins.
 
 ### Возможные исключения
 ```ArgumentNullException``` - в случае передачи в функцию некорректных данных, в сообщение содержится подробная информация.

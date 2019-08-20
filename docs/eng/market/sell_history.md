@@ -32,11 +32,11 @@ List<BitSkinsApi.Market.SellHistoryRecord>
 ```
 
 Class properties ```BitSkinsApi.Market.SellHistoryRecord```:
-* AppId - id of the game that owns the item sold.
+* AppId? - id of the game that owns the item sold.
 * ItemId - id of the item sold.
 * MarketHashName - title of item sold.
-* Price - selling price.
-* Time - time of sale.
+* Price? - selling price.
+* Time? - time of sale.
 
 ### Possible exceptions
 ```ArgumentException``` - in case of transfer to the function incorrect data, the message contains detailed information.

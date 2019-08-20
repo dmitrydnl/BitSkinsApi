@@ -36,10 +36,10 @@ Class properties ```BitSkinsApi.Market.ModifiedItem```:
 * ItemId - item id.
 * MarketHashName - item name.
 * Image - item image link.
-* Price - new item price.
-* OldPrice - old item price.
-* Discount - discount.
-* WithdrawableAt - date when the item can be withdrawal from BitSkins.
+* Price? - new item price.
+* OldPrice? - old item price.
+* Discount? - discount.
+* WithdrawableAt? - date when the item can be withdrawal from BitSkins.
 
 ### Possible exceptions
 ```ArgumentNullException``` - in case of transfer to the function incorrect data, the message contains detailed information.

@@ -33,7 +33,7 @@ BitSkinsApi.Market.SteamItemRawPriceData
 
 Свойства класса ```BitSkinsApi.Market.SteamItemRawPriceData```:
 * ItemRawPrices - список записей о продаже предмета в конкретный период времени.
-* UpdatedAt - дата обновления данных, может быть null.
+* UpdatedAt? - дата обновления данных.
 
 ### Возможные исключения
 ```ArgumentException``` - в случае передачи в функцию некорректных данных, в сообщение содержится подробная информация.

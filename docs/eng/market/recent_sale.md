@@ -33,9 +33,9 @@ List<BitSkinsApi.Market.ItemRecentSale>
 ```
 
 Class properties ```BitSkinsApi.Market.ItemRecentSale```
-* Price - item sales price.
-* WearValue - item wear.
-* SoldAt - item sale date.
+* Price? - item sales price.
+* WearValue? - item wear.
+* SoldAt? - item sale date.
 
 ### Possible exceptions
 ```ArgumentException``` - in case of transfer to the function incorrect data, the message contains detailed information.

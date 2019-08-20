@@ -33,7 +33,7 @@ BitSkinsApi.Market.SteamItemRawPriceData
 
 Class properties ```BitSkinsApi.Market.SteamItemRawPriceData```:
 * ItemRawPrices - list of records for the sale of an item at a specific time period.
-* UpdatedAt - data update date, may be null.
+* UpdatedAt? - data update date.
 
 ### Possible exceptions
 ```ArgumentException``` - in case of transfer to the function incorrect data, the message contains detailed information.

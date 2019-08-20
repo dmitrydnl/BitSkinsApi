@@ -33,7 +33,7 @@ List<BitSkinsApi.Market.DelistedItem>
 
 Свойства класса ```BitSkinsApi.Market.DelistedItem```:
 * ItemId - id предмета.
-* WithdrawableAt - дата, когда предмет можно будет вывести из BitSkins.
+* WithdrawableAt? - дата, когда предмет можно будет вывести из BitSkins.
 
 ### Возможные исключения
 ```ArgumentNullException``` - в случае передачи в функцию некорректных данных, в сообщение содержится подробная информация.

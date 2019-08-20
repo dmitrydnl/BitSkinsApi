@@ -33,7 +33,7 @@ List<BitSkinsApi.Market.DelistedItem>
 
 Class properties ```BitSkinsApi.Market.DelistedItem```:
 * ItemId - item id.
-* WithdrawableAt - the date when the item can be withdraw from BitSkins.
+* WithdrawableAt? - the date when the item can be withdraw from BitSkins.
 
 ### Possible exceptions
 ```ArgumentNullException``` - in case of transfer to the function incorrect data, the message contains detailed information.

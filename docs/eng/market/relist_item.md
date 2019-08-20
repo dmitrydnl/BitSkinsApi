@@ -34,9 +34,9 @@ List<BitSkinsApi.Market.RelistedItem>
 
 Class properties ```BitSkinsApi.Market.RelistedItem```:
 * ItemId - item id.
-* InstantSale - price of instant sale item.
-* Price - item price.
-* WithdrawableAt - the date when the item can be withdrawal from BitSkins.
+* InstantSale? - price of instant sale item.
+* Price? - item price.
+* WithdrawableAt? - the date when the item can be withdrawal from BitSkins.
 
 ### Possible exceptions
 ```ArgumentNullException``` - in case of transfer to the function incorrect data, the message contains detailed information.

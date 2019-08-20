@@ -37,8 +37,8 @@ List<BitSkinsApi.Market.BoughtItem>
 Class properties ```BitSkinsApi.Market.BoughtItem```
 * ItemId - item id.
 * MarketHashName - item name.
-* Price - price.
-* WithdrawableAt - the date when the item can be withdraw from BitSkins.
+* Price? - price.
+* WithdrawableAt? - the date when the item can be withdraw from BitSkins.
 
 ### Possible exceptions
 ```ArgumentNullException``` - in case of transfer to the function incorrect data, the message contains detailed information.

@@ -37,8 +37,8 @@ List<BitSkinsApi.Market.BoughtItem>
 Свойства класса ```BitSkinsApi.Market.BoughtItem```
 * ItemId - id предмета.
 * MarketHashName - название предмета.
-* Price - цена.
-* WithdrawableAt - дата, когда предмет можно будет вывести из BitSkins.
+* Price? - цена.
+* WithdrawableAt? - дата, когда предмет можно будет вывести из BitSkins.
 
 ### Возможные исключения
 ```ArgumentNullException``` - в случае передачи в функцию некорректных данных, в сообщение содержится подробная информация.

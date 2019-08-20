@@ -46,12 +46,12 @@ Class properties ```BitSkinsApi.Market.ItemOnSale```:
 * MarketHashName - item name.
 * ItemType - item type.
 * Image - item image link.
-* Price - item price.
-* SuggestedPrice - suggested price, may be null.
-* FloatValue - item wear, may be null (only CS:GO).
-* IsMine - is the item your.
-* UpdatedAt - item update date.
-* WithdrawableAt - the date when the item can be withdraw from BitSkins.
+* Price? - item price.
+* SuggestedPrice? - suggested price.
+* FloatValue? - item wear (only CS:GO).
+* IsMine? - is the item your.
+* UpdatedAt? - item update date.
+* WithdrawableAt? - the date when the item can be withdraw from BitSkins.
 
 ### Possible exceptions
 ```ArgumentException``` - in case of transfer to the function incorrect data, the message contains detailed information.

@@ -32,12 +32,12 @@ List<BitSkinsApi.Market.BuyHistoryRecord>
 ```
 
 Class properties ```BitSkinsApi.Market.BuyHistoryRecord```:
-* AppId - id of the game that owns the purchased item.
+* AppId? - id of the game that owns the purchased item.
 * ItemId - purchased item id.
 * MarketHashName - title of item purchased.
-* Price - purchase price.
-* Withdrawn - is it possible to withdraw the item.
-* Time - buying time.
+* Price? - purchase price.
+* Withdrawn? - is it possible to withdraw the item.
+* Time? - buying time.
 
 ### Possible exceptions
 ```ArgumentException``` - in case of transfer to the function incorrect data, the message contains detailed information.

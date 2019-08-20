@@ -32,11 +32,11 @@ List<BitSkinsApi.Market.ItemPrice>
 
 Свойства класса ```BitSkinsApi.Market.ItemPrice```
 * MarketHashName - название предмета.
-* Price - цена.
+* Price? - цена.
 * PricingMode - модель ценообразования.
-* CreatedAt - дата создания предмета.
+* CreatedAt? - дата создания предмета.
 * IconUrl - ссылка на изображение предмета.
-* InstantSalePrice - цена моментальной продажи предмета, может быть null.
+* InstantSalePrice? - цена моментальной продажи предмета.
 
 ### Возможные исключения
 ```BitSkinsApi.Server.RequestServerException``` - в случае передачи в функцию некорректных данных или проблем на сервере BitSkins.

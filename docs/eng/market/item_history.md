@@ -34,18 +34,18 @@ List<BitSkinsApi.Market.ItemHistoryRecord>
 ```
 
 Class properties ```BitSkinsApi.Market.ItemHistoryRecord```:
-* AppId - id of the game that owns the item.
+* AppId? - id of the game that owns the item.
 * ItemId - item id in event.
 * MarketHashName - the name of the item in the event.
-* Price - price.
+* Price? - price.
 * RecordType - event type.
-* LastUpdateAt - date of last update event.
-* ListedAt - date the item was put up for sale.
-* WithdrawnAt - the date when the item can be withdraw from BitSkins, may be null.
-* ListedByMe - is the item for sale by you.
-* OnHold - is the item hold.
-* OnSale - whether the item is on sale.
-* RecordTime - event time, may be null.
+* LastUpdateAt? - date of last update event.
+* ListedAt? - date the item was put up for sale.
+* WithdrawnAt? - the date when the item can be withdraw from BitSkins.
+* ListedByMe? - is the item for sale by you.
+* OnHold? - is the item hold.
+* OnSale? - whether the item is on sale.
+* RecordTime? - event time.
 
 ### Possible exceptions
 ```ArgumentException``` - in case of transfer to the function incorrect data, the message contains detailed information.

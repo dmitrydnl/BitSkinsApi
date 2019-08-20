@@ -36,10 +36,10 @@ List<BitSkinsApi.Market.ModifiedItem>
 * ItemId - id предмета.
 * MarketHashName - название предмета.
 * Image - ссылка на изображение предмета.
-* Price - новая цена предмета.
-* OldPrice - старая цена предмета.
-* Discount - скидка.
-* WithdrawableAt - дата когда предмет можно будет вывести из BitSkins.
+* Price? - новая цена предмета.
+* OldPrice? - старая цена предмета.
+* Discount? - скидка.
+* WithdrawableAt? - дата когда предмет можно будет вывести из BitSkins.
 
 ### Возможные исключения
 ```ArgumentNullException``` - в случае передачи в функцию некорректных данных, в сообщение содержится подробная информация.

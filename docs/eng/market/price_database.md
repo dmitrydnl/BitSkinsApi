@@ -32,11 +32,11 @@ List<BitSkinsApi.Market.ItemPrice>
 
 Class properties ```BitSkinsApi.Market.ItemPrice```
 * MarketHashName - item name.
-* Price - item price.
+* Price? - item price.
 * PricingMode - pricing mode.
-* CreatedAt - item creation date.
+* CreatedAt? - item creation date.
 * IconUrl - item image link.
-* InstantSalePrice - price of instant sale item, may be null.
+* InstantSalePrice? - price of instant sale item.
 
 ### Possible exceptions
 ```BitSkinsApi.Server.RequestServerException``` - in case of transfer to the function incorrect data or problems on the BitSkins server.

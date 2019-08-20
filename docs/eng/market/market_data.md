@@ -32,12 +32,12 @@ List<BitSkinsApi.Market.MarketItem>
 
 Class properties ```BitSkinsApi.Market.MarketItem```:
 * MarketHashName - item name.
-* TotalItems - total items.
-* LowestPrice - minimum price.
-* HighestPrice - maximum price.
-* CumulativePrice - cost of all items together.
-* RecentAveragePrice - average price lately, may be null.
-* UpdatedAt - item update date, may be null.
+* TotalItems? - total items.
+* LowestPrice? - minimum price.
+* HighestPrice? - maximum price.
+* CumulativePrice? - cost of all items together.
+* RecentAveragePrice? - average price lately.
+* UpdatedAt? - item update date.
 
 ### Possible exceptions
 ```BitSkinsApi.Server.RequestServerException``` - in case of transfer to the function incorrect data or problems on the BitSkins server.

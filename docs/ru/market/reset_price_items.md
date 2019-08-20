@@ -33,7 +33,7 @@ List<BitSkinsApi.Market.ResetPriceItem>
 
 Свойства класса ``BitSkinsApi.Market.ResetPriceItem```
 * MarketHashName - название предмета.
-* Price - цена предмета, может быть null.
+* Price? - цена предмета.
 
 ### Возможные исключения
 ```ArgumentException``` - в случае передачи в функцию некорректных данных, в сообщение содержится подробная информация.

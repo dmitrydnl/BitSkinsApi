@@ -32,12 +32,12 @@ List<BitSkinsApi.Market.MarketItem>
 
 Свойства класса ```BitSkinsApi.Market.MarketItem```:
 * MarketHashName - название предмета.
-* TotalItems - всего предметов.
-* LowestPrice - минимальная цена.
-* HighestPrice - максимальная цена.
-* CumulativePrice - стоимость всех предметов вместе.
-* RecentAveragePrice - средняя цена за последнее время, может быть null.
-* UpdatedAt - дата обновления предмета, может быть null.
+* TotalItems? - всего предметов.
+* LowestPrice? - минимальная цена.
+* HighestPrice? - максимальная цена.
+* CumulativePrice? - стоимость всех предметов вместе.
+* RecentAveragePrice? - средняя цена за последнее время.
+* UpdatedAt? - дата обновления предмета.
 
 ### Возможные исключения
 ```BitSkinsApi.Server.RequestServerException``` - в случае передачи в функцию некорректных данных или проблем на сервере BitSkins.
