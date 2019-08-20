@@ -6,6 +6,11 @@
 BitSkinsApi.Market.RelistForSale.RelistItem(BitSkinsApi.Market.AppId.AppName app, List<string> itemIds, List<double> itemPrices);
 ```
 
+Новая версия метода RelistItem(), которая учитывает, что теперь нельзя предметы перевыставлять на продажу чаще одного раза в час:
+```csharp
+BitSkinsApi.Market.RelistForSale.RelistItemDelayHour(BitSkinsApi.Market.AppId.AppName app, List<string> itemIds, List<double> itemPrices);
+```
+
 ## RelistItem()
 
 ### Находится в классе:
