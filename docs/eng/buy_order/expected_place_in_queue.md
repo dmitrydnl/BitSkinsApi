@@ -29,7 +29,7 @@ BitSkinsApi.BuyOrder.PlaceInQueue.GetExpectedPlaceInQueue(BitSkinsApi.Market.App
 ### Returns:
 
 ```csharp
-int placeInQueue
+int? placeInQueue
 ```
 
 placeInQueue - expected place in queue for new buy order, may be null.

@@ -32,7 +32,7 @@ BitSkinsApi.BuyOrder.CanceledBuyOrders
 ```
 
 Class properties ```BitSkinsApi.BuyOrder.CanceledBuyOrders```:
-* Count - number of canceled purchase orders.
+* Count? - number of canceled purchase orders.
 * BuyOrderIds - id list of canceled purchase orders.
 
 ### Possible exceptions

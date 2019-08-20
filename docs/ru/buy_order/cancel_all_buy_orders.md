@@ -32,7 +32,7 @@ BitSkinsApi.BuyOrder.CanceledBuyOrders
 ```
 
 Свойства класса ```BitSkinsApi.BuyOrder.CanceledBuyOrders```:
-* Count - количество отмененные закзов на покупку.
+* Count? - количество отмененные закзов на покупку.
 * BuyOrderIds - список id отмененных заказов на покупку.
 
 ### Возможные исключения

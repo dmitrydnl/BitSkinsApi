@@ -32,12 +32,12 @@ List<BitSkinsApi.BuyOrder.ItemBuyOrder>
 
 Class properties ```BitSkinsApi.BuyOrder.ItemBuyOrder```:
 * MarketHashName - item name.
-* NumberOfBuyOrders - number of buy orders.
-* MaxPrice - maximum buy order price.
-* MinPrice - minimum buy order price.
-* NumberOfMyBuyOrders - number of your buy orders.
-* MaxPriceMyBuyOrders - maximum price of your buy orders.
-* MinPriceMyBuyOrders - minimum price of your buy orders.
+* NumberOfBuyOrders? - number of buy orders.
+* MaxPrice? - maximum buy order price.
+* MinPrice? - minimum buy order price.
+* NumberOfMyBuyOrders? - number of your buy orders.
+* MaxPriceMyBuyOrders? - maximum price of your buy orders.
+* MinPriceMyBuyOrders? - minimum price of your buy orders.
 
 ### Possible exceptions
 ```BitSkinsApi.Server.RequestServerException``` - in case of transfer to the function incorrect data or problems on the BitSkins server.

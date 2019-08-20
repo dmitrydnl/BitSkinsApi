@@ -27,10 +27,10 @@ BitSkinsApi.Balance.AccountBalance
 ```
 
 Свойства класса ```BitSkinsApi.Balance.AccountBalance```:
-* AvailableBalance - средства доступные для трат.
-* PendingWithdrawals - средства ожидающие снятия.
-* WithdrawableBalance - средства, которые можно снять.
-* CouponableBalance - купонные средства.
+* AvailableBalance? - средства доступные для трат.
+* PendingWithdrawals? - средства ожидающие снятия.
+* WithdrawableBalance? - средства, которые можно снять.
+* CouponableBalance? - купонные средства.
 
 ### Возможные исключения
 ```BitSkinsApi.Server.RequestServerException``` - в случае передачи в функцию некорректных данных или проблем на сервере BitSkins.

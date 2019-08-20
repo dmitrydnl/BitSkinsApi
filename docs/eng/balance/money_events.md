@@ -31,21 +31,21 @@ List<BitSkinsApi.Balance.MoneyEvent>
 ```
 
 Class properties ```BitSkinsApi.Balance.MoneyEvent```:
-* Type - type of this event. Types of events:
+* Type? - type of this event. Types of events:
   - ItemBought - purchase item.
   - ItemSold – selling an item.
   - SaleFee – sale commission.
   - BuyCredit – refill balance.
   - StoreCredit – bonus accrual.
   - Unknown – types of events that have not yet been processed.
-* Amount - amount of money in the specified event (purchase price, selling price, commission etc.).
+* Amount? - amount of money in the specified event (purchase price, selling price, commission etc.).
 * Description - description of this event. It is different in each type:
   - ItemBought – “{The game ID of which the item belongs}:{Name of item purchased}”.
   - ItemSold - “{The game ID of which the item belongs}:{Name of item sold}”.
   - SaleFee – “{The name of the game items which were purchased}”.
   - BuyCredit – “{Deposit method}”.
   - StoreCredit – “{Reason for bonuses accrual (usually "steamname" means "BitSkins.com" is inserted in your Steam name)}”.
-* Time - the time of this event.
+* Time? - the time of this event.
 
 ### Possible exceptions
 ```ArgumentException``` - in case of transfer to the function incorrect data, the message contains detailed information.

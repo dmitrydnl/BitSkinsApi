@@ -41,12 +41,12 @@ List<BitSkinsApi.BuyOrder.BuyOrder>
 Свойства класса ```BitSkinsApi.BuyOrder.BuyOrder```:
 * BuyOrderId - id заказа на покупку.
 * MarketHashName - название предмета.
-* Price - цена.
-* SuggestedPrice - средняя цена этого предмета в BitSkins, может быть null.
+* Price? - цена.
+* SuggestedPrice? - средняя цена этого предмета в BitSkins.
 * State - статус заказа на покупку.
-* CreatedAt - дата создания.
-* UpdatedAt - дата обновления.
-* PlaceInQueue - номер в очереди заказов на покупку, может быть null.
+* CreatedAt? - дата создания.
+* UpdatedAt? - дата обновления.
+* PlaceInQueue? - номер в очереди заказов на покупку.
 
 ### Возможные исключения
 ```ArgumentException``` - в случае передачи в функцию некорректных данных, в сообщение содержится подробная информация.

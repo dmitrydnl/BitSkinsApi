@@ -32,12 +32,12 @@ List<BitSkinsApi.BuyOrder.ItemBuyOrder>
 
 Свойства класса ```BitSkinsApi.BuyOrder.ItemBuyOrder```:
 * MarketHashName - название предмета.
-* NumberOfBuyOrders - количество запросов на покупку.
-* MaxPrice - максимальная цена запроса на покупку.
-* MinPrice - минимальная цена запроса на покупку.
-* NumberOfMyBuyOrders - количество ваших запросов на покупку.
-* MaxPriceMyBuyOrders - максимальная цена ваших запросов на покупку.
-* MinPriceMyBuyOrders - минимальная цена ваших запросов на покупку.
+* NumberOfBuyOrders? - количество запросов на покупку.
+* MaxPrice? - максимальная цена запроса на покупку.
+* MinPrice? - минимальная цена запроса на покупку.
+* NumberOfMyBuyOrders? - количество ваших запросов на покупку.
+* MaxPriceMyBuyOrders? - максимальная цена ваших запросов на покупку.
+* MinPriceMyBuyOrders? - минимальная цена ваших запросов на покупку.
 
 ### Возможные исключения
 ```BitSkinsApi.Server.RequestServerException``` - в случае передачи в функцию некорректных данных или проблем на сервере BitSkins.
