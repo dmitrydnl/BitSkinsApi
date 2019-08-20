@@ -6,6 +6,11 @@ In order to re-list the purchased item for sale, you need to call the function:
 BitSkinsApi.Market.RelistForSale.RelistItem(BitSkinsApi.Market.AppId.AppName app, List<string> itemIds, List<double> itemPrices);
 ```
 
+New version of method RelistItem(), this method considering that now items cannot be relisted more than once an hour:
+```csharp
+BitSkinsApi.Market.RelistForSale.RelistItemDelayHour(BitSkinsApi.Market.AppId.AppName app, List<string> itemIds, List<double> itemPrices);
+```
+
 ## RelistItem()
 
 ### Is in class:
