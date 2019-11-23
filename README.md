@@ -77,4 +77,4 @@ BitSkinsApi build on .NET Standard 2.0. To use the BitSkinsApi, version of the p
 Learn more about [.NET implementation support](https://docs.microsoft.com/en-us/dotnet/standard/net-standard#net-implementation-support).
 
 ## License
-This project is licensed under the GNU General Public License v3.0 - see the [LICENSE.md](https://github.com/dmitrydnl/BitSkinsApi/blob/master/LICENSE.md) file for details.
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/dmitrydnl/BitSkinsApi/blob/master/LICENSE) file for details.
