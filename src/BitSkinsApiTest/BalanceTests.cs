@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using BitSkinsApi.Balance;
 
-namespace BitSkinsApi.Tests.ServerRequest
+namespace BitSkinsApiTest
 {
-    [TestClass]
+    [TestFixture]
     public class BalanceTests
     {
-        [TestMethod]
+        [Test]
         public void GetAccountBalanceTest()
         {
             CurrentBalance.GetAccountBalance();
@@ -15,7 +15,7 @@ namespace BitSkinsApi.Tests.ServerRequest
             Assert.IsTrue(true);
         }
 
-        [TestMethod]
+        [Test]
         public void GetMoneyEventsTest()
         {
             int page = 1;

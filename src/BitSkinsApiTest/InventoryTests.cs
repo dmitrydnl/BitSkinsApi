@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using BitSkinsApi.Inventory;
 
-namespace BitSkinsApi.Tests.ServerRequest
+namespace BitSkinsApiTest
 {
-    [TestClass]
+    [TestFixture]
     public class InventoryTests
     {
-        [TestMethod]
+        [Test]
         public void GetAccountInventoryTest()
         {
             foreach (BitSkinsApi.Market.AppId.AppName appId in Enum.GetValues(typeof(BitSkinsApi.Market.AppId.AppName)))
@@ -25,7 +25,7 @@ namespace BitSkinsApi.Tests.ServerRequest
             Assert.IsTrue(true);
         }
 
-        [TestMethod]
+        [Test]
         public void WithdrawItemTest()
         {
             BitSkinsApi.Market.AppId.AppName app = BitSkinsApi.Market.AppId.AppName.CounterStrikGlobalOffensive;

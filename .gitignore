@@ -337,4 +337,4 @@ ASALocalRun/
 .DS_Store
 
 #User's data
-src/BitSkinsApiTests/account_data.json
+src/BitSkinsApiTest/account_data.json

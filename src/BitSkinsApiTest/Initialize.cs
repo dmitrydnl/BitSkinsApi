@@ -1,13 +1,13 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using Newtonsoft.Json;
 
-namespace BitSkinsApi.Tests
+namespace BitSkinsApiTest
 {
-    [TestClass]
-    public class Initilize
+    [SetUpFixture]
+    public class Initialize
     {
-        [AssemblyInitialize]
-        public static void AssemblyInit(TestContext context)
+        [OneTimeSetUp]
+        public static void AssemblyInit()
         {
             string jsonText = System.IO.File.ReadAllText("account_data.json");
             AccountData accountData = JsonConvert.DeserializeObject<AccountData>(jsonText);

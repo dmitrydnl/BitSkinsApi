@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using BitSkinsApi.Trade;
 
-namespace BitSkinsApi.Tests.ServerRequest
+namespace BitSkinsApiTest
 {
-    [TestClass]
+    [TestFixture]
     public class TradeTests
     {
-        [TestMethod]
+        [Test]
         public void GetRecentTradeOffersTest()
         {
             RecentOffers.GetRecentTradeOffers(false);
@@ -17,13 +17,13 @@ namespace BitSkinsApi.Tests.ServerRequest
             Assert.IsTrue(true);
         }
 
-        [TestMethod]
+        [Test]
         public void GetTradeDetailsTest()
         {
             Dictionary<string, string> tradeTokenAndTradeId = new Dictionary<string, string>();
 
             List<RecentTradeOffer> recentTradeOffers = RecentOffers.GetRecentTradeOffers(false);
-            foreach(RecentTradeOffer recentTradeOffer in recentTradeOffers)
+            foreach (RecentTradeOffer recentTradeOffer in recentTradeOffers)
             {
                 if (recentTradeOffer.CreatedAt > DateTime.Now.AddDays(-7))
                 {
@@ -33,7 +33,7 @@ namespace BitSkinsApi.Tests.ServerRequest
                     }
                 }
             }
-            
+
             foreach (KeyValuePair<string, string> pair in tradeTokenAndTradeId)
             {
                 Details.GetTradeDetails(pair.Value, pair.Key);

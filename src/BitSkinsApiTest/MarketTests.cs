@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using BitSkinsApi.Market;
 using BitSkinsApi.Inventory;
 
-namespace BitSkinsApi.Tests.ServerRequest
+namespace BitSkinsApiTest
 {
-    [TestClass]
+    [TestFixture]
     public class MarketTests
     {
-        [TestMethod]
+        [Test]
         public void GetBuyHistoryTest()
         {
             foreach (AppId.AppName appId in Enum.GetValues(typeof(AppId.AppName)))
@@ -26,7 +26,7 @@ namespace BitSkinsApi.Tests.ServerRequest
             Assert.IsTrue(true);
         }
 
-        [TestMethod]
+        [Test]
         public void GetSellHistoryTest()
         {
             foreach (AppId.AppName appId in Enum.GetValues(typeof(AppId.AppName)))
@@ -43,7 +43,7 @@ namespace BitSkinsApi.Tests.ServerRequest
             Assert.IsTrue(true);
         }
 
-        [TestMethod]
+        [Test]
         public void GetItemHistoryTest()
         {
             foreach (AppId.AppName appId in Enum.GetValues(typeof(AppId.AppName)))
@@ -60,7 +60,7 @@ namespace BitSkinsApi.Tests.ServerRequest
             Assert.IsTrue(true);
         }
 
-        [TestMethod]
+        [Test]
         public void GetMarketDataTest()
         {
             foreach (AppId.AppName appId in Enum.GetValues(typeof(AppId.AppName)))
@@ -71,7 +71,7 @@ namespace BitSkinsApi.Tests.ServerRequest
             Assert.IsTrue(true);
         }
 
-        [TestMethod]
+        [Test]
         public void GetAllItemPricesTest()
         {
             foreach (AppId.AppName appId in Enum.GetValues(typeof(AppId.AppName)))
@@ -82,7 +82,7 @@ namespace BitSkinsApi.Tests.ServerRequest
             Assert.IsTrue(true);
         }
 
-        [TestMethod]
+        [Test]
         public void GetRawPriceDataTest()
         {
             Dictionary<string, AppId.AppName> appItems = new Dictionary<string, AppId.AppName>();
@@ -109,7 +109,7 @@ namespace BitSkinsApi.Tests.ServerRequest
             Assert.IsTrue(true);
         }
 
-        [TestMethod]
+        [Test]
         public void GetRecentSaleInfoTest()
         {
             Dictionary<string, AppId.AppName> appItems = new Dictionary<string, AppId.AppName>();
@@ -139,7 +139,7 @@ namespace BitSkinsApi.Tests.ServerRequest
             Assert.IsTrue(true);
         }
 
-        [TestMethod]
+        [Test]
         public void GetInventoryOnSaleTest()
         {
             foreach (AppId.AppName appId in Enum.GetValues(typeof(AppId.AppName)))
@@ -148,13 +148,13 @@ namespace BitSkinsApi.Tests.ServerRequest
                 {
                     try
                     {
-                        InventoryOnSale.GetInventoryOnSale(appId, page, "", 0, 0, 
-                            InventoryOnSale.SortBy.Not, 
-                            InventoryOnSale.SortOrder.Not, 
-                            InventoryOnSale.ThreeChoices.NotImportant, 
+                        InventoryOnSale.GetInventoryOnSale(appId, page, "", 0, 0,
+                            InventoryOnSale.SortBy.Not,
+                            InventoryOnSale.SortOrder.Not,
                             InventoryOnSale.ThreeChoices.NotImportant,
-                            InventoryOnSale.ThreeChoices.NotImportant, 
-                            InventoryOnSale.ResultsPerPage.R480, 
+                            InventoryOnSale.ThreeChoices.NotImportant,
+                            InventoryOnSale.ThreeChoices.NotImportant,
+                            InventoryOnSale.ResultsPerPage.R480,
                             InventoryOnSale.ThreeChoices.NotImportant);
                     }
                     catch (BitSkinsApi.Server.RequestServerException exception)
@@ -170,7 +170,7 @@ namespace BitSkinsApi.Tests.ServerRequest
             Assert.IsTrue(true);
         }
 
-        [TestMethod]
+        [Test]
         public void GetSpecificItemsOnSaleTest()
         {
             foreach (AppId.AppName appId in Enum.GetValues(typeof(AppId.AppName)))
@@ -180,13 +180,13 @@ namespace BitSkinsApi.Tests.ServerRequest
                 List<ItemOnSale> itemsOnSale = new List<ItemOnSale>();
                 try
                 {
-                    itemsOnSale = InventoryOnSale.GetInventoryOnSale(appId, 1, "", 0, 0, 
+                    itemsOnSale = InventoryOnSale.GetInventoryOnSale(appId, 1, "", 0, 0,
                         InventoryOnSale.SortBy.Not,
-                        InventoryOnSale.SortOrder.Not, 
-                        InventoryOnSale.ThreeChoices.NotImportant, 
+                        InventoryOnSale.SortOrder.Not,
                         InventoryOnSale.ThreeChoices.NotImportant,
-                        InventoryOnSale.ThreeChoices.NotImportant, 
-                        InventoryOnSale.ResultsPerPage.R480, 
+                        InventoryOnSale.ThreeChoices.NotImportant,
+                        InventoryOnSale.ThreeChoices.NotImportant,
+                        InventoryOnSale.ResultsPerPage.R480,
                         InventoryOnSale.ThreeChoices.NotImportant);
                 }
                 catch (BitSkinsApi.Server.RequestServerException exception)
@@ -216,7 +216,7 @@ namespace BitSkinsApi.Tests.ServerRequest
             Assert.IsTrue(true);
         }
 
-        [TestMethod]
+        [Test]
         public void GetResetPriceItems()
         {
             foreach (AppId.AppName appId in Enum.GetValues(typeof(AppId.AppName)))
@@ -233,7 +233,7 @@ namespace BitSkinsApi.Tests.ServerRequest
             Assert.IsTrue(true);
         }
 
-        [TestMethod]
+        [Test]
         public void RelistAndDelistItemTest()
         {
             AppId.AppName app = AppId.AppName.CounterStrikGlobalOffensive;
@@ -253,7 +253,7 @@ namespace BitSkinsApi.Tests.ServerRequest
             {
                 string itemId = item.ItemIds[0];
                 double itemPrice = item.Prices[0];
-                Console.WriteLine(item.MarketHashName + " " +  itemPrice);
+                Console.WriteLine(item.MarketHashName + " " + itemPrice);
                 List<DelistedItem> delistedItems = DelistFromSale.DelistItem(app, new List<string> { itemId });
                 Assert.AreEqual(itemId, delistedItems[0].ItemId);
                 List<RelistedItem> relistedItems = RelistForSale.RelistItem(app, new List<string> { itemId }, new List<double> { itemPrice });
@@ -262,7 +262,7 @@ namespace BitSkinsApi.Tests.ServerRequest
             Assert.IsTrue(true);
         }
 
-        [TestMethod]
+        [Test]
         public void ModifySaleTest()
         {
             AppId.AppName app = AppId.AppName.CounterStrikGlobalOffensive;
@@ -292,7 +292,7 @@ namespace BitSkinsApi.Tests.ServerRequest
             Assert.IsTrue(true);
         }
 
-        [TestMethod]
+        [Test]
         public void BuyItemTest()
         {
             AppId.AppName app = AppId.AppName.CounterStrikGlobalOffensive;
@@ -311,7 +311,7 @@ namespace BitSkinsApi.Tests.ServerRequest
             Assert.IsTrue(true);
         }
 
-        [TestMethod]
+        [Test]
         public void SellItemTest()
         {
             AppId.AppName app = AppId.AppName.CounterStrikGlobalOffensive;

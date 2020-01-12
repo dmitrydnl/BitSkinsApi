@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using BitSkinsApi.Market;
 using BitSkinsApi.BuyOrder;
 
-namespace BitSkinsApi.Tests.ServerRequest
+namespace BitSkinsApiTest
 {
-    [TestClass]
+    [TestFixture]
     public class BuyOrderTests
     {
-        [TestMethod]
+        [Test]
         public void CreateBuyOrderTest()
         {
             AppId.AppName app = AppId.AppName.CounterStrikGlobalOffensive;
@@ -22,7 +22,7 @@ namespace BitSkinsApi.Tests.ServerRequest
             Assert.IsTrue(true);
         }
 
-        [TestMethod]
+        [Test]
         public void GetExpectedPlaceInQueueTest()
         {
             AppId.AppName app = AppId.AppName.CounterStrikGlobalOffensive;
@@ -30,11 +30,11 @@ namespace BitSkinsApi.Tests.ServerRequest
             double price = 0.01;
 
             PlaceInQueue.GetExpectedPlaceInQueue(app, name, price);
-            
+
             Assert.IsTrue(true);
         }
 
-        [TestMethod]
+        [Test]
         public void CancelBuyOrdersTest()
         {
             AppId.AppName app = AppId.AppName.CounterStrikGlobalOffensive;
@@ -42,9 +42,9 @@ namespace BitSkinsApi.Tests.ServerRequest
             double price = 0.01;
             int quantity = 2;
 
-            List<BuyOrder.BuyOrder> buyOrders = CreatingBuyOrder.CreateBuyOrder(app, name, price, quantity);
+            List<BuyOrder> buyOrders = CreatingBuyOrder.CreateBuyOrder(app, name, price, quantity);
             List<string> buyOrderIds = new List<string>();
-            foreach (BuyOrder.BuyOrder buyOrder in buyOrders)
+            foreach (BuyOrder buyOrder in buyOrders)
             {
                 buyOrderIds.Add(buyOrder.BuyOrderId);
             }
@@ -53,17 +53,17 @@ namespace BitSkinsApi.Tests.ServerRequest
             Assert.IsTrue(true);
         }
 
-        [TestMethod]
+        [Test]
         public void CancelAllBuyOrdersTest()
         {
             AppId.AppName app = AppId.AppName.CounterStrikGlobalOffensive;
             int page = 1;
-            
-            List<BuyOrder.BuyOrder> buyOrders = MyBuyOrders.GetMyBuyOrders(app, "", MyBuyOrders.BuyOrderType.Listed, page);
+
+            List<BuyOrder> buyOrders = MyBuyOrders.GetMyBuyOrders(app, "", MyBuyOrders.BuyOrderType.Listed, page);
             List<string> names = new List<string>();
             while (buyOrders.Count != 0)
             {
-                foreach (BuyOrder.BuyOrder buyOrder in buyOrders)
+                foreach (BuyOrder buyOrder in buyOrders)
                 {
                     names.Add(buyOrder.MarketHashName);
                 }
@@ -91,7 +91,7 @@ namespace BitSkinsApi.Tests.ServerRequest
             Assert.IsTrue(true);
         }
 
-        [TestMethod]
+        [Test]
         public void GetMyBuyOrdersTest()
         {
             foreach (AppId.AppName appId in Enum.GetValues(typeof(AppId.AppName)))
@@ -102,7 +102,7 @@ namespace BitSkinsApi.Tests.ServerRequest
             Assert.IsTrue(true);
         }
 
-        [TestMethod]
+        [Test]
         public void GetMarketBuyOrdersTest()
         {
             AppId.AppName app = AppId.AppName.CounterStrikGlobalOffensive;
@@ -113,7 +113,7 @@ namespace BitSkinsApi.Tests.ServerRequest
             Assert.IsTrue(true);
         }
 
-        [TestMethod]
+        [Test]
         public void SummarizeBuyOrdersTest()
         {
             AppId.AppName app = AppId.AppName.CounterStrikGlobalOffensive;
