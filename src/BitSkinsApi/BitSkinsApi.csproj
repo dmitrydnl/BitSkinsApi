@@ -3,15 +3,15 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <Company>Captious99</Company>
+    <Company>dmitrydnl</Company>
     <Product>BitSkinsApi</Product>
     <PackageProjectUrl>https://github.com/dmitrydnl/BitSkinsApi</PackageProjectUrl>
     <RepositoryUrl>https://github.com/dmitrydnl/BitSkinsApi</RepositoryUrl>
     <PackageTags>api api-wrapper steam bitskins</PackageTags>
     <PackageLicenseUrl>https://github.com/dmitrydnl/BitSkinsApi/blob/master/LICENSE.md</PackageLicenseUrl>
     <RepositoryType>git</RepositoryType>
-    <Copyright>Copyright (C) 2019 Captious99</Copyright>
-    <Authors>Captious99</Authors>
+    <Copyright>Copyright (C) 2019 dmitrydnl</Copyright>
+    <Authors>dmitrydnl</Authors>
     <Description>A wrapper for the BitSkins API, build on .NET Standard 2.0</Description>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
     <FileVersion>1.0.0.0</FileVersion>
