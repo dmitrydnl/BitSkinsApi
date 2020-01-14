@@ -49,7 +49,7 @@ API Key you can retrieve through the BitSkins settings page. The secret code can
 * Full coverage of the BitSkins Crypto Deposits API
 
 ## Tests
-For the tests to work it is necessary to create ```account_data.json``` file in ```BitSkinsApiTests``` project, in properties this file you must set _Copy to Output Directory_ to _Copy always_. After that need add in ```account_data.json``` this:
+For the tests to work it is necessary to create ```account_data.json``` file in ```BitSkinsApiTest``` project, in properties this file you must set _Copy to Output Directory_ to _Copy always_. After that need add in ```account_data.json``` this:
 ```js
 {
   "ApiKey": "Your api key",
